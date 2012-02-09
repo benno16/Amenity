@@ -3,5 +3,10 @@ Bundle-ManifestVersion: 2
 Bundle-Name: com.amenity.emf
 Bundle-SymbolicName: com.amenity.emf
 Bundle-Version: 0.1.0
-Require-Bundle: org.eclipse.emf.ecore
+Require-Bundle: org.eclipse.emf.ecore,
+ org.eclipse.emf.teneo.annotations;bundle-version="1.2.0",
+ org.eclipse.emf.teneo.eclipse;bundle-version="1.1.2",
+ org.eclipse.emf.teneo.hibernate;bundle-version="1.2.0",
+ org.eclipse.emf.teneo.orm;bundle-version="1.0.0",
+ javax.persistence;bundle-version="2.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

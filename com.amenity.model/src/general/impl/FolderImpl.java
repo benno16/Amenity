@@ -1,0 +1,228 @@
+/**
+ */
+package general.impl;
+
+import general.File;
+import general.Folder;
+import general.GeneralPackage;
+
+import java.util.Collection;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
+/**
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Folder</b></em>'.
+ * <!-- end-user-doc -->
+ * <p>
+ * The following features are implemented:
+ * <ul>
+ *   <li>{@link general.impl.FolderImpl#getChildren <em>Children</em>}</li>
+ *   <li>{@link general.impl.FolderImpl#getRootDirectory <em>Root Directory</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @generated
+ */
+public class FolderImpl extends ContentObjectImpl implements Folder {
+	/**
+	 * The cached value of the '{@link #getChildren() <em>Children</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getChildren()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<File> children;
+
+	/**
+	 * The cached value of the '{@link #getRootDirectory() <em>Root Directory</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRootDirectory()
+	 * @generated
+	 * @ordered
+	 */
+	protected Folder rootDirectory;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FolderImpl() {
+		super();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return GeneralPackage.Literals.FOLDER;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<File> getChildren() {
+		if (children == null) {
+			children = new EObjectWithInverseResolvingEList<File>(File.class, this, GeneralPackage.FOLDER__CHILDREN, GeneralPackage.FILE__ROOT_DIR);
+		}
+		return children;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Folder getRootDirectory() {
+		if (rootDirectory != null && rootDirectory.eIsProxy()) {
+			InternalEObject oldRootDirectory = (InternalEObject)rootDirectory;
+			rootDirectory = (Folder)eResolveProxy(oldRootDirectory);
+			if (rootDirectory != oldRootDirectory) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GeneralPackage.FOLDER__ROOT_DIRECTORY, oldRootDirectory, rootDirectory));
+			}
+		}
+		return rootDirectory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Folder basicGetRootDirectory() {
+		return rootDirectory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRootDirectory(Folder newRootDirectory) {
+		Folder oldRootDirectory = rootDirectory;
+		rootDirectory = newRootDirectory;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.FOLDER__ROOT_DIRECTORY, oldRootDirectory, rootDirectory));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GeneralPackage.FOLDER__CHILDREN:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getChildren()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GeneralPackage.FOLDER__CHILDREN:
+				return ((InternalEList<?>)getChildren()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case GeneralPackage.FOLDER__CHILDREN:
+				return getChildren();
+			case GeneralPackage.FOLDER__ROOT_DIRECTORY:
+				if (resolve) return getRootDirectory();
+				return basicGetRootDirectory();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case GeneralPackage.FOLDER__CHILDREN:
+				getChildren().clear();
+				getChildren().addAll((Collection<? extends File>)newValue);
+				return;
+			case GeneralPackage.FOLDER__ROOT_DIRECTORY:
+				setRootDirectory((Folder)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case GeneralPackage.FOLDER__CHILDREN:
+				getChildren().clear();
+				return;
+			case GeneralPackage.FOLDER__ROOT_DIRECTORY:
+				setRootDirectory((Folder)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case GeneralPackage.FOLDER__CHILDREN:
+				return children != null && !children.isEmpty();
+			case GeneralPackage.FOLDER__ROOT_DIRECTORY:
+				return rootDirectory != null;
+		}
+		return super.eIsSet(featureID);
+	}
+
+} //FolderImpl

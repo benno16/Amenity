@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="dao" nsURI="http://dao/1.0" nsPrefix="dao">
+  <eClassifiers xsi:type="ecore:EClass" name="GenericDao">
+    <eOperations name="create">
+      <eParameters name="object" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    </eOperations>
+    <eOperations name="read" eType="#//List">
+      <eParameters name="class">
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaClass">
+          <eTypeArguments/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eOperations name="update">
+      <eParameters name="object" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    </eOperations>
+    <eOperations name="delete">
+      <eParameters name="object" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    </eOperations>
+    <eOperations name="getByQuery" eType="#//List">
+      <eParameters name="query" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="getById" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject">
+      <eParameters name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="getList" eType="#//List">
+      <eParameters name="class">
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaClass">
+          <eTypeArguments/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eOperations name="getListByOwner" eType="#//List">
+      <eParameters name="class">
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaClass">
+          <eTypeArguments/>
+        </eGenericType>
+      </eParameters>
+      <eParameters name="user" eType="#//User"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="persistentClass">
+      <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaClass">
+        <eTypeArguments/>
+      </eGenericType>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="session" eType="#//Session"
+        defaultValueLiteral=""/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="List" instanceClassName="java.util.List"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Query" instanceClassName="org.hibernate.Query"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Session" instanceClassName="org.hibernate.Session"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="SessionFactory" instanceClassName="org.hibernate.SessionFactory"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HibernateUtil">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sessionFactory" eType="#//SessionFactory"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UserDao" eSuperTypes="#//GenericDao">
+    <eOperations name="findByUsername" eType="#//User">
+      <eParameters name="user" eType="#//User"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EventDao" eSuperTypes="#//GenericDao"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="User" instanceClassName="general.User"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GeneralQueries" eSuperTypes="#//GenericDao">
+    <eOperations name="dbAlive" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ContainerDao" eSuperTypes="#//GenericDao"/>
+</ecore:EPackage>

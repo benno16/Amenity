@@ -1,0 +1,495 @@
+/**
+ */
+package general.impl;
+
+import general.File;
+import general.FileProperty;
+import general.FileType;
+import general.Folder;
+import general.GeneralPackage;
+
+import java.util.Collection;
+import java.util.Date;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
+/**
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>File</b></em>'.
+ * <!-- end-user-doc -->
+ * <p>
+ * The following features are implemented:
+ * <ul>
+ *   <li>{@link general.impl.FileImpl#getObjectName <em>Object Name</em>}</li>
+ *   <li>{@link general.impl.FileImpl#getCreationDate <em>Creation Date</em>}</li>
+ *   <li>{@link general.impl.FileImpl#getStatus <em>Status</em>}</li>
+ *   <li>{@link general.impl.FileImpl#getRootDir <em>Root Dir</em>}</li>
+ *   <li>{@link general.impl.FileImpl#getOfType <em>Of Type</em>}</li>
+ *   <li>{@link general.impl.FileImpl#getHasProperty <em>Has Property</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @generated
+ */
+public class FileImpl extends ContentObjectImpl implements File {
+	/**
+	 * The default value of the '{@link #getObjectName() <em>Object Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getObjectName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String OBJECT_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getObjectName() <em>Object Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getObjectName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String objectName = OBJECT_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getCreationDate() <em>Creation Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreationDate()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Date CREATION_DATE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getCreationDate() <em>Creation Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreationDate()
+	 * @generated
+	 * @ordered
+	 */
+	protected Date creationDate = CREATION_DATE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getStatus() <em>Status</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStatus()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String STATUS_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStatus()
+	 * @generated
+	 * @ordered
+	 */
+	protected String status = STATUS_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getRootDir() <em>Root Dir</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRootDir()
+	 * @generated
+	 * @ordered
+	 */
+	protected Folder rootDir;
+
+	/**
+	 * The cached value of the '{@link #getOfType() <em>Of Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOfType()
+	 * @generated
+	 * @ordered
+	 */
+	protected FileType ofType;
+
+	/**
+	 * The cached value of the '{@link #getHasProperty() <em>Has Property</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHasProperty()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<FileProperty> hasProperty;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FileImpl() {
+		super();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return GeneralPackage.Literals.FILE;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getObjectName() {
+		return objectName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setObjectName(String newObjectName) {
+		String oldObjectName = objectName;
+		objectName = newObjectName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.FILE__OBJECT_NAME, oldObjectName, objectName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCreationDate(Date newCreationDate) {
+		Date oldCreationDate = creationDate;
+		creationDate = newCreationDate;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.FILE__CREATION_DATE, oldCreationDate, creationDate));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStatus(String newStatus) {
+		String oldStatus = status;
+		status = newStatus;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.FILE__STATUS, oldStatus, status));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Folder getRootDir() {
+		if (rootDir != null && rootDir.eIsProxy()) {
+			InternalEObject oldRootDir = (InternalEObject)rootDir;
+			rootDir = (Folder)eResolveProxy(oldRootDir);
+			if (rootDir != oldRootDir) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GeneralPackage.FILE__ROOT_DIR, oldRootDir, rootDir));
+			}
+		}
+		return rootDir;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Folder basicGetRootDir() {
+		return rootDir;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetRootDir(Folder newRootDir, NotificationChain msgs) {
+		Folder oldRootDir = rootDir;
+		rootDir = newRootDir;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GeneralPackage.FILE__ROOT_DIR, oldRootDir, newRootDir);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRootDir(Folder newRootDir) {
+		if (newRootDir != rootDir) {
+			NotificationChain msgs = null;
+			if (rootDir != null)
+				msgs = ((InternalEObject)rootDir).eInverseRemove(this, GeneralPackage.FOLDER__CHILDREN, Folder.class, msgs);
+			if (newRootDir != null)
+				msgs = ((InternalEObject)newRootDir).eInverseAdd(this, GeneralPackage.FOLDER__CHILDREN, Folder.class, msgs);
+			msgs = basicSetRootDir(newRootDir, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.FILE__ROOT_DIR, newRootDir, newRootDir));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FileType getOfType() {
+		if (ofType != null && ofType.eIsProxy()) {
+			InternalEObject oldOfType = (InternalEObject)ofType;
+			ofType = (FileType)eResolveProxy(oldOfType);
+			if (ofType != oldOfType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GeneralPackage.FILE__OF_TYPE, oldOfType, ofType));
+			}
+		}
+		return ofType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FileType basicGetOfType() {
+		return ofType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setOfType(FileType newOfType) {
+		FileType oldOfType = ofType;
+		ofType = newOfType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.FILE__OF_TYPE, oldOfType, ofType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<FileProperty> getHasProperty() {
+		if (hasProperty == null) {
+			hasProperty = new EObjectWithInverseResolvingEList<FileProperty>(FileProperty.class, this, GeneralPackage.FILE__HAS_PROPERTY, GeneralPackage.FILE_PROPERTY__OF);
+		}
+		return hasProperty;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GeneralPackage.FILE__ROOT_DIR:
+				if (rootDir != null)
+					msgs = ((InternalEObject)rootDir).eInverseRemove(this, GeneralPackage.FOLDER__CHILDREN, Folder.class, msgs);
+				return basicSetRootDir((Folder)otherEnd, msgs);
+			case GeneralPackage.FILE__HAS_PROPERTY:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getHasProperty()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GeneralPackage.FILE__ROOT_DIR:
+				return basicSetRootDir(null, msgs);
+			case GeneralPackage.FILE__HAS_PROPERTY:
+				return ((InternalEList<?>)getHasProperty()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case GeneralPackage.FILE__OBJECT_NAME:
+				return getObjectName();
+			case GeneralPackage.FILE__CREATION_DATE:
+				return getCreationDate();
+			case GeneralPackage.FILE__STATUS:
+				return getStatus();
+			case GeneralPackage.FILE__ROOT_DIR:
+				if (resolve) return getRootDir();
+				return basicGetRootDir();
+			case GeneralPackage.FILE__OF_TYPE:
+				if (resolve) return getOfType();
+				return basicGetOfType();
+			case GeneralPackage.FILE__HAS_PROPERTY:
+				return getHasProperty();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case GeneralPackage.FILE__OBJECT_NAME:
+				setObjectName((String)newValue);
+				return;
+			case GeneralPackage.FILE__CREATION_DATE:
+				setCreationDate((Date)newValue);
+				return;
+			case GeneralPackage.FILE__STATUS:
+				setStatus((String)newValue);
+				return;
+			case GeneralPackage.FILE__ROOT_DIR:
+				setRootDir((Folder)newValue);
+				return;
+			case GeneralPackage.FILE__OF_TYPE:
+				setOfType((FileType)newValue);
+				return;
+			case GeneralPackage.FILE__HAS_PROPERTY:
+				getHasProperty().clear();
+				getHasProperty().addAll((Collection<? extends FileProperty>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case GeneralPackage.FILE__OBJECT_NAME:
+				setObjectName(OBJECT_NAME_EDEFAULT);
+				return;
+			case GeneralPackage.FILE__CREATION_DATE:
+				setCreationDate(CREATION_DATE_EDEFAULT);
+				return;
+			case GeneralPackage.FILE__STATUS:
+				setStatus(STATUS_EDEFAULT);
+				return;
+			case GeneralPackage.FILE__ROOT_DIR:
+				setRootDir((Folder)null);
+				return;
+			case GeneralPackage.FILE__OF_TYPE:
+				setOfType((FileType)null);
+				return;
+			case GeneralPackage.FILE__HAS_PROPERTY:
+				getHasProperty().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case GeneralPackage.FILE__OBJECT_NAME:
+				return OBJECT_NAME_EDEFAULT == null ? objectName != null : !OBJECT_NAME_EDEFAULT.equals(objectName);
+			case GeneralPackage.FILE__CREATION_DATE:
+				return CREATION_DATE_EDEFAULT == null ? creationDate != null : !CREATION_DATE_EDEFAULT.equals(creationDate);
+			case GeneralPackage.FILE__STATUS:
+				return STATUS_EDEFAULT == null ? status != null : !STATUS_EDEFAULT.equals(status);
+			case GeneralPackage.FILE__ROOT_DIR:
+				return rootDir != null;
+			case GeneralPackage.FILE__OF_TYPE:
+				return ofType != null;
+			case GeneralPackage.FILE__HAS_PROPERTY:
+				return hasProperty != null && !hasProperty.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (objectName: ");
+		result.append(objectName);
+		result.append(", creationDate: ");
+		result.append(creationDate);
+		result.append(", status: ");
+		result.append(status);
+		result.append(')');
+		return result.toString();
+	}
+
+} //FileImpl

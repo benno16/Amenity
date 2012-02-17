@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="general" nsURI="http://general/1.0" nsPrefix="general">
+  <eAnnotations source="teneo.jpa">
+    <details key="value" value="@GenericGenerator(name = &quot;system-uuid&quot;, strategy = &quot;uuid2&quot;)"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="User">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="userId" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" unsettable="true"
+        iD="true">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="username" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="password" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="email" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastUsed" lowerBound="1"
+        eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timesUsed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="event" upperBound="-1"
+        eType="#//Event" eOpposite="#//Event/user"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Date" instanceClassName="java.util.Date"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Event">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="eventId" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" lowerBound="1" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="userRelevant" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="user" lowerBound="1" eType="#//User"
+        eOpposite="#//User/event"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="#//EventType"
+        defaultValueLiteral="">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Enumerated(ORDINAL)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EventType">
+    <eLiterals name="Error" literal="Error"/>
+    <eLiterals name="Information" value="1" literal="Information"/>
+    <eLiterals name="Warning" value="2" literal="Warning"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DataSource">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataSourceId" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" unsettable="true"
+        iD="true">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="created" lowerBound="1"
+        eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="modified" lowerBound="1"
+        eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="addInfo1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="addInfo2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="addInfo3" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="setting" upperBound="-1"
+        eType="#//Connection" eOpposite="#//Connection/source"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ConnectionType">
+    <eLiterals name="mks"/>
+    <eLiterals name="synergy" value="1"/>
+    <eLiterals name="doors" value="2"/>
+    <eLiterals name="stages" value="3"/>
+    <eLiterals name="sharepoint" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Connection">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="connectionId" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" unsettable="true"
+        iD="true">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="username" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="password" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="connectionType" lowerBound="1"
+        eType="#//ConnectionType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="database" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="project" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="release" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="addInfo1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="addInfo2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="addInfo3" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="addInfo4" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
+        eType="#//DataSource" eOpposite="#//DataSource/setting"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="created" lowerBound="1"
+        eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="modified" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastUsed" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="partOf" lowerBound="1"
+        eType="#//Container"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="EReference0" eType="#//Snapshot"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Container">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="containerId" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="created" lowerBound="1"
+        eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="modified" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="addInfo1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="addInfo2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="addInfo3" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//User"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ownerId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="teneo.jpa"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Snapshot">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="snapshotId" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="created" lowerBound="1"
+        eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="partOf" lowerBound="1"
+        eType="#//Container"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stores" upperBound="-1"
+        eType="#//ContentObject" eOpposite="#//ContentObject/partOf"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="functions" upperBound="-1"
+        eType="#//Function"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="general" lowerBound="1"
+        eType="#//GeneralDocumentationFileProperty"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="systemComponent" eType="#//SystemComponentLevelDocumentationFileProperty"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="EReference0" eType="#//SystemComponentLevelDocumentationFileProperty"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="EReference1" eType="#//Function"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="EReference2" eType="#//GeneralDocumentationFileProperty"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ContentObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="objectId" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" unsettable="true"
+        iD="true">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="level" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="release" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="modfiedDate" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="partOf" lowerBound="1"
+        eType="#//Snapshot" eOpposite="#//Snapshot/stores"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="File" eSuperTypes="#//ContentObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="objectName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="creationDate" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rootDir" lowerBound="1"
+        eType="#//Folder" eOpposite="#//Folder/children"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ofType" lowerBound="1"
+        eType="#//FileType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasProperty" upperBound="-1"
+        eType="#//FileProperty" eOpposite="#//FileProperty/of"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Folder" eSuperTypes="#//ContentObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
+        eType="#//File" eOpposite="#//File/rootDir"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rootDirectory" eType="#//Folder"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FileType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fileTypeId" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" unsettable="true"
+        iD="true">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="icon" lowerBound="1" eType="#//Image"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tool" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="uses" upperBound="-1" eType="#//FileEnding"
+        eOpposite="#//FileEnding/ofType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FileEnding">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fileEndingId" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" unsettable="true"
+        iD="true">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ofType" lowerBound="1"
+        eType="#//FileType" eOpposite="#//FileType/uses"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Function">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="functionId" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" unsettable="true"
+        iD="true">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="created" lowerBound="1"
+        eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="overallStatus" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="modified" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="responsibleFiles" upperBound="-1"
+        eType="#//GenericFunctionSRSFileProperty"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="heldBy" lowerBound="1"
+        eType="#//Snapshot"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FileProperty">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="filePropertyId" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" unsettable="true"
+        iD="true">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="required" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="upToDate" lowerBound="1"
+        eType="#//QualityCriteria" defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reviewed" lowerBound="1"
+        eType="#//QualityCriteria"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="configurationManagement"
+        lowerBound="1" eType="#//QualityCriteria"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rating" lowerBound="1"
+        eType="#//QualityCriteria"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="of" eType="#//File" eOpposite="#//File/hasProperty"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="QualityCriteria">
+    <eLiterals name="empty" literal="empty"/>
+    <eLiterals name="x" value="1" literal="x"/>
+    <eLiterals name="i" value="2" literal="i"/>
+    <eLiterals name="NULL" value="3" literal="0"/>
+    <eLiterals name="na" value="4" literal="na"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GeneralDocumentationFileProperty" eSuperTypes="#//FileProperty">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" upperBound="-1" eType="#//GeneralDocumentationType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenericFunctionSRSFileProperty" eSuperTypes="#//FileProperty">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" upperBound="-1" eType="#//GenericFunctionSRSType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SystemComponentLevelDocumentationFileProperty"
+      eSuperTypes="#//FileProperty">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" upperBound="-1" eType="#//SystemComponentLevelDocumentation"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Image" instanceClassName="org.eclipse.swt.graphics.Image"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GeneralDocumentationType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenericFunctionSRSType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SystemComponentLevelDocumentation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UserList">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Users" transient="true">
+      <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EEList">
+        <eTypeArguments eClassifier="#//User"/>
+      </eGenericType>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Task">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="taskId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="finished" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="created" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//User"/>
+  </eClassifiers>
+</ecore:EPackage>

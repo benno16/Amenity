@@ -36,7 +36,7 @@ public class ContainerDaoImpl extends GenericDaoImpl implements ContainerDao {
 		getSession();
 		session.beginTransaction();
 		String string = "from " + class_.getName().toString() + 
-				" where user.id = '" + user.getUserId() + "'";
+				" where owner = '" + user.getUserId() + "'";
 		System.out.println(string);
 		Query queryRes = session.createQuery(string);
 		System.out.println("amount of containers: " + queryRes.list().size() );

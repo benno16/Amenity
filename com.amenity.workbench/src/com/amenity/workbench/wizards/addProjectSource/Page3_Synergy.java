@@ -1,5 +1,7 @@
 package com.amenity.workbench.wizards.addProjectSource;
 
+import general.Connection;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,7 +28,7 @@ public class Page3_Synergy extends WizardPage {
 	private List<Project> projects;
 	private Combo combo;
 	private Combo combo_1;
-	
+	private Connection connection;
 	
 	class Project  {
 		
@@ -63,8 +65,9 @@ public class Page3_Synergy extends WizardPage {
 	/**
 	 * Create the wizard.
 	 */
-	public Page3_Synergy() {
+	public Page3_Synergy(Connection connection) {
 		super("wizardPage");
+		this.connection = connection;
 		setTitle("Synergy Data Source Profile");
 		setDescription("Please select Rational Synergy Project");
 	}

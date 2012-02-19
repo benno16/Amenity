@@ -1,5 +1,7 @@
 package com.amenity.workbench.wizards.addProjectSource;
 
+import general.Connection;
+
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -17,7 +19,7 @@ public class Page2_Synergy extends WizardPage {
 	/**
 	 * Create the wizard.
 	 */
-	public Page2_Synergy() {
+	public Page2_Synergy(Connection connection) {
 		super("wizardPage");
 		setTitle("Synergy Data Source Profile");
 		setDescription("Please connect to Synergy");

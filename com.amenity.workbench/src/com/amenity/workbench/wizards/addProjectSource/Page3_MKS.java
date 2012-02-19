@@ -1,5 +1,7 @@
 package com.amenity.workbench.wizards.addProjectSource;
 
+import general.Connection;
+
 import java.util.Date;
 
 import org.eclipse.jface.wizard.WizardPage;
@@ -23,13 +25,15 @@ public class Page3_MKS extends WizardPage {
 	private Combo combo;
 	private Label lblConnectionName;
 	private Text text;
+	private Connection connection;
 	
 	
 	/**
 	 * Create the wizard.
 	 */
-	public Page3_MKS() {
+	public Page3_MKS(Connection connection) {
 		super("wizardPage");
+		this.connection = connection;
 		setTitle("MKS Data Source Profile");
 		setDescription("Select whether to use sandbox or an online project and your project here");
 	}
@@ -115,6 +119,7 @@ public class Page3_MKS extends WizardPage {
 			@Override
 			public void mouseUp(MouseEvent e) {
 				text.setText(combo.getItem(combo.getSelectionIndex()).toString() + " " + new Date().toString());
+				setPageComplete ( true );
 			}
 		});
 		combo.setBounds(10, 122, 554, 23);
@@ -129,5 +134,6 @@ public class Page3_MKS extends WizardPage {
 		
 		text = new Text(container, SWT.BORDER);
 		text.setBounds(10, 172, 554, 21);
+		setPageComplete ( false );
 	}
 }

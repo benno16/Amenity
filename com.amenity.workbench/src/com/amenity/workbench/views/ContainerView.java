@@ -10,7 +10,6 @@ import general.GeneralFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -24,7 +23,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.List;
 
 import com.amenity.workbench.SessionSourceProvider;
-import com.amenity.workbench.dialogs.RenameDialog;
+import com.amenity.workbench.dialogs.RenameTitleAreaDialog;
 import com.amenity.workbench.wizards.addContainer.ContainerWizard;
 
 import dao.ContainerDao;
@@ -157,23 +156,17 @@ public class ContainerView extends ViewPart {
 				int index = combo.getSelectionIndex();
 				String itemToModify = combo.getItem(index);
 				
-				RenameDialog dialog = new RenameDialog ( parent.getShell()); 
-				dialog.setToRename(itemToModify);
-				
-				if ( dialog.open() == Window.OK ) {
-					System.out.println("old: " + itemToModify + " new: " + dialog.getToRename());
-					for ( Iterator<Container> iter = containers.iterator(); iter.hasNext(); ) {
-						Container c = iter.next();
-						if ( c.getName().equals(itemToModify) ) {
-							c.setName(dialog.getText().getText());
-							rebuildCombo();
-							containerDao.update(c);
-							break;
-						}
+				for ( Iterator<Container> iter = containers.iterator(); iter.hasNext(); ) {
+					Container c = iter.next();
+					if ( c.getName().equals(itemToModify) ) {
+						RenameTitleAreaDialog dialog = new RenameTitleAreaDialog ( parent.getShell(), c, containers ); 
+						dialog.open();
+						rebuildCombo();
+						containerDao.update(c);
+						break;
 					}
-					
 				}
-				
+			
 				enableButtons();
 			}
 		});

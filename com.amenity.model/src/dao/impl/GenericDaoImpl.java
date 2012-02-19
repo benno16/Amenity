@@ -114,12 +114,11 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 	 * @generated NOT
 	 */
 	public Session getSession() {
-		if ( HibernateUtilImpl
-					.SESSION_FACTORY_EDEFAULT == null ){
+		if ( HibernateUtilImpl.SESSION_FACTORY_EDEFAULT == null ){
 			System.out.println("The session factory cannot be initialized");
 			return null;
 		}
-
+//		return session = HibernateUtilImpl.SESSION_FACTORY_EDEFAULT.getCurrentSession(); //.openSession();
 		if ( session == null ) {
 			return session = HibernateUtilImpl
 					.SESSION_FACTORY_EDEFAULT.openSession();
@@ -148,11 +147,17 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 	 * @generated NOT
 	 */
 	public void create(Object object) {
-		getSession();
+		session = getSession();
 		session.beginTransaction();
 		session.save(object);
-		session.getTransaction().commit();
-		session.close();
+		try {
+			session.getTransaction().commit();
+		} catch ( Exception e ){
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			session.close();
+		}
 	}
 
 	/**
@@ -175,9 +180,15 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 	public void update(Object object) {
 		getSession();
 		session.beginTransaction();
-		session.update(object);
-		session.getTransaction().commit();
-		session.close();
+		session.saveOrUpdate(object);
+		try {
+			session.getTransaction().commit();
+		} catch ( Exception e ){
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			session.close();
+		}
 	}
 
 	/**
@@ -189,8 +200,14 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 		getSession();
 		session.beginTransaction();
 		session.delete(object);
-		session.getTransaction().commit();
-		session.close();
+		try {
+			session.getTransaction().commit();
+		} catch ( Exception e ){
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			session.close();
+		}
 	}
 
 	/**
@@ -202,7 +219,9 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 		getSession();
 		session.beginTransaction();
 		Query queryRes = session.createQuery(string);
-		return queryRes.list();
+		List<?> resultList = queryRes.list();
+		session.close();
+		return resultList;
 	}
 
 	/**
@@ -227,7 +246,9 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 		session.beginTransaction();
 		String string = "from " + class_.getName().toString();
 		Query queryRes = session.createQuery(string);
-		return queryRes.list();
+		List<?> resultList = queryRes.list();
+		session.close();
+		return resultList;
 	}
 
 	/**

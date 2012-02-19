@@ -45,7 +45,7 @@ public class HibernateUtilImpl extends EObjectImpl implements HibernateUtil {
 	 * @generated NOT
 	 * @ordered
 	 */
-	protected static volatile SessionFactory SESSION_FACTORY_EDEFAULT = null;
+	public static final SessionFactory SESSION_FACTORY_EDEFAULT;
 
 	static {
 		try {            
@@ -81,6 +81,7 @@ public class HibernateUtilImpl extends EObjectImpl implements HibernateUtil {
 //			hibernateProperties.setProperty(Environment.CACHE_PROVIDER, "org.hibernate.cache.SingletonEhCacheProvider");
 //			hibernateProperties.setProperty(Environment.CACHE_PROVIDER_CONFIG, "transactional|read-write|nonstrict-read-write|read-only");
 			hibernateProperties.setProperty(Environment.USE_QUERY_CACHE, "true");
+			hibernateProperties.setProperty(Environment.POOL_SIZE, "0");
 
 			final String dataStoreName = "AmenityDataStore";
 			final HbDataStore dataStore = HbHelper.INSTANCE
@@ -141,7 +142,7 @@ public class HibernateUtilImpl extends EObjectImpl implements HibernateUtil {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;

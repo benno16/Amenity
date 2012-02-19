@@ -1,8 +1,12 @@
 package com.amenity.workbench.dialogs;
 
+import general.Container;
+
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
@@ -13,15 +17,19 @@ import org.eclipse.swt.widgets.Text;
 
 public class RenameTitleAreaDialog extends TitleAreaDialog {
 	private Text text;
-	private String toRename;
+	private Container c;
+	private Label lblCurrent;
+	private boolean exists;
+	private java.util.List<Container> containers;
 
 	/**
 	 * Create the dialog.
 	 * @param parentShell
 	 */
-	public RenameTitleAreaDialog(Shell parentShell) {
+	public RenameTitleAreaDialog(Shell parentShell, Container itemToModify, java.util.List<Container> containers) {
 		super(parentShell);
-		setErrorMessage("");
+		this.c = itemToModify;
+		this.containers = containers;
 	}
 
 	/**
@@ -34,15 +42,35 @@ public class RenameTitleAreaDialog extends TitleAreaDialog {
 		Composite container = new Composite(area, SWT.NONE);
 		container.setLayoutData(new GridData(GridData.FILL_BOTH));
 		container.setLayout(null);
-		
-		Label lblCurrent = new Label(container, SWT.NONE);
+		setTitle("Rename Dialog");
+		lblCurrent = new Label(container, SWT.NONE);
 		lblCurrent.setBounds(10, 13, 100, 15);
 		lblCurrent.setText("New Name");
 		
 		text = new Text(container, SWT.BORDER);
 		text.setBounds(116, 10, 200, 21);
-		text.setText(toRename);
+		text.setText(c.getName());
 		text.setToolTipText("Enter the new name here");
+		text.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (text.getText().length() > 0 ) {
+					exists = false;
+					for ( Container c : containers) {
+						if ( c.getName().equals(text.getText()) ) {
+							exists = true;
+							lblCurrent.setToolTipText("Container does already exist");
+							setErrorMessage("Duplicate Entry! \nPlease chose a different one!");
+						} 
+					}
+					if ( !exists ) {
+						lblCurrent.setToolTipText("");
+						setErrorMessage(null);
+					}
+					
+				} 
+			}
+		});
 
 		return area;
 	}
@@ -63,8 +91,6 @@ public class RenameTitleAreaDialog extends TitleAreaDialog {
 	protected void configureShell(Shell shell) {
 	      super.configureShell(shell);
 	      super.setHelpAvailable(false);
-	      super.setTitle("test123");
-	      super.setMessage("message");
 	      shell.setText("Rename... ");
 	}
 
@@ -76,4 +102,14 @@ public class RenameTitleAreaDialog extends TitleAreaDialog {
 		return new Point(330, 192);
 	}
 
+
+	protected void buttonPressed ( int buttonId ) {
+		if ( buttonId == 0 ) {
+			if ( !exists ) 
+				c.setName(text.getText());
+			super.buttonPressed(buttonId);
+		} else { //cancel and stuff
+			super.buttonPressed(buttonId);
+		}
+	}
 }

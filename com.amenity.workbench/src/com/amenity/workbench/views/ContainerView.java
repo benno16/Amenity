@@ -1,5 +1,7 @@
 package com.amenity.workbench.views;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 
 import general.Container;
@@ -8,6 +10,7 @@ import general.GeneralFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -21,6 +24,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.List;
 
 import com.amenity.workbench.SessionSourceProvider;
+import com.amenity.workbench.dialogs.RenameDialog;
 import com.amenity.workbench.wizards.addContainer.ContainerWizard;
 
 import dao.ContainerDao;
@@ -71,7 +75,7 @@ public class ContainerView extends ViewPart {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void createPartControl(final Composite parent) {
-		this.parent = parent;
+		this.setParent(parent);
 		Composite container = new Composite(parent, SWT.NONE);
 		container.setLayout(new GridLayout(3, false));
 		
@@ -151,17 +155,25 @@ public class ContainerView extends ViewPart {
 			@Override
 			public void widgetSelected ( SelectionEvent e ) {
 				int index = combo.getSelectionIndex();
-				String itemToDelete = combo.getItem(index);
+				String itemToModify = combo.getItem(index);
 				
-				for ( Iterator<Container> iter = containers.iterator(); iter.hasNext(); ) {
-					Container c = iter.next();
-					if ( c.getName().equals(itemToDelete) ) {
-						c.setName("modified");
-						rebuildCombo();
-						containerDao.update(c);
-						break;
+				RenameDialog dialog = new RenameDialog ( parent.getShell()); 
+				dialog.setToRename(itemToModify);
+				
+				if ( dialog.open() == Window.OK ) {
+					System.out.println("old: " + itemToModify + " new: " + dialog.getToRename());
+					for ( Iterator<Container> iter = containers.iterator(); iter.hasNext(); ) {
+						Container c = iter.next();
+						if ( c.getName().equals(itemToModify) ) {
+							c.setName(dialog.getText().getText());
+							rebuildCombo();
+							containerDao.update(c);
+							break;
+						}
 					}
+					
 				}
+				
 				enableButtons();
 			}
 		});
@@ -192,6 +204,7 @@ public class ContainerView extends ViewPart {
 
 	private void rebuildCombo() {
 		combo.removeAll();
+		Collections.sort(containers, newAscStringComparator());
 		for ( Container c : containers) {
 			if ( c.getOwner().getUserId().equalsIgnoreCase(SessionSourceProvider.USERID) )
 				combo.add(c.getName());
@@ -199,6 +212,14 @@ public class ContainerView extends ViewPart {
 		if ( combo.getItemCount() > 0 ) 
 			combo.select(0);
 	}
+	protected static Comparator<Container> newAscStringComparator() {
+	    return new Comparator<Container>() {
+	      @Override
+	      public int compare(Container first , Container second) {
+	        return String.valueOf(first.getName()).compareTo(String.valueOf(second.getName()));
+	      }
+	    };
+	  }
 
 	@Override
 	public void setFocus() {
@@ -214,5 +235,15 @@ public class ContainerView extends ViewPart {
 			btnModify.setEnabled(true);
 			btnDelete.setEnabled(true);
 		}
+	}
+
+
+	public Composite getParent() {
+		return parent;
+	}
+
+
+	public void setParent(Composite parent) {
+		this.parent = parent;
 	}
 }

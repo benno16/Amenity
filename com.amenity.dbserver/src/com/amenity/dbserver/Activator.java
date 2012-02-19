@@ -6,6 +6,7 @@ import org.osgi.framework.BundleContext;
 public class Activator implements BundleActivator {
 
 	private static BundleContext context;
+	private LocalDB localDb;
 
 	static BundleContext getContext() {
 		return context;
@@ -17,6 +18,11 @@ public class Activator implements BundleActivator {
 	 */
 	public void start(BundleContext bundleContext) throws Exception {
 		Activator.context = bundleContext;
+		
+		localDb = new LocalDB();
+		if ( !localDb.start() ) {
+			System.err.println("Error starting the database server");
+		}
 	}
 
 	/*
@@ -25,6 +31,7 @@ public class Activator implements BundleActivator {
 	 */
 	public void stop(BundleContext bundleContext) throws Exception {
 		Activator.context = null;
+		localDb.stop();
 	}
 
 }

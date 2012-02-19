@@ -63,23 +63,23 @@ public class LoginDialog extends Dialog {
 		container.setLayout(null);
 		
 		Label lblUserName = new Label(container, SWT.NONE);
-		lblUserName.setBounds(10, 53, 100, 15);
+		lblUserName.setBounds(10, 10, 100, 15);
 		lblUserName.setText("User Name");
 		
 		text = new Text(container, SWT.BORDER);
-		text.setBounds(116, 50, 167, 21);
+		text.setBounds(116, 7, 167, 21);
 		text.setText(System.getenv("username"));
 		text.setEnabled(false);
 
 		text_1 = new Text(container, SWT.BORDER | SWT.PASSWORD);
-		text_1.setBounds(116, 77, 167, 21);
+		text_1.setBounds(116, 34, 167, 21);
 		
 		Label lblPassword = new Label(container, SWT.NONE);
-		lblPassword.setBounds(10, 77, 100, 15);
+		lblPassword.setBounds(10, 37, 100, 15);
 		lblPassword.setText("Password");
 		
 		btnRememberMyPassword = new Button(container, SWT.CHECK);
-		btnRememberMyPassword.setBounds(116, 104, 200, 16);
+		btnRememberMyPassword.setBounds(116, 61, 200, 16);
 		btnRememberMyPassword.setText("Remember my password");
 		
 		Button button = new Button(container, SWT.NONE);
@@ -87,9 +87,24 @@ public class LoginDialog extends Dialog {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				text.setEnabled(true);
+				/*
+				 * TODO
+				 * the below is temporary only! 
+				 * 
+				 */
+				
+				User tempUser = GeneralFactory.eINSTANCE.createUser();
+				tempUser.setUsername(System.getenv("username"));
+				tempUser.setEmail("ben@go-unified.com");
+				tempUser.setLastUsed(new Date());
+				tempUser.setTimesUsed(1);
+				UserDao userDao = DaoFactory.eINSTANCE.createUserDao();
+				userDao.create(tempUser);
+				tempUser = null;
+				
 			}
 		});
-		button.setBounds(289, 48, 27, 25);
+		button.setBounds(289, 5, 27, 25);
 		button.setText("...");
 
 		return container;
@@ -110,7 +125,7 @@ public class LoginDialog extends Dialog {
 	 */
 	@Override
 	protected Point getInitialSize() {
-		return new Point(450, 300);
+		return new Point(332, 177);
 	}
 	
 	protected void buttonPressed ( int buttonId ) {
@@ -146,6 +161,9 @@ public class LoginDialog extends Dialog {
 					 */
 					tempUser = userDao.findByUsername(tempUser);
 					if ( tempUser.getUserId() != null ) {
+						tempUser.setTimesUsed(tempUser.getTimesUsed() + 1);
+						tempUser.setLastUsed(new Date());
+						userDao.update(tempUser);
 						sessionSourceProvider.setLoggedIn(true);
 						SessionSourceProvider.USERID = tempUser.getUserId();
 						SessionSourceProvider.USER = tempUser;

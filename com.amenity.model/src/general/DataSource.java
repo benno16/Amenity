@@ -16,8 +16,8 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link general.DataSource#getDataSourceId <em>Data Source Id</em>}</li>
  *   <li>{@link general.DataSource#getName <em>Name</em>}</li>
+ *   <li>{@link general.DataSource#getDataSourceId <em>Data Source Id</em>}</li>
  *   <li>{@link general.DataSource#getCreated <em>Created</em>}</li>
  *   <li>{@link general.DataSource#getModified <em>Modified</em>}</li>
  *   <li>{@link general.DataSource#getAddInfo1 <em>Add Info1</em>}</li>

@@ -26,6 +26,9 @@ public class StartupView extends ViewPart {
 	private Table table_1;
 	private Label lblLastLogin;
 	private Label lblTimesUsed;
+	private Button btnMks;
+	private Button btnSynergy;
+	private Button btnNewButton;
 //	private IMemento memento;
 
 	public StartupView() {
@@ -40,8 +43,37 @@ public class StartupView extends ViewPart {
 			}
 		};
 		SessionSourceProvider.USER.eAdapters().add(adapter);
+		
+		Adapter statusAdapter = new AdapterImpl() {
+			public void notifyChanged ( Notification notification ) {
+				checkSessionState();
+			}
+		};
+		SessionSourceProvider.SESSION_STATUS.eAdapters().add(statusAdapter);
 	}
 	
+	protected void checkSessionState() {
+
+		System.out.println("--- New Session Status ---" );
+		if ( SessionSourceProvider.SESSION_STATUS.isDbStatus() )
+			btnNewButton.setSelection(true);
+		else 
+			btnNewButton.setSelection(false);
+		
+		if ( SessionSourceProvider.SESSION_STATUS.isMksStatus() )
+			btnMks.setSelection(true);
+		else 
+			btnMks.setSelection(false);
+		
+		if ( SessionSourceProvider.SESSION_STATUS.getSynergySession() == null ) {
+			btnSynergy.setSelection(false);
+		} else if (SessionSourceProvider.SESSION_STATUS.getSynergySession().length() < 9) {
+			btnSynergy.setSelection(false);
+		} else 
+			btnSynergy.setSelection(true);
+	
+	}
+
 	/**
 	 * Save selection! 
 	 * http://blog.eclipse-tips.com/2009/08/remember-state.html
@@ -101,7 +133,7 @@ public class StartupView extends ViewPart {
 		Composite compStatus = new Composite(composite, SWT.BOTTOM |SWT.LEFT);
 		compStatus.setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, false, true, 1, 1));
 		compStatus.setLayout(new GridLayout(3, false));
-		Button btnMks = new Button(compStatus, SWT.TOGGLE);
+		btnMks = new Button(compStatus, SWT.TOGGLE);
 		if ( svi.isMKSRunning() ) {
 			btnMks.setSelection(true);
 			btnMks.setToolTipText("MKS session is open");
@@ -109,11 +141,11 @@ public class StartupView extends ViewPart {
 		btnMks.setEnabled(false);
 		btnMks.setText("MKS");
 		
-		Button btnSynergy = new Button(compStatus, SWT.TOGGLE);
+		btnSynergy = new Button(compStatus, SWT.TOGGLE);
 		btnSynergy.setEnabled(false);
 		btnSynergy.setText("Synergy");
 		
-		Button btnNewButton = new Button(compStatus, SWT.TOGGLE);
+		btnNewButton = new Button(compStatus, SWT.TOGGLE);
 		if ( svi.isDatabaseRunning() ) {
 			btnNewButton.setSelection(true);
 			btnNewButton.setToolTipText("Database session is open");
@@ -126,7 +158,7 @@ public class StartupView extends ViewPart {
 			btnSynergy.setToolTipText("Synergy session is open");
 		}
 			
-		
+		checkSessionState();
 		createActions();
 //		restoreSelection();
 	}

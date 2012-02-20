@@ -82,6 +82,7 @@ public class HibernateUtilImpl extends EObjectImpl implements HibernateUtil {
 //			hibernateProperties.setProperty(Environment.CACHE_PROVIDER_CONFIG, "transactional|read-write|nonstrict-read-write|read-only");
 			hibernateProperties.setProperty(Environment.USE_QUERY_CACHE, "true");
 			hibernateProperties.setProperty(Environment.POOL_SIZE, "0");
+//			hibernateProperties.setProperty(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
 
 			final String dataStoreName = "AmenityDataStore";
 			final HbDataStore dataStore = HbHelper.INSTANCE

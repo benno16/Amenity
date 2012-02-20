@@ -3,8 +3,11 @@ package com.amenity.workbench.wizards.addProjectSource;
 import general.Connection;
 import general.Container;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -128,11 +131,34 @@ public class Page1 extends WizardPage {
 			public void widgetSelected(SelectionEvent e) {
 				ContainerWizard wizard = new ContainerWizard(containers);
 				WizardDialog dialog = new WizardDialog ( parent.getShell(), wizard);
-				dialog.open();
+				if ( dialog.open() == Window.OK ) 
+					rebuildCombo();
 			}
 		});
 		btnAddContainer.setBounds(464, 91, 100, 25);
 		btnAddContainer.setText("Add Container");
 		setPageComplete ( true );
 	}
+	
+	
+	private void rebuildCombo() {
+		combo.removeAll();
+		Collections.sort(containers, newAscStringComparator());
+		for ( Container c : containers) {
+			if ( c.getOwner().getUserId().equalsIgnoreCase(SessionSourceProvider.USERID) )
+				combo.add(c.getName());
+		}
+		if ( combo.getItemCount() > 0 ) 
+			combo.select(0);
+	}
+	
+	protected static Comparator<Container> newAscStringComparator() {
+	    return new Comparator<Container>() {
+	    	@Override
+	    	public int compare(Container first , Container second) {
+	    		return String.valueOf(first.getName()).compareTo(String.valueOf(second.getName()));
+	    	}
+	    };
+	}
+	
 }

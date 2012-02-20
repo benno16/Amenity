@@ -211,6 +211,15 @@ public interface GeneralFactory extends EFactory {
 	Task createTask();
 
 	/**
+	 * Returns a new object of class '<em>Session Satus</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Session Satus</em>'.
+	 * @generated
+	 */
+	SessionSatus createSessionSatus();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

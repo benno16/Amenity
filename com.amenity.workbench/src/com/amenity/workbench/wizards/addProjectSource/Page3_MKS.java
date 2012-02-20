@@ -2,7 +2,7 @@ package com.amenity.workbench.wizards.addProjectSource;
 
 import general.Connection;
 
-import java.util.Date;
+import java.util.List;
 
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -13,19 +13,19 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
+
+import com.amenity.engine.helper.mks.MksLogin;
 
 public class Page3_MKS extends WizardPage {
 
-	private Button btnSandbox;
+	Button btnSandbox;
 	private Button btnOnlineProject;
 	private Label label_1;
 	private Label lblSelectDataSource;
-	private Combo combo;
+	Combo combo;
 	private Label lblConnectionName;
-	private Text text;
-	private Connection connection;
+	Text text;
+	List<String> projects;
 	
 	
 	/**
@@ -33,7 +33,6 @@ public class Page3_MKS extends WizardPage {
 	 */
 	public Page3_MKS(Connection connection) {
 		super("wizardPage");
-		this.connection = connection;
 		setTitle("MKS Data Source Profile");
 		setDescription("Select whether to use sandbox or an online project and your project here");
 	}
@@ -78,26 +77,29 @@ public class Page3_MKS extends WizardPage {
 		btnShow.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				ProjectWizard wizard = (ProjectWizard)getWizard();
+				
+				MksLogin mksLogin;
 				if ( btnSandbox.getSelection() ) {
-					combo.removeAll();
-					combo.add("/Playground/regensburg/RandomTest/project.pj");
-					combo.add("/Playground/regensburg/project.pj");
-					combo.add("/Playground/regensburg/RandomTest/project.pj");
-					combo.add("/cas/body/GATEWAY/VW/VW_MQB_12_GW/VW_MQB_12_GW.pj");
-					combo.add("/Playground/regensburg/project.pj");
-					combo.add("/Playground/regensburg/Stages/Test/project.pj");
+					mksLogin = new MksLogin (wizard.connection.getUsername(), 
+							wizard.connection.getPassword(), 
+							wizard.connection.getDatabase(), true);
+					projects = mksLogin.showProjects();
+					System.out.println( "There are Sandboxprojects: " + projects.size());
+					mksLogin = null;
 				} else {
-					combo.removeAll();
-					combo.add("/cas/body/GATEWAY/VW/VW_MQB_12_GW/VW_MQB_12_GW.pj");
-					combo.add("/Playground/auburnhills/project.pj");
-					combo.add("/Playground/frankfurt/project.pj");
-					combo.add("/Playground/Guarulhos/project.pj");
-					combo.add("/Playground/ingolstadt/project.pj");
-					combo.add("/Playground/markdorf/project.pj");
-					combo.add("/Playground/plmit/project.pj");
-					combo.add("/Playground/regensburg/project.pj");
+					mksLogin = new MksLogin (wizard.connection.getUsername(), 
+							wizard.connection.getPassword(), 
+							wizard.connection.getDatabase(), false);
+					projects = mksLogin.showProjects();
+					mksLogin = null;
+					System.out.println( "There are online projects: " + projects.size());
 				}
-				combo.select(0);
+				combo.removeAll();
+				for ( String string : projects )
+					combo.add(string);
+				if ( combo.getItemCount() > 0 )
+					combo.select(0);
 			}
 		});
 		btnShow.setBounds(489, 44, 75, 25);
@@ -115,13 +117,13 @@ public class Page3_MKS extends WizardPage {
 		label_1.setText("");
 		
 		combo = new Combo(container, SWT.NONE);
-		combo.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseUp(MouseEvent e) {
-				text.setText(combo.getItem(combo.getSelectionIndex()).toString() + " " + new Date().toString());
-				setPageComplete ( true );
-			}
-		});
+//		combo.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseUp(MouseEvent e) {
+//				text.setText(combo.getItem(combo.getSelectionIndex()).toString() + " " + new Date().toString());
+//				setPageComplete ( true );
+//			}
+//		});
 		combo.setBounds(10, 122, 554, 23);
 		
 		Button btnSave = new Button(container, SWT.NONE);

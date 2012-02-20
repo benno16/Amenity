@@ -63,10 +63,10 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getSession()
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	protected Session session = SESSION_EDEFAULT;
+	protected static Session session;// = SESSION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -118,15 +118,25 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 			System.out.println("The session factory cannot be initialized");
 			return null;
 		}
-//		return session = HibernateUtilImpl.SESSION_FACTORY_EDEFAULT.getCurrentSession(); //.openSession();
 		if ( session == null ) {
-			return session = HibernateUtilImpl
+			return HibernateUtilImpl
 					.SESSION_FACTORY_EDEFAULT.openSession();
-		} else if ( session.isOpen() ){
+		} 
+		else if ( session.isOpen() ){
+			System.out.println("--- session is open --- ");
 			session.close();
 		} 
-		return session = HibernateUtilImpl
+		return HibernateUtilImpl
 				.SESSION_FACTORY_EDEFAULT.openSession(); 
+		
+//		try {
+//			session = HibernateUtilImpl.SESSION_FACTORY_EDEFAULT.getCurrentSession();
+//		} catch (HibernateException he ) {
+////			he.printStackTrace();
+//			System.out.println("---- I cannot use the current session");
+//			session = HibernateUtilImpl.SESSION_FACTORY_EDEFAULT.openSession();
+//		}
+//		return session;
 	}
 
 	/**
@@ -150,6 +160,8 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 		session = getSession();
 		session.beginTransaction();
 		session.save(object);
+		session.flush();
+		session.clear();
 		try {
 			session.getTransaction().commit();
 		} catch ( Exception e ){
@@ -166,10 +178,12 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 	 * @generated NOT
 	 */
 	public List<?> read(Class<?> class_) {
-		getSession();
+		session = getSession();
 		session.beginTransaction();
 		Query queryRes = session.createQuery("From " + class_.getName().toString());
-		return queryRes.list();
+		List<?> resultList = queryRes.list();
+		session.close();
+		return resultList;
 	}
 
 	/**
@@ -178,7 +192,7 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 	 * @generated NOT
 	 */
 	public void update(Object object) {
-		getSession();
+		session = getSession();
 		session.beginTransaction();
 		session.saveOrUpdate(object);
 		try {
@@ -197,7 +211,7 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 	 * @generated NOT
 	 */
 	public void delete(Object object) {
-		getSession();
+		session = getSession();
 		session.beginTransaction();
 		session.delete(object);
 		try {
@@ -216,7 +230,7 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 	 * @generated NOT
 	 */
 	public List<?> getByQuery(String string) {
-		getSession();
+		session = getSession();
 		session.beginTransaction();
 		Query queryRes = session.createQuery(string);
 		List<?> resultList = queryRes.list();
@@ -242,7 +256,7 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 	 * @generated NOT
 	 */
 	public List<?> getList(Class<?> class_) {
-		getSession();
+		session = getSession();
 		session.beginTransaction();
 		String string = "from " + class_.getName().toString();
 		Query queryRes = session.createQuery(string);
@@ -254,7 +268,7 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public List<?> getListByOwner(Class<?> class_, User user) {
 		// TODO: implement this method

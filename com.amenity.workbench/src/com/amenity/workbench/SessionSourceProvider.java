@@ -1,5 +1,6 @@
 package com.amenity.workbench;
 
+import general.SessionSatus;
 import general.User;
 import general.UserList;
 
@@ -17,6 +18,7 @@ public class SessionSourceProvider extends AbstractSourceProvider {
     public static String USERID = "-";
     public static User USER = null;
     public static UserList USERS = null;
+    public static SessionSatus SESSION_STATUS = null;
     boolean loggedIn;
     
     public void setLoggedIn ( boolean loggedIn ) {

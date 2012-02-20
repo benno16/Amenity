@@ -106,6 +106,27 @@ public class DaoSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case DaoPackage.CONNECTION_DAO: {
+				ConnectionDao connectionDao = (ConnectionDao)theEObject;
+				T result = caseConnectionDao(connectionDao);
+				if (result == null) result = caseGenericDao(connectionDao);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DaoPackage.FOLDER_DAO: {
+				FolderDao folderDao = (FolderDao)theEObject;
+				T result = caseFolderDao(folderDao);
+				if (result == null) result = caseGenericDao(folderDao);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DaoPackage.FILE_DAO: {
+				FileDao fileDao = (FileDao)theEObject;
+				T result = caseFileDao(fileDao);
+				if (result == null) result = caseGenericDao(fileDao);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -197,6 +218,51 @@ public class DaoSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseContainerDao(ContainerDao object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Connection Dao</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Connection Dao</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConnectionDao(ConnectionDao object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Folder Dao</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Folder Dao</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFolderDao(FolderDao object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>File Dao</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>File Dao</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFileDao(FileDao object) {
 		return null;
 	}
 

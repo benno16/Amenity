@@ -21,6 +21,7 @@ import general.GeneralPackage;
 import general.GenericFunctionSRSFileProperty;
 import general.GenericFunctionSRSType;
 import general.QualityCriteria;
+import general.SessionSatus;
 import general.Snapshot;
 import general.SystemComponentLevelDocumentation;
 import general.SystemComponentLevelDocumentationFileProperty;
@@ -195,6 +196,13 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * @generated
 	 */
 	private EClass taskEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass sessionSatusEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -451,7 +459,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * @generated
 	 */
 	public EAttribute getDataSource_DataSourceId() {
-		return (EAttribute)dataSourceEClass.getEStructuralFeatures().get(0);
+		return (EAttribute)dataSourceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -460,7 +468,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * @generated
 	 */
 	public EAttribute getDataSource_Name() {
-		return (EAttribute)dataSourceEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)dataSourceEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1521,6 +1529,42 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getSessionSatus() {
+		return sessionSatusEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSessionSatus_MksStatus() {
+		return (EAttribute)sessionSatusEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSessionSatus_DbStatus() {
+		return (EAttribute)sessionSatusEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSessionSatus_SynergySession() {
+		return (EAttribute)sessionSatusEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getEventType() {
 		return eventTypeEEnum;
 	}
@@ -1608,8 +1652,8 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		createEAttribute(eventEClass, EVENT__TYPE);
 
 		dataSourceEClass = createEClass(DATA_SOURCE);
-		createEAttribute(dataSourceEClass, DATA_SOURCE__DATA_SOURCE_ID);
 		createEAttribute(dataSourceEClass, DATA_SOURCE__NAME);
+		createEAttribute(dataSourceEClass, DATA_SOURCE__DATA_SOURCE_ID);
 		createEAttribute(dataSourceEClass, DATA_SOURCE__CREATED);
 		createEAttribute(dataSourceEClass, DATA_SOURCE__MODIFIED);
 		createEAttribute(dataSourceEClass, DATA_SOURCE__ADD_INFO1);
@@ -1746,6 +1790,11 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		createEAttribute(taskEClass, TASK__CREATED);
 		createEReference(taskEClass, TASK__OWNER);
 
+		sessionSatusEClass = createEClass(SESSION_SATUS);
+		createEAttribute(sessionSatusEClass, SESSION_SATUS__MKS_STATUS);
+		createEAttribute(sessionSatusEClass, SESSION_SATUS__DB_STATUS);
+		createEAttribute(sessionSatusEClass, SESSION_SATUS__SYNERGY_SESSION);
+
 		// Create enums
 		eventTypeEEnum = createEEnum(EVENT_TYPE);
 		connectionTypeEEnum = createEEnum(CONNECTION_TYPE);
@@ -1810,8 +1859,8 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		initEAttribute(getEvent_Type(), this.getEventType(), "type", "", 1, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dataSourceEClass, DataSource.class, "DataSource", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getDataSource_DataSourceId(), ecorePackage.getEString(), "dataSourceId", null, 1, 1, DataSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataSource_Name(), ecorePackage.getEString(), "name", null, 0, 1, DataSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataSource_DataSourceId(), ecorePackage.getEString(), "dataSourceId", null, 1, 1, DataSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataSource_Created(), this.getDate(), "created", null, 1, 1, DataSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataSource_Modified(), this.getDate(), "modified", null, 1, 1, DataSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataSource_AddInfo1(), ecorePackage.getEString(), "addInfo1", null, 0, 1, DataSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1950,6 +1999,11 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		initEAttribute(getTask_Description(), ecorePackage.getEString(), "description", null, 0, 1, Task.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTask_Created(), this.getDate(), "created", null, 0, 1, Task.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTask_Owner(), this.getUser(), null, "owner", null, 0, 1, Task.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(sessionSatusEClass, SessionSatus.class, "SessionSatus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getSessionSatus_MksStatus(), ecorePackage.getEBoolean(), "mksStatus", "false", 0, 1, SessionSatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSessionSatus_DbStatus(), ecorePackage.getEBoolean(), "dbStatus", "false", 0, 1, SessionSatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSessionSatus_SynergySession(), ecorePackage.getEString(), "synergySession", "null", 0, 1, SessionSatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(eventTypeEEnum, EventType.class, "EventType");

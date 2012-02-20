@@ -1,5 +1,7 @@
 package com.amenity.workbench.wizards.addProjectSource;
 
+import java.util.List;
+
 import general.Connection;
 
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -15,10 +17,20 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
+import com.amenity.engine.helper.mks.MksLogin;
+import com.amenity.workbench.SessionSourceProvider;
+
+import dao.ConnectionDao;
+import dao.DaoFactory;
+
 public class Page2_MKS extends WizardPage implements Listener {
-	private Text text;
-	private Text text_1;
-//	private Connection connection; 
+	Text text;
+	Text text_1;
+	private MksLogin mksLogin;
+	Combo combo;
+	Button btnSaveSettings;
+	private boolean loginOK = false;
+	List<String> projects;
 
 	/**
 	 * Create the wizard.
@@ -26,7 +38,6 @@ public class Page2_MKS extends WizardPage implements Listener {
 	public Page2_MKS(Connection connection) {
 		super("wizardPage");
 		setTitle("MKS Data Source Profile");
-//		this.connection = connection;
 		setDescription("Please enter your MKS Integrity account details");
 	}
 
@@ -45,7 +56,7 @@ public class Page2_MKS extends WizardPage implements Listener {
 		
 		text = new Text(container, SWT.BORDER);
 		text.setBounds(116, 10, 448, 21);
-		text.setText(System.getenv("username"));
+		text.setText(SessionSourceProvider.USER.getUsername());
 		text.addListener(SWT.Modify, this);
 		
 		Label lblPassword = new Label(container, SWT.NONE);
@@ -54,11 +65,13 @@ public class Page2_MKS extends WizardPage implements Listener {
 		
 		text_1 = new Text(container, SWT.BORDER | SWT.PASSWORD);
 		text_1.setBounds(116, 37, 448, 21);
-		text_1.addListener(SWT.Modify, this);
+//		text_1.addListener(SWT.Modify, this);
+		ConnectionDao connectionDao = DaoFactory.eINSTANCE.createConnectionDao();
+		text_1.setText(connectionDao.findMksPassword(SessionSourceProvider.USER));
 		
-		Combo combo = new Combo(container, SWT.NONE);
+		combo = new Combo(container, SWT.NONE);
 		combo.setBounds(116, 64, 448, 23);
-		combo.add("mks-bs",0);
+		combo.add("mks-bs",0);	// default entry - but modifyable
 		combo.select(0);
 		combo.addListener(SWT.Modify, this);
 		
@@ -66,7 +79,7 @@ public class Page2_MKS extends WizardPage implements Listener {
 		lblMksServer.setBounds(10, 67, 100, 15);
 		lblMksServer.setText("MKS Server");
 		
-		Button btnSaveSettings = new Button(container, SWT.CHECK);
+		btnSaveSettings = new Button(container, SWT.CHECK);
 		btnSaveSettings.setBounds(464, 93, 100, 16);
 		btnSaveSettings.setText("Save Settings");
 		
@@ -74,6 +87,7 @@ public class Page2_MKS extends WizardPage implements Listener {
 		btnTest.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				
 				if ( loginWorking() ) {
 					MessageDialog.openInformation(container.getShell(), "MKS Login Test", "Test successful!");
 				} else {
@@ -83,39 +97,56 @@ public class Page2_MKS extends WizardPage implements Listener {
 		});
 		btnTest.setBounds(245, 149, 100, 25);
 		btnTest.setText("Test Settings");
+		btnTest.addListener(SWT.PUSH, this);
 	}
 	
 	public boolean isPageComplete() {
-		if ( !loginWorking() ) {
+		if ( !loginOK ) {
 			return false;
 		}
-		saveDataToModel();
+//		saveDataToModel();
 		return true;
 	}
 	
 	public void handleEvent ( Event e ) {
-		if ( isPageComplete() ) {
+		if ( loginOK ) {
 			setPageComplete(true);
 			setDescription("Please enter your MKS Integrity account details");
 		} else {
 			setPageComplete(false);
+			setErrorMessage("You have to test the login credentials");
 		}
 		getWizard().getContainer().updateButtons();
 	}
 	
-	private void saveDataToModel()
-	{
-		ProjectWizard wizard = (ProjectWizard)getWizard();
-		wizard.connection.setUsername(text.getText());
-		wizard.connection.setPassword(text_1.getText());
-	}
+//	private void saveDataToModel()
+//	{
+//		ProjectWizard wizard = (ProjectWizard)getWizard();
+//		wizard.connection.setUsername(text.getText());
+//		wizard.connection.setPassword(text_1.getText());
+//	}
 	
 	public boolean loginWorking() {
-		if (text.getText().length() > 0 && text_1.getText().length() > 0 ) {
-			
+		if ( loginOK ) 
+			return true;
+		mksLogin = new MksLogin (text.getText(), text_1.getText(), 
+				combo.getItem(combo.getSelectionIndex()), false);
+		projects = mksLogin.showProjects();
+		
+		if ( projects == null )
+			return false;
+		
+		if ( projects.size() > 0 ) {
+			loginOK = true;
+			SessionSourceProvider.SESSION_STATUS.setMksStatus(true);
+			setPageComplete(true);
+			for ( String s : projects )
+				System.out.println(s);
 			return true;
 		} else {
 			setErrorMessage("The user credentials are not correct! ");
+			loginOK = false;
+			setPageComplete(false);
 			return false;
 		}
 	}

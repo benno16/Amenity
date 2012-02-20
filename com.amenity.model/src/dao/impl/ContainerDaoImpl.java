@@ -33,11 +33,10 @@ public class ContainerDaoImpl extends GenericDaoImpl implements ContainerDao {
 	
 	@Override
 	public List<?> getListByOwner(Class<?> class_, User user) {
-		getSession();
+		session = getSession();
 		session.beginTransaction();
 		String string = "from " + class_.getName().toString() + 
 				" where owner = '" + user.getUserId() + "'";
-		System.out.println(string);
 		Query queryRes = session.createQuery(string);
 		System.out.println("amount of containers: " + queryRes.list().size() );
 		return queryRes.list();

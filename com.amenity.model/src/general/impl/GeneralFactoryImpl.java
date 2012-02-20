@@ -82,6 +82,7 @@ public class GeneralFactoryImpl extends EFactoryImpl implements GeneralFactory {
 			case GeneralPackage.SYSTEM_COMPONENT_LEVEL_DOCUMENTATION: return createSystemComponentLevelDocumentation();
 			case GeneralPackage.USER_LIST: return createUserList();
 			case GeneralPackage.TASK: return createTask();
+			case GeneralPackage.SESSION_SATUS: return createSessionSatus();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -341,6 +342,16 @@ public class GeneralFactoryImpl extends EFactoryImpl implements GeneralFactory {
 	public Task createTask() {
 		TaskImpl task = new TaskImpl();
 		return task;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SessionSatus createSessionSatus() {
+		SessionSatusImpl sessionSatus = new SessionSatusImpl();
+		return sessionSatus;
 	}
 
 	/**

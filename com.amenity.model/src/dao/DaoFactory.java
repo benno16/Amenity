@@ -76,6 +76,33 @@ public interface DaoFactory extends EFactory {
 	ContainerDao createContainerDao();
 
 	/**
+	 * Returns a new object of class '<em>Connection Dao</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Connection Dao</em>'.
+	 * @generated
+	 */
+	ConnectionDao createConnectionDao();
+
+	/**
+	 * Returns a new object of class '<em>Folder Dao</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Folder Dao</em>'.
+	 * @generated
+	 */
+	FolderDao createFolderDao();
+
+	/**
+	 * Returns a new object of class '<em>File Dao</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>File Dao</em>'.
+	 * @generated
+	 */
+	FileDao createFileDao();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

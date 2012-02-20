@@ -52,5 +52,12 @@
       <genOperations ecoreOperation="DAO.ecore#//GeneralQueries/dbAlive"/>
     </genClasses>
     <genClasses ecoreClass="DAO.ecore#//ContainerDao"/>
+    <genClasses ecoreClass="DAO.ecore#//ConnectionDao">
+      <genOperations ecoreOperation="DAO.ecore#//ConnectionDao/findMksPassword">
+        <genParameters ecoreParameter="DAO.ecore#//ConnectionDao/findMksPassword/user"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="DAO.ecore#//FolderDao"/>
+    <genClasses ecoreClass="DAO.ecore#//FileDao"/>
   </genPackages>
 </genmodel:GenModel>

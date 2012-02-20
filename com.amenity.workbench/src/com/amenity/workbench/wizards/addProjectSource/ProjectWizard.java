@@ -11,15 +11,19 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
 
+import dao.ConnectionDao;
+import dao.DaoFactory;
+
 public class ProjectWizard extends Wizard {
 
-	private Page1 one;
-	private Page2_MKS two_mks;
-	private Page3_MKS three_mks;
-	private Page2_Synergy two_sgy;
-	private Page3_Synergy three_sgy;
-	private Container container = GeneralFactory.eINSTANCE.createContainer(); 
+	Page1 one;
+	Page2_MKS two_mks;
+	Page3_MKS three_mks;
+	Page2_Synergy two_sgy;
+	Page3_Synergy three_sgy;
+	Container container = GeneralFactory.eINSTANCE.createContainer(); 
 	Connection connection;
+	boolean storePassword = false;
 	
 	public ProjectWizard() {
 		setWindowTitle("New Data Source");
@@ -48,9 +52,7 @@ public class ProjectWizard extends Wizard {
 	public WizardPage getNextPage(IWizardPage page) {
 		if ( page instanceof Page1 ){
 			container = one.getSelectedContainer();
-			connection.setPartOf(container);
-			connection.setLastUsed(new Date());
-			connection.setProject(container.getName());
+			connection.setPartOf( container );
 			if ( one.isItsMks() ) {
 				connection.setConnectionType(ConnectionType.MKS);
 				return two_mks;
@@ -58,31 +60,58 @@ public class ProjectWizard extends Wizard {
 				connection.setConnectionType(ConnectionType.SYNERGY);
 				return two_sgy;
 			}
-		} 
-		if ( page instanceof Page2_MKS)
+		}
+		
+		if ( page instanceof Page2_MKS) {
+			connection.setUsername(two_mks.text.getText());
+			if ( two_mks.btnSaveSettings.getSelection() )
+				storePassword = true;
+			connection.setPassword(two_mks.text_1.getText());
+			connection.setDatabase(two_mks.combo.getItem(two_mks.combo.getSelectionIndex()));
 			return three_mks;
-		if ( page instanceof Page3_MKS)
+		}
+		
+		if ( page instanceof Page3_MKS) {
+			
 			return null;
-		if ( page instanceof Page2_Synergy)
+		}
+		
+		if ( page instanceof Page2_Synergy) {
 			return three_sgy;
+		}
 		return one;
 	}
 	
 	@Override
 	public boolean canFinish() {
-		if ( this.getContainer().getCurrentPage() == three_mks || this.getContainer().getCurrentPage() == three_sgy )
+		/**
+		 * TODO: Page 4 with save options 
+		 */
+		if ( this.getContainer().getCurrentPage() == three_mks || 
+				this.getContainer().getCurrentPage() == three_sgy )
 			return true;
 		return false;
 	}
 
 	@Override
 	public boolean performFinish() {
-		/*
-		 * database ++
+
+		/**
+		 * TODO
+		 * Database finish and Synergy Integration! 
 		 */
-		System.out.println("do something");
+		connection.setLastUsed(new Date());
+		if ( three_mks.btnSandbox.getSelection() ) {
+			connection.setAddInfo4("Sandbox");
+		} else {
+			connection.setAddInfo4("Online");
+		}
+		connection.setProject(three_mks.combo.getItem(three_mks.combo.getSelectionIndex()));
+		connection.setCreated(new Date());
+		ConnectionDao connectionDao = DaoFactory.eINSTANCE.createConnectionDao();
+		connectionDao.create(connection);
+		
 		return true;
 		
 	}
-
 }

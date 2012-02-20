@@ -28,7 +28,6 @@ public class Page3_Synergy extends WizardPage {
 	private List<Project> projects;
 	private Combo combo;
 	private Combo combo_1;
-	private Connection connection;
 	
 	class Project  {
 		
@@ -67,7 +66,6 @@ public class Page3_Synergy extends WizardPage {
 	 */
 	public Page3_Synergy(Connection connection) {
 		super("wizardPage");
-		this.connection = connection;
 		setTitle("Synergy Data Source Profile");
 		setDescription("Please select Rational Synergy Project");
 	}

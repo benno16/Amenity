@@ -65,4 +65,11 @@
     <eOperations name="dbAlive" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ContainerDao" eSuperTypes="#//GenericDao"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ConnectionDao" eSuperTypes="#//GenericDao">
+    <eOperations name="findMksPassword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eParameters name="user" eType="#//User"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FolderDao" eSuperTypes="#//GenericDao"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FileDao" eSuperTypes="#//GenericDao"/>
 </ecore:EPackage>

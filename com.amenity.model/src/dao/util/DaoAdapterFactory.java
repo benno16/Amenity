@@ -92,6 +92,18 @@ public class DaoAdapterFactory extends AdapterFactoryImpl {
 				return createContainerDaoAdapter();
 			}
 			@Override
+			public Adapter caseConnectionDao(ConnectionDao object) {
+				return createConnectionDaoAdapter();
+			}
+			@Override
+			public Adapter caseFolderDao(FolderDao object) {
+				return createFolderDaoAdapter();
+			}
+			@Override
+			public Adapter caseFileDao(FileDao object) {
+				return createFileDaoAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -192,6 +204,48 @@ public class DaoAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createContainerDaoAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link dao.ConnectionDao <em>Connection Dao</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see dao.ConnectionDao
+	 * @generated
+	 */
+	public Adapter createConnectionDaoAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link dao.FolderDao <em>Folder Dao</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see dao.FolderDao
+	 * @generated
+	 */
+	public Adapter createFolderDaoAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link dao.FileDao <em>File Dao</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see dao.FileDao
+	 * @generated
+	 */
+	public Adapter createFileDaoAdapter() {
 		return null;
 	}
 

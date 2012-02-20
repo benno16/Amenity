@@ -30,8 +30,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link general.impl.DataSourceImpl#getDataSourceId <em>Data Source Id</em>}</li>
  *   <li>{@link general.impl.DataSourceImpl#getName <em>Name</em>}</li>
+ *   <li>{@link general.impl.DataSourceImpl#getDataSourceId <em>Data Source Id</em>}</li>
  *   <li>{@link general.impl.DataSourceImpl#getCreated <em>Created</em>}</li>
  *   <li>{@link general.impl.DataSourceImpl#getModified <em>Modified</em>}</li>
  *   <li>{@link general.impl.DataSourceImpl#getAddInfo1 <em>Add Info1</em>}</li>
@@ -44,6 +44,26 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * @generated
  */
 public class DataSourceImpl extends EObjectImpl implements DataSource {
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #getDataSourceId() <em>Data Source Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -72,26 +92,6 @@ public class DataSourceImpl extends EObjectImpl implements DataSource {
 	 * @ordered
 	 */
 	protected boolean dataSourceIdESet;
-
-	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getCreated() <em>Created</em>}' attribute.
@@ -443,10 +443,10 @@ public class DataSourceImpl extends EObjectImpl implements DataSource {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GeneralPackage.DATA_SOURCE__DATA_SOURCE_ID:
-				return getDataSourceId();
 			case GeneralPackage.DATA_SOURCE__NAME:
 				return getName();
+			case GeneralPackage.DATA_SOURCE__DATA_SOURCE_ID:
+				return getDataSourceId();
 			case GeneralPackage.DATA_SOURCE__CREATED:
 				return getCreated();
 			case GeneralPackage.DATA_SOURCE__MODIFIED:
@@ -472,11 +472,11 @@ public class DataSourceImpl extends EObjectImpl implements DataSource {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GeneralPackage.DATA_SOURCE__DATA_SOURCE_ID:
-				setDataSourceId((String)newValue);
-				return;
 			case GeneralPackage.DATA_SOURCE__NAME:
 				setName((String)newValue);
+				return;
+			case GeneralPackage.DATA_SOURCE__DATA_SOURCE_ID:
+				setDataSourceId((String)newValue);
 				return;
 			case GeneralPackage.DATA_SOURCE__CREATED:
 				setCreated((Date)newValue);
@@ -509,11 +509,11 @@ public class DataSourceImpl extends EObjectImpl implements DataSource {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GeneralPackage.DATA_SOURCE__DATA_SOURCE_ID:
-				unsetDataSourceId();
-				return;
 			case GeneralPackage.DATA_SOURCE__NAME:
 				setName(NAME_EDEFAULT);
+				return;
+			case GeneralPackage.DATA_SOURCE__DATA_SOURCE_ID:
+				unsetDataSourceId();
 				return;
 			case GeneralPackage.DATA_SOURCE__CREATED:
 				setCreated(CREATED_EDEFAULT);
@@ -545,10 +545,10 @@ public class DataSourceImpl extends EObjectImpl implements DataSource {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GeneralPackage.DATA_SOURCE__DATA_SOURCE_ID:
-				return isSetDataSourceId();
 			case GeneralPackage.DATA_SOURCE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case GeneralPackage.DATA_SOURCE__DATA_SOURCE_ID:
+				return isSetDataSourceId();
 			case GeneralPackage.DATA_SOURCE__CREATED:
 				return CREATED_EDEFAULT == null ? created != null : !CREATED_EDEFAULT.equals(created);
 			case GeneralPackage.DATA_SOURCE__MODIFIED:
@@ -575,10 +575,10 @@ public class DataSourceImpl extends EObjectImpl implements DataSource {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (dataSourceId: ");
-		if (dataSourceIdESet) result.append(dataSourceId); else result.append("<unset>");
-		result.append(", name: ");
+		result.append(" (name: ");
 		result.append(name);
+		result.append(", dataSourceId: ");
+		if (dataSourceIdESet) result.append(dataSourceId); else result.append("<unset>");
 		result.append(", created: ");
 		result.append(created);
 		result.append(", modified: ");

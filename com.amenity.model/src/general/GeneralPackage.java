@@ -233,22 +233,22 @@ public interface GeneralPackage extends EPackage {
 	int DATA_SOURCE = 2;
 
 	/**
-	 * The feature id for the '<em><b>Data Source Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_SOURCE__DATA_SOURCE_ID = 0;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_SOURCE__NAME = 1;
+	int DATA_SOURCE__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Data Source Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE__DATA_SOURCE_ID = 1;
 
 	/**
 	 * The feature id for the '<em><b>Created</b></em>' attribute.
@@ -1835,6 +1835,52 @@ public interface GeneralPackage extends EPackage {
 	int TASK_FEATURE_COUNT = 5;
 
 	/**
+	 * The meta object id for the '{@link general.impl.SessionSatusImpl <em>Session Satus</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see general.impl.SessionSatusImpl
+	 * @see general.impl.GeneralPackageImpl#getSessionSatus()
+	 * @generated
+	 */
+	int SESSION_SATUS = 21;
+
+	/**
+	 * The feature id for the '<em><b>Mks Status</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_SATUS__MKS_STATUS = 0;
+
+	/**
+	 * The feature id for the '<em><b>Db Status</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_SATUS__DB_STATUS = 1;
+
+	/**
+	 * The feature id for the '<em><b>Synergy Session</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_SATUS__SYNERGY_SESSION = 2;
+
+	/**
+	 * The number of structural features of the '<em>Session Satus</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_SATUS_FEATURE_COUNT = 3;
+
+	/**
 	 * The meta object id for the '{@link general.EventType <em>Event Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1842,7 +1888,7 @@ public interface GeneralPackage extends EPackage {
 	 * @see general.impl.GeneralPackageImpl#getEventType()
 	 * @generated
 	 */
-	int EVENT_TYPE = 21;
+	int EVENT_TYPE = 22;
 
 	/**
 	 * The meta object id for the '{@link general.ConnectionType <em>Connection Type</em>}' enum.
@@ -1852,7 +1898,7 @@ public interface GeneralPackage extends EPackage {
 	 * @see general.impl.GeneralPackageImpl#getConnectionType()
 	 * @generated
 	 */
-	int CONNECTION_TYPE = 22;
+	int CONNECTION_TYPE = 23;
 
 	/**
 	 * The meta object id for the '{@link general.QualityCriteria <em>Quality Criteria</em>}' enum.
@@ -1862,7 +1908,7 @@ public interface GeneralPackage extends EPackage {
 	 * @see general.impl.GeneralPackageImpl#getQualityCriteria()
 	 * @generated
 	 */
-	int QUALITY_CRITERIA = 23;
+	int QUALITY_CRITERIA = 24;
 
 	/**
 	 * The meta object id for the '<em>Date</em>' data type.
@@ -1872,7 +1918,7 @@ public interface GeneralPackage extends EPackage {
 	 * @see general.impl.GeneralPackageImpl#getDate()
 	 * @generated
 	 */
-	int DATE = 24;
+	int DATE = 25;
 
 	/**
 	 * The meta object id for the '<em>Image</em>' data type.
@@ -1882,7 +1928,7 @@ public interface GeneralPackage extends EPackage {
 	 * @see general.impl.GeneralPackageImpl#getImage()
 	 * @generated
 	 */
-	int IMAGE = 25;
+	int IMAGE = 26;
 
 
 	/**
@@ -3361,6 +3407,49 @@ public interface GeneralPackage extends EPackage {
 	EReference getTask_Owner();
 
 	/**
+	 * Returns the meta object for class '{@link general.SessionSatus <em>Session Satus</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Session Satus</em>'.
+	 * @see general.SessionSatus
+	 * @generated
+	 */
+	EClass getSessionSatus();
+
+	/**
+	 * Returns the meta object for the attribute '{@link general.SessionSatus#isMksStatus <em>Mks Status</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Mks Status</em>'.
+	 * @see general.SessionSatus#isMksStatus()
+	 * @see #getSessionSatus()
+	 * @generated
+	 */
+	EAttribute getSessionSatus_MksStatus();
+
+	/**
+	 * Returns the meta object for the attribute '{@link general.SessionSatus#isDbStatus <em>Db Status</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Db Status</em>'.
+	 * @see general.SessionSatus#isDbStatus()
+	 * @see #getSessionSatus()
+	 * @generated
+	 */
+	EAttribute getSessionSatus_DbStatus();
+
+	/**
+	 * Returns the meta object for the attribute '{@link general.SessionSatus#getSynergySession <em>Synergy Session</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Synergy Session</em>'.
+	 * @see general.SessionSatus#getSynergySession()
+	 * @see #getSessionSatus()
+	 * @generated
+	 */
+	EAttribute getSessionSatus_SynergySession();
+
+	/**
 	 * Returns the meta object for enum '{@link general.EventType <em>Event Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4563,6 +4652,40 @@ public interface GeneralPackage extends EPackage {
 		 * @generated
 		 */
 		EReference TASK__OWNER = eINSTANCE.getTask_Owner();
+
+		/**
+		 * The meta object literal for the '{@link general.impl.SessionSatusImpl <em>Session Satus</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see general.impl.SessionSatusImpl
+		 * @see general.impl.GeneralPackageImpl#getSessionSatus()
+		 * @generated
+		 */
+		EClass SESSION_SATUS = eINSTANCE.getSessionSatus();
+
+		/**
+		 * The meta object literal for the '<em><b>Mks Status</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SESSION_SATUS__MKS_STATUS = eINSTANCE.getSessionSatus_MksStatus();
+
+		/**
+		 * The meta object literal for the '<em><b>Db Status</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SESSION_SATUS__DB_STATUS = eINSTANCE.getSessionSatus_DbStatus();
+
+		/**
+		 * The meta object literal for the '<em><b>Synergy Session</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SESSION_SATUS__SYNERGY_SESSION = eINSTANCE.getSessionSatus_SynergySession();
 
 		/**
 		 * The meta object literal for the '{@link general.EventType <em>Event Type</em>}' enum.

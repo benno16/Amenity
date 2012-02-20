@@ -2,10 +2,13 @@
  */
 package dao.impl;
 
+import dao.ConnectionDao;
 import dao.ContainerDao;
 import dao.DaoFactory;
 import dao.DaoPackage;
 import dao.EventDao;
+import dao.FileDao;
+import dao.FolderDao;
 import dao.GeneralQueries;
 import dao.GenericDao;
 import dao.HibernateUtil;
@@ -76,6 +79,27 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 	 * @generated
 	 */
 	private EClass containerDaoEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass connectionDaoEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass folderDaoEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass fileDaoEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -259,6 +283,33 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getConnectionDao() {
+		return connectionDaoEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFolderDao() {
+		return folderDaoEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFileDao() {
+		return fileDaoEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EDataType getList() {
 		return listEDataType;
 	}
@@ -342,6 +393,12 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 
 		containerDaoEClass = createEClass(CONTAINER_DAO);
 
+		connectionDaoEClass = createEClass(CONNECTION_DAO);
+
+		folderDaoEClass = createEClass(FOLDER_DAO);
+
+		fileDaoEClass = createEClass(FILE_DAO);
+
 		// Create data types
 		listEDataType = createEDataType(LIST);
 		queryEDataType = createEDataType(QUERY);
@@ -382,6 +439,9 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		eventDaoEClass.getESuperTypes().add(this.getGenericDao());
 		generalQueriesEClass.getESuperTypes().add(this.getGenericDao());
 		containerDaoEClass.getESuperTypes().add(this.getGenericDao());
+		connectionDaoEClass.getESuperTypes().add(this.getGenericDao());
+		folderDaoEClass.getESuperTypes().add(this.getGenericDao());
+		fileDaoEClass.getESuperTypes().add(this.getGenericDao());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(genericDaoEClass, GenericDao.class, "GenericDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -440,6 +500,15 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		addEOperation(generalQueriesEClass, ecorePackage.getEBoolean(), "dbAlive", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(containerDaoEClass, ContainerDao.class, "ContainerDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(connectionDaoEClass, ConnectionDao.class, "ConnectionDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		op = addEOperation(connectionDaoEClass, ecorePackage.getEString(), "findMksPassword", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getUser(), "user", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(folderDaoEClass, FolderDao.class, "FolderDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(fileDaoEClass, FileDao.class, "FileDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize data types
 		initEDataType(listEDataType, List.class, "List", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

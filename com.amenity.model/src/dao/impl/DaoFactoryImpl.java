@@ -71,6 +71,9 @@ public class DaoFactoryImpl extends EFactoryImpl implements DaoFactory {
 			case DaoPackage.EVENT_DAO: return createEventDao();
 			case DaoPackage.GENERAL_QUERIES: return createGeneralQueries();
 			case DaoPackage.CONTAINER_DAO: return createContainerDao();
+			case DaoPackage.CONNECTION_DAO: return createConnectionDao();
+			case DaoPackage.FOLDER_DAO: return createFolderDao();
+			case DaoPackage.FILE_DAO: return createFileDao();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -187,8 +190,38 @@ public class DaoFactoryImpl extends EFactoryImpl implements DaoFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List<?> createListFromString(EDataType eDataType, String initialValue) {
-		return (List<?>)super.createFromString(eDataType, initialValue);
+	public ConnectionDao createConnectionDao() {
+		ConnectionDaoImpl connectionDao = new ConnectionDaoImpl();
+		return connectionDao;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FolderDao createFolderDao() {
+		FolderDaoImpl folderDao = new FolderDaoImpl();
+		return folderDao;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FileDao createFileDao() {
+		FileDaoImpl fileDao = new FileDaoImpl();
+		return fileDao;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List createListFromString(EDataType eDataType, String initialValue) {
+		return (List)super.createFromString(eDataType, initialValue);
 	}
 
 	/**

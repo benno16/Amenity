@@ -1,0 +1,10 @@
+
+select "password" from "connection" c1, "container" c2 where c2."ownerid" = 'd58ae39b-9a05-4651-9e73-c445e8479073'
+
+select password from "connection" c1, "container" c2 where c2."owner" = 'd58ae39b-9a05-4651-9e73-c445e8479073'
+
+select * from "user"
+select * from "container"
+select * from "connection"
+
+

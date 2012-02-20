@@ -8,6 +8,9 @@ import general.UserList;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -38,6 +41,9 @@ public class LoginDialog extends Dialog {
 	private Text text_1;
 	private static final int RESET_ID = IDialogConstants.NO_TO_ALL_ID + 1;
 	public static Button btnRememberMyPassword;
+	private GeneralQueries genericQueries;
+	private boolean dbAlive = false;
+	private Adapter adapter;
 	
 	/**
 	 * Create the dialog.
@@ -45,6 +51,15 @@ public class LoginDialog extends Dialog {
 	 */
 	public LoginDialog(Shell parentShell) {
 		super(parentShell);
+		adapter = new AdapterImpl() {
+			public void notifyChanged ( Notification notification ) {
+				System.out.println("New database Status: " + SessionSourceProvider.SESSION_STATUS.isDbStatus());
+			}
+		};
+		
+		genericQueries = DaoFactory.eINSTANCE.createGeneralQueries();
+		if ( genericQueries.dbAlive() )
+			dbAlive = true;
 	}
 	
 	@Override
@@ -61,7 +76,7 @@ public class LoginDialog extends Dialog {
 	protected Control createDialogArea(Composite parent) {
 		Composite container = (Composite) super.createDialogArea(parent);
 		container.setLayout(null);
-		
+
 		Label lblUserName = new Label(container, SWT.NONE);
 		lblUserName.setBounds(10, 10, 100, 15);
 		lblUserName.setText("User Name");
@@ -80,8 +95,10 @@ public class LoginDialog extends Dialog {
 		
 		btnRememberMyPassword = new Button(container, SWT.CHECK);
 		btnRememberMyPassword.setBounds(116, 61, 200, 16);
-		btnRememberMyPassword.setText("Remember my password");
-		
+		if ( dbAlive )
+			btnRememberMyPassword.setText("Remember my password - ok");
+		else 
+			btnRememberMyPassword.setText("Remember my password - nok");
 		Button button = new Button(container, SWT.NONE);
 		button.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -141,8 +158,10 @@ public class LoginDialog extends Dialog {
 		} else if ( buttonId == 0 ){	// on OK
 			SessionSourceProvider sessionSourceProvider = new SessionSourceProvider();
 			sessionSourceProvider.setLoggedIn(true);
-			GeneralQueries generalQueries = DaoFactory.eINSTANCE.createGeneralQueries();
-			if ( generalQueries.dbAlive() ) {
+			SessionSourceProvider.SESSION_STATUS = GeneralFactory.eINSTANCE.createSessionSatus();
+			SessionSourceProvider.SESSION_STATUS.eAdapters().add(adapter);
+			SessionSourceProvider.SESSION_STATUS.setDbStatus(dbAlive);
+			if ( dbAlive ) {
 				try {
 					User tempUser = GeneralFactory.eINSTANCE.createUser();
 					tempUser.setUsername( text.getText() );

@@ -51,6 +51,7 @@
     <eLiterals name="Warning" value="2" literal="Warning"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataSource">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataSourceId" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" unsettable="true"
         iD="true">
@@ -58,7 +59,6 @@
         <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;)"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="created" lowerBound="1"
         eType="#//Date"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="modified" lowerBound="1"
@@ -301,5 +301,13 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="created" eType="#//Date"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//User"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SessionSatus">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mksStatus" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbStatus" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="synergySession" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="null"/>
   </eClassifiers>
 </ecore:EPackage>

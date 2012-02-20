@@ -46,7 +46,7 @@ public class GeneralQueriesImpl extends GenericDaoImpl implements GeneralQueries
 		/*
 		 * Checkes wether or not a DB is active and available
 		 */
-		getSession();
+		session = getSession();
 		session.beginTransaction();
 		Query queryRes = session.createSQLQuery("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA");
 		System.out.println(queryRes.list().size());

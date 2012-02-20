@@ -94,7 +94,7 @@ public interface GenericDao extends EObject {
 	 * @model dataType="dao.List" many="false"
 	 * @generated
 	 */
-	List<?> read(Class<?> class_);
+	List read(Class<?> class_);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -118,7 +118,7 @@ public interface GenericDao extends EObject {
 	 * @model dataType="dao.List" many="false"
 	 * @generated
 	 */
-	List<?> getByQuery(String query);
+	List getByQuery(String query);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -134,7 +134,7 @@ public interface GenericDao extends EObject {
 	 * @model dataType="dao.List" many="false"
 	 * @generated
 	 */
-	List<?> getList(Class<?> class_);
+	List getList(Class<?> class_);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -142,6 +142,6 @@ public interface GenericDao extends EObject {
 	 * @model dataType="dao.List" many="false" userDataType="dao.User"
 	 * @generated
 	 */
-	List<?> getListByOwner(Class<?> class_, User user);
+	List getListByOwner(Class<?> class_, User user);
 
 } // GenericDao

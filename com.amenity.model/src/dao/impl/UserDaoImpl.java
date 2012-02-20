@@ -49,7 +49,7 @@ public class UserDaoImpl extends GenericDaoImpl implements UserDao {
 	 */
 	@SuppressWarnings("unchecked")
 	public User findByUsername(User user) {
-		getSession();
+		session = getSession();
 		session.beginTransaction();
 		Query queryRes = session.createQuery("from " + 
 				User.class.getName().toString() + 
@@ -69,7 +69,7 @@ public class UserDaoImpl extends GenericDaoImpl implements UserDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public User getById(String id) {
-		getSession();
+		session = getSession();
 		session.beginTransaction();
 		Query queryRes = session.createQuery("from " + 
 				User.class.getName().toString() + 
@@ -94,7 +94,7 @@ public class UserDaoImpl extends GenericDaoImpl implements UserDao {
 			searchRes.setLastUsed(new Date());
 			object = searchRes;
 		} 
-		getSession();
+		session = getSession();
 		session.beginTransaction();
 		session.save(object);
 		session.getTransaction().commit();
@@ -103,7 +103,7 @@ public class UserDaoImpl extends GenericDaoImpl implements UserDao {
 	
 	@Override
 	public void update(Object object) {
-		getSession();
+		session = getSession();
 		session.beginTransaction();
 		User u = (User) object;
 		session.update(u);

@@ -269,6 +269,117 @@ public interface DaoPackage extends EPackage {
 	int CONTAINER_DAO_FEATURE_COUNT = GENERIC_DAO_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link dao.impl.ConnectionDaoImpl <em>Connection Dao</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see dao.impl.ConnectionDaoImpl
+	 * @see dao.impl.DaoPackageImpl#getConnectionDao()
+	 * @generated
+	 */
+	int CONNECTION_DAO = 6;
+
+	/**
+	 * The feature id for the '<em><b>Persistent Class</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_DAO__PERSISTENT_CLASS = GENERIC_DAO__PERSISTENT_CLASS;
+
+	/**
+	 * The feature id for the '<em><b>Session</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_DAO__SESSION = GENERIC_DAO__SESSION;
+
+	/**
+	 * The number of structural features of the '<em>Connection Dao</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_DAO_FEATURE_COUNT = GENERIC_DAO_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link dao.impl.FolderDaoImpl <em>Folder Dao</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see dao.impl.FolderDaoImpl
+	 * @see dao.impl.DaoPackageImpl#getFolderDao()
+	 * @generated
+	 */
+	int FOLDER_DAO = 7;
+
+	/**
+	 * The feature id for the '<em><b>Persistent Class</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOLDER_DAO__PERSISTENT_CLASS = GENERIC_DAO__PERSISTENT_CLASS;
+
+	/**
+	 * The feature id for the '<em><b>Session</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOLDER_DAO__SESSION = GENERIC_DAO__SESSION;
+
+	/**
+	 * The number of structural features of the '<em>Folder Dao</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOLDER_DAO_FEATURE_COUNT = GENERIC_DAO_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link dao.impl.FileDaoImpl <em>File Dao</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see dao.impl.FileDaoImpl
+	 * @see dao.impl.DaoPackageImpl#getFileDao()
+	 * @generated
+	 */
+	int FILE_DAO = 8;
+
+	/**
+	 * The feature id for the '<em><b>Persistent Class</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_DAO__PERSISTENT_CLASS = GENERIC_DAO__PERSISTENT_CLASS;
+
+	/**
+	 * The feature id for the '<em><b>Session</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_DAO__SESSION = GENERIC_DAO__SESSION;
+
+	/**
+	 * The number of structural features of the '<em>File Dao</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_DAO_FEATURE_COUNT = GENERIC_DAO_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '<em>List</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -276,7 +387,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getList()
 	 * @generated
 	 */
-	int LIST = 6;
+	int LIST = 9;
 
 	/**
 	 * The meta object id for the '<em>Query</em>' data type.
@@ -286,7 +397,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getQuery()
 	 * @generated
 	 */
-	int QUERY = 7;
+	int QUERY = 10;
 
 	/**
 	 * The meta object id for the '<em>Session</em>' data type.
@@ -296,7 +407,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getSession()
 	 * @generated
 	 */
-	int SESSION = 8;
+	int SESSION = 11;
 
 	/**
 	 * The meta object id for the '<em>Session Factory</em>' data type.
@@ -306,7 +417,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getSessionFactory()
 	 * @generated
 	 */
-	int SESSION_FACTORY = 9;
+	int SESSION_FACTORY = 12;
 
 	/**
 	 * The meta object id for the '<em>User</em>' data type.
@@ -316,7 +427,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getUser()
 	 * @generated
 	 */
-	int USER = 10;
+	int USER = 13;
 
 
 	/**
@@ -411,6 +522,36 @@ public interface DaoPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getContainerDao();
+
+	/**
+	 * Returns the meta object for class '{@link dao.ConnectionDao <em>Connection Dao</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Connection Dao</em>'.
+	 * @see dao.ConnectionDao
+	 * @generated
+	 */
+	EClass getConnectionDao();
+
+	/**
+	 * Returns the meta object for class '{@link dao.FolderDao <em>Folder Dao</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Folder Dao</em>'.
+	 * @see dao.FolderDao
+	 * @generated
+	 */
+	EClass getFolderDao();
+
+	/**
+	 * Returns the meta object for class '{@link dao.FileDao <em>File Dao</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>File Dao</em>'.
+	 * @see dao.FileDao
+	 * @generated
+	 */
+	EClass getFileDao();
 
 	/**
 	 * Returns the meta object for data type '{@link java.util.List <em>List</em>}'.
@@ -572,6 +713,36 @@ public interface DaoPackage extends EPackage {
 		 * @generated
 		 */
 		EClass CONTAINER_DAO = eINSTANCE.getContainerDao();
+
+		/**
+		 * The meta object literal for the '{@link dao.impl.ConnectionDaoImpl <em>Connection Dao</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see dao.impl.ConnectionDaoImpl
+		 * @see dao.impl.DaoPackageImpl#getConnectionDao()
+		 * @generated
+		 */
+		EClass CONNECTION_DAO = eINSTANCE.getConnectionDao();
+
+		/**
+		 * The meta object literal for the '{@link dao.impl.FolderDaoImpl <em>Folder Dao</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see dao.impl.FolderDaoImpl
+		 * @see dao.impl.DaoPackageImpl#getFolderDao()
+		 * @generated
+		 */
+		EClass FOLDER_DAO = eINSTANCE.getFolderDao();
+
+		/**
+		 * The meta object literal for the '{@link dao.impl.FileDaoImpl <em>File Dao</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see dao.impl.FileDaoImpl
+		 * @see dao.impl.DaoPackageImpl#getFileDao()
+		 * @generated
+		 */
+		EClass FILE_DAO = eINSTANCE.getFileDao();
 
 		/**
 		 * The meta object literal for the '<em>List</em>' data type.

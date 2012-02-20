@@ -21,6 +21,7 @@ public class ProjectWizard extends Wizard {
 	Page3_MKS three_mks;
 	Page2_Synergy two_sgy;
 	Page3_Synergy three_sgy;
+	Page4 four;
 	Container container = GeneralFactory.eINSTANCE.createContainer(); 
 	Connection connection;
 	boolean storePassword = false;
@@ -38,6 +39,7 @@ public class ProjectWizard extends Wizard {
 		three_mks = new Page3_MKS( connection );
 		two_sgy = new Page2_Synergy( connection );
 		three_sgy = new Page3_Synergy( connection );
+		four = new Page4( connection );
 		
 		
 		addPage ( one );

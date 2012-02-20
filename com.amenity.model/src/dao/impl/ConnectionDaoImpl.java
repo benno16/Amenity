@@ -44,7 +44,7 @@ public class ConnectionDaoImpl extends GenericDaoImpl implements ConnectionDao {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public String findMksPassword(User user) {
 		// TODO: implement this method

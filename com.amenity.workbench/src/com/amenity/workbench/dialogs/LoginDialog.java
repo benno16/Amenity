@@ -31,6 +31,7 @@ import com.amenity.workbench.SessionSourceProvider;
 import dao.DaoFactory;
 import dao.GeneralQueries;
 import dao.UserDao;
+import org.eclipse.wb.swt.ResourceManager;
 
 @SuppressWarnings("unused")
 public class LoginDialog extends Dialog {
@@ -94,11 +95,8 @@ public class LoginDialog extends Dialog {
 		lblPassword.setText("Password");
 		
 		btnRememberMyPassword = new Button(container, SWT.CHECK);
-		btnRememberMyPassword.setBounds(116, 61, 200, 16);
-		if ( dbAlive )
-			btnRememberMyPassword.setText("Remember my password - ok");
-		else 
-			btnRememberMyPassword.setText("Remember my password - nok");
+		btnRememberMyPassword.setBounds(116, 61, 146, 16);
+		btnRememberMyPassword.setText("Remember my password");
 		Button button = new Button(container, SWT.NONE);
 		button.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -123,6 +121,14 @@ public class LoginDialog extends Dialog {
 		});
 		button.setBounds(289, 5, 27, 25);
 		button.setText("...");
+		
+		Label lblNewLabel = new Label(container, SWT.NONE);
+		if ( dbAlive )
+			lblNewLabel.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/hypersql_on.png"));
+		else 
+			lblNewLabel.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/hypersql_off.png"));
+		
+		lblNewLabel.setBounds(268, 61, 48, 48);
 
 		return container;
 	}
@@ -142,7 +148,7 @@ public class LoginDialog extends Dialog {
 	 */
 	@Override
 	protected Point getInitialSize() {
-		return new Point(332, 177);
+		return new Point(332, 199);
 	}
 	
 	protected void buttonPressed ( int buttonId ) {

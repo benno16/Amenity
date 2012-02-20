@@ -11,24 +11,22 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
 import com.amenity.workbench.SessionSourceProvider;
-import com.amenity.workbench.views.interfaces.temp.StartupViewImpl;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.wb.swt.ResourceManager;
 
 public class StartupView extends ViewPart {
 
 	public static final String ID = "com.amenity.workbench.views.StartupView"; //$NON-NLS-1$
-	private StartupViewImpl svi = StartupViewImpl.getInstance();
 	private Table table;
 	private Table table_1;
 	private Label lblLastLogin;
 	private Label lblTimesUsed;
-	private Button btnMks;
-	private Button btnSynergy;
-	private Button btnNewButton;
+	private Label lblSynergyStatus;
+	private Label lblMksStatus;
+	private Label lblDatabaseStatus;
 //	private IMemento memento;
 
 	public StartupView() {
@@ -56,21 +54,21 @@ public class StartupView extends ViewPart {
 
 		System.out.println("--- New Session Status ---" );
 		if ( SessionSourceProvider.SESSION_STATUS.isDbStatus() )
-			btnNewButton.setSelection(true);
+			lblDatabaseStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/hypersql_on.png"));
 		else 
-			btnNewButton.setSelection(false);
+			lblDatabaseStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/hypersql_off.png"));
 		
 		if ( SessionSourceProvider.SESSION_STATUS.isMksStatus() )
-			btnMks.setSelection(true);
+			lblSynergyStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/mks_on.png"));
 		else 
-			btnMks.setSelection(false);
+			lblSynergyStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/mks_off.png"));
 		
 		if ( SessionSourceProvider.SESSION_STATUS.getSynergySession() == null ) {
-			btnSynergy.setSelection(false);
+			lblSynergyStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/sgy_off.png"));
 		} else if (SessionSourceProvider.SESSION_STATUS.getSynergySession().length() < 9) {
-			btnSynergy.setSelection(false);
+			lblSynergyStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/sgy_off.png"));
 		} else 
-			btnSynergy.setSelection(true);
+			lblSynergyStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/sgy_on.png"));
 	
 	}
 
@@ -133,30 +131,16 @@ public class StartupView extends ViewPart {
 		Composite compStatus = new Composite(composite, SWT.BOTTOM |SWT.LEFT);
 		compStatus.setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, false, true, 1, 1));
 		compStatus.setLayout(new GridLayout(3, false));
-		btnMks = new Button(compStatus, SWT.TOGGLE);
-		if ( svi.isMKSRunning() ) {
-			btnMks.setSelection(true);
-			btnMks.setToolTipText("MKS session is open");
-		}
-		btnMks.setEnabled(false);
-		btnMks.setText("MKS");
 		
-		btnSynergy = new Button(compStatus, SWT.TOGGLE);
-		btnSynergy.setEnabled(false);
-		btnSynergy.setText("Synergy");
+		lblMksStatus = new Label(compStatus, SWT.NONE);
+		lblMksStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/mks_off.png"));
 		
-		btnNewButton = new Button(compStatus, SWT.TOGGLE);
-		if ( svi.isDatabaseRunning() ) {
-			btnNewButton.setSelection(true);
-			btnNewButton.setToolTipText("Database session is open");
-		}
+		lblSynergyStatus = new Label(compStatus, SWT.NONE);
+		lblSynergyStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/sgy_off.png"));
 		
-		btnNewButton.setEnabled(false);
-		btnNewButton.setText("Database");
-		if ( svi.isSynergyRunning() ) {
-			btnSynergy.setSelection(true);
-			btnSynergy.setToolTipText("Synergy session is open");
-		}
+		lblDatabaseStatus = new Label(compStatus, SWT.NONE);
+		lblDatabaseStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/hypersql_off.png"));
+		
 			
 		checkSessionState();
 		createActions();

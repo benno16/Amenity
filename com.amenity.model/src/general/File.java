@@ -18,7 +18,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link general.File#getCreationDate <em>Creation Date</em>}</li>
  *   <li>{@link general.File#getStatus <em>Status</em>}</li>
  *   <li>{@link general.File#getRootDir <em>Root Dir</em>}</li>
- *   <li>{@link general.File#getOfType <em>Of Type</em>}</li>
  *   <li>{@link general.File#getHasProperty <em>Has Property</em>}</li>
  * </ul>
  * </p>
@@ -120,6 +119,7 @@ public interface File extends ContentObject {
 	 * @see general.GeneralPackage#getFile_RootDir()
 	 * @see general.Folder#getChildren
 	 * @model opposite="children" required="true"
+	 *        annotation="teneo.jpa value='@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})'"
 	 * @generated
 	 */
 	Folder getRootDir();
@@ -133,32 +133,6 @@ public interface File extends ContentObject {
 	 * @generated
 	 */
 	void setRootDir(Folder value);
-
-	/**
-	 * Returns the value of the '<em><b>Of Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Of Type</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Of Type</em>' reference.
-	 * @see #setOfType(FileType)
-	 * @see general.GeneralPackage#getFile_OfType()
-	 * @model required="true"
-	 * @generated
-	 */
-	FileType getOfType();
-
-	/**
-	 * Sets the value of the '{@link general.File#getOfType <em>Of Type</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Of Type</em>' reference.
-	 * @see #getOfType()
-	 * @generated
-	 */
-	void setOfType(FileType value);
 
 	/**
 	 * Returns the value of the '<em><b>Has Property</b></em>' reference list.

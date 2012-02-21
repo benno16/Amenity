@@ -144,4 +144,12 @@ public interface GenericDao extends EObject {
 	 */
 	List getListByOwner(Class<?> class_, User user);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model listDataType="dao.List" listMany="false"
+	 * @generated
+	 */
+	boolean massInsert(List list, Class<?> class_);
+
 } // GenericDao

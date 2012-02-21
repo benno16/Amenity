@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import general.Connection;
 import general.File;
@@ -36,8 +37,11 @@ public class MksReader {
 	private Snapshot snapshot;
 	private Connection connection;
 	private List<Folder> folders;
+	private List<File> files;
 	private FolderDao folderDao;
 	private FileDao fileDao;
+	long start;
+	long end;
 	
 	public MksReader () {
 	}
@@ -46,6 +50,7 @@ public class MksReader {
 		this.connection = connection;
 		this.snapshot = snapshot;
 		folders = new ArrayList<Folder>();
+		files = new ArrayList<File>();
 		Folder root = GeneralFactory.eINSTANCE.createFolder();
 		root.setLevel(0);
 		root.setName(connection.getProject());
@@ -55,11 +60,12 @@ public class MksReader {
 	@SuppressWarnings("deprecation")
 	public boolean getProjectFiles() {
 		boolean noError = true;
+		start = System.currentTimeMillis()/1000;
 		try {
 			IntegrationPointFactory ipf = IntegrationPointFactory.getInstance();
 			IntegrationPoint ip = ipf.createIntegrationPoint(connection.getDatabase(), port);
 			
-			mySession = ip.createSession("uidu1448","\"Wsx3edc");
+			mySession = ip.createSession(connection.getUsername(),connection.getPassword());
 			
 			CmdRunner myCmdRunner = mySession.createCmdRunner();
 			
@@ -80,12 +86,24 @@ public class MksReader {
 			folderDao = DaoFactory.eINSTANCE.createFolderDao();
 			fileDao = DaoFactory.eINSTANCE.createFileDao();
 			
+//			end = System.currentTimeMillis()/1000;
+//			System.out.println("--- Time to fetch files --- " + 
+//					(end- start ) + " seconds");
+//			start = end;
+			
 			while ( wii.hasNext() ) {
 				WorkItem wi = wii.next();
 				generateContentObject(wi);
 				
 			}
-			
+//			end = System.currentTimeMillis()/1000;
+//			System.out.println("--- Time to create objects --- " + 
+//					(end- start ) + " seconds");
+//			start = end;
+			if ( doPersist() ) {
+				
+				return noError;
+			}
 			
 		} catch (APIException ae) {
 	        System.out.println("--[ Exception ]---------------------------");
@@ -117,6 +135,27 @@ public class MksReader {
 		
 		return false;
 	}
+
+	private boolean doPersist() {
+		try {
+
+			folderDao.massInsert(folders, Folder.class);
+//			end = System.currentTimeMillis()/1000;
+//			System.out.println("--- Time to persist folder objects --- " + 
+//					( end- start ) + " seconds");
+//			start = end;
+			
+			fileDao.massInsert(files, File.class);
+//			end = System.currentTimeMillis()/1000;
+//			System.out.println("--- Time to persist file objects --- " + 
+//					( end- start ) + " seconds");
+//			start = end;
+
+			return true;
+		} catch ( Exception e ) {
+			return false;
+		}
+	}
 	
 	public void generateContentObject( WorkItem wi ) {
 		
@@ -131,32 +170,56 @@ public class MksReader {
 
 		if ( true ) {
 			idOut =wi.getId();
+			if ( idOut.length() > 251 )
+				idOut = idOut.substring(0, 250);
 		}
 		if ( wi.contains("parent") ) {
 			parentOut = wi.getField("parent").getValue().toString();
+			if ( parentOut.length() > 251 )
+				parentOut = parentOut.substring(0, 250);
 		}
 		if ( wi.contains("type") ) {
 			typeOut = wi.getField("type").getValue().toString();
+			if ( typeOut.length() > 251 )
+				typeOut = typeOut.substring(0, 250);
 		}
 		if ( wi.contains("state") ) {
 			stateOut = wi.getField("state").getValue().toString();
+			if ( stateOut.length() > 251 )
+				stateOut = stateOut.substring(0, 250);
 		}
 		if ( wi.contains("name") ) {
 			nameOut = wi.getField("name").getValue().toString();
+			if ( nameOut.length() > 251 )
+				nameOut = nameOut.substring(0, 250);
 		}
 		if ( wi.contains("memberrev") ) {
 			memberrevOut = wi.getField("memberrev").getItem().getId();
+			if ( memberrevOut.length() > 251 )
+				memberrevOut = memberrevOut.substring(0, 250);
 		}
 		if ( wi.contains("labels") ) {
 			for ( int i = 0 ; i < wi.getField("labels").getList().size() ; i++ ) {
 				labelsOut = labelsOut + wi.getField("labels").getList().get(i).toString();
 			}
+			if ( labelsOut.length() > 251 )
+				labelsOut = labelsOut.substring(0, 250);
 		}
 		if ( wi.contains("membertimestamp") ) {
 			membertimestampOut = wi.getField("membertimestamp").getValueAsString();
 		}
+//		System.err.println(
+//				"#" + idOut + 
+//				"#" + nameOut +
+//				"#" + parentOut + 
+//				"#" + typeOut + 
+//				"#" + labelsOut + 
+//				"#" + memberrevOut + 
+//				"#" + membertimestampOut + 
+//				"#" + stateOut
+//				);
 		
-		if ( typeOut.contains("project ") ) {
+		if ( typeOut.contains("project") ) {
 			// its a folder! 
 			Folder folder = GeneralFactory.eINSTANCE.createFolder();
 			folder.setName(nameOut);
@@ -169,7 +232,7 @@ public class MksReader {
 			folder.setVersion(labelsOut);
 			folder.setModfiedDate(getFileDate(membertimestampOut));
 			folders.add(folder);
-			folderDao.create(folder);
+//			folderDao.create(folder);
 			folder = null;
 		} else {
 			// its a file!
@@ -185,16 +248,17 @@ public class MksReader {
 			file.setRelease(memberrevOut);
 			file.setStatus(stateOut);
 			file.setVersion(labelsOut);
-			fileDao.create(file);
+//			fileDao.create(file);
 			root.getChildren().add(file);
-			folderDao.update(root);
+//			folderDao.update(root);
+			files.add(file);
 			file = null;
 		}
 	}
 	
 	private Folder getParentFolder ( String parent ) {
 		for ( Folder f : folders ) {
-			if ( f.getName().equals(parent) ) {
+			if ( f.getName().contains(parent) ) {
 				return f;
 			}
 		}
@@ -203,21 +267,24 @@ public class MksReader {
 	
 	private Date getFileDate ( String date ) {
 		/**
-		 * TODO
-		 * Do that string conversion shit. Code OK. Test to be done! 
+		 * example input: 
+		 * Tue Aug 05 16:20:20 CEST 2008
 		 */
-		Date returnDate = null;
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
+		if ( date.length() > 1 ) {
 		
-		try {
-			returnDate = df.parse(date);
-		} catch (java.text.ParseException e) {
-			e.printStackTrace();
+			Date returnDate = null;
+			DateFormat df = new SimpleDateFormat("EEE MMM dd hh:mm:ss z yyyy", 
+					Locale.ENGLISH);
+			
+			try {
+				returnDate = df.parse(date);
+			} catch (java.text.ParseException e) {
+				e.printStackTrace();
+			}
+			
+			return returnDate;
 		}
-		
-		System.out.println( "return: " + df.format(returnDate));
-		
-		return returnDate;
+		return new Date();
 	}
 	
 }

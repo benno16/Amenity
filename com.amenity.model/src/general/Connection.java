@@ -475,6 +475,7 @@ public interface Connection extends EObject {
 	 * @see #setPartOf(Container)
 	 * @see general.GeneralPackage#getConnection_PartOf()
 	 * @model required="true"
+	 *        annotation="teneo.jpa value='@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})'"
 	 * @generated
 	 */
 	Container getPartOf();

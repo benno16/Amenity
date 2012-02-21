@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  * <!-- begin-user-doc -->
@@ -273,6 +274,18 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 	public List<?> getListByOwner(Class<?> class_, User user) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean massInsert(List list, Class<?> class_) {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		System.out.println("this should not be used");
 		throw new UnsupportedOperationException();
 	}
 

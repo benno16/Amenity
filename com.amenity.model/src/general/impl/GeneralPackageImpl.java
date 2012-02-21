@@ -1043,17 +1043,8 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFile_OfType() {
-		return (EReference)fileEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getFile_HasProperty() {
-		return (EReference)fileEClass.getEStructuralFeatures().get(5);
+		return (EReference)fileEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1722,7 +1713,6 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		createEAttribute(fileEClass, FILE__CREATION_DATE);
 		createEAttribute(fileEClass, FILE__STATUS);
 		createEReference(fileEClass, FILE__ROOT_DIR);
-		createEReference(fileEClass, FILE__OF_TYPE);
 		createEReference(fileEClass, FILE__HAS_PROPERTY);
 
 		folderEClass = createEClass(FOLDER);
@@ -1909,7 +1899,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		initEAttribute(getSnapshot_Deleted(), ecorePackage.getEBoolean(), "deleted", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSnapshot_Stores(), this.getContentObject(), this.getContentObject_PartOf(), "stores", null, 0, -1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSnapshot_Functions(), this.getFunction(), null, "functions", null, 0, -1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSnapshot_General(), this.getGeneralDocumentationFileProperty(), null, "general", null, 1, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSnapshot_General(), this.getGeneralDocumentationFileProperty(), null, "general", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSnapshot_SystemComponent(), this.getSystemComponentLevelDocumentationFileProperty(), null, "systemComponent", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSnapshot_EReference0(), this.getSystemComponentLevelDocumentationFileProperty(), null, "EReference0", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSnapshot_EReference1(), this.getFunction(), null, "EReference1", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1929,7 +1919,6 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		initEAttribute(getFile_CreationDate(), this.getDate(), "creationDate", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFile_Status(), ecorePackage.getEString(), "status", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFile_RootDir(), this.getFolder(), this.getFolder_Children(), "rootDir", null, 1, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFile_OfType(), this.getFileType(), null, "ofType", null, 1, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFile_HasProperty(), this.getFileProperty(), this.getFileProperty_Of(), "hasProperty", null, 0, -1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(folderEClass, Folder.class, "Folder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2058,6 +2047,12 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 			 "value", "@Id @GeneratedValue(generator=\"system-uuid\")"
 		   });		
 		addAnnotation
+		  (getUser_Event(), 
+		   source, 
+		   new String[] {
+			 "value", "@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"
+		   });		
+		addAnnotation
 		  (getEvent_EventId(), 
 		   source, 
 		   new String[] {
@@ -2082,10 +2077,22 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 			 "value", "@Id @GeneratedValue(generator=\"system-uuid\")"
 		   });		
 		addAnnotation
+		  (getConnection_PartOf(), 
+		   source, 
+		   new String[] {
+			 "value", "@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"
+		   });		
+		addAnnotation
 		  (getContainer_ContainerId(), 
 		   source, 
 		   new String[] {
 			 "value", "@Id @GeneratedValue(generator=\"system-uuid\")"
+		   });		
+		addAnnotation
+		  (getContainer_Owner(), 
+		   source, 
+		   new String[] {
+			 "value", "@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"
 		   });		
 		addAnnotation
 		  (getContainer_OwnerId(), 
@@ -2099,10 +2106,34 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 			 "value", "@Id @GeneratedValue(generator=\"system-uuid\")"
 		   });		
 		addAnnotation
+		  (getSnapshot_PartOf(), 
+		   source, 
+		   new String[] {
+			 "value", "@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"
+		   });		
+		addAnnotation
 		  (getContentObject_ObjectId(), 
 		   source, 
 		   new String[] {
 			 "value", "@Id @GeneratedValue(generator=\"system-uuid\")"
+		   });		
+		addAnnotation
+		  (getContentObject_PartOf(), 
+		   source, 
+		   new String[] {
+			 "value", "@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"
+		   });		
+		addAnnotation
+		  (getFile_RootDir(), 
+		   source, 
+		   new String[] {
+			 "value", "@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"
+		   });		
+		addAnnotation
+		  (getFolder_RootDirectory(), 
+		   source, 
+		   new String[] {
+			 "value", "@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"
 		   });		
 		addAnnotation
 		  (getFileType_FileTypeId(), 

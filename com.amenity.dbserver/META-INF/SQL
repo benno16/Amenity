@@ -6,5 +6,17 @@ select password from "connection" c1, "container" c2 where c2."owner" = 'd58ae39
 select * from "user"
 select * from "container"
 select * from "connection"
+select * from "snapshot"
+select * from "contentobject" where "PARTOF" = '96d57c56-3dac-4505-b7e0-ec947d65e09f'
 
+select * from "contentobject" where "objectid" = 'a792a0ac-681e-44f9-a826-fa12b5b95c40'
 
+select count(*) from "contentobject"
+
+delete from "contentobject" cascade
+delete from "user"
+delete from "container"
+
+delete from "snapshot" where "snapshotid" != '9973384a-0051-455f-a12b-e682d1d4982f' cascade
+
+drop schema "PUBLIC" cascade

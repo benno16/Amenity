@@ -39,6 +39,14 @@
       </eParameters>
       <eParameters name="user" eType="#//User"/>
     </eOperations>
+    <eOperations name="massInsert" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="list" eType="#//List"/>
+      <eParameters name="class">
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaClass">
+          <eTypeArguments/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="persistentClass">
       <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaClass">
         <eTypeArguments/>
@@ -69,7 +77,11 @@
     <eOperations name="findMksPassword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eParameters name="user" eType="#//User"/>
     </eOperations>
+    <eOperations name="getListByContainer" eType="#//List">
+      <eParameters name="container" eType="#//Container"/>
+    </eOperations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FolderDao" eSuperTypes="#//GenericDao"/>
   <eClassifiers xsi:type="ecore:EClass" name="FileDao" eSuperTypes="#//GenericDao"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Container" instanceClassName="general.Container"/>
 </ecore:EPackage>

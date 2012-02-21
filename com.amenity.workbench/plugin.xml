@@ -269,7 +269,14 @@
                   style="push">
             </command>
             <command
+                  commandId="com.amenity.workbench.wizard.SnapshotWizardCommand"
+                  icon="icons/nuovext/devices/gnome-dev-computer.png"
+                  label="&amp;Add Snapshot"
+                  style="push">
+            </command>
+            <command
                   commandId="com.amenity.workbench.temp.Dao"
+                  icon="icons/nuovext/status/dialog-warning.png"
                   label="&amp;DAO Test"
                   style="push">
             </command>
@@ -344,6 +351,11 @@
             defaultHandler="com.amenity.workbench.temp.Logon"
             id="com.amenity.workbench.temp.Logon"
             name="&amp;Logon">
+      </command>
+      <command
+            defaultHandler="com.amenity.workbench.wizards.addSnapshot.SnapshotWizardCommand"
+            id="com.amenity.workbench.wizard.SnapshotWizardCommand"
+            name="SnapshotWizardCommand">
       </command>
    </extension>
    <extension

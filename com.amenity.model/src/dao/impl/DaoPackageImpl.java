@@ -137,6 +137,13 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 	private EDataType userEDataType = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType containerEDataType = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -355,6 +362,15 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EDataType getContainer() {
+		return containerEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public DaoFactory getDaoFactory() {
 		return (DaoFactory)getEFactoryInstance();
 	}
@@ -405,6 +421,7 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		sessionEDataType = createEDataType(SESSION);
 		sessionFactoryEDataType = createEDataType(SESSION_FACTORY);
 		userEDataType = createEDataType(USER);
+		containerEDataType = createEDataType(CONTAINER);
 	}
 
 	/**
@@ -485,6 +502,13 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		addEParameter(op, g1, "class_", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getUser(), "user", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(genericDaoEClass, ecorePackage.getEBoolean(), "massInsert", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getList(), "list", 0, 1, IS_UNIQUE, IS_ORDERED);
+		g1 = createEGenericType(ecorePackage.getEJavaClass());
+		g2 = createEGenericType();
+		g1.getETypeArguments().add(g2);
+		addEParameter(op, g1, "class_", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(hibernateUtilEClass, HibernateUtil.class, "HibernateUtil", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getHibernateUtil_SessionFactory(), this.getSessionFactory(), "sessionFactory", null, 0, 1, HibernateUtil.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -506,6 +530,9 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		op = addEOperation(connectionDaoEClass, ecorePackage.getEString(), "findMksPassword", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getUser(), "user", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(connectionDaoEClass, this.getList(), "getListByContainer", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getContainer(), "container", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(folderDaoEClass, FolderDao.class, "FolderDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(fileDaoEClass, FileDao.class, "FileDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -516,6 +543,7 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		initEDataType(sessionEDataType, Session.class, "Session", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(sessionFactoryEDataType, SessionFactory.class, "SessionFactory", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(userEDataType, User.class, "User", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(containerEDataType, general.Container.class, "Container", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

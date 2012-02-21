@@ -2,6 +2,10 @@
  */
 package dao;
 
+import java.util.List;
+
+import general.Connection;
+import general.Container;
 import general.User;
 
 /**
@@ -22,5 +26,7 @@ public interface ConnectionDao extends GenericDao {
 	 * @generated
 	 */
 	String findMksPassword(User user);
+
+	List<Connection> getListByContainer(Container container);
 
 } // ConnectionDao

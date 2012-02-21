@@ -35,7 +35,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link general.impl.FileImpl#getCreationDate <em>Creation Date</em>}</li>
  *   <li>{@link general.impl.FileImpl#getStatus <em>Status</em>}</li>
  *   <li>{@link general.impl.FileImpl#getRootDir <em>Root Dir</em>}</li>
- *   <li>{@link general.impl.FileImpl#getOfType <em>Of Type</em>}</li>
  *   <li>{@link general.impl.FileImpl#getHasProperty <em>Has Property</em>}</li>
  * </ul>
  * </p>
@@ -112,16 +111,6 @@ public class FileImpl extends ContentObjectImpl implements File {
 	 * @ordered
 	 */
 	protected Folder rootDir;
-
-	/**
-	 * The cached value of the '{@link #getOfType() <em>Of Type</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getOfType()
-	 * @generated
-	 * @ordered
-	 */
-	protected FileType ofType;
 
 	/**
 	 * The cached value of the '{@link #getHasProperty() <em>Has Property</em>}' reference list.
@@ -280,44 +269,6 @@ public class FileImpl extends ContentObjectImpl implements File {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FileType getOfType() {
-		if (ofType != null && ofType.eIsProxy()) {
-			InternalEObject oldOfType = (InternalEObject)ofType;
-			ofType = (FileType)eResolveProxy(oldOfType);
-			if (ofType != oldOfType) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GeneralPackage.FILE__OF_TYPE, oldOfType, ofType));
-			}
-		}
-		return ofType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FileType basicGetOfType() {
-		return ofType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setOfType(FileType newOfType) {
-		FileType oldOfType = ofType;
-		ofType = newOfType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.FILE__OF_TYPE, oldOfType, ofType));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<FileProperty> getHasProperty() {
 		if (hasProperty == null) {
 			hasProperty = new EObjectWithInverseResolvingEList<FileProperty>(FileProperty.class, this, GeneralPackage.FILE__HAS_PROPERTY, GeneralPackage.FILE_PROPERTY__OF);
@@ -377,9 +328,6 @@ public class FileImpl extends ContentObjectImpl implements File {
 			case GeneralPackage.FILE__ROOT_DIR:
 				if (resolve) return getRootDir();
 				return basicGetRootDir();
-			case GeneralPackage.FILE__OF_TYPE:
-				if (resolve) return getOfType();
-				return basicGetOfType();
 			case GeneralPackage.FILE__HAS_PROPERTY:
 				return getHasProperty();
 		}
@@ -406,9 +354,6 @@ public class FileImpl extends ContentObjectImpl implements File {
 				return;
 			case GeneralPackage.FILE__ROOT_DIR:
 				setRootDir((Folder)newValue);
-				return;
-			case GeneralPackage.FILE__OF_TYPE:
-				setOfType((FileType)newValue);
 				return;
 			case GeneralPackage.FILE__HAS_PROPERTY:
 				getHasProperty().clear();
@@ -438,9 +383,6 @@ public class FileImpl extends ContentObjectImpl implements File {
 			case GeneralPackage.FILE__ROOT_DIR:
 				setRootDir((Folder)null);
 				return;
-			case GeneralPackage.FILE__OF_TYPE:
-				setOfType((FileType)null);
-				return;
 			case GeneralPackage.FILE__HAS_PROPERTY:
 				getHasProperty().clear();
 				return;
@@ -464,8 +406,6 @@ public class FileImpl extends ContentObjectImpl implements File {
 				return STATUS_EDEFAULT == null ? status != null : !STATUS_EDEFAULT.equals(status);
 			case GeneralPackage.FILE__ROOT_DIR:
 				return rootDir != null;
-			case GeneralPackage.FILE__OF_TYPE:
-				return ofType != null;
 			case GeneralPackage.FILE__HAS_PROPERTY:
 				return hasProperty != null && !hasProperty.isEmpty();
 		}

@@ -97,6 +97,8 @@ public class DaoFactoryImpl extends EFactoryImpl implements DaoFactory {
 				return createSessionFactoryFromString(eDataType, initialValue);
 			case DaoPackage.USER:
 				return createUserFromString(eDataType, initialValue);
+			case DaoPackage.CONTAINER:
+				return createContainerFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -120,6 +122,8 @@ public class DaoFactoryImpl extends EFactoryImpl implements DaoFactory {
 				return convertSessionFactoryToString(eDataType, instanceValue);
 			case DaoPackage.USER:
 				return convertUserToString(eDataType, instanceValue);
+			case DaoPackage.CONTAINER:
+				return convertContainerToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -302,6 +306,24 @@ public class DaoFactoryImpl extends EFactoryImpl implements DaoFactory {
 	 * @generated
 	 */
 	public String convertUserToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public general.Container createContainerFromString(EDataType eDataType, String initialValue) {
+		return (general.Container)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertContainerToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
 	}
 

@@ -10,6 +10,7 @@
     <genDataTypes ecoreDataType="DAO.ecore#//Session"/>
     <genDataTypes ecoreDataType="DAO.ecore#//SessionFactory"/>
     <genDataTypes ecoreDataType="DAO.ecore#//User"/>
+    <genDataTypes ecoreDataType="DAO.ecore#//Container"/>
     <genClasses ecoreClass="DAO.ecore#//GenericDao">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DAO.ecore#//GenericDao/persistentClass"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DAO.ecore#//GenericDao/session"/>
@@ -38,6 +39,10 @@
         <genParameters ecoreParameter="DAO.ecore#//GenericDao/getListByOwner/class"/>
         <genParameters ecoreParameter="DAO.ecore#//GenericDao/getListByOwner/user"/>
       </genOperations>
+      <genOperations ecoreOperation="DAO.ecore#//GenericDao/massInsert">
+        <genParameters ecoreParameter="DAO.ecore#//GenericDao/massInsert/list"/>
+        <genParameters ecoreParameter="DAO.ecore#//GenericDao/massInsert/class"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="DAO.ecore#//HibernateUtil">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DAO.ecore#//HibernateUtil/sessionFactory"/>
@@ -55,6 +60,9 @@
     <genClasses ecoreClass="DAO.ecore#//ConnectionDao">
       <genOperations ecoreOperation="DAO.ecore#//ConnectionDao/findMksPassword">
         <genParameters ecoreParameter="DAO.ecore#//ConnectionDao/findMksPassword/user"/>
+      </genOperations>
+      <genOperations ecoreOperation="DAO.ecore#//ConnectionDao/getListByContainer">
+        <genParameters ecoreParameter="DAO.ecore#//ConnectionDao/getListByContainer/container"/>
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="DAO.ecore#//FolderDao"/>

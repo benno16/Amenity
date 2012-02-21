@@ -47,8 +47,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//Event/type"/>
     </genClasses>
     <genClasses ecoreClass="General.ecore#//DataSource">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//DataSource/dataSourceId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//DataSource/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//DataSource/dataSourceId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//DataSource/created"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//DataSource/modified"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//DataSource/addInfo1"/>
@@ -117,7 +117,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//File/creationDate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//File/status"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference General.ecore#//File/rootDir"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference General.ecore#//File/ofType"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference General.ecore#//File/hasProperty"/>
     </genClasses>
     <genClasses ecoreClass="General.ecore#//Folder">
@@ -184,6 +183,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//Task/description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//Task/created"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference General.ecore#//Task/owner"/>
+    </genClasses>
+    <genClasses ecoreClass="General.ecore#//SessionSatus">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//SessionSatus/mksStatus"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//SessionSatus/dbStatus"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//SessionSatus/synergySession"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

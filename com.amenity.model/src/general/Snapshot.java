@@ -154,6 +154,7 @@ public interface Snapshot extends EObject {
 	 * @see #setPartOf(Container)
 	 * @see general.GeneralPackage#getSnapshot_PartOf()
 	 * @model required="true"
+	 *        annotation="teneo.jpa value='@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})'"
 	 * @generated
 	 */
 	Container getPartOf();
@@ -239,7 +240,7 @@ public interface Snapshot extends EObject {
 	 * @return the value of the '<em>General</em>' reference.
 	 * @see #setGeneral(GeneralDocumentationFileProperty)
 	 * @see general.GeneralPackage#getSnapshot_General()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	GeneralDocumentationFileProperty getGeneral();

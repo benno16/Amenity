@@ -931,22 +931,13 @@ public interface GeneralPackage extends EPackage {
 	int FILE__ROOT_DIR = CONTENT_OBJECT_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Of Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FILE__OF_TYPE = CONTENT_OBJECT_FEATURE_COUNT + 4;
-
-	/**
 	 * The feature id for the '<em><b>Has Property</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FILE__HAS_PROPERTY = CONTENT_OBJECT_FEATURE_COUNT + 5;
+	int FILE__HAS_PROPERTY = CONTENT_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>File</em>' class.
@@ -955,7 +946,7 @@ public interface GeneralPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_FEATURE_COUNT = CONTENT_OBJECT_FEATURE_COUNT + 6;
+	int FILE_FEATURE_COUNT = CONTENT_OBJECT_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link general.impl.FolderImpl <em>Folder</em>}' class.
@@ -2826,17 +2817,6 @@ public interface GeneralPackage extends EPackage {
 	EReference getFile_RootDir();
 
 	/**
-	 * Returns the meta object for the reference '{@link general.File#getOfType <em>Of Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Of Type</em>'.
-	 * @see general.File#getOfType()
-	 * @see #getFile()
-	 * @generated
-	 */
-	EReference getFile_OfType();
-
-	/**
 	 * Returns the meta object for the reference list '{@link general.File#getHasProperty <em>Has Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4194,14 +4174,6 @@ public interface GeneralPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FILE__ROOT_DIR = eINSTANCE.getFile_RootDir();
-
-		/**
-		 * The meta object literal for the '<em><b>Of Type</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FILE__OF_TYPE = eINSTANCE.getFile_OfType();
 
 		/**
 		 * The meta object literal for the '<em><b>Has Property</b></em>' reference list feature.

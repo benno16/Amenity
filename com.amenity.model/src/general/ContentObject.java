@@ -227,6 +227,7 @@ public interface ContentObject extends EObject {
 	 * @see general.GeneralPackage#getContentObject_PartOf()
 	 * @see general.Snapshot#getStores
 	 * @model opposite="stores" required="true"
+	 *        annotation="teneo.jpa value='@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})'"
 	 * @generated
 	 */
 	Snapshot getPartOf();

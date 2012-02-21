@@ -51,7 +51,7 @@ public interface Folder extends ContentObject {
 	 * @return the value of the '<em>Root Directory</em>' reference.
 	 * @see #setRootDirectory(Folder)
 	 * @see general.GeneralPackage#getFolder_RootDirectory()
-	 * @model
+	 * @model annotation="teneo.jpa value='@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})'"
 	 * @generated
 	 */
 	Folder getRootDirectory();

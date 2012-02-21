@@ -431,6 +431,17 @@ public interface DaoPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '<em>Container</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see general.Container
+	 * @see dao.impl.DaoPackageImpl#getContainer()
+	 * @generated
+	 */
+	int CONTAINER = 14;
+
+
+	/**
 	 * Returns the meta object for class '{@link dao.GenericDao <em>Generic Dao</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -607,6 +618,17 @@ public interface DaoPackage extends EPackage {
 	 * @generated
 	 */
 	EDataType getUser();
+
+	/**
+	 * Returns the meta object for data type '{@link general.Container <em>Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Container</em>'.
+	 * @see general.Container
+	 * @model instanceClass="general.Container"
+	 * @generated
+	 */
+	EDataType getContainer();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -793,6 +815,16 @@ public interface DaoPackage extends EPackage {
 		 * @generated
 		 */
 		EDataType USER = eINSTANCE.getUser();
+
+		/**
+		 * The meta object literal for the '<em>Container</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see general.Container
+		 * @see dao.impl.DaoPackageImpl#getContainer()
+		 * @generated
+		 */
+		EDataType CONTAINER = eINSTANCE.getContainer();
 
 	}
 

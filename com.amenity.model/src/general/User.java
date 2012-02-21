@@ -256,6 +256,7 @@ public interface User extends EObject {
 	 * @see general.GeneralPackage#getUser_Event()
 	 * @see general.Event#getUser
 	 * @model opposite="user"
+	 *        annotation="teneo.jpa value='@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})'"
 	 * @generated
 	 */
 	EList<Event> getEvent();

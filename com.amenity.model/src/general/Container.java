@@ -226,7 +226,7 @@ public interface Container extends EObject {
 	 * @return the value of the '<em>Owner</em>' reference.
 	 * @see #setOwner(User)
 	 * @see general.GeneralPackage#getContainer_Owner()
-	 * @model
+	 * @model annotation="teneo.jpa value='@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})'"
 	 * @generated
 	 */
 	User getOwner();

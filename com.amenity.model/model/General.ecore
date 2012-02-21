@@ -21,7 +21,11 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timesUsed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="event" upperBound="-1"
-        eType="#//Event" eOpposite="#//Event/user"/>
+        eType="#//Event" eOpposite="#//Event/user">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Date" instanceClassName="java.util.Date"/>
   <eClassifiers xsi:type="ecore:EClass" name="Event">
@@ -103,7 +107,11 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="modified" eType="#//Date"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastUsed" eType="#//Date"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="partOf" lowerBound="1"
-        eType="#//Container"/>
+        eType="#//Container">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="EReference0" eType="#//Snapshot"
         containment="true"/>
@@ -122,11 +130,13 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="addInfo1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="addInfo2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="addInfo3" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//User"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ownerId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="teneo.jpa"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//User">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"/>
+      </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ownerId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Snapshot">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="snapshotId" lowerBound="1"
@@ -140,14 +150,17 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="partOf" lowerBound="1"
-        eType="#//Container"/>
+        eType="#//Container">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="stores" upperBound="-1"
         eType="#//ContentObject" eOpposite="#//ContentObject/partOf"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="functions" upperBound="-1"
         eType="#//Function"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="general" lowerBound="1"
-        eType="#//GeneralDocumentationFileProperty"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="general" eType="#//GeneralDocumentationFileProperty"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="systemComponent" eType="#//SystemComponentLevelDocumentationFileProperty"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="EReference0" eType="#//SystemComponentLevelDocumentationFileProperty"
         containment="true"/>
@@ -170,23 +183,33 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="release" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="modfiedDate" eType="#//Date"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="partOf" lowerBound="1"
-        eType="#//Snapshot" eOpposite="#//Snapshot/stores"/>
+        eType="#//Snapshot" eOpposite="#//Snapshot/stores">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="File" eSuperTypes="#//ContentObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="objectName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="creationDate" eType="#//Date"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rootDir" lowerBound="1"
-        eType="#//Folder" eOpposite="#//Folder/children"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ofType" lowerBound="1"
-        eType="#//FileType"/>
+        eType="#//Folder" eOpposite="#//Folder/children">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hasProperty" upperBound="-1"
         eType="#//FileProperty" eOpposite="#//FileProperty/of"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Folder" eSuperTypes="#//ContentObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
         eType="#//File" eOpposite="#//File/rootDir"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rootDirectory" eType="#//Folder"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rootDirectory" eType="#//Folder">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FileType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fileTypeId" lowerBound="1"

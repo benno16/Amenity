@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link general.ContentObject#getRelease <em>Release</em>}</li>
  *   <li>{@link general.ContentObject#getModfiedDate <em>Modfied Date</em>}</li>
  *   <li>{@link general.ContentObject#getPartOf <em>Part Of</em>}</li>
+ *   <li>{@link general.ContentObject#getFullName <em>Full Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -241,5 +242,31 @@ public interface ContentObject extends EObject {
 	 * @generated
 	 */
 	void setPartOf(Snapshot value);
+
+	/**
+	 * Returns the value of the '<em><b>Full Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Full Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Full Name</em>' attribute.
+	 * @see #setFullName(String)
+	 * @see general.GeneralPackage#getContentObject_FullName()
+	 * @model
+	 * @generated
+	 */
+	String getFullName();
+
+	/**
+	 * Sets the value of the '{@link general.ContentObject#getFullName <em>Full Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Full Name</em>' attribute.
+	 * @see #getFullName()
+	 * @generated
+	 */
+	void setFullName(String value);
 
 } // ContentObject

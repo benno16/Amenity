@@ -111,6 +111,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//ContentObject/release"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//ContentObject/modfiedDate"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference General.ecore#//ContentObject/partOf"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//ContentObject/fullName"/>
     </genClasses>
     <genClasses ecoreClass="General.ecore#//File">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//File/objectName"/>
@@ -118,6 +119,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//File/status"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference General.ecore#//File/rootDir"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference General.ecore#//File/hasProperty"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//File/suffix"/>
     </genClasses>
     <genClasses ecoreClass="General.ecore#//Folder">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference General.ecore#//Folder/children"/>

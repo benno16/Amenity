@@ -11,6 +11,7 @@ import dao.DaoPackage;
 import dao.FileDao;
 
 import org.eclipse.emf.ecore.EClass;
+import org.hibernate.Query;
 import org.hibernate.Transaction;
 
 /**
@@ -40,6 +41,18 @@ public class FileDaoImpl extends GenericDaoImpl implements FileDao {
 	@Override
 	protected EClass eStaticClass() {
 		return DaoPackage.Literals.FILE_DAO;
+	}
+
+	@Override
+	public File getById(String id) {
+		session = getSession();
+		session.beginTransaction();
+		String string = "from " + File.class.getName().toString() + 
+				" where objectId = '" + id + "'";
+		Query queryRes = session.createQuery(string);
+		List<File> resultList = queryRes.list();
+		session.close();
+		return resultList.get(0);
 	}
 
 	@Override

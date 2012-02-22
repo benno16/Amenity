@@ -21,7 +21,6 @@ public class IconFactory implements IIconFactory {
 		} else {
 			return id;
 		}
-		
 	}
 	
 	public static IconFactory getInstance() {

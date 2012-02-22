@@ -998,6 +998,15 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getContentObject_FullName() {
+		return (EAttribute)contentObjectEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFile() {
 		return fileEClass;
 	}
@@ -1045,6 +1054,15 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 */
 	public EReference getFile_HasProperty() {
 		return (EReference)fileEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFile_Suffix() {
+		return (EAttribute)fileEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1707,6 +1725,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		createEAttribute(contentObjectEClass, CONTENT_OBJECT__RELEASE);
 		createEAttribute(contentObjectEClass, CONTENT_OBJECT__MODFIED_DATE);
 		createEReference(contentObjectEClass, CONTENT_OBJECT__PART_OF);
+		createEAttribute(contentObjectEClass, CONTENT_OBJECT__FULL_NAME);
 
 		fileEClass = createEClass(FILE);
 		createEAttribute(fileEClass, FILE__OBJECT_NAME);
@@ -1714,6 +1733,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		createEAttribute(fileEClass, FILE__STATUS);
 		createEReference(fileEClass, FILE__ROOT_DIR);
 		createEReference(fileEClass, FILE__HAS_PROPERTY);
+		createEAttribute(fileEClass, FILE__SUFFIX);
 
 		folderEClass = createEClass(FOLDER);
 		createEReference(folderEClass, FOLDER__CHILDREN);
@@ -1913,6 +1933,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		initEAttribute(getContentObject_Release(), ecorePackage.getEString(), "release", null, 0, 1, ContentObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getContentObject_ModfiedDate(), this.getDate(), "modfiedDate", null, 0, 1, ContentObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getContentObject_PartOf(), this.getSnapshot(), this.getSnapshot_Stores(), "partOf", null, 1, 1, ContentObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getContentObject_FullName(), ecorePackage.getEString(), "fullName", null, 0, 1, ContentObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fileEClass, File.class, "File", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFile_ObjectName(), ecorePackage.getEString(), "objectName", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1920,6 +1941,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		initEAttribute(getFile_Status(), ecorePackage.getEString(), "status", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFile_RootDir(), this.getFolder(), this.getFolder_Children(), "rootDir", null, 1, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFile_HasProperty(), this.getFileProperty(), this.getFileProperty_Of(), "hasProperty", null, 0, -1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFile_Suffix(), ecorePackage.getEString(), "suffix", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(folderEClass, Folder.class, "Folder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFolder_Children(), this.getFile(), this.getFile_RootDir(), "children", null, 0, -1, Folder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2093,11 +2115,6 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		   source, 
 		   new String[] {
 			 "value", "@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"
-		   });		
-		addAnnotation
-		  (getContainer_OwnerId(), 
-		   source, 
-		   new String[] {
 		   });		
 		addAnnotation
 		  (getSnapshot_SnapshotId(), 

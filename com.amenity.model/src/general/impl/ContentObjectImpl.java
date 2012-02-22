@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link general.impl.ContentObjectImpl#getRelease <em>Release</em>}</li>
  *   <li>{@link general.impl.ContentObjectImpl#getModfiedDate <em>Modfied Date</em>}</li>
  *   <li>{@link general.impl.ContentObjectImpl#getPartOf <em>Part Of</em>}</li>
+ *   <li>{@link general.impl.ContentObjectImpl#getFullName <em>Full Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -175,6 +176,26 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 	 * @ordered
 	 */
 	protected Snapshot partOf;
+
+	/**
+	 * The default value of the '{@link #getFullName() <em>Full Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFullName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String FULL_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getFullName() <em>Full Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFullName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String fullName = FULL_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -411,6 +432,27 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getFullName() {
+		return fullName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFullName(String newFullName) {
+		String oldFullName = fullName;
+		fullName = newFullName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.CONTENT_OBJECT__FULL_NAME, oldFullName, fullName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -459,6 +501,8 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 			case GeneralPackage.CONTENT_OBJECT__PART_OF:
 				if (resolve) return getPartOf();
 				return basicGetPartOf();
+			case GeneralPackage.CONTENT_OBJECT__FULL_NAME:
+				return getFullName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -491,6 +535,9 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 				return;
 			case GeneralPackage.CONTENT_OBJECT__PART_OF:
 				setPartOf((Snapshot)newValue);
+				return;
+			case GeneralPackage.CONTENT_OBJECT__FULL_NAME:
+				setFullName((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -525,6 +572,9 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 			case GeneralPackage.CONTENT_OBJECT__PART_OF:
 				setPartOf((Snapshot)null);
 				return;
+			case GeneralPackage.CONTENT_OBJECT__FULL_NAME:
+				setFullName(FULL_NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -551,6 +601,8 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 				return MODFIED_DATE_EDEFAULT == null ? modfiedDate != null : !MODFIED_DATE_EDEFAULT.equals(modfiedDate);
 			case GeneralPackage.CONTENT_OBJECT__PART_OF:
 				return partOf != null;
+			case GeneralPackage.CONTENT_OBJECT__FULL_NAME:
+				return FULL_NAME_EDEFAULT == null ? fullName != null : !FULL_NAME_EDEFAULT.equals(fullName);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -577,6 +629,8 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 		result.append(release);
 		result.append(", modfiedDate: ");
 		result.append(modfiedDate);
+		result.append(", fullName: ");
+		result.append(fullName);
 		result.append(')');
 		return result.toString();
 	}

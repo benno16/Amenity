@@ -19,6 +19,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link general.File#getStatus <em>Status</em>}</li>
  *   <li>{@link general.File#getRootDir <em>Root Dir</em>}</li>
  *   <li>{@link general.File#getHasProperty <em>Has Property</em>}</li>
+ *   <li>{@link general.File#getSuffix <em>Suffix</em>}</li>
  * </ul>
  * </p>
  *
@@ -151,5 +152,31 @@ public interface File extends ContentObject {
 	 * @generated
 	 */
 	EList<FileProperty> getHasProperty();
+
+	/**
+	 * Returns the value of the '<em><b>Suffix</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Suffix</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Suffix</em>' attribute.
+	 * @see #setSuffix(String)
+	 * @see general.GeneralPackage#getFile_Suffix()
+	 * @model
+	 * @generated
+	 */
+	String getSuffix();
+
+	/**
+	 * Sets the value of the '{@link general.File#getSuffix <em>Suffix</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Suffix</em>' attribute.
+	 * @see #getSuffix()
+	 * @generated
+	 */
+	void setSuffix(String value);
 
 } // File

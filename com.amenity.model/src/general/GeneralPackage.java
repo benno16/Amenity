@@ -813,13 +813,22 @@ public interface GeneralPackage extends EPackage {
 	int CONTENT_OBJECT__PART_OF = 6;
 
 	/**
+	 * The feature id for the '<em><b>Full Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTENT_OBJECT__FULL_NAME = 7;
+
+	/**
 	 * The number of structural features of the '<em>Content Object</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTENT_OBJECT_FEATURE_COUNT = 7;
+	int CONTENT_OBJECT_FEATURE_COUNT = 8;
 
 	/**
 	 * The meta object id for the '{@link general.impl.FileImpl <em>File</em>}' class.
@@ -895,6 +904,15 @@ public interface GeneralPackage extends EPackage {
 	int FILE__PART_OF = CONTENT_OBJECT__PART_OF;
 
 	/**
+	 * The feature id for the '<em><b>Full Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE__FULL_NAME = CONTENT_OBJECT__FULL_NAME;
+
+	/**
 	 * The feature id for the '<em><b>Object Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -940,13 +958,22 @@ public interface GeneralPackage extends EPackage {
 	int FILE__HAS_PROPERTY = CONTENT_OBJECT_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Suffix</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE__SUFFIX = CONTENT_OBJECT_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>File</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_FEATURE_COUNT = CONTENT_OBJECT_FEATURE_COUNT + 5;
+	int FILE_FEATURE_COUNT = CONTENT_OBJECT_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link general.impl.FolderImpl <em>Folder</em>}' class.
@@ -1020,6 +1047,15 @@ public interface GeneralPackage extends EPackage {
 	 * @ordered
 	 */
 	int FOLDER__PART_OF = CONTENT_OBJECT__PART_OF;
+
+	/**
+	 * The feature id for the '<em><b>Full Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOLDER__FULL_NAME = CONTENT_OBJECT__FULL_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' reference list.
@@ -2763,6 +2799,17 @@ public interface GeneralPackage extends EPackage {
 	EReference getContentObject_PartOf();
 
 	/**
+	 * Returns the meta object for the attribute '{@link general.ContentObject#getFullName <em>Full Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Full Name</em>'.
+	 * @see general.ContentObject#getFullName()
+	 * @see #getContentObject()
+	 * @generated
+	 */
+	EAttribute getContentObject_FullName();
+
+	/**
 	 * Returns the meta object for class '{@link general.File <em>File</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2826,6 +2873,17 @@ public interface GeneralPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFile_HasProperty();
+
+	/**
+	 * Returns the meta object for the attribute '{@link general.File#getSuffix <em>Suffix</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Suffix</em>'.
+	 * @see general.File#getSuffix()
+	 * @see #getFile()
+	 * @generated
+	 */
+	EAttribute getFile_Suffix();
 
 	/**
 	 * Returns the meta object for class '{@link general.Folder <em>Folder</em>}'.
@@ -4134,6 +4192,14 @@ public interface GeneralPackage extends EPackage {
 		EReference CONTENT_OBJECT__PART_OF = eINSTANCE.getContentObject_PartOf();
 
 		/**
+		 * The meta object literal for the '<em><b>Full Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONTENT_OBJECT__FULL_NAME = eINSTANCE.getContentObject_FullName();
+
+		/**
 		 * The meta object literal for the '{@link general.impl.FileImpl <em>File</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4182,6 +4248,14 @@ public interface GeneralPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FILE__HAS_PROPERTY = eINSTANCE.getFile_HasProperty();
+
+		/**
+		 * The meta object literal for the '<em><b>Suffix</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FILE__SUFFIX = eINSTANCE.getFile_Suffix();
 
 		/**
 		 * The meta object literal for the '{@link general.impl.FolderImpl <em>Folder</em>}' class.

@@ -7,9 +7,9 @@ select * from "user"
 select * from "container"
 select * from "connection"
 select * from "snapshot"
-select * from "contentobject" where "PARTOF" = '96d57c56-3dac-4505-b7e0-ec947d65e09f'
+select * from "contentobject" where "PARTOF" = 'a058b6ae-4de0-40ea-a88b-d8da6aa8fd60'
 
-select * from "contentobject" where "objectid" = 'a792a0ac-681e-44f9-a826-fa12b5b95c40'
+select * from "contentobject" where "objectid" = '0627723f-c36c-47cb-b930-73908b838ac7'
 
 select count(*) from "contentobject"
 

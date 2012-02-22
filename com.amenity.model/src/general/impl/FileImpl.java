@@ -4,7 +4,6 @@ package general.impl;
 
 import general.File;
 import general.FileProperty;
-import general.FileType;
 import general.Folder;
 import general.GeneralPackage;
 
@@ -36,6 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link general.impl.FileImpl#getStatus <em>Status</em>}</li>
  *   <li>{@link general.impl.FileImpl#getRootDir <em>Root Dir</em>}</li>
  *   <li>{@link general.impl.FileImpl#getHasProperty <em>Has Property</em>}</li>
+ *   <li>{@link general.impl.FileImpl#getSuffix <em>Suffix</em>}</li>
  * </ul>
  * </p>
  *
@@ -121,6 +121,26 @@ public class FileImpl extends ContentObjectImpl implements File {
 	 * @ordered
 	 */
 	protected EList<FileProperty> hasProperty;
+
+	/**
+	 * The default value of the '{@link #getSuffix() <em>Suffix</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSuffix()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SUFFIX_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getSuffix() <em>Suffix</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSuffix()
+	 * @generated
+	 * @ordered
+	 */
+	protected String suffix = SUFFIX_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -281,6 +301,27 @@ public class FileImpl extends ContentObjectImpl implements File {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getSuffix() {
+		return suffix;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSuffix(String newSuffix) {
+		String oldSuffix = suffix;
+		suffix = newSuffix;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.FILE__SUFFIX, oldSuffix, suffix));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -330,6 +371,8 @@ public class FileImpl extends ContentObjectImpl implements File {
 				return basicGetRootDir();
 			case GeneralPackage.FILE__HAS_PROPERTY:
 				return getHasProperty();
+			case GeneralPackage.FILE__SUFFIX:
+				return getSuffix();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -359,6 +402,9 @@ public class FileImpl extends ContentObjectImpl implements File {
 				getHasProperty().clear();
 				getHasProperty().addAll((Collection<? extends FileProperty>)newValue);
 				return;
+			case GeneralPackage.FILE__SUFFIX:
+				setSuffix((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -386,6 +432,9 @@ public class FileImpl extends ContentObjectImpl implements File {
 			case GeneralPackage.FILE__HAS_PROPERTY:
 				getHasProperty().clear();
 				return;
+			case GeneralPackage.FILE__SUFFIX:
+				setSuffix(SUFFIX_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -408,6 +457,8 @@ public class FileImpl extends ContentObjectImpl implements File {
 				return rootDir != null;
 			case GeneralPackage.FILE__HAS_PROPERTY:
 				return hasProperty != null && !hasProperty.isEmpty();
+			case GeneralPackage.FILE__SUFFIX:
+				return SUFFIX_EDEFAULT == null ? suffix != null : !SUFFIX_EDEFAULT.equals(suffix);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -428,6 +479,8 @@ public class FileImpl extends ContentObjectImpl implements File {
 		result.append(creationDate);
 		result.append(", status: ");
 		result.append(status);
+		result.append(", suffix: ");
+		result.append(suffix);
 		result.append(')');
 		return result.toString();
 	}

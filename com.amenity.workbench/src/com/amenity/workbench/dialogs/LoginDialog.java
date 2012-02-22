@@ -128,7 +128,11 @@ public class LoginDialog extends Dialog {
 		else 
 			lblNewLabel.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/hypersql_off.png"));
 		
-		lblNewLabel.setBounds(268, 61, 48, 48);
+		lblNewLabel.setBounds(116, 83, 32, 32);
+		
+		Label lblDatabaseStatus = new Label(container, SWT.NONE);
+		lblDatabaseStatus.setBounds(10, 83, 100, 15);
+		lblDatabaseStatus.setText("Database Status");
 
 		return container;
 	}
@@ -232,5 +236,4 @@ public class LoginDialog extends Dialog {
 				IStatus.OK, "Please confirm your username!", new Exception());
 		
 	}
-
 }

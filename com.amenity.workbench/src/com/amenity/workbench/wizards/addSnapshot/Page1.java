@@ -128,7 +128,7 @@ public class Page1 extends WizardPage {
 				Job job = new Job("First Job") {
 					@Override
 					protected IStatus run(IProgressMonitor monitor) {
-						doLongThing();
+//						doLongThing();
 						syncWithUi();
 						// Use this to open a Shell in the UI thread
 						return Status.OK_STATUS;

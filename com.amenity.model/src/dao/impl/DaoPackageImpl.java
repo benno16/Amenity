@@ -12,6 +12,7 @@ import dao.FolderDao;
 import dao.GeneralQueries;
 import dao.GenericDao;
 import dao.HibernateUtil;
+import dao.SnapshotDao;
 import dao.UserDao;
 
 import general.User;
@@ -100,6 +101,13 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 	 * @generated
 	 */
 	private EClass fileDaoEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass snapshotDaoEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -317,6 +325,15 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getSnapshotDao() {
+		return snapshotDaoEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EDataType getList() {
 		return listEDataType;
 	}
@@ -415,6 +432,8 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 
 		fileDaoEClass = createEClass(FILE_DAO);
 
+		snapshotDaoEClass = createEClass(SNAPSHOT_DAO);
+
 		// Create data types
 		listEDataType = createEDataType(LIST);
 		queryEDataType = createEDataType(QUERY);
@@ -459,6 +478,7 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		connectionDaoEClass.getESuperTypes().add(this.getGenericDao());
 		folderDaoEClass.getESuperTypes().add(this.getGenericDao());
 		fileDaoEClass.getESuperTypes().add(this.getGenericDao());
+		snapshotDaoEClass.getESuperTypes().add(this.getGenericDao());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(genericDaoEClass, GenericDao.class, "GenericDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -536,6 +556,11 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		initEClass(folderDaoEClass, FolderDao.class, "FolderDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(fileDaoEClass, FileDao.class, "FileDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(snapshotDaoEClass, SnapshotDao.class, "SnapshotDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		op = addEOperation(snapshotDaoEClass, this.getList(), "getListByContainer", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "containerId", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		// Initialize data types
 		initEDataType(listEDataType, List.class, "List", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

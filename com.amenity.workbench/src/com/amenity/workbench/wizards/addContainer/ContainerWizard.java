@@ -49,7 +49,6 @@ public class ContainerWizard extends Wizard {
 		container.setAddInfo1(one.getTxtDescription());
 		container.setCreated(new Date());
 		container.setOwnerId(SessionSourceProvider.USERID);
-//		container.getOwner().setUserId(SessionSourceProvider.USER);
 		container.setOwner(SessionSourceProvider.USER);
 		
 		ContainerDao containerDao = DaoFactory.eINSTANCE.createContainerDao();

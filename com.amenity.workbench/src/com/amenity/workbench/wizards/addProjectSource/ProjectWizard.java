@@ -84,16 +84,16 @@ public class ProjectWizard extends Wizard {
 		return one;
 	}
 	
-	@Override
-	public boolean canFinish() {
-		/**
-		 * TODO: Page 4 with save options 
-		 */
-		if ( this.getContainer().getCurrentPage() == three_mks || 
-				this.getContainer().getCurrentPage() == three_sgy )
-			return true;
-		return false;
-	}
+//	@Override
+//	public boolean canFinish() {
+//		/**
+//		 * TODO: Page 4 with save options 
+//		 */
+//		if ( this.getContainer().getCurrentPage() == three_mks || 
+//				this.getContainer().getCurrentPage() == three_sgy )
+//			return true;
+//		return false;
+//	}
 
 	@Override
 	public boolean performFinish() {
@@ -108,6 +108,8 @@ public class ProjectWizard extends Wizard {
 		} else {
 			connection.setAddInfo4("Online");
 		}
+		connection.setAddInfo1(three_mks.text.getText());
+		connection.setAddInfo2(three_mks.text_1.getText());
 		connection.setProject(three_mks.combo.getItem(three_mks.combo.getSelectionIndex()));
 		connection.setCreated(new Date());
 		ConnectionDao connectionDao = DaoFactory.eINSTANCE.createConnectionDao();

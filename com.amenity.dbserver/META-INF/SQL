@@ -9,7 +9,7 @@ select * from "connection"
 select * from "snapshot"
 select * from "contentobject" where "PARTOF" = 'a058b6ae-4de0-40ea-a88b-d8da6aa8fd60'
 
-select * from "contentobject" where "objectid" = '0627723f-c36c-47cb-b930-73908b838ac7'
+select * from "contentobject" where "objectid" = '2a5b3bfa-d676-4860-a469-220d84d706f6'
 
 select count(*) from "contentobject"
 

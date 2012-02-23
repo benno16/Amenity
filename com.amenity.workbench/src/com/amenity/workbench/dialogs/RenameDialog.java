@@ -27,6 +27,7 @@ public class RenameDialog extends Dialog {
 	/**
 	 * Create the dialog.
 	 * @param parentShell
+	 * @wbp.parser.constructor
 	 */
 	public RenameDialog(Shell parentShell ) {
 		super(parentShell);

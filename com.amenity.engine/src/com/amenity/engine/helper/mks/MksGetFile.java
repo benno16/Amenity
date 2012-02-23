@@ -6,6 +6,7 @@ import general.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.mks.api.CmdRunner;
 import com.mks.api.Command;
@@ -35,19 +36,39 @@ public class MksGetFile {
 		this.file = file;
 	}
 	
-	@SuppressWarnings("deprecation")
-	public String openFile() {
+	public String openFile() throws IOException {
+		
+		String amenityTempFolder = "D:\\temp\\amenity\\";
+		java.io.File f = new java.io.File(amenityTempFolder);
 		
 		Runtime r = Runtime.getRuntime();
-		String test = "cmd /C si viewrevision -P " + connection.getProject() +
-				"  --revision=" + file.getVersion() + " " +
-				file.getName() + " > \"D:/temp/" + file.getName() + "\"";
-		System.out.println(test);
+		Process p;
+		if ( !f.isDirectory() ) {
+			String amo = "cmd /C mkdir " + amenityTempFolder;
+			System.err.println(amo);
+			p = r.exec(amo);
+		}
+		
+		String filename = amenityTempFolder + UUID.randomUUID().toString() + "_" + file.getName();
+		String fetchFileAmo = "cmd /C si viewrevision -P " + 
+				file.getFullName().replace(file.getName(), "project.pj") +
+				"  --revision=" + file.getVersion() + " \"" +
+				file.getName() + "\"" + " > \"" + filename + "\"";
+		String openFileAmo = "cmd /C \"" + filename + "\"";
 		try {
-			Process p = r.exec(test);
-			
+			p = r.exec(fetchFileAmo);
+			try {
+				System.out.println("--starting waiting");
+				p.waitFor();
+				Thread.sleep(100);
+				System.out.println("--finished waiting");
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			p = r.exec(openFileAmo);
+//			p = r.exec(filename);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -99,7 +120,6 @@ public class MksGetFile {
 //	            System.out.println(ioe.getMessage());
 //	        }
 //	    }
-		
-		return "d:/temp/output.txt";
+		return "";
 	}
 }

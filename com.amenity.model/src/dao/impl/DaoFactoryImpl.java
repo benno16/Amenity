@@ -74,6 +74,7 @@ public class DaoFactoryImpl extends EFactoryImpl implements DaoFactory {
 			case DaoPackage.CONNECTION_DAO: return createConnectionDao();
 			case DaoPackage.FOLDER_DAO: return createFolderDao();
 			case DaoPackage.FILE_DAO: return createFileDao();
+			case DaoPackage.SNAPSHOT_DAO: return createSnapshotDao();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -217,6 +218,16 @@ public class DaoFactoryImpl extends EFactoryImpl implements DaoFactory {
 	public FileDao createFileDao() {
 		FileDaoImpl fileDao = new FileDaoImpl();
 		return fileDao;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SnapshotDao createSnapshotDao() {
+		SnapshotDaoImpl snapshotDao = new SnapshotDaoImpl();
+		return snapshotDao;
 	}
 
 	/**

@@ -71,6 +71,7 @@ public class ConnectionDaoImpl extends GenericDaoImpl implements ConnectionDao {
 				Container.class.getName().toString() + " c2 where c2.owner = '" + 
 				user.getUserId() + "'";
 		Query queryRes = session.createQuery(string);
+		@SuppressWarnings("unchecked")
 		List<Connection> resultList = queryRes.list();
 		session.close();
 		return resultList;
@@ -88,6 +89,7 @@ public class ConnectionDaoImpl extends GenericDaoImpl implements ConnectionDao {
 		String string = "from " + Connection.class.getName().toString() + 
 				" where partOf = '" + container.getContainerId() + "'";
 		Query queryRes = session.createQuery(string);
+		@SuppressWarnings("unchecked")
 		List<Connection> resultList = queryRes.list();
 		session.close();
 		return resultList;

@@ -380,6 +380,43 @@ public interface DaoPackage extends EPackage {
 	int FILE_DAO_FEATURE_COUNT = GENERIC_DAO_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link dao.impl.SnapshotDaoImpl <em>Snapshot Dao</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see dao.impl.SnapshotDaoImpl
+	 * @see dao.impl.DaoPackageImpl#getSnapshotDao()
+	 * @generated
+	 */
+	int SNAPSHOT_DAO = 9;
+
+	/**
+	 * The feature id for the '<em><b>Persistent Class</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SNAPSHOT_DAO__PERSISTENT_CLASS = GENERIC_DAO__PERSISTENT_CLASS;
+
+	/**
+	 * The feature id for the '<em><b>Session</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SNAPSHOT_DAO__SESSION = GENERIC_DAO__SESSION;
+
+	/**
+	 * The number of structural features of the '<em>Snapshot Dao</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SNAPSHOT_DAO_FEATURE_COUNT = GENERIC_DAO_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '<em>List</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -387,7 +424,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getList()
 	 * @generated
 	 */
-	int LIST = 9;
+	int LIST = 10;
 
 	/**
 	 * The meta object id for the '<em>Query</em>' data type.
@@ -397,7 +434,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getQuery()
 	 * @generated
 	 */
-	int QUERY = 10;
+	int QUERY = 11;
 
 	/**
 	 * The meta object id for the '<em>Session</em>' data type.
@@ -407,7 +444,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getSession()
 	 * @generated
 	 */
-	int SESSION = 11;
+	int SESSION = 12;
 
 	/**
 	 * The meta object id for the '<em>Session Factory</em>' data type.
@@ -417,7 +454,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getSessionFactory()
 	 * @generated
 	 */
-	int SESSION_FACTORY = 12;
+	int SESSION_FACTORY = 13;
 
 	/**
 	 * The meta object id for the '<em>User</em>' data type.
@@ -427,7 +464,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getUser()
 	 * @generated
 	 */
-	int USER = 13;
+	int USER = 14;
 
 
 	/**
@@ -438,7 +475,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getContainer()
 	 * @generated
 	 */
-	int CONTAINER = 14;
+	int CONTAINER = 15;
 
 
 	/**
@@ -563,6 +600,16 @@ public interface DaoPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getFileDao();
+
+	/**
+	 * Returns the meta object for class '{@link dao.SnapshotDao <em>Snapshot Dao</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Snapshot Dao</em>'.
+	 * @see dao.SnapshotDao
+	 * @generated
+	 */
+	EClass getSnapshotDao();
 
 	/**
 	 * Returns the meta object for data type '{@link java.util.List <em>List</em>}'.
@@ -765,6 +812,16 @@ public interface DaoPackage extends EPackage {
 		 * @generated
 		 */
 		EClass FILE_DAO = eINSTANCE.getFileDao();
+
+		/**
+		 * The meta object literal for the '{@link dao.impl.SnapshotDaoImpl <em>Snapshot Dao</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see dao.impl.SnapshotDaoImpl
+		 * @see dao.impl.DaoPackageImpl#getSnapshotDao()
+		 * @generated
+		 */
+		EClass SNAPSHOT_DAO = eINSTANCE.getSnapshotDao();
 
 		/**
 		 * The meta object literal for the '<em>List</em>' data type.

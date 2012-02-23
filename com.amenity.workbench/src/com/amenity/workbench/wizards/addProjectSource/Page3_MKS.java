@@ -15,6 +15,8 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Text;
 
 import com.amenity.engine.helper.mks.MksLogin;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 
 public class Page3_MKS extends WizardPage {
 
@@ -26,6 +28,8 @@ public class Page3_MKS extends WizardPage {
 	private Label lblConnectionName;
 	Text text;
 	List<String> projects;
+	private Label lblAdditionalInformation;
+	Text text_1;
 	
 	
 	/**
@@ -106,10 +110,10 @@ public class Page3_MKS extends WizardPage {
 		btnShow.setText("Show");
 		
 		Label label = new Label(container, SWT.SEPARATOR | SWT.HORIZONTAL);
-		label.setBounds(10, 75, 554, 2);
+		label.setBounds(10, 85, 554, 2);
 		
 		Label lblSelectProject = new Label(container, SWT.NONE);
-		lblSelectProject.setBounds(10, 83, 101, 15);
+		lblSelectProject.setBounds(10, 101, 101, 15);
 		lblSelectProject.setText("Select Project");
 		
 		label_1 = new Label(container, SWT.NONE);
@@ -126,16 +130,35 @@ public class Page3_MKS extends WizardPage {
 //		});
 		combo.setBounds(10, 122, 554, 23);
 		
-		Button btnSave = new Button(container, SWT.NONE);
-		btnSave.setBounds(489, 199, 75, 25);
-		btnSave.setText("Save");
-		
 		lblConnectionName = new Label(container, SWT.NONE);
 		lblConnectionName.setBounds(10, 151, 101, 15);
 		lblConnectionName.setText("Connection Name");
 		
 		text = new Text(container, SWT.BORDER);
+		text.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if ( text.getText().length() > 0 ) {
+					setMessage("Select whether to use sandbox or " +
+							"an online project and your project. \n" +
+							"Enter a connection name",INFORMATION);
+					System.out.println("-- OK " + text.getText().length());
+					setPageComplete(true);
+				} else {
+					setPageComplete(false);
+					System.out.println("-- Not OK " + text.getText().length());
+					setMessage("Please name your connection",WARNING);
+				}
+			}
+		});
 		text.setBounds(10, 172, 554, 21);
+		
+		lblAdditionalInformation = new Label(container, SWT.NONE);
+		lblAdditionalInformation.setBounds(10, 199, 133, 13);
+		lblAdditionalInformation.setText("Additional Information");
+		
+		text_1 = new Text(container, SWT.BORDER);
+		text_1.setBounds(10, 218, 554, 19);
 		setPageComplete ( false );
 	}
 }

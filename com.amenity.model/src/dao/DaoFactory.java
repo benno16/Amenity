@@ -103,6 +103,15 @@ public interface DaoFactory extends EFactory {
 	FileDao createFileDao();
 
 	/**
+	 * Returns a new object of class '<em>Snapshot Dao</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Snapshot Dao</em>'.
+	 * @generated
+	 */
+	SnapshotDao createSnapshotDao();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

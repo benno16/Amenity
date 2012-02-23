@@ -1,5 +1,7 @@
 package com.amenity.workbench;
 
+import java.io.IOException;
+
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -35,8 +37,26 @@ public class Activator extends AbstractUIPlugin {
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
+		clearTempFolder();
 		plugin = null;
 		super.stop(context);
+	}
+
+	private void clearTempFolder() {
+		try {
+			String amo = "cmd /C del /Q /F \"D:\\temp\\amenity\\*.*\"";
+			Runtime r = Runtime.getRuntime();
+			Process p = r.exec(amo);
+			try {
+				System.out.println("--deleteing");
+				p.waitFor();
+				System.out.println("--finished deleteing");
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

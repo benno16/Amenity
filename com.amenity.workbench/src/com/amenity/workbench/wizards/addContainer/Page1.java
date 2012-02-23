@@ -7,7 +7,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 
@@ -16,8 +15,6 @@ public class Page1 extends WizardPage {
 	private Text txtContainerName;
 	private Text txtDescription;
 	private Composite container;
-	private Button btnTrue;
-	private Button btnCheckButton;
 	private java.util.List<Container> containers;
 	
 	public String getTxtContainerName() {
@@ -35,7 +32,7 @@ public class Page1 extends WizardPage {
 		super("Create a new Project Container");
 		this.containers = containers;
 		setTitle("Enter Details");
-		setDescription("Fill in the details for your new project container");
+		setMessage("Fill in the details for your new project container", INFORMATION);
 	}
 
 	/**
@@ -61,7 +58,11 @@ public class Page1 extends WizardPage {
 							exists = true;
 							setPageComplete(false);
 							lblContainerName.setToolTipText("Container does already exist");
-						} 
+							setMessage("Container does already exist", ERROR);
+							break;
+						} else {
+							setMessage("Fill in the details for your new project container", INFORMATION);
+						}
 					}
 					if ( !exists ) {
 						lblContainerName.setToolTipText("");
@@ -82,21 +83,7 @@ public class Page1 extends WizardPage {
 		txtDescription = new Text(container, SWT.BORDER);
 		txtDescription.setBounds(116, 37, 448, 21);
 		
-		Label lblSomethingElse = new Label(container, SWT.NONE);
-		lblSomethingElse.setBounds(10, 61, 100, 15);
-		lblSomethingElse.setText("Something else");
-		
-		btnTrue = new Button(container, SWT.CHECK);
-		btnTrue.setBounds(116, 64, 448, 16);
-		btnTrue.setText("Option 1");
-		
-		btnCheckButton = new Button(container, SWT.CHECK);
-		btnCheckButton.setSelection(true);
-		btnCheckButton.setBounds(116, 82, 448, 16);
-		btnCheckButton.setText("Option 2");
-		
 		setControl ( container );
 		setPageComplete ( false );
 	}
-	
 }

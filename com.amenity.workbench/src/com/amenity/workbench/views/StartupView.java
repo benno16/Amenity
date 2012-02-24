@@ -54,21 +54,21 @@ public class StartupView extends ViewPart {
 
 		System.out.println("--- New Session Status ---" );
 		if ( SessionSourceProvider.SESSION_STATUS.isDbStatus() )
-			lblDatabaseStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/hypersql_on.png"));
+			lblDatabaseStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/status/hypersql_on.png"));
 		else 
-			lblDatabaseStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/hypersql_off.png"));
+			lblDatabaseStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/status/hypersql_off.png"));
 		
 		if ( SessionSourceProvider.SESSION_STATUS.isMksStatus() )
-			lblSynergyStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/mks_on.png"));
+			lblSynergyStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/status/mks_on.png"));
 		else 
-			lblSynergyStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/mks_off.png"));
+			lblSynergyStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/status/mks_off.png"));
 		
 		if ( SessionSourceProvider.SESSION_STATUS.getSynergySession() == null ) {
-			lblSynergyStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/sgy_off.png"));
+			lblSynergyStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/status/sgy_off.png"));
 		} else if (SessionSourceProvider.SESSION_STATUS.getSynergySession().length() < 9) {
-			lblSynergyStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/sgy_off.png"));
+			lblSynergyStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/statuss/sgy_off.png"));
 		} else 
-			lblSynergyStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/sgy_on.png"));
+			lblSynergyStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/status/sgy_on.png"));
 	
 	}
 

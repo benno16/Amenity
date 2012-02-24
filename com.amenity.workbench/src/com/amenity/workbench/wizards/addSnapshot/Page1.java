@@ -16,10 +16,8 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
@@ -47,7 +45,7 @@ public class Page1 extends WizardPage {
 	private List<Connection> connections;
 	private Snapshot snapshot;
 	private Composite container;
-	private static boolean isFinished;
+//	private static boolean isFinished;
 	
 	/**
 	 * Create the wizard.
@@ -147,27 +145,27 @@ public class Page1 extends WizardPage {
 		setPageComplete(false);
 	}
 	
-	private void doDummy() {
-		while (!isFinished) {
-			try {
-				// We simulate a long running operation here
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	private void doLongThing() {
-		for (int i = 0; i < 10; i++) {
-			try {
-				// We simulate a long running operation here
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			System.out.println("Doing something");
-		}
-	}
+//	private void doDummy() {
+//		while (!isFinished) {
+//			try {
+//				// We simulate a long running operation here
+//				Thread.sleep(500);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	}
+//	private void doLongThing() {
+//		for (int i = 0; i < 10; i++) {
+//			try {
+//				// We simulate a long running operation here
+//				Thread.sleep(1000);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//			System.out.println("Doing something");
+//		}
+//	}
 	private void syncWithUi() {
 		Display.getDefault().asyncExec(new Runnable() {
 			public void run() {
@@ -202,7 +200,7 @@ public class Page1 extends WizardPage {
 			mksReader.getSandboxFiles();
 		else
 			mksReader.getProjectFiles();
-		isFinished = true;
+//		isFinished = true;
 		return true;
 	}
 

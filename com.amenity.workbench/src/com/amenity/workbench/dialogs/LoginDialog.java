@@ -124,9 +124,13 @@ public class LoginDialog extends Dialog {
 		
 		Label lblNewLabel = new Label(container, SWT.NONE);
 		if ( dbAlive )
-			lblNewLabel.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/hypersql_on.png"));
+			lblNewLabel.setImage(ResourceManager
+					.getPluginImage("com.amenity.workbench", 
+							"icons/workbench/general/status/hypersql_on.png"));
 		else 
-			lblNewLabel.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/status_icons/hypersql_off.png"));
+			lblNewLabel.setImage(ResourceManager
+					.getPluginImage("com.amenity.workbench", 
+							"icons/workbench/general/status/hypersql_off.png"));
 		
 		lblNewLabel.setBounds(116, 83, 32, 32);
 		

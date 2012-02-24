@@ -29,7 +29,7 @@ public class IconFactory implements IIconFactory {
 	
 	public Image getEventViewerIco( ) {
 		ImageDescriptor id = Activator.getImageDescriptor(
-				"icons/nuovext/status/dialog-warning.png");
+				"icons/workbench/general/dialog-warning.png");
 		id = doesIdExist(id);
 		return id.createImage();
 		
@@ -38,7 +38,7 @@ public class IconFactory implements IIconFactory {
 	@Override
 	public Image getUnknownIco() {
 		ImageDescriptor id = Activator.getImageDescriptor(
-				"icons/crystal_project/filesystems/actions/status_unknown.png");
+				"icons/workbench/general/unknown.png");
 		id = doesIdExist(id);
 		return id.createImage();
 	}
@@ -46,7 +46,7 @@ public class IconFactory implements IIconFactory {
 	@Override
 	public Image getProjectCotainerIco() {
 		ImageDescriptor id = Activator.getImageDescriptor(
-				"icons/crystal_project/filesystems/folder_green.png");
+				"icons/workbench/general/folder_green.png");
 		id = doesIdExist(id);
 		return id.createImage();
 	}
@@ -54,7 +54,7 @@ public class IconFactory implements IIconFactory {
 	@Override
 	public Image getWorkbenchIco() {
 		ImageDescriptor id = Activator.getImageDescriptor(
-				"icons/nuovext/categories/package_network.png");
+				"icons/workbench/general/package_network.png");
 		id = doesIdExist(id);
 		return id.createImage();
 	}
@@ -62,7 +62,7 @@ public class IconFactory implements IIconFactory {
 	@Override
 	public Image getManageContainerIco() {
 		ImageDescriptor id = Activator.getImageDescriptor(
-				"icons/nuovext/devices/drive-harddisk.png");
+				"icons/workbench/general/drive-harddisk.png");
 		id = doesIdExist(id);
 		return id.createImage();
 	}
@@ -70,7 +70,7 @@ public class IconFactory implements IIconFactory {
 	@Override
 	public Image getShowSnapshotIco() {
 		ImageDescriptor id = Activator.getImageDescriptor(
-				"icons/nuovext/devices/gnome-dev-computer.png");
+				"icons/workbench/general/gnome-dev-computer.png");
 		id = doesIdExist(id);
 		return id.createImage();
 	}
@@ -78,7 +78,7 @@ public class IconFactory implements IIconFactory {
 	@Override
 	public Image getCompareSnapshotIco() {
 		ImageDescriptor id = Activator.getImageDescriptor(
-				"icons/nuovext/actions/gnome-searchtool.png");
+				"icons/workbench/general/gnome-searchtool.png");
 		id = doesIdExist(id);
 		return id.createImage();
 	}
@@ -86,7 +86,7 @@ public class IconFactory implements IIconFactory {
 	@Override
 	public Image getAssignFunctionIco() {
 		ImageDescriptor id = Activator.getImageDescriptor(
-				"icons/nuovext/actions/bookmark_add.png");
+				"icons/workbench/general/bookmark_add.png");
 		id = doesIdExist(id);
 		return id.createImage();
 	}
@@ -94,7 +94,7 @@ public class IconFactory implements IIconFactory {
 	@Override
 	public Image getAssignFilesIco() {
 		ImageDescriptor id = Activator.getImageDescriptor(
-				"icons/nuovext/actions/up.png");
+				"icons/workbench/general/up.png");
 		id = doesIdExist(id);
 		return id.createImage();
 	}
@@ -102,7 +102,7 @@ public class IconFactory implements IIconFactory {
 	@Override
 	public Image getNewContainerIco() {
 		ImageDescriptor id = Activator.getImageDescriptor(
-				"icons/nuovext/actions/folder_new.png");
+				"icons/workbench/general/folder_new.png");
 		id = doesIdExist(id);
 		return id.createImage();
 	}
@@ -110,7 +110,7 @@ public class IconFactory implements IIconFactory {
 	@Override
 	public Image getModifyIco() {
 		ImageDescriptor id = Activator.getImageDescriptor(
-				"icons/nuovext/actions/stock_file-properites.png");
+				"icons/workbench/general/stock_file-properites.png");
 		id = doesIdExist(id);
 		return id.createImage();
 	}
@@ -118,7 +118,7 @@ public class IconFactory implements IIconFactory {
 	@Override
 	public Image getDeleteIco() {
 		ImageDescriptor id = Activator.getImageDescriptor(
-				"icons/nuovext/places/gtk-delete.png");
+				"icons/workbench/general/gtk-delete.png");
 		id = doesIdExist(id);
 		return id.createImage();
 	}
@@ -126,7 +126,7 @@ public class IconFactory implements IIconFactory {
 	@Override
 	public Image getHelpIco() {
 		ImageDescriptor id = Activator.getImageDescriptor(
-				"icons/nuovext/apps/xfce-man.png");
+				"icons/workbench/general/xfce-man.png");
 		id = doesIdExist(id);
 		return id.createImage();
 	}
@@ -134,7 +134,7 @@ public class IconFactory implements IIconFactory {
 	@Override
 	public Image getCompressedIco() {
 		ImageDescriptor id = Activator.getImageDescriptor(
-				"icons/crystalProjectMimetypes/16/zip.png");
+				"icons/workbench/filetype/zip.png");
 		id = doesIdExist(id);
 		return id.createImage();
 	}
@@ -142,7 +142,7 @@ public class IconFactory implements IIconFactory {
 	@Override
 	public Image getWordIco() {
 		ImageDescriptor id = Activator.getImageDescriptor(
-				"icons/crystalProjectMimetypes/16/txt.png");
+				"icons/workbench/filetype/txt.png");
 		id = doesIdExist(id);
 		return id.createImage();
 	}
@@ -150,7 +150,7 @@ public class IconFactory implements IIconFactory {
 	@Override
 	public Image getPPTIco() {
 		ImageDescriptor id = Activator.getImageDescriptor(
-				"icons/crystalProjectMimetypes/16/pps.png");
+				"icons/workbench/filetype/pps.png");
 		id = doesIdExist(id);
 		return id.createImage();
 	}
@@ -158,7 +158,7 @@ public class IconFactory implements IIconFactory {
 	@Override
 	public Image getCIco() {
 		ImageDescriptor id = Activator.getImageDescriptor(
-				"icons/crystalProjectMimetypes/16/source c.png");
+				"icons/workbench/filetype/source c.png");
 		id = doesIdExist(id);
 		return id.createImage();
 	}
@@ -166,7 +166,7 @@ public class IconFactory implements IIconFactory {
 	@Override
 	public Image getHIco() {
 		ImageDescriptor id = Activator.getImageDescriptor(
-				"icons/crystalProjectMimetypes/16/source h.png");
+				"icons/workbench/filetype/source h.png");
 		id = doesIdExist(id);
 		return id.createImage();
 	}
@@ -174,7 +174,7 @@ public class IconFactory implements IIconFactory {
 	@Override
 	public Image getImageIco() {
 		ImageDescriptor id = Activator.getImageDescriptor(
-				"icons/crystalProjectMimetypes/16/image.png");
+				"icons/workbench/filetype/image.png");
 		id = doesIdExist(id);
 		return id.createImage();
 	}
@@ -182,7 +182,7 @@ public class IconFactory implements IIconFactory {
 	@Override
 	public Image getPdfIco() {
 		ImageDescriptor id = Activator.getImageDescriptor(
-				"icons/crystalProjectMimetypes/16/pdf.png");
+				"icons/workbench/filetype/pdf.png");
 		id = doesIdExist(id);
 		return id.createImage();
 	}

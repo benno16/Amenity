@@ -2,8 +2,6 @@ package com.amenity.workbench.views;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import general.Connection;
@@ -208,7 +206,7 @@ public class SnapshotView extends ViewPart {
 				fillContainerList();
 			}
 		});
-		lblNewLabel.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/16x16/arrow_refresh.png"));
+		lblNewLabel.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/refresh.png"));
 		lblNewLabel.setBounds(144, 10, 16, 16);
 		
 		fillContainerList();

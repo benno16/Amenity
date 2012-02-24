@@ -6,7 +6,7 @@
          id="application"
          point="org.eclipse.core.runtime.applications">
       <application
-            icon="icons/moniIcons/sleep32.png"
+            icon="icons/workbench/general/sleep32.png"
             visible="true">
          <run
                class="com.amenity.workbench.Application">
@@ -18,7 +18,7 @@
       <perspective
             class="com.amenity.workbench.Perspective"
             fixed="true"
-            icon="icons/Logo/startup_16_32.png"
+            icon="icons/product/startup_16_32.png"
             id="com.amenity.workbench.perspective"
             name="Amenity for SWQPM">
          <description>
@@ -31,52 +31,52 @@
       <view
             allowMultiple="false"
             class="com.amenity.workbench.views.SideBar"
-            icon="icons/senaryIcon/16/System start menu.png"
+            icon="icons/workbench/general/System start menu.png"
             id="com.amenity.workbench.view"
             name="Modules">
       </view>
       <view
             class="com.amenity.workbench.views.StartupView"
-            icon="icons/nuovext/categories/package_network.png"
+            icon="icons/workbench/general/package_network.png"
             id="com.amenity.workbench.views.StartupView"
             name="Startup View">
       </view>
       <view
             class="com.amenity.workbench.views.ContainerView"
-            icon="icons/nuovext/devices/drive-harddisk.png"
+            icon="icons/workbench/general/drive-harddisk.png"
             id="com.amenity.workbench.views.ContainerView"
             name="Manage Container">
       </view>
       <view
             class="com.amenity.workbench.views.SnapshotView"
-            icon="icons/nuovext/devices/gnome-dev-computer.png"
+            icon="icons/workbench/general/gnome-dev-computer.png"
             id="com.amenity.workbench.views.SnapshotView"
             name="Show Snapshot">
       </view>
       <view
             class="com.amenity.workbench.views.CompareSnapshotsView"
-            icon="icons/nuovext/actions/gnome-searchtool.png"
+            icon="icons/workbench/general/gnome-searchtool.png"
             id="com.amenity.workbench.views.CompareSnapshotsView"
             name="Compare Snapshots"
             restorable="true">
       </view>
       <view
             class="com.amenity.workbench.views.AssignFunctionsView"
-            icon="icons/nuovext/actions/bookmark_add.png"
+            icon="icons/workbench/general/bookmark_add.png"
             id="com.amenity.workbench.views.AssignFunctionsView"
             name="Assign Functions"
             restorable="true">
       </view>
       <view
             class="com.amenity.workbench.views.SetStatsView"
-            icon="icons/nuovext/actions/up.png"
+            icon="icons/workbench/general/up.png"
             id="com.amenity.workbench.views.SetStatsView"
             name="Set Status"
             restorable="true">
       </view>
       <view
             class="com.amenity.workbench.views.EventLogView"
-            icon="icons/nuovext/status/dialog-warning.png"
+            icon="icons/workbench/general/dialog-warning.png"
             id="com.amenity.workbench.views.EventLogView"
             name="Event Log"
             restorable="true">
@@ -149,11 +149,13 @@
                mnemonic="F">
             <command
                   commandId="com.amenity.workbench.temp.Logon"
+                  icon="icons/workbench/general/lock.png"
                   label="&amp;Logon"
                   style="push">
             </command>
             <command
-                  commandId="org.eclipse.ui.window.preferences">
+                  commandId="org.eclipse.ui.window.preferences"
+                  icon="icons/workbench/general/advanced.png">
                <visibleWhen>
                   <with
                         variable="com.amenity.workbench.sessionState">
@@ -165,7 +167,7 @@
             </command>
             <command
                   commandId="org.eclipse.ui.file.exit"
-                  icon="icons/nuovext/actions/gtk-close.png"
+                  icon="icons/workbench/general/exit.png"
                   label="&amp;Exit">
             </command>
          </menu>
@@ -173,13 +175,13 @@
                label="&amp;Edit">
             <command
                   commandId="org.eclipse.ui.window.preferences"
-                  icon="icons/drf/16/advanced.png"
+                  icon="icons/workbench/general/advanced.png"
                   label="Settings"
                   style="push">
             </command>
             <command
                   commandId="org.eclipse.ui.file.exit"
-                  icon="icons/nuovext/actions/gtk-close.png"
+                  icon="icons/workbench/general/exit.png"
                   label="&amp;Exit">
             </command>
          </menu>
@@ -187,49 +189,49 @@
                label="&amp;View">
             <command
                   commandId="com.amenity.workbench.views.activities.ShowStartupView"
-                  icon="icons/senaryIcon/16/System start menu.png"
+                  icon="icons/workbench/general/System start menu.png"
                   label="&amp;Sidebar"
                   style="push">
             </command>
             <command
                   commandId="com.amenity.workbench.views.activities.WorkbenchView"
-                  icon="icons/nuovext/categories/package_network.png"
+                  icon="icons/workbench/general/package_network.png"
                   label="&amp;Startup"
                   style="push">
             </command>
             <command
                   commandId="com.amenity.workbench.views.activities.showContainerView"
-                  icon="icons/nuovext/devices/drive-harddisk.png"
+                  icon="icons/workbench/general/drive-harddisk.png"
                   label="&amp;Manage Container"
                   style="push">
             </command>
             <command
                   commandId="com.amenity.workbench.views.activities.ShowSnapshotView"
-                  icon="icons/nuovext/devices/gnome-dev-computer.png"
+                  icon="icons/workbench/general/gnome-dev-computer.png"
                   label="&amp;Show Snapshot"
                   style="push">
             </command>
             <command
                   commandId="com.amenity.workbench.views.activities.ShowCompareSnapshotsView"
-                  icon="icons/nuovext/actions/gnome-searchtool.png"
+                  icon="icons/workbench/general/gnome-searchtool.png"
                   label="&amp;Compare Snapshots"
                   style="push">
             </command>
             <command
                   commandId="com.amenity.workbench.views.activities.ShowAssignFunctionsView"
-                  icon="icons/nuovext/actions/bookmark_add.png"
+                  icon="icons/workbench/general/bookmark_add.png"
                   label="&amp;Assign Functions"
                   style="push">
             </command>
             <command
                   commandId="com.amenity.workbench.views.activities.ShowSetStatsView"
-                  icon="icons/nuovext/actions/up.png"
+                  icon="icons/workbench/general/up.png"
                   label="&amp;Set Status"
                   style="push">
             </command>
             <command
                   commandId="com.amenity.workbench.views.activities.ShowEventLogView"
-                  icon="icons/nuovext/status/dialog-warning.png"
+                  icon="icons/workbench/general/dialog-warning.png"
                   label="&amp;Event Log"
                   style="push">
             </command>
@@ -238,7 +240,7 @@
                label="&amp;Help">
             <command
                   commandId="org.eclipse.ui.help.aboutAction"
-                  icon="icons/nuovext/apps/utilities-system-monitor.png"
+                  icon="icons/workbench/general/utilities-system-monitor.png"
                   label="&amp;About Amenity"
                   style="push">
             </command>
@@ -251,33 +253,33 @@
                id="Main">
             <command
                   commandId="com.amenity.workbench.wizard.newDataSoure"
-                  icon="icons/nuovext/actions/filenew.png"
+                  icon="icons/workbench/general/filenew.png"
                   label="&amp;New Project"
                   style="push"
                   tooltip="&amp;Create a new DS connection here">
             </command>
             <command
                   commandId="com.amenity.workbench.views.activities.showContainerView"
-                  icon="icons/nuovext/actions/folder_new.png"
+                  icon="icons/workbench/general/folder_new.png"
                   label="&amp;Add Container"
                   style="push">
             </command>
             <command
-                  commandId="org.eclipse.ui.file.exit"
-                  icon="icons/moniIcons/16/block32.png"
-                  label="&amp;Exit"
-                  style="push">
-            </command>
-            <command
                   commandId="com.amenity.workbench.wizard.SnapshotWizardCommand"
-                  icon="icons/nuovext/devices/gnome-dev-computer.png"
+                  icon="icons/workbench/general/gnome-dev-computer.png"
                   label="&amp;Add Snapshot"
                   style="push">
             </command>
             <command
                   commandId="com.amenity.workbench.temp.Dao"
-                  icon="icons/nuovext/status/dialog-warning.png"
+                  icon="icons/workbench/general/dialog-warning.png"
                   label="&amp;DAO Test"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.file.exit"
+                  icon="icons/workbench/general/exit.png"
+                  label="&amp;Exit"
                   style="push">
             </command>
          </toolbar>
@@ -379,11 +381,11 @@
          </property>
          <property
                name="windowImages"
-               value="icons/Logo/startup_16_32.png,icons/Logo/startup_32_32.png,icons/Logo/startup_48_32.png">
+               value="icons/product/startup_16_32.png,icons/product/startup_32_32.png,icons/product/startup_48_32.png,icons/product/startup_64_32.png,icons/product/startup_128_32.png">
          </property>
          <property
                name="aboutText"
-               value="Amenity based on Eclipse Platform&#x0A;&#x0A;Version: 0.1.1&#x0A;Build id: M20120119-1422&#x0A;&#x0A;Welcome to Amenity based on Eclipse Rich Client Platform.&#x0A;&#x0A;This product is developed by Benedikt Riedel&#x0A;(c) Copyright by authors. All rights reserved">
+               value="Amenity based on Eclipse Platform&#x0A;&#x0A;Version: 0.1.1&#x0A;Build id: M20120119-1422&#x0A;&#x0A;Welcome to Amenity based on Eclipse Rich Client Platform.&#x0A;&#x0A;This product is developed by Continental&#x0A;(c) Copyright by authors. All rights reserved">
          </property>
          <property
                name="startupProgressRect"

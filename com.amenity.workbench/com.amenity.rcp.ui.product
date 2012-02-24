@@ -12,7 +12,7 @@ Build id: M20120119-1422
 
 Welcome to Amenity based on Eclipse Rich Client Platform.
 
-This product is developed by Benedikt Riedel
+This product is developed by Continental
 (c) Copyright by authors. All rights reserved
       </text>
    </aboutInfo>
@@ -24,31 +24,41 @@ This product is developed by Benedikt Riedel
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
-   <windowImages i16="/com.amenity.workbench/icons/Logo/startup_16_32.png" i32="/com.amenity.workbench/icons/Logo/startup_32_32.png" i48="/com.amenity.workbench/icons/Logo/startup_48_32.png"/>
+   <windowImages i16="/com.amenity.workbench/icons/product/startup_16_32.png" i32="/com.amenity.workbench/icons/product/startup_32_32.png" i48="/com.amenity.workbench/icons/product/startup_48_32.png" i64="/com.amenity.workbench/icons/product/startup_64_32.png" i128="/com.amenity.workbench/icons/product/startup_128_32.png"/>
 
    <splash
       startupProgressRect="5,275,445,15" />
    <launcher name="amenity">
       <solaris/>
-      <win useIco="true">
+      <win useIco="false">
          <bmp
-            winSmallHigh="/com.amenity.workbench/icons/Logo/startup_16_32.png"
-            winSmallLow="/com.amenity.workbench/icons/Logo/startup_16_8.png"
-            winMediumHigh="/com.amenity.workbench/icons/Logo/startup_32_32.png"
-            winMediumLow="/com.amenity.workbench/icons/Logo/startup_32_8.png"
-            winLargeHigh="/com.amenity.workbench/icons/Logo/startup_48_32.png"
-            winLargeLow="/com.amenity.workbench/icons/Logo/startup_48_8.png"/>
+            winSmallHigh="/com.amenity.workbench/icons/product/startup_16_32.png"
+            winSmallLow="/com.amenity.workbench/icons/product/startup_16_8.png"
+            winMediumHigh="/com.amenity.workbench/icons/product/startup_32_32.png"
+            winMediumLow="/com.amenity.workbench/icons/product/startup_32_8.png"
+            winLargeHigh="/com.amenity.workbench/icons/product/startup_48_32.png"
+            winLargeLow="/com.amenity.workbench/icons/product/startup_48_8.png"/>
       </win>
    </launcher>
+
 
    <vm>
    </vm>
 
+
    <plugins>
+      <plugin id="com.amenity.dbserver"/>
+      <plugin id="com.amenity.engine"/>
+      <plugin id="com.amenity.framework"/>
+      <plugin id="com.amenity.model"/>
       <plugin id="com.amenity.workbench"/>
       <plugin id="com.ibm.icu"/>
+      <plugin id="javax.persistence"/>
       <plugin id="javax.servlet"/>
       <plugin id="javax.transaction" fragment="true"/>
+      <plugin id="org.apache.commons.logging"/>
+      <plugin id="org.apache.log4j"/>
+      <plugin id="org.dom4j"/>
       <plugin id="org.eclipse.ant.core"/>
       <plugin id="org.eclipse.core.commands"/>
       <plugin id="org.eclipse.core.contenttype"/>
@@ -65,13 +75,38 @@ This product is developed by Benedikt Riedel
       <plugin id="org.eclipse.core.runtime.compatibility.auth"/>
       <plugin id="org.eclipse.core.runtime.compatibility.registry" fragment="true"/>
       <plugin id="org.eclipse.core.variables"/>
+      <plugin id="org.eclipse.debug.core"/>
+      <plugin id="org.eclipse.emf.common"/>
+      <plugin id="org.eclipse.emf.databinding"/>
+      <plugin id="org.eclipse.emf.ecore"/>
+      <plugin id="org.eclipse.emf.ecore.xmi"/>
+      <plugin id="org.eclipse.emf.teneo"/>
+      <plugin id="org.eclipse.emf.teneo.annotations"/>
+      <plugin id="org.eclipse.emf.teneo.eclipse"/>
+      <plugin id="org.eclipse.emf.teneo.hibernate"/>
+      <plugin id="org.eclipse.emf.teneo.hibernate.mapper"/>
+      <plugin id="org.eclipse.emf.teneo.orm"/>
       <plugin id="org.eclipse.equinox.app"/>
       <plugin id="org.eclipse.equinox.common"/>
+      <plugin id="org.eclipse.equinox.p2.core"/>
+      <plugin id="org.eclipse.equinox.p2.engine"/>
+      <plugin id="org.eclipse.equinox.p2.metadata"/>
+      <plugin id="org.eclipse.equinox.p2.metadata.repository"/>
+      <plugin id="org.eclipse.equinox.p2.repository"/>
       <plugin id="org.eclipse.equinox.preferences"/>
       <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.equinox.security"/>
+      <plugin id="org.eclipse.equinox.security.win32.x86" fragment="true"/>
       <plugin id="org.eclipse.help"/>
+      <plugin id="org.eclipse.jdt"/>
+      <plugin id="org.eclipse.jdt.compiler.apt" fragment="true"/>
+      <plugin id="org.eclipse.jdt.compiler.tool" fragment="true"/>
+      <plugin id="org.eclipse.jdt.core"/>
+      <plugin id="org.eclipse.jdt.debug"/>
+      <plugin id="org.eclipse.jdt.launching"/>
       <plugin id="org.eclipse.jface"/>
       <plugin id="org.eclipse.jface.databinding"/>
+      <plugin id="org.eclipse.jface.text"/>
       <plugin id="org.eclipse.nebula.widgets.calendarcombo"/>
       <plugin id="org.eclipse.nebula.widgets.grid"/>
       <plugin id="org.eclipse.nebula.widgets.pshelf"/>
@@ -82,9 +117,16 @@ This product is developed by Benedikt Riedel
       <plugin id="org.eclipse.persistence.jpa.equinox.weaving" fragment="true"/>
       <plugin id="org.eclipse.swt"/>
       <plugin id="org.eclipse.swt.win32.win32.x86" fragment="true"/>
+      <plugin id="org.eclipse.text"/>
       <plugin id="org.eclipse.ui"/>
+      <plugin id="org.eclipse.ui.cheatsheets"/>
       <plugin id="org.eclipse.ui.forms"/>
+      <plugin id="org.eclipse.ui.ide"/>
+      <plugin id="org.eclipse.ui.intro"/>
+      <plugin id="org.eclipse.ui.win32" fragment="true"/>
       <plugin id="org.eclipse.ui.workbench"/>
+      <plugin id="org.eclipse.wb.jdt.fragment" fragment="true"/>
+      <plugin id="org.hibernate"/>
    </plugins>
 
 

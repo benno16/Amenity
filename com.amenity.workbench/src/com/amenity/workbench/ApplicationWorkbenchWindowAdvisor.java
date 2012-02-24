@@ -137,7 +137,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 	private TrayItem initTaskItem(IWorkbenchWindow window) {
 		tray = window.getShell().getDisplay().getSystemTray();
 		TrayItem trayItem = new TrayItem(tray, SWT.NONE);
-		trayImage = Activator.getImageDescriptor("icons/Logo/startup_16_32.png")
+		trayImage = Activator.getImageDescriptor("icons/product/startup_16_32.png")
 				.createImage();
 		trayItem.setImage(trayImage);
 		trayItem.setToolTipText("I BS Q - Amenity");

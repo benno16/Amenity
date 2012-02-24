@@ -12,7 +12,12 @@ public class LocalDB {
 	public boolean start () {
 		String rootDir = System.getenv("userprofile");
 		rootDir = rootDir.replace('\\', '/');
-		rootDir = "file:" + rootDir + "/temp/database/amenity;sql.enforce_strict_size=true";
+		/**
+		 * TODO
+		 * change back to real db location
+		 */
+//		rootDir = "file:" + rootDir + "/temp/database/amenity;sql.enforce_strict_size=true";
+		rootDir = "file:" + rootDir + "/git/Amenity/com.amenity.workbench/database/amenity;sql.enforce_strict_size=true";
 		
 		HsqlProperties p = new HsqlProperties();
 		p.setProperty("server.database.0", rootDir);
@@ -23,10 +28,8 @@ public class LocalDB {
 		try {
 			server.setProperties(p);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (AclFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		server.start();

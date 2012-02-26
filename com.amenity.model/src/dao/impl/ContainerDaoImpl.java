@@ -2,6 +2,7 @@
  */
 package dao.impl;
 
+import general.Container;
 import general.User;
 
 import java.util.List;
@@ -36,12 +37,28 @@ public class ContainerDaoImpl extends GenericDaoImpl implements ContainerDao {
 		session = getSession();
 		session.beginTransaction();
 		String string = "from " + class_.getName().toString() + 
-				" where owner = '" + user.getUserId() + "'";
+				" where owner = '" + user.getUserId() + "' and deleted = '0'";
 		Query queryRes = session.createQuery(string);
 		System.out.println("amount of containers: " + queryRes.list().size() );
 		return queryRes.list();
 	}
-
+	
+	public void delete(Object object) {
+		session = getSession();
+		session.beginTransaction();
+		Container c = (Container) object;
+		c.setDeleted(true);
+		session.update(c);
+		try {
+			session.getTransaction().commit();
+		} catch ( Exception e ){
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			session.close();
+		}
+	}
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

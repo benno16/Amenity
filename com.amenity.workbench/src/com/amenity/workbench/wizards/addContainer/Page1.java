@@ -10,12 +10,13 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 
+import com.amenity.workbench.SessionSourceProvider;
+
 public class Page1 extends WizardPage {
 	
 	private Text txtContainerName;
 	private Text txtDescription;
 	private Composite container;
-	private java.util.List<Container> containers;
 	
 	public String getTxtContainerName() {
 		return txtContainerName.getText();
@@ -28,9 +29,8 @@ public class Page1 extends WizardPage {
 	/**
 	 * Create the wizard.
 	 */
-	public Page1(java.util.List<Container> containers) {
+	public Page1() {
 		super("Create a new Project Container");
-		this.containers = containers;
 		setTitle("Enter Details");
 		setMessage("Fill in the details for your new project container", INFORMATION);
 	}
@@ -53,12 +53,12 @@ public class Page1 extends WizardPage {
 				if (txtContainerName.getText().length() > 0 ) {
 					setPageComplete ( true );
 					boolean exists = false;
-					for ( Container c : containers) {
+					for ( Container c : SessionSourceProvider.CONTAINER_LIST) {
 						if ( c.getName().equals(txtContainerName.getText()) ) {
 							exists = true;
 							setPageComplete(false);
-							lblContainerName.setToolTipText("Container does already exist");
-							setMessage("Container does already exist", ERROR);
+							lblContainerName.setToolTipText("Container already exists");
+							setMessage("Container already exists", ERROR);
 							break;
 						} else {
 							setMessage("Fill in the details for your new project container", INFORMATION);

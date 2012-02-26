@@ -2,6 +2,7 @@ package com.amenity.workbench.views;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import general.Connection;
@@ -12,6 +13,7 @@ import general.Folder;
 import general.Snapshot;
 
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.nebula.widgets.grid.Grid;
 import org.eclipse.nebula.widgets.grid.GridColumn;
 import org.eclipse.nebula.widgets.grid.GridItem;
@@ -29,6 +31,7 @@ import org.eclipse.ui.part.ViewPart;
 import com.amenity.engine.helper.mks.MksGetFile;
 import com.amenity.workbench.SessionSourceProvider;
 import com.amenity.workbench.supporter.IconFactory;
+import com.amenity.workbench.wizards.addContainer.ContainerWizard;
 
 import dao.ConnectionDao;
 import dao.ContainerDao;
@@ -58,24 +61,22 @@ public class SnapshotView extends ViewPart {
 	private Composite compositeWest;
 	private org.eclipse.swt.widgets.List containerList;
 	private org.eclipse.swt.widgets.List snapshotList;
-	private java.util.List<Container> containerArray;
-	private java.util.List<Snapshot> snapshotArray;
-	private Snapshot currentSnapshot;
-	private Container currentContainer;
 	private Label label_1;
 	private Label label_2;
 	private Label label_3;
 	private Label label_4;
 	private Label label_5;
 	private Label label_6;
+	private Label lblRefresh;
+	private Button btnView;
 	
 	public SnapshotView() {
 		gridItems = new ArrayList<GridItem>();
 		genericDao = DaoFactory.eINSTANCE.createGenericDao();
 		folders = new ArrayList<Folder>();
 		files = new ArrayList<File>();
-		containerArray = new ArrayList<Container>();
-		snapshotArray = new ArrayList<Snapshot>();
+		SessionSourceProvider.CONTAINER_LIST = new ArrayList<Container>();
+		SessionSourceProvider.SNAPSHOT_LIST = new ArrayList<Snapshot>();
 		contentObjects = new ArrayList<ContentObject>();
 	}
 
@@ -93,13 +94,14 @@ public class SnapshotView extends ViewPart {
 		compositeWest.setLayout(null);
 		
 		Label lblSelectProject = new Label(compositeWest, SWT.NONE);
-		lblSelectProject.setBounds(10, 10, 100, 13);
+		lblSelectProject.setBounds(10, 10, 90, 13);
 		lblSelectProject.setText("Select Container");
 		
 		containerList = new org.eclipse.swt.widgets.List(compositeWest, SWT.BORDER | SWT.V_SCROLL);
 		containerList.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				clearSnapshotDetails();
 				try {
 					fillSnapshotList(containerList
 							.getItem(containerList.getSelectionIndex()));
@@ -108,28 +110,29 @@ public class SnapshotView extends ViewPart {
 				}
 			} 
 		});
-		containerList.setBounds(10, 29, 150, 100);
+		containerList.setBounds(10, 29, 158, 100);
 		
 		Label lblSelectSnapshot = new Label(compositeWest, SWT.NONE);
 		lblSelectSnapshot.setBounds(10, 135, 100, 13);
 		lblSelectSnapshot.setText("Select Snapshot");
 		
 		snapshotList = new org.eclipse.swt.widgets.List(compositeWest, SWT.BORDER | SWT.V_SCROLL);
-		snapshotList.setBounds(10, 154, 150, 100);
+		snapshotList.setBounds(10, 154, 158, 100);
 		snapshotList.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected (SelectionEvent e) {
+				clearSnapshotDetails();
 				setCurrentSnapshot();
-				label_1.setText(currentContainer.getName());
+				label_1.setText(SessionSourceProvider.CURRENT_CONTAINER.getName());
 				label_2.setText("");
 				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-				label_3.setText(df.format(currentSnapshot.getCreated()));
+				label_3.setText(df.format(SessionSourceProvider.CURRENT_SNAPSHOT.getCreated()));
 				label_4.setText(SessionSourceProvider.USER.getUsername());
-				label_5.setText(currentSnapshot.getComment());
+				label_5.setText(SessionSourceProvider.CURRENT_SNAPSHOT.getComment() == null ? "-" : SessionSourceProvider.CURRENT_SNAPSHOT.getComment());
 			}
 		});
 		
-		Button btnView = new Button(compositeWest, SWT.NONE);
+		btnView = new Button(compositeWest, SWT.NONE);
 		btnView.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -142,15 +145,16 @@ public class SnapshotView extends ViewPart {
 				visualizeSnapshot();
 			}
 		});
-		btnView.setBounds(10, 260, 150, 23);
+		btnView.setBounds(10, 260, 158, 23);
 		btnView.setText("View selected Snapshot");
+		btnView.setEnabled(false);
 		
 		Label label = new Label(compositeWest, SWT.SEPARATOR | SWT.HORIZONTAL);
-		label.setBounds(10, 289, 150, 2);
+		label.setBounds(0, 289, 176, 2);
 		
 		Group grpSnaptshotDetails = new Group(compositeWest, SWT.NONE);
 		grpSnaptshotDetails.setText("Snaptshot Details");
-		grpSnaptshotDetails.setBounds(10, 289, 150, 157);
+		grpSnaptshotDetails.setBounds(10, 302, 158, 157);
 		
 		Label lblContainer = new Label(grpSnaptshotDetails, SWT.NONE);
 		lblContainer.setBounds(10, 20, 49, 13);
@@ -197,17 +201,70 @@ public class SnapshotView extends ViewPart {
 		Label lblSpaceHolder = new Label(compositeWest, SWT.NONE);
 		lblSpaceHolder.setBounds(10, 433, 158, 13);
 		
-		Label lblNewLabel = new Label(compositeWest, SWT.NONE);
-		lblNewLabel.addMouseListener(new MouseAdapter() {
+		lblRefresh = new Label(compositeWest, SWT.NONE);
+		lblRefresh.setToolTipText("Refresh Container List");
+		lblRefresh.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
+				lblRefresh.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/refresh_rotate.png"));
+				snapshotList.removeAll();
+				containerList.removeAll();
+				fillContainerList();
+				lblRefresh.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/refresh.png"));
+			}
+		});
+		lblRefresh.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/refresh.png"));
+		lblRefresh.setBounds(150, 10, 16, 16);
+		
+		Label lblAddContainer = new Label(compositeWest, SWT.NONE);
+		lblAddContainer.setToolTipText("Add new Container");
+		lblAddContainer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDown(MouseEvent e) {
+				ContainerWizard wizard = new ContainerWizard();
+				WizardDialog dialog = new WizardDialog ( container.getShell(), wizard);
+				dialog.open();
 				snapshotList.removeAll();
 				containerList.removeAll();
 				fillContainerList();
 			}
 		});
-		lblNewLabel.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/refresh.png"));
-		lblNewLabel.setBounds(144, 10, 16, 16);
+		lblAddContainer.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/folder_new.png"));
+		lblAddContainer.setBounds(106, 10, 16, 16);
+		
+		Label label_7 = new Label(compositeWest, SWT.NONE);
+		label_7.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDown(MouseEvent e) {
+				int index = containerList.getSelectionIndex();
+				if ( SessionSourceProvider.CONTAINER_LIST.size() > 0 ) {
+					for ( Iterator<Container> iter = SessionSourceProvider.CONTAINER_LIST.iterator(); iter.hasNext(); ) {
+						Container c = iter.next();
+						if ( c.getName().equals(containerList.getItem(index).toString()) ) {
+						
+							MessageDialog msg = new MessageDialog ( container.getShell(), 
+									"Warning", null, 
+									"Are you sure you want to delete the container '" 
+											+ c.getName() + "'? \n" +
+													"This operation cannot be reversed!", 
+									MessageDialog.WARNING, 
+									new String[] {"Delete", "Keep"}, 1);
+							if ( msg.open() == 0 ) {
+								ContainerDao containerDao = DaoFactory.eINSTANCE.createContainerDao();
+								containerDao.delete(c);
+								snapshotList.removeAll();
+								containerList.removeAll();
+								fillContainerList();
+							}
+							break;
+						}
+					}
+				}
+			}
+		});
+		label_7.setToolTipText("Delete selected container");
+		label_7.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/gtk-cancel.png"));
+		label_7.setBounds(128, 10, 16, 16);
 		
 		fillContainerList();
 		
@@ -431,12 +488,12 @@ public class SnapshotView extends ViewPart {
 		
 		ContainerDao containerDao = DaoFactory.eINSTANCE.createContainerDao();
 		
-		containerArray = containerDao.getListByOwner(Container.class, SessionSourceProvider.USER);
+		SessionSourceProvider.CONTAINER_LIST = containerDao.getListByOwner(Container.class, SessionSourceProvider.USER);
 		containerList.removeAll();
-		if (containerArray.size() < 1 ) {
+		if (SessionSourceProvider.CONTAINER_LIST.size() < 1 ) {
 			containerList.add("no container available");
 		} else {
-			for ( Container c : containerArray ) {
+			for ( Container c : SessionSourceProvider.CONTAINER_LIST ) {
 				containerList.add(c.getName());
 			}
 		}
@@ -446,21 +503,24 @@ public class SnapshotView extends ViewPart {
 
 	@SuppressWarnings("unchecked")
 	private void fillSnapshotList( String containerName ) {
-
-		for ( Container c : containerArray )
+		SessionSourceProvider.CURRENT_CONTAINER = null;
+		SessionSourceProvider.CURRENT_SNAPSHOT = null;
+		for ( Container c : SessionSourceProvider.CONTAINER_LIST )
 			if ( c.getName().equals(containerName)) {
-				currentContainer = c;
+				SessionSourceProvider.CURRENT_CONTAINER = c;
 				break;
 			}
-		if ( currentContainer != null ) {
+		if ( SessionSourceProvider.CURRENT_CONTAINER != null ) {
 			SnapshotDao snapshotDao = DaoFactory.eINSTANCE.createSnapshotDao();
-			snapshotArray = snapshotDao.getListByContainer(currentContainer.getContainerId());
-			if ( snapshotArray.size() < 1 ) {
+			SessionSourceProvider.SNAPSHOT_LIST = snapshotDao.getListByContainer(SessionSourceProvider.CURRENT_CONTAINER.getContainerId());
+			if ( SessionSourceProvider.SNAPSHOT_LIST.size() < 1 ) {
 				snapshotList.removeAll();
 				snapshotList.add("no snapshots available");
+				btnView.setEnabled(false);
 			} else {
 				snapshotList.removeAll();
-				for ( Snapshot s : snapshotArray ) 
+				btnView.setEnabled(true);
+				for ( Snapshot s : SessionSourceProvider.SNAPSHOT_LIST ) 
 					snapshotList.add(s.getCreated().toString());
 			}
 			snapshotDao = null;
@@ -470,9 +530,9 @@ public class SnapshotView extends ViewPart {
 	}
 	
 	private void setCurrentSnapshot() {
-		for ( Snapshot s : snapshotArray ) {
+		for ( Snapshot s : SessionSourceProvider.SNAPSHOT_LIST ) {
 			if ( s.getCreated().toString().equals(snapshotList.getItem(snapshotList.getSelectionIndex())))
-				currentSnapshot = s;
+				SessionSourceProvider.CURRENT_SNAPSHOT = s;
 		}
 	}
 	
@@ -489,7 +549,7 @@ public class SnapshotView extends ViewPart {
 	
 //			currentSnapshot = (Snapshot) genericDao.getList(Snapshot.class).get(0);
 		String query = "from " + ContentObject.class.getName().toString() + 
-				" where partOf = '" + currentSnapshot.getSnapshotId() + "'";
+				" where partOf = '" + SessionSourceProvider.CURRENT_SNAPSHOT.getSnapshotId() + "'";
 		
 		files.clear();
 		folders.clear();
@@ -522,11 +582,20 @@ public class SnapshotView extends ViewPart {
 		
 		
 		System.out.println("there are " + contentObjects.size() + 
-				" items within snapshot: " + currentSnapshot.getSnapshotId());
+				" items within snapshot: " + SessionSourceProvider.CURRENT_SNAPSHOT.getSnapshotId());
 			
-		setContent(currentSnapshot);
+		setContent(SessionSourceProvider.CURRENT_SNAPSHOT);
 		
 		System.out.println(" >>>>> The creation of the view took: " + 
 				(System.currentTimeMillis() - start) + " ms");
+	}
+	
+	private void clearSnapshotDetails() {
+		label_1.setText("");
+		label_2.setText("");
+		label_3.setText("");
+		label_4.setText("");
+		label_5.setText("");
+		label_6.setText("");
 	}
 }

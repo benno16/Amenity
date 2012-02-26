@@ -1,24 +1,45 @@
 package com.amenity.workbench;
 
+import general.Container;
 import general.SessionSatus;
+import general.Snapshot;
 import general.User;
 import general.UserList;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.ui.AbstractSourceProvider;
 import org.eclipse.ui.ISources;
 
+/**
+ * @author Ben
+ * This class provides the session variables! 
+ * All static and global 
+ * Nice not the dirty way via activator class
+ *
+ */
 public class SessionSourceProvider extends AbstractSourceProvider {
 	
 	public final static String SESSION_STATE = "com.amenity.workbench.sessionState"; 
 	private final static String LOGGED_IN = "loggedIn"; 
     private final static String LOGGED_OUT = "loggedOut"; 
+    
+    // User Information
     public static String USERID = "-";
     public static User USER = null;
     public static UserList USERS = null;
     public static SessionSatus SESSION_STATUS = null;
+    
+    // User Content Information
+    public static Snapshot CURRENT_SNAPSHOT = null;
+    public static Container CURRENT_CONTAINER = null;
+    public static List<Container> CONTAINER_LIST;
+    public static List<Snapshot> SNAPSHOT_LIST;
+    
+    
+    
     boolean loggedIn;
     
     public void setLoggedIn ( boolean loggedIn ) {

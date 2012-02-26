@@ -129,7 +129,7 @@ public class Page1 extends WizardPage {
 		btnAddContainer.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				ContainerWizard wizard = new ContainerWizard(containers);
+				ContainerWizard wizard = new ContainerWizard();
 				WizardDialog dialog = new WizardDialog ( parent.getShell(), wizard);
 				if ( dialog.open() == Window.OK ) 
 					rebuildCombo();

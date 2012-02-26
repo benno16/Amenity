@@ -20,11 +20,16 @@ import org.eclipse.ui.part.ViewPart;
 
 import dao.DaoFactory;
 import dao.GenericDao;
-import org.eclipse.swt.layout.FillLayout;
 
 import com.amenity.engine.helper.compare.MKSComparator;
+import com.amenity.engine.helper.gui.ContainerContentProvider;
+import com.amenity.engine.helper.gui.ContainerLabelProvider;
+import com.amenity.workbench.SessionSourceProvider;
 
-import swing2swt.layout.BorderLayout;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.jface.viewers.ListViewer;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.jface.viewers.TreeViewer;
 
 public class CompareSnapshotsView extends ViewPart {
 
@@ -51,6 +56,8 @@ public class CompareSnapshotsView extends ViewPart {
 	private java.util.List<Snapshot> snapshotArray;
 	private Container currentContainer;
 	private Grid grid;
+	private ListViewer listViewer;
+	private TreeViewer containerTreeViewer;
 	
 	
 	
@@ -71,6 +78,7 @@ public class CompareSnapshotsView extends ViewPart {
 		snapshotArray = new ArrayList<Snapshot>();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void createPartControl(Composite parent) {
 //		Shell shell = parent.getShell();
@@ -82,17 +90,28 @@ public class CompareSnapshotsView extends ViewPart {
 		compositeTop.setLayoutData(new GridData(GridData.FILL, GridData.BEGINNING, true,
 				false, 2, 1));
 		
-
-//		Composite compositeLeft = new Composite(parent, SWT.NONE);
-//		compositeLeft.setLayoutData(new GridData(GridData.FILL, GridData.BEGINNING, true,
-//				true, 1, 1));
+		Label lblContainer = new Label(compositeTop, SWT.NONE);
+		lblContainer.setBounds(10, 10, 55, 15);
+		lblContainer.setText("Container");
 		
-//		Composite compositeRight = new Composite(parent, SWT.NONE);
-//		compositeRight.setLayoutData(new GridData(GridData.FILL, GridData.BEGINNING, true,
-//				true, 2, 1));
+		Label label = new Label(compositeTop, SWT.SEPARATOR | SWT.VERTICAL);
+		label.setBounds(258, 10, 2, 133);
+		
+		listViewer = new ListViewer(compositeTop, SWT.BORDER | SWT.V_SCROLL);
+		org.eclipse.swt.widgets.List list = listViewer.getList();
+		list.setBounds(10, 31, 242, 102);
+		
+		containerTreeViewer = new TreeViewer(compositeTop, SWT.BORDER);
+		Tree tree = containerTreeViewer.getTree();
+		containerTreeViewer.setContentProvider(new ContainerContentProvider());
+		containerTreeViewer.setLabelProvider(new ContainerLabelProvider());
+		containerTreeViewer.setAutoExpandLevel(2);
+		containerTreeViewer.setInput(SessionSourceProvider.USER);
+		
+		tree.setBounds(266, 10, 307, 123);
 		
 		grid = new Grid(parent, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.SINGLE);
-		grid.setLayoutData(new GridData(GridData.FILL, GridData.BEGINNING, true,
+		grid.setLayoutData(new GridData(GridData.FILL, SWT.FILL, true,
 				true, 2, 1));
 		grid.setHeaderVisible(true);
 	    GridColumn column = new GridColumn(grid,SWT.NONE);
@@ -149,7 +168,5 @@ public class CompareSnapshotsView extends ViewPart {
 
 	@Override
 	public void setFocus() {
-		// TODO Auto-generated method stub
-
 	}
 }

@@ -7,6 +7,8 @@ import java.util.List;
 import org.eclipse.nebula.widgets.grid.Grid;
 import org.eclipse.nebula.widgets.grid.GridItem;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
@@ -135,8 +137,10 @@ public class MKSComparator {
 					if ( f1.getModfiedDate().after(f2.getModfiedDate() )) {
 						// f1 is newer
 						differenciator = ">";
-					} else {
+					} else if ( f1.getModfiedDate().before(f2.getModfiedDate() )) {
 						differenciator = "<";
+					} else {
+						differenciator = "==";
 					}
 					// create CompareViewObject and add it to list
 					cvo = new CompareViewObject(f1, f2, differenciator);
@@ -206,7 +210,7 @@ public class MKSComparator {
 				break;
 			}
 			for ( CompareViewObject cvfo : compareViewFolderObjects ) {
-				if ( cvfo.getFolder1().getLevel() == i ) {
+				if ( cvfo.getFolder1().getLevel() == i ) { // || cvfo.getFolder2().getLevel() == i) {
 					/*
 					 * now we use the differenciator to diff between the folders
 					 * in order to know what folder to use
@@ -273,6 +277,106 @@ public class MKSComparator {
 			if ( itemsFound < 1 ) 
 				noLevelResult++;
 		}
+
+		/**
+		 * TODO
+		 * add this stupid second folder option...
+		 */
+		
+		noLevelResult = 0;
+		// now lets check out the files
+		for ( int i = 0 ; i < 999 ; i++ ){
+			int itemsFound = 0;
+			// break operation to not waste runtime! 
+			if ( noLevelResult > 2 ) {
+				break;
+			}
+			for ( CompareViewObject cvfo : compareViewFileObjects ) {
+				if ( cvfo.getFile1().getLevel() == i  ) { //|| cvfo.getFile1().getLevel() == i ) {
+					/*
+					 * now we use the differenciator to diff between the folders
+					 * in order to know what folder to use
+					 */
+					if ( cvfo.getDifferenciator().equalsIgnoreCase("==") || 
+							cvfo.getDifferenciator().equalsIgnoreCase("<") || 
+							cvfo.getDifferenciator().equalsIgnoreCase(">") ) {
+						// They both exist, so we use Folder1 as "main" folder
+						
+						// it has a daddy which is already created and hence is looked up
+						gridItem = new GridItem ( 
+								getParentGrid(cvfo.getFile1().getRootDir()), SWT.NONE);
+
+						
+						if ( cvfo.getDifferenciator().equalsIgnoreCase("<") || 
+								cvfo.getDifferenciator().equalsIgnoreCase(">") ) {
+//							System.out.println("set color " + cvfo.getFile1().getRootDir());
+							gridItem.setBackground(0, new Color(Display.getCurrent(), 230, 184, 184));
+							gridItem.setBackground(1, new Color(Display.getCurrent(), 230, 184, 184));
+							gridItem.setBackground(2, new Color(Display.getCurrent(), 230, 184, 184));
+							gridItem.setBackground(3, new Color(Display.getCurrent(), 230, 184, 184));
+							gridItem.setBackground(4, new Color(Display.getCurrent(), 230, 184, 184));
+							gridItem.setBackground(5, new Color(Display.getCurrent(), 230, 184, 184));
+							gridItem.setBackground(6, new Color(Display.getCurrent(), 230, 184, 184));
+							gridItem.setBackground(7, new Color(Display.getCurrent(), 230, 184, 184));
+							gridItem.setBackground(8, new Color(Display.getCurrent(), 230, 184, 184));
+							getParentGrid(cvfo.getFile1().getRootDir()).setExpanded(true);
+						}
+					} else if ( cvfo.getDifferenciator().equalsIgnoreCase("!=")) {
+						
+						if ( cvfo.getFile1() == null ) {
+							// we use folder 2 as master
+							gridItem = new GridItem ( 
+									getParentGrid(cvfo.getFile2().getRootDir()), SWT.NONE);
+							
+						} else {
+							// we use folder 1 as master
+							gridItem = new GridItem ( 
+									getParentGrid(cvfo.getFile1().getRootDir()), SWT.NONE);
+						}
+						gridItem.setBackground(0, new Color(Display.getCurrent(), 192, 80, 77));
+						gridItem.setBackground(1, new Color(Display.getCurrent(), 192, 80, 77));
+						gridItem.setBackground(2, new Color(Display.getCurrent(), 192, 80, 77));
+						gridItem.setBackground(3, new Color(Display.getCurrent(), 192, 80, 77));
+						gridItem.setBackground(4, new Color(Display.getCurrent(), 192, 80, 77));
+						gridItem.setBackground(5, new Color(Display.getCurrent(), 192, 80, 77));
+						gridItem.setBackground(6, new Color(Display.getCurrent(), 192, 80, 77));
+						gridItem.setBackground(7, new Color(Display.getCurrent(), 192, 80, 77));
+						gridItem.setBackground(8, new Color(Display.getCurrent(), 192, 80, 77));
+						
+					} else {
+						/*
+						 * TODO
+						 * nicer messages
+						 */
+						System.out.println("an error occured");
+						continue;
+					}
+					if ( cvfo.getFile1() != null ) {
+						gridItem.setText(0,cvfo.getFile1().getName().toString());
+						gridItem.setText(1,cvfo.getFile1().getVersion());
+						gridItem.setText(2,df.format(cvfo.getFile1().getModfiedDate()));
+						gridItem.setText(3,cvfo.getFile1().getObjectId());
+					}
+					if ( cvfo.getFile2() != null ) {
+						gridItem.setText(5,cvfo.getFile2().getName().toString());
+						gridItem.setText(6,cvfo.getFile2().getVersion());
+						gridItem.setText(7,df.format(cvfo.getFile2().getModfiedDate()));
+						gridItem.setText(8,cvfo.getFile2().getObjectId());
+					}
+					gridItem.setText(4, cvfo.getDifferenciator());
+					gridItem.setImage(0,PlatformUI.getWorkbench().getSharedImages()
+							.getImage(ISharedImages.IMG_OBJ_FILE));
+					gridItem.setImage(5,PlatformUI.getWorkbench().getSharedImages()
+							.getImage(ISharedImages.IMG_OBJ_FILE));
+					
+					gridItems.add(gridItem);
+					itemsFound++;
+				}
+			}
+			if ( itemsFound < 1 ) 
+				noLevelResult++;
+		}
+		
 		
 		
 		return gridItems;
@@ -291,4 +395,13 @@ public class MKSComparator {
 		return null;
 	}
 	
+	/**
+	 * TODO 
+	 * AUSLAGERN
+	 * @param suffix
+	 * @return
+	 */
+//	private Image getImageIcon(String suffix) {
+//		return null;
+//	}
 }

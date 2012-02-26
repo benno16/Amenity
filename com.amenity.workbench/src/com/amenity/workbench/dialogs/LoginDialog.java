@@ -2,6 +2,7 @@ package com.amenity.workbench.dialogs;
 
 import java.util.Date;
 
+import general.Container;
 import general.GeneralFactory;
 import general.User;
 import general.UserList;
@@ -11,6 +12,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -28,6 +30,7 @@ import org.eclipse.swt.events.SelectionEvent;
 
 import com.amenity.workbench.SessionSourceProvider;
 
+import dao.ContainerDao;
 import dao.DaoFactory;
 import dao.GeneralQueries;
 import dao.UserDao;
@@ -126,13 +129,13 @@ public class LoginDialog extends Dialog {
 		if ( dbAlive )
 			lblNewLabel.setImage(ResourceManager
 					.getPluginImage("com.amenity.workbench", 
-							"icons/workbench/general/status/hypersql_on.png"));
+							"icons/workbench/status/hypersql_on.png"));
 		else 
 			lblNewLabel.setImage(ResourceManager
 					.getPluginImage("com.amenity.workbench", 
-							"icons/workbench/general/status/hypersql_off.png"));
+							"icons/workbench/status/hypersql_off.png"));
 		
-		lblNewLabel.setBounds(116, 83, 32, 32);
+		lblNewLabel.setBounds(116, 83, 16, 16);
 		
 		Label lblDatabaseStatus = new Label(container, SWT.NONE);
 		lblDatabaseStatus.setBounds(10, 83, 100, 15);
@@ -159,6 +162,7 @@ public class LoginDialog extends Dialog {
 		return new Point(332, 199);
 	}
 	
+	@SuppressWarnings("unchecked")
 	protected void buttonPressed ( int buttonId ) {
 		/*
 		 * ID 0 : OK
@@ -200,6 +204,8 @@ public class LoginDialog extends Dialog {
 						sessionSourceProvider.setLoggedIn(true);
 						SessionSourceProvider.USERID = tempUser.getUserId();
 						SessionSourceProvider.USER = tempUser;
+						ContainerDao containerDao = DaoFactory.eINSTANCE.createContainerDao();
+						SessionSourceProvider.CONTAINER_LIST = containerDao.getListByOwner(Container.class, SessionSourceProvider.USER);
 						super.buttonPressed(buttonId);
 					}
 				} catch ( Exception ex ) {

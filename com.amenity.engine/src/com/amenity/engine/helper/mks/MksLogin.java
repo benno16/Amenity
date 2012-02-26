@@ -76,7 +76,8 @@ public class MksLogin {
 	        System.out.println("--[ Exception ]---------------------------");
 	        ResponseUtil.printAPIException(ae, 1, System.out);
 	        System.out.println("--[ Response In Which It Occured ]--------");
-	        ResponseUtil.printResponse(ae.getResponse(), 1, System.out);
+//	        ResponseUtil.printResponse(ae.getResponse(), 1, System.out);
+	        return null;
 	    } finally {
 	        try {
 	            if(mySession!=null){

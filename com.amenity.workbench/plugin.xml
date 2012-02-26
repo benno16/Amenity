@@ -81,6 +81,12 @@
             name="Event Log"
             restorable="true">
       </view>
+      <view
+            class="org.eclipse.ui.views.TaskList"
+            id="org.eclipse.ui.views.TaskList"
+            name="Task List"
+            restorable="true">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -154,18 +160,6 @@
                   style="push">
             </command>
             <command
-                  commandId="org.eclipse.ui.window.preferences"
-                  icon="icons/workbench/general/advanced.png">
-               <visibleWhen>
-                  <with
-                        variable="com.amenity.workbench.sessionState">
-                     <equals
-                           value="loggedIn">
-                     </equals>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
                   commandId="org.eclipse.ui.file.exit"
                   icon="icons/workbench/general/exit.png"
                   label="&amp;Exit">
@@ -176,13 +170,8 @@
             <command
                   commandId="org.eclipse.ui.window.preferences"
                   icon="icons/workbench/general/advanced.png"
-                  label="Settings"
+                  label="&amp;Settings"
                   style="push">
-            </command>
-            <command
-                  commandId="org.eclipse.ui.file.exit"
-                  icon="icons/workbench/general/exit.png"
-                  label="&amp;Exit">
             </command>
          </menu>
          <menu

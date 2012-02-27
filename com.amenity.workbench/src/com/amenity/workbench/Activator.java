@@ -6,6 +6,11 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
+import com.amenity.engine.helper.synergy.SynergyLogin;
+
+import dao.DaoFactory;
+import dao.GeneralQueries;
+
 /**
  * The activator class controls the plug-in life cycle
  */
@@ -37,9 +42,18 @@ public class Activator extends AbstractUIPlugin {
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
+		closeDBServer();
 		clearTempFolder();
 		plugin = null;
 		super.stop(context);
+	}
+
+	private void closeDBServer() {
+		GeneralQueries generalQueries = DaoFactory.eINSTANCE.createGeneralQueries();
+		generalQueries.shutdownDB();
+		if ( SessionSourceProvider.SYNERGY_SID != null )
+			new SynergyLogin().closeSynergySession(SessionSourceProvider.SYNERGY_SID);
+		
 	}
 
 	private void clearTempFolder() {

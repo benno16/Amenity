@@ -15,9 +15,7 @@ import com.mks.api.IntegrationPointFactory;
 import com.mks.api.Option;
 import com.mks.api.Session;
 import com.mks.api.response.APIException;
-import com.mks.api.response.Response;
-import com.mks.api.response.WorkItem;
-import com.mks.api.response.WorkItemIterator;
+import com.mks.api.si.SIModelTypeName;
 import com.mks.api.util.ResponseUtil;
 
 public class MksGetFile {
@@ -71,36 +69,39 @@ public class MksGetFile {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+//		
 //		
 //		try {
 //			IntegrationPointFactory ipf = IntegrationPointFactory.getInstance();
-//			IntegrationPoint ip = ipf.createIntegrationPoint(connection.getDatabase(), port);
+//			IntegrationPoint ip = ipf.createIntegrationPoint(connection.getDatabase(), 
+//					port, false , 4 , 10);
 //			
 //			mySession = ip.createSession(connection.getUsername(),connection.getPassword());
 //			
 //			CmdRunner myCmdRunner = mySession.createCmdRunner();
-//			
 //			myCmdRunner.setDefaultHostname(connection.getDatabase());
 //			myCmdRunner.setDefaultPort(port);
 //			myCmdRunner.setDefaultUsername(connection.getUsername());
 //			myCmdRunner.setDefaultPassword(connection.getPassword());
+//
+////			System.out.println((SIModelTypeName.WORKING_DIRECTORY));
+////			Command myCmd = new Command ( Command.SI , "viewprefs");
+////			myCmd.addOption( new Option( "command" , SIModelTypeName.WORKING_DIRECTORY ) );
+////			myCmdRunner.execute(myCmd);
 //			
-//			Command myCmd = new Command ( Command.SI , "viewrevision");
-//			myCmd.addOption( new Option( "-P" , connection.getProject() ) );
-//			myCmd.addOption( new Option( "revision" , file.getVersion() ) );
+//			
+//			Command myCmd = new Command ( Command.SI , "projectco");
+//			myCmd.addOption( new Option( "project" , connection.getProject() ) );
+//			myCmd.addOption( new Option( "targetfile", file.getName() ) );
+////					"C:/Program Files/MKS/IntegrityServer2009SP4/data/tmp/" + file.getName() ) );
+//			myCmd.addOption( new Option( "cpid", ":none" ) );
+//			myCmd.addOption( new Option( "nolock" ) );
 //			myCmd.addSelection(file.getName());
-////			myCmd.addOption( new Option( " " + file.getName() ) );
-//			myCmd.addOption( new Option( " > d:/temp/output.txt" ) );
+//			myCmdRunner.execute(myCmd);
 //			
-////			Response myResponse = 
-//					myCmdRunner.execute(myCmd);
-////			WorkItemIterator wii = myResponse.getWorkItems();
-////			
-////			while ( wii.hasNext() ) {
-////				WorkItem wi = wii.next();
-////				wi.getDisplayId();
-////			}
+//			System.out.println("I made it Through: " + 
+//					"C:/Program Files/MKS/IntegrityServer2009SP4/data/tmp/" + file.getName());
+//			
 //		} catch (APIException ae) {
 //	        System.out.println("--[ Exception ]---------------------------");
 //	        ResponseUtil.printAPIException(ae, 1, System.out);

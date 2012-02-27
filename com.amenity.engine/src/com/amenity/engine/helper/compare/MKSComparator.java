@@ -32,13 +32,8 @@ public class MKSComparator {
 	private List<Folder> folders2;
 	private List<File> files2;
 	
-	public MKSComparator() {
-		/**
-		 * TODO maybe a smarter way of handling this,
-		 * but I simply love exceptions
-		 * this is not allowed! 
-		 */
-		throw new UnsupportedOperationException();
+	@SuppressWarnings("unused")
+	private MKSComparator() {
 	}
 	
 	public MKSComparator ( List<ContentObject> contentObjects1, 

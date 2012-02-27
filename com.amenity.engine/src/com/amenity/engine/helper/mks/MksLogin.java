@@ -24,7 +24,9 @@ public class MksLogin {
 	private boolean isSandbox = false;
 	private Session mySession = null;
 	
-	public MksLogin () {
+	@SuppressWarnings("unused")
+	private MksLogin () {
+		// hidden constructor
 	}
 	
 	public MksLogin ( String username, String password, String database, boolean isSandbox ) {
@@ -46,8 +48,9 @@ public class MksLogin {
 			IntegrationPoint ip;
 			if ( isSandbox )
 				ip = ipf.createLocalIntegrationPoint();
-			else 
-				ip = ipf.createIntegrationPoint(database, port);
+			else
+				ip = ipf.createIntegrationPoint(database, 
+						port, false , 4 , 10);
 			mySession = ip.createSession(username, password);
 			CmdRunner myCmdRunner = mySession.createCmdRunner();
 			

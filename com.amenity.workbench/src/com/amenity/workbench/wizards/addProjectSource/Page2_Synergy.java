@@ -1,5 +1,8 @@
 package com.amenity.workbench.wizards.addProjectSource;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import general.Connection;
 
 import org.eclipse.jface.wizard.WizardPage;
@@ -11,10 +14,16 @@ import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
+import com.amenity.engine.helper.synergy.SynergyLogin;
+import com.amenity.workbench.SessionSourceProvider;
+
 public class Page2_Synergy extends WizardPage {
 	
 	private ProgressBar progressBar;
 	private Label lblNewLabel;
+	private Button btnConnect;
+	private boolean finished;
+	List<String> projectList;
 	
 	/**
 	 * Create the wizard.
@@ -23,6 +32,7 @@ public class Page2_Synergy extends WizardPage {
 		super("wizardPage");
 		setTitle("Synergy Data Source Profile");
 		setDescription("Please connect to Synergy");
+		projectList = new ArrayList<String>();
 	}
 
 	/**
@@ -34,24 +44,59 @@ public class Page2_Synergy extends WizardPage {
 
 		setControl(container);
 		
-		Button btnConnect = new Button(container, SWT.NONE);
+		btnConnect = new Button(container, SWT.NONE);
 		btnConnect.addSelectionListener(new SelectionAdapter() {
-			@SuppressWarnings("static-access")
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				
+				/*
+				 * working example below but aweful! 
+				 */
+				finished = false;
 				container.getDisplay().getDefault().asyncExec(new Runnable() {
 					public void run() {
-						progressBar.setMaximum(5000);
-						for ( int i = 1 ; i < 51 ; i++ ) {
-							progressBar.setSelection(100*i);
+						progressBar.setMaximum(30000);
+						for ( int i = 0; i<30 ; i++){
+							progressBar.setSelection( 100*i );
 							try {
 								Thread.sleep(100);
 							} catch ( InterruptedException e) {
 								e.printStackTrace();
 							}
+							if ( finished ) break;
 						}
-						progressBar.setSelection(0);
-						lblNewLabel.setText("Connected with ID 123123123");
+					}
+				});
+				container.getDisplay().getDefault().asyncExec(new Runnable() {
+					public void run() {
+						btnConnect.setEnabled(false);
+						
+						SynergyLogin sgyLogin = new SynergyLogin();
+						
+						SessionSourceProvider.SYNERGY_SID = sgyLogin.getSynergySessionId();
+						
+						SessionSourceProvider.SESSION_STATUS.setSynergySession(SessionSourceProvider.SYNERGY_SID );
+						if ( SessionSourceProvider.SYNERGY_SID == null ) {
+							System.out.println("Error while creating SID");
+							btnConnect.setEnabled(true);
+						} else {
+							projectList = sgyLogin.getRawProjectList(SessionSourceProvider.SYNERGY_SID);
+							if ( projectList.size() > 0 ) {
+								System.out.println(projectList.size());
+								ProjectWizard wizard = (ProjectWizard)getWizard();
+								wizard.projectList = projectList;
+								lblNewLabel.setText("Connected with ID: " + 
+										SessionSourceProvider.SYNERGY_SID);
+								setPageComplete(true);
+								finished = true;
+								progressBar.setSelection(0);
+							} else {
+								/**
+								 * TODO: Nicer error messages
+								 */
+								System.out.println("Error while reading projects");
+							}
+						}
 					}
 				});
 			}
@@ -72,6 +117,56 @@ public class Page2_Synergy extends WizardPage {
 		
 		progressBar = new ProgressBar(container, SWT.NONE);
 		progressBar.setBounds(10, 255, 554, 17);
+		if ( SessionSourceProvider.SYNERGY_SID == null ) {
+			setPageComplete(false);
+			btnConnect.setEnabled(true);
+		} else {
+			setPageComplete(true);
+			btnConnect.setEnabled(false);
+		}
+	}
+
+	
+	void buttonPressed( int buttonId ) {
+		System.out.println("button pressed" + buttonId);
+	}
+	
+	void nextPressed() {
+		ProjectWizard wizard = (ProjectWizard)getWizard();
+		System.out.println("there are Elements: " + wizard.projectList.size());
+		wizard.three_sgy.createProjectList(wizard.projectList);
+	}
+
+	private void doConnect() {
+		btnConnect.setEnabled(false);
 		
+		SynergyLogin sgyLogin = new SynergyLogin();
+		
+		SessionSourceProvider.SYNERGY_SID = sgyLogin.getSynergySessionId();
+		
+		SessionSourceProvider.SESSION_STATUS.setSynergySession(SessionSourceProvider.SYNERGY_SID );
+		if ( SessionSourceProvider.SYNERGY_SID == null ) {
+			System.out.println("Error while creating SID");
+			btnConnect.setEnabled(true);
+		} else {
+			projectList = sgyLogin.getRawProjectList(SessionSourceProvider.SYNERGY_SID);
+			if ( projectList.size() > 0 ) {
+				System.out.println(projectList.size());
+				ProjectWizard wizard = (ProjectWizard)getWizard();
+				wizard.projectList = projectList;
+				lblNewLabel.setText("Connected with ID: " + 
+						SessionSourceProvider.SYNERGY_SID);
+				setPageComplete(true);
+				finished = true;
+				progressBar.setSelection(0);
+			}
+        
+	        lblNewLabel.getDisplay().asyncExec(new Runnable() {
+	        	public void run() {
+	        	lblNewLabel.setText("Connected with ID: " + 
+						SessionSourceProvider.SYNERGY_SID);
+	        	}
+	        });
+		}
 	}
 }

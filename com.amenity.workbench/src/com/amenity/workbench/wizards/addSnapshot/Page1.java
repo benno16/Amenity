@@ -1,6 +1,7 @@
 package com.amenity.workbench.wizards.addSnapshot;
 
 import general.Connection;
+import general.ConnectionType;
 import general.Container;
 import general.GeneralFactory;
 import general.Snapshot;
@@ -27,6 +28,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.ProgressBar;
 
 import com.amenity.engine.helper.mks.MksReader;
+import com.amenity.engine.helper.synergy.SynergyLogin;
+import com.amenity.engine.helper.synergy.SynergyReader;
 import com.amenity.workbench.SessionSourceProvider;
 
 import dao.ConnectionDao;
@@ -195,11 +198,21 @@ public class Page1 extends WizardPage {
 				break;
 			}
 		}
-		MksReader mksReader = new MksReader( connection, snapshot );
-		if ( connection.getAddInfo4().equals("Sandbox"))
-			mksReader.getSandboxFiles();
-		else
-			mksReader.getProjectFiles();
+		if ( connection.getConnectionType() == ConnectionType.MKS) {
+			MksReader mksReader = new MksReader( connection, snapshot );
+			if ( connection.getAddInfo4().equals("Sandbox"))
+				mksReader.getSandboxFiles();
+			else
+				mksReader.getProjectFiles();
+		} else if ( connection.getConnectionType() == ConnectionType.SYNERGY ) {
+			if ( SessionSourceProvider.SYNERGY_SID == null ) {
+				SessionSourceProvider.SYNERGY_SID = new SynergyLogin().getSynergySessionId();
+			}
+			System.out.println("Its a sgy session " + SessionSourceProvider.SYNERGY_SID);
+			SynergyReader synergyReader = new SynergyReader (SessionSourceProvider.SYNERGY_SID,
+					connection, snapshot );
+			synergyReader.getProjectFiles();
+		}
 //		isFinished = true;
 		return true;
 	}

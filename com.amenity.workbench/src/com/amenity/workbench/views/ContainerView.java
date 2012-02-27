@@ -5,9 +5,8 @@ import java.util.Iterator;
 
 import general.Container;
 
-import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -21,7 +20,6 @@ import org.eclipse.swt.widgets.List;
 import com.amenity.engine.helper.gui.ContainerLabelProvider;
 import com.amenity.workbench.SessionSourceProvider;
 import com.amenity.workbench.dialogs.ModifyContainerDialog;
-import com.amenity.workbench.dialogs.RenameTitleAreaDialog;
 import com.amenity.workbench.wizards.addContainer.ContainerWizard;
 
 import dao.ContainerDao;
@@ -109,13 +107,16 @@ public class ContainerView extends ViewPart {
 						MessageDialog.WARNING, 
 						new String[] {"Delete", "Keep"}, 1);
 				if ( msg.open() == 0 ) {
+					Container c = null;
 					for ( Iterator<Container> iter = SessionSourceProvider.CONTAINER_LIST.iterator(); iter.hasNext(); ) {
-						Container c = iter.next();
+						c = iter.next();
 						if ( c.equals(SessionSourceProvider.CURRENT_CONTAINER )) {
 							iter.remove();
+							SessionSourceProvider.CURRENT_CONTAINER = null;
+							break;
 						}
 					}
-					containerDao.delete(SessionSourceProvider.CURRENT_CONTAINER);
+					containerDao.delete(c);
 				}
 				enableButtons();
 			}
@@ -146,9 +147,10 @@ public class ContainerView extends ViewPart {
 			@Override
 			public void widgetSelected ( SelectionEvent e ) {
 				ModifyContainerDialog dialog = new ModifyContainerDialog ( parent.getShell()); 
-				dialog.open();
-//				containerDao.update(SessionSourceProvider.CURRENT_CONTAINER);
-//				enableButtons();
+				if ( dialog.open() == Window.OK) {
+					containerDao.update(SessionSourceProvider.CURRENT_CONTAINER);
+				}
+				
 			}
 		});
 		

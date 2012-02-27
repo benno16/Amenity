@@ -1,6 +1,7 @@
 package com.amenity.workbench.wizards.addProjectSource;
 
 import java.util.Date;
+import java.util.List;
 
 import general.Connection;
 import general.ConnectionType;
@@ -22,6 +23,8 @@ public class ProjectWizard extends Wizard {
 	Page2_Synergy two_sgy;
 	Page3_Synergy three_sgy;
 	Page4 four;
+	List<String> projectList;
+	
 	Container container = GeneralFactory.eINSTANCE.createContainer(); 
 	Connection connection;
 	boolean storePassword = false;
@@ -38,7 +41,7 @@ public class ProjectWizard extends Wizard {
 		two_mks = new Page2_MKS( connection );
 		three_mks = new Page3_MKS( connection );
 		two_sgy = new Page2_Synergy( connection );
-		three_sgy = new Page3_Synergy( connection );
+		three_sgy = new Page3_Synergy( two_sgy.projectList );
 		four = new Page4( connection );
 		
 		
@@ -81,19 +84,24 @@ public class ProjectWizard extends Wizard {
 		if ( page instanceof Page2_Synergy) {
 			return three_sgy;
 		}
+		
+		if ( page instanceof Page3_Synergy) {
+			return null;
+		}
+		
 		return one;
 	}
 	
-//	@Override
-//	public boolean canFinish() {
-//		/**
-//		 * TODO: Page 4 with save options 
-//		 */
-//		if ( this.getContainer().getCurrentPage() == three_mks || 
-//				this.getContainer().getCurrentPage() == three_sgy )
-//			return true;
-//		return false;
-//	}
+	@Override
+	public boolean canFinish() {
+		/**
+		 * TODO: Page 4 with save options 
+		 */
+		if ( this.getContainer().getCurrentPage() == three_mks || 
+				this.getContainer().getCurrentPage() == three_sgy )
+			return true;
+		return false;
+	}
 
 	@Override
 	public boolean performFinish() {
@@ -103,14 +111,22 @@ public class ProjectWizard extends Wizard {
 		 * Database finish and Synergy Integration! 
 		 */
 		connection.setLastUsed(new Date());
-		if ( three_mks.btnSandbox.getSelection() ) {
-			connection.setAddInfo4("Sandbox");
-		} else {
-			connection.setAddInfo4("Online");
-		}
-		connection.setAddInfo1(three_mks.text.getText());
-		connection.setAddInfo2(three_mks.text_1.getText());
-		connection.setProject(three_mks.combo.getItem(three_mks.combo.getSelectionIndex()));
+		if ( connection.getConnectionType().equals(ConnectionType.MKS) ) {
+			if ( three_mks.btnSandbox.getSelection() ) {
+				connection.setAddInfo4("Sandbox");
+			} else {
+				connection.setAddInfo4("Online");
+			}
+			connection.setAddInfo1(three_mks.text.getText());
+			connection.setAddInfo2(three_mks.text_1.getText());
+			connection.setProject(three_mks.combo.getItem(three_mks.combo.getSelectionIndex()));
+		} else if ( connection.getConnectionType().equals(ConnectionType.SYNERGY) ) {
+//			connection.setProject(three_sgy.listViewer.getSelection().toString());
+//			connection.setRelease(three_sgy.listViewer_1.getSelection().toString());
+			connection.setAddInfo1(three_sgy.text.getText());
+			
+		} else return false;
+		
 		connection.setCreated(new Date());
 		ConnectionDao connectionDao = DaoFactory.eINSTANCE.createConnectionDao();
 		connectionDao.create(connection);

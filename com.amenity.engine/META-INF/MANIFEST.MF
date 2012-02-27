@@ -13,4 +13,5 @@ Require-Bundle: com.amenity.framework;bundle-version="1.0.0",
 Export-Package: com.amenity.engine.helper.compare,
  com.amenity.engine.helper.gui,
  com.amenity.engine.helper.mks,
- com.amenity.engine.helper.status
+ com.amenity.engine.helper.status,
+ com.amenity.engine.helper.synergy

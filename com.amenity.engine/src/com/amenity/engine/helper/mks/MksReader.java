@@ -322,13 +322,14 @@ public class MksReader {
 	 * 
 	 * 
 	 */
-	@SuppressWarnings("deprecation")
 	public boolean getProjectFiles() {
 		boolean noError = true;
 		start = System.currentTimeMillis()/1000;
 		try {
 			IntegrationPointFactory ipf = IntegrationPointFactory.getInstance();
-			IntegrationPoint ip = ipf.createIntegrationPoint(connection.getDatabase(), port);
+			IntegrationPoint ip = ipf.createIntegrationPoint(connection.getDatabase(), 
+					port, false , 4 , 10);
+			
 			
 			mySession = ip.createSession(connection.getUsername(),connection.getPassword());
 			

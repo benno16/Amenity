@@ -4,10 +4,14 @@ select "password" from "connection" c1, "container" c2 where c2."ownerid" = 'd58
 select password from "connection" c1, "container" c2 where c2."owner" = 'd58ae39b-9a05-4651-9e73-c445e8479073'
 
 select * from "user"
-select * from "container"
+select * from "container" where "name" != 'Container'
 select * from "connection"
-select * from "snapshot"
-select * from "contentobject" where "PARTOF" = '4cd7d81e-ffd1-4b67-b36f-58caedd930f1'
+
+update "connection" set "database" = 'Immo_Test_Tool-00.01:project:CHRXM~1' where "connectionid" = 'b6554a46-5c50-40a3-9daf-61338f503b79'
+
+where "snapshotid" = '63e69b5f-0718-4888-811b-a13c7b892c67'
+
+select * from "contentobject" where "PARTOF" = '0523568b-de0a-44da-8550-6e3783483fcb'
 
 select * from "contentobject" where "objectid" = '2a5b3bfa-d676-4860-a469-220d84d706f6'
 
@@ -17,6 +21,10 @@ delete from "contentobject" cascade
 delete from "user"
 delete from "container"
 
-delete from "snapshot" where "snapshotid" != '9973384a-0051-455f-a12b-e682d1d4982f' cascade
+delete from "snapshot" where "E_VERSION" < 2 cascade
 
 drop schema "PUBLIC" cascade
+
+update "user" set "username" = 'uidu1448'
+
+delete from "container" where "name" != 'Container'

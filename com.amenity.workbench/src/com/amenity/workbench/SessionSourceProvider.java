@@ -38,7 +38,8 @@ public class SessionSourceProvider extends AbstractSourceProvider {
     public static List<Container> CONTAINER_LIST;
     public static List<Snapshot> SNAPSHOT_LIST;
     
-    
+    // Session information
+    public static String SYNERGY_SID = null;
     
     boolean loggedIn;
     

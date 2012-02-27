@@ -56,4 +56,20 @@ public class GeneralQueriesImpl extends GenericDaoImpl implements GeneralQueries
 		
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void shutdownDB() {
+		/*
+		 * Checkes wether or not a DB is active and available
+		 */
+		session = getSession();
+		session.beginTransaction();
+		session.createSQLQuery("SHUTDOWN");
+		session.getTransaction().commit();
+		session.close();
+	}
+
 } //GeneralQueriesImpl

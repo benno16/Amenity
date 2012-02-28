@@ -19,9 +19,9 @@ public class LocalDB {
 		// production
 //		rootDir = "file:" + rootDir + "/temp/database/amenity;sql.enforce_strict_size=true";
 		// Conti internal
-		rootDir = "file:" + rootDir + "/git/Amenity/com.amenity.workbench/database/amenity;sql.enforce_strict_size=true";
+//		rootDir = "file:" + rootDir + "/git/Amenity/com.amenity.workbench/database/amenity;sql.enforce_strict_size=true";
 		// Ben home
-//		rootDir = "file:" + rootDir + "/Desktop/Arbeit/__Bachelor/amenity/git/Amenity/com.amenity.workbench/database/amenity;sql.enforce_strict_size=true";
+		rootDir = "file:" + rootDir + "/Desktop/Arbeit/__Bachelor/amenity/New/Amenity/com.amenity.workbench/database/amenity;sql.enforce_strict_size=true";
 		
 		
 		HsqlProperties p = new HsqlProperties();

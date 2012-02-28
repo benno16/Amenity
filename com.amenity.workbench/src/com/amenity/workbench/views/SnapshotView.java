@@ -249,7 +249,6 @@ public class SnapshotView extends ViewPart {
 					if ( structuredSelection.getFirstElement() instanceof Container ) {
 						SessionSourceProvider.CURRENT_CONTAINER = 
 								(Container) structuredSelection.getFirstElement();
-						System.out.println("Curr Sel: " + SessionSourceProvider.CURRENT_CONTAINER.getName());
 						fillSnapshotList();
 					}
 				}
@@ -328,7 +327,6 @@ public class SnapshotView extends ViewPart {
 		/**
 		 * create grid folder items
 		 */
-		System.out.println("Amount of folders: " + folders.size() );
 		int i = 0;
 		int noLevelResult = 0;
 		SimpleDateFormat df = new SimpleDateFormat ("yyyy-MM-dd HH:mm");
@@ -534,11 +532,9 @@ public class SnapshotView extends ViewPart {
 	private void fillSnapshotList() {
 		
 		SnapshotDao snapshotDao = DaoFactory.eINSTANCE.createSnapshotDao();
-		System.out.println(">>" + SessionSourceProvider.CURRENT_CONTAINER.getName());
 		SessionSourceProvider.SNAPSHOT_LIST = snapshotDao.getListByContainer(
 				SessionSourceProvider.CURRENT_CONTAINER.getContainerId());
 
-		System.out.println(">>>" + SessionSourceProvider.SNAPSHOT_LIST.size());
 		snapshotListViewer.setInput(SessionSourceProvider.SNAPSHOT_LIST);
 	}
 

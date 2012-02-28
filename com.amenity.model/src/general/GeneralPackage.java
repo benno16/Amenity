@@ -477,22 +477,13 @@ public interface GeneralPackage extends EPackage {
 	int CONNECTION__DELETED = 16;
 
 	/**
-	 * The feature id for the '<em><b>EReference0</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION__EREFERENCE0 = 17;
-
-	/**
 	 * The number of structural features of the '<em>Connection</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_FEATURE_COUNT = 18;
+	int CONNECTION_FEATURE_COUNT = 17;
 
 	/**
 	 * The meta object id for the '{@link general.impl.ContainerImpl <em>Container</em>}' class.
@@ -704,31 +695,31 @@ public interface GeneralPackage extends EPackage {
 	int SNAPSHOT__SYSTEM_COMPONENT = 9;
 
 	/**
-	 * The feature id for the '<em><b>EReference0</b></em>' containment reference.
+	 * The feature id for the '<em><b>Detailed Properties</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SNAPSHOT__EREFERENCE0 = 10;
+	int SNAPSHOT__DETAILED_PROPERTIES = 10;
 
 	/**
-	 * The feature id for the '<em><b>EReference1</b></em>' containment reference.
+	 * The feature id for the '<em><b>General Properties</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SNAPSHOT__EREFERENCE1 = 11;
+	int SNAPSHOT__GENERAL_PROPERTIES = 11;
 
 	/**
-	 * The feature id for the '<em><b>EReference2</b></em>' containment reference.
+	 * The feature id for the '<em><b>Via</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SNAPSHOT__EREFERENCE2 = 12;
+	int SNAPSHOT__VIA = 12;
 
 	/**
 	 * The number of structural features of the '<em>Snapshot</em>' class.
@@ -2428,17 +2419,6 @@ public interface GeneralPackage extends EPackage {
 	EAttribute getConnection_Deleted();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link general.Connection#getEReference0 <em>EReference0</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>EReference0</em>'.
-	 * @see general.Connection#getEReference0()
-	 * @see #getConnection()
-	 * @generated
-	 */
-	EReference getConnection_EReference0();
-
-	/**
 	 * Returns the meta object for class '{@link general.Container <em>Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2679,37 +2659,37 @@ public interface GeneralPackage extends EPackage {
 	EReference getSnapshot_SystemComponent();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link general.Snapshot#getEReference0 <em>EReference0</em>}'.
+	 * Returns the meta object for the containment reference '{@link general.Snapshot#getDetailedProperties <em>Detailed Properties</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>EReference0</em>'.
-	 * @see general.Snapshot#getEReference0()
+	 * @return the meta object for the containment reference '<em>Detailed Properties</em>'.
+	 * @see general.Snapshot#getDetailedProperties()
 	 * @see #getSnapshot()
 	 * @generated
 	 */
-	EReference getSnapshot_EReference0();
+	EReference getSnapshot_DetailedProperties();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link general.Snapshot#getEReference1 <em>EReference1</em>}'.
+	 * Returns the meta object for the containment reference '{@link general.Snapshot#getGeneralProperties <em>General Properties</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>EReference1</em>'.
-	 * @see general.Snapshot#getEReference1()
+	 * @return the meta object for the containment reference '<em>General Properties</em>'.
+	 * @see general.Snapshot#getGeneralProperties()
 	 * @see #getSnapshot()
 	 * @generated
 	 */
-	EReference getSnapshot_EReference1();
+	EReference getSnapshot_GeneralProperties();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link general.Snapshot#getEReference2 <em>EReference2</em>}'.
+	 * Returns the meta object for the reference '{@link general.Snapshot#getVia <em>Via</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>EReference2</em>'.
-	 * @see general.Snapshot#getEReference2()
+	 * @return the meta object for the reference '<em>Via</em>'.
+	 * @see general.Snapshot#getVia()
 	 * @see #getSnapshot()
 	 * @generated
 	 */
-	EReference getSnapshot_EReference2();
+	EReference getSnapshot_Via();
 
 	/**
 	 * Returns the meta object for class '{@link general.ContentObject <em>Content Object</em>}'.
@@ -3914,14 +3894,6 @@ public interface GeneralPackage extends EPackage {
 		EAttribute CONNECTION__DELETED = eINSTANCE.getConnection_Deleted();
 
 		/**
-		 * The meta object literal for the '<em><b>EReference0</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CONNECTION__EREFERENCE0 = eINSTANCE.getConnection_EReference0();
-
-		/**
 		 * The meta object literal for the '{@link general.impl.ContainerImpl <em>Container</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4102,28 +4074,28 @@ public interface GeneralPackage extends EPackage {
 		EReference SNAPSHOT__SYSTEM_COMPONENT = eINSTANCE.getSnapshot_SystemComponent();
 
 		/**
-		 * The meta object literal for the '<em><b>EReference0</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Detailed Properties</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SNAPSHOT__EREFERENCE0 = eINSTANCE.getSnapshot_EReference0();
+		EReference SNAPSHOT__DETAILED_PROPERTIES = eINSTANCE.getSnapshot_DetailedProperties();
 
 		/**
-		 * The meta object literal for the '<em><b>EReference1</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>General Properties</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SNAPSHOT__EREFERENCE1 = eINSTANCE.getSnapshot_EReference1();
+		EReference SNAPSHOT__GENERAL_PROPERTIES = eINSTANCE.getSnapshot_GeneralProperties();
 
 		/**
-		 * The meta object literal for the '<em><b>EReference2</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Via</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SNAPSHOT__EREFERENCE2 = eINSTANCE.getSnapshot_EReference2();
+		EReference SNAPSHOT__VIA = eINSTANCE.getSnapshot_Via();
 
 		/**
 		 * The meta object literal for the '{@link general.impl.ContentObjectImpl <em>Content Object</em>}' class.

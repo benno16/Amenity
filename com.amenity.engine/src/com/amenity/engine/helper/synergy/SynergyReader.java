@@ -127,6 +127,7 @@ public class SynergyReader {
 					file.setVersion(version);
 					file.setModfiedDate(modifyTime);
 					file.setFullName(objectName);
+					file.setObjectName(objectName);
 					file.setPartOf(snapshot);
 					file.setRootDir(root);
 					file.setStatus(status);

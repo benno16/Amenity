@@ -36,6 +36,7 @@ public interface Folder extends ContentObject {
 	 * @see general.GeneralPackage#getFolder_Children()
 	 * @see general.File#getRootDir
 	 * @model opposite="rootDir"
+	 *        annotation="teneo.jpa value='@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})'"
 	 * @generated
 	 */
 	EList<File> getChildren();

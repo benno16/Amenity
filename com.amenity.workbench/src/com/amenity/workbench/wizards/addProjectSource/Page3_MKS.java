@@ -89,7 +89,6 @@ public class Page3_MKS extends WizardPage {
 							wizard.connection.getPassword(), 
 							wizard.connection.getDatabase(), true);
 					projects = mksLogin.showProjects();
-					System.out.println( "There are Sandboxprojects: " + projects.size());
 					mksLogin = null;
 				} else {
 					mksLogin = new MksLogin (wizard.connection.getUsername(), 
@@ -97,7 +96,6 @@ public class Page3_MKS extends WizardPage {
 							wizard.connection.getDatabase(), false);
 					projects = mksLogin.showProjects();
 					mksLogin = null;
-					System.out.println( "There are online projects: " + projects.size());
 				}
 				combo.removeAll();
 				for ( String string : projects )

@@ -39,8 +39,10 @@ public class ContainerDaoImpl extends GenericDaoImpl implements ContainerDao {
 		String string = "from " + class_.getName().toString() + 
 				" where owner = '" + user.getUserId() + "' and deleted = '0'";
 		Query queryRes = session.createQuery(string);
-		System.out.println("amount of containers: " + queryRes.list().size() );
-		return queryRes.list();
+		@SuppressWarnings("unchecked")
+		List<Container> resultList = queryRes.list();
+		session.close();
+		return resultList;
 	}
 	
 	public void delete(Object object) {

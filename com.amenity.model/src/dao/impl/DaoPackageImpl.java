@@ -4,6 +4,7 @@ package dao.impl;
 
 import dao.ConnectionDao;
 import dao.ContainerDao;
+import dao.ContentObjectDao;
 import dao.DaoFactory;
 import dao.DaoPackage;
 import dao.EventDao;
@@ -15,6 +16,7 @@ import dao.HibernateUtil;
 import dao.SnapshotDao;
 import dao.UserDao;
 
+import general.Snapshot;
 import general.User;
 
 import java.util.List;
@@ -114,6 +116,13 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass contentObjectDaoEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EDataType listEDataType = null;
 
 	/**
@@ -150,6 +159,13 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 	 * @generated
 	 */
 	private EDataType containerEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType snapshotEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -334,6 +350,15 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getContentObjectDao() {
+		return contentObjectDaoEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EDataType getList() {
 		return listEDataType;
 	}
@@ -388,6 +413,15 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EDataType getSnapshot() {
+		return snapshotEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public DaoFactory getDaoFactory() {
 		return (DaoFactory)getEFactoryInstance();
 	}
@@ -434,6 +468,8 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 
 		snapshotDaoEClass = createEClass(SNAPSHOT_DAO);
 
+		contentObjectDaoEClass = createEClass(CONTENT_OBJECT_DAO);
+
 		// Create data types
 		listEDataType = createEDataType(LIST);
 		queryEDataType = createEDataType(QUERY);
@@ -441,6 +477,7 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		sessionFactoryEDataType = createEDataType(SESSION_FACTORY);
 		userEDataType = createEDataType(USER);
 		containerEDataType = createEDataType(CONTAINER);
+		snapshotEDataType = createEDataType(SNAPSHOT);
 	}
 
 	/**
@@ -479,6 +516,7 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		folderDaoEClass.getESuperTypes().add(this.getGenericDao());
 		fileDaoEClass.getESuperTypes().add(this.getGenericDao());
 		snapshotDaoEClass.getESuperTypes().add(this.getGenericDao());
+		contentObjectDaoEClass.getESuperTypes().add(this.getGenericDao());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(genericDaoEClass, GenericDao.class, "GenericDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -562,6 +600,14 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		op = addEOperation(snapshotDaoEClass, this.getList(), "getListByContainer", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "containerId", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+		initEClass(contentObjectDaoEClass, ContentObjectDao.class, "ContentObjectDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		op = addEOperation(contentObjectDaoEClass, this.getList(), "getListBySnapshot", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getSnapshot(), "snapshot", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(contentObjectDaoEClass, null, "deleteListBySnapshot", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getSnapshot(), "snapshot", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		// Initialize data types
 		initEDataType(listEDataType, List.class, "List", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(queryEDataType, Query.class, "Query", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
@@ -569,6 +615,7 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		initEDataType(sessionFactoryEDataType, SessionFactory.class, "SessionFactory", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(userEDataType, User.class, "User", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(containerEDataType, general.Container.class, "Container", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(snapshotEDataType, Snapshot.class, "Snapshot", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

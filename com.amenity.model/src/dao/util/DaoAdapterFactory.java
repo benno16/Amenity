@@ -108,6 +108,10 @@ public class DaoAdapterFactory extends AdapterFactoryImpl {
 				return createSnapshotDaoAdapter();
 			}
 			@Override
+			public Adapter caseContentObjectDao(ContentObjectDao object) {
+				return createContentObjectDaoAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -264,6 +268,20 @@ public class DaoAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSnapshotDaoAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link dao.ContentObjectDao <em>Content Object Dao</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see dao.ContentObjectDao
+	 * @generated
+	 */
+	public Adapter createContentObjectDaoAdapter() {
 		return null;
 	}
 

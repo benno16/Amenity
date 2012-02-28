@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see general.GeneralPackage#getFunction()
- * @model
+ * @model annotation="teneo.jpa value='@OnDelete(action = OnDeleteAction.CASCADE)'"
  * @generated
  */
 public interface Function extends EObject {

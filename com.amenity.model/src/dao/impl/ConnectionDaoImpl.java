@@ -52,8 +52,10 @@ public class ConnectionDaoImpl extends GenericDaoImpl implements ConnectionDao {
 		session = getSession();
 		session.beginTransaction();
 		String string = "select \"password\" from \"connection\" c1, " +
-				"\"container\" c2 where c2.\"ownerid\" = '" + user.getUserId() + "'";
+				"\"container\" c2 where c1.\"password\" is not null " +
+				"and c2.\"ownerid\" = '" + user.getUserId() + "'";
 
+		System.err.println(string);
 		Query queryRes = session.createSQLQuery(string);
 		String resultSet = "";
 		if ( queryRes.list().size() > 0 ) 

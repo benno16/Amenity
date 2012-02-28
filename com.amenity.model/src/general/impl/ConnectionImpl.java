@@ -7,7 +7,6 @@ import general.ConnectionType;
 import general.Container;
 import general.DataSource;
 import general.GeneralPackage;
-import general.Snapshot;
 
 import java.util.Date;
 
@@ -44,7 +43,6 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link general.impl.ConnectionImpl#getLastUsed <em>Last Used</em>}</li>
  *   <li>{@link general.impl.ConnectionImpl#getPartOf <em>Part Of</em>}</li>
  *   <li>{@link general.impl.ConnectionImpl#isDeleted <em>Deleted</em>}</li>
- *   <li>{@link general.impl.ConnectionImpl#getEReference0 <em>EReference0</em>}</li>
  * </ul>
  * </p>
  *
@@ -379,16 +377,6 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	 * @ordered
 	 */
 	protected boolean deleted = DELETED_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getEReference0() <em>EReference0</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEReference0()
-	 * @generated
-	 * @ordered
-	 */
-	protected Snapshot eReference0;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -852,49 +840,6 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Snapshot getEReference0() {
-		return eReference0;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetEReference0(Snapshot newEReference0, NotificationChain msgs) {
-		Snapshot oldEReference0 = eReference0;
-		eReference0 = newEReference0;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GeneralPackage.CONNECTION__EREFERENCE0, oldEReference0, newEReference0);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setEReference0(Snapshot newEReference0) {
-		if (newEReference0 != eReference0) {
-			NotificationChain msgs = null;
-			if (eReference0 != null)
-				msgs = ((InternalEObject)eReference0).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GeneralPackage.CONNECTION__EREFERENCE0, null, msgs);
-			if (newEReference0 != null)
-				msgs = ((InternalEObject)newEReference0).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GeneralPackage.CONNECTION__EREFERENCE0, null, msgs);
-			msgs = basicSetEReference0(newEReference0, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.CONNECTION__EREFERENCE0, newEReference0, newEReference0));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -916,8 +861,6 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 		switch (featureID) {
 			case GeneralPackage.CONNECTION__SOURCE:
 				return basicSetSource(null, msgs);
-			case GeneralPackage.CONNECTION__EREFERENCE0:
-				return basicSetEReference0(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -966,8 +909,6 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 				return basicGetPartOf();
 			case GeneralPackage.CONNECTION__DELETED:
 				return isDeleted();
-			case GeneralPackage.CONNECTION__EREFERENCE0:
-				return getEReference0();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1030,9 +971,6 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 				return;
 			case GeneralPackage.CONNECTION__DELETED:
 				setDeleted((Boolean)newValue);
-				return;
-			case GeneralPackage.CONNECTION__EREFERENCE0:
-				setEReference0((Snapshot)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -1097,9 +1035,6 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 			case GeneralPackage.CONNECTION__DELETED:
 				setDeleted(DELETED_EDEFAULT);
 				return;
-			case GeneralPackage.CONNECTION__EREFERENCE0:
-				setEReference0((Snapshot)null);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1146,8 +1081,6 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 				return partOf != null;
 			case GeneralPackage.CONNECTION__DELETED:
 				return deleted != DELETED_EDEFAULT;
-			case GeneralPackage.CONNECTION__EREFERENCE0:
-				return eReference0 != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1155,43 +1088,22 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (connectionId: ");
-		if (connectionIdESet) result.append(connectionId); else result.append("<unset>");
-		result.append(", username: ");
-		result.append(username);
-		result.append(", password: ");
-		result.append(password);
+		
 		result.append(", connectionType: ");
 		result.append(connectionType);
 		result.append(", database: ");
 		result.append(database);
-		result.append(", project: ");
+		result.append(", (project: ");
 		result.append(project);
 		result.append(", release: ");
 		result.append(release);
-		result.append(", addInfo1: ");
-		result.append(addInfo1);
-		result.append(", addInfo2: ");
-		result.append(addInfo2);
-		result.append(", addInfo3: ");
-		result.append(addInfo3);
-		result.append(", addInfo4: ");
-		result.append(addInfo4);
-		result.append(", created: ");
-		result.append(created);
-		result.append(", modified: ");
-		result.append(modified);
-		result.append(", lastUsed: ");
-		result.append(lastUsed);
-		result.append(", deleted: ");
-		result.append(deleted);
 		result.append(')');
 		return result.toString();
 	}

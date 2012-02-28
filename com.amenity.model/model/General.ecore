@@ -5,6 +5,9 @@
     <details key="value" value="@GenericGenerator(name = &quot;system-uuid&quot;, strategy = &quot;uuid2&quot;)"/>
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="User">
+    <eAnnotations source="teneo.jpa">
+      <details key="value" value="@OnDelete(action = OnDeleteAction.CASCADE)"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="userId" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" unsettable="true"
         iD="true">
@@ -113,10 +116,11 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="EReference0" eType="#//Snapshot"
-        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Container">
+    <eAnnotations source="teneo.jpa">
+      <details key="value" value="@OnDelete(action = OnDeleteAction.CASCADE)"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="containerId" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="teneo.jpa">
@@ -139,6 +143,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ownerId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Snapshot">
+    <eAnnotations source="teneo.jpa">
+      <details key="value" value="@OnDelete(action = OnDeleteAction.CASCADE)"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="snapshotId" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="teneo.jpa">
@@ -162,12 +169,11 @@
         eType="#//Function"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="general" eType="#//GeneralDocumentationFileProperty"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="systemComponent" eType="#//SystemComponentLevelDocumentationFileProperty"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="EReference0" eType="#//SystemComponentLevelDocumentationFileProperty"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="detailedProperties" eType="#//SystemComponentLevelDocumentationFileProperty"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="EReference1" eType="#//Function"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="generalProperties" eType="#//GeneralDocumentationFileProperty"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="EReference2" eType="#//GeneralDocumentationFileProperty"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="via" eType="#//Connection"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ContentObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="objectId" lowerBound="1"
@@ -245,6 +251,9 @@
         eType="#//FileType" eOpposite="#//FileType/uses"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Function">
+    <eAnnotations source="teneo.jpa">
+      <details key="value" value="@OnDelete(action = OnDeleteAction.CASCADE)"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="functionId" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" unsettable="true"
         iD="true">

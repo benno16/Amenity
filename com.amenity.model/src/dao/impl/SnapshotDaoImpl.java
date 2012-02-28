@@ -57,5 +57,26 @@ public class SnapshotDaoImpl extends GenericDaoImpl implements SnapshotDao {
 		session.close();
 		return resList;
 	}
+	
+	@Override
+	public Object getById(String id) {
+		session = getSession();
+		session.beginTransaction();
+		Query queryRes = session.createQuery("from " + Snapshot.class.getName().toString() + 
+				" where snapshotId='" + id + "'");
+
+		@SuppressWarnings("unchecked")
+		List<Snapshot> snapshots = queryRes.list();
+		session.close();
+		
+		if ( snapshots == null || snapshots.size() == 0 ) {
+			return null;
+		}else if ( snapshots.size() == 1) {
+			return snapshots.get(0);
+		} else {
+			System.out.println("multiple entries found");
+			return null;
+		}
+	}
 
 } //SnapshotDaoImpl

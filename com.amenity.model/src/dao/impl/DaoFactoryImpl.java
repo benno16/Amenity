@@ -4,6 +4,7 @@ package dao.impl;
 
 import dao.*;
 
+import general.Snapshot;
 import general.User;
 
 import java.util.List;
@@ -75,6 +76,7 @@ public class DaoFactoryImpl extends EFactoryImpl implements DaoFactory {
 			case DaoPackage.FOLDER_DAO: return createFolderDao();
 			case DaoPackage.FILE_DAO: return createFileDao();
 			case DaoPackage.SNAPSHOT_DAO: return createSnapshotDao();
+			case DaoPackage.CONTENT_OBJECT_DAO: return createContentObjectDao();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -100,6 +102,8 @@ public class DaoFactoryImpl extends EFactoryImpl implements DaoFactory {
 				return createUserFromString(eDataType, initialValue);
 			case DaoPackage.CONTAINER:
 				return createContainerFromString(eDataType, initialValue);
+			case DaoPackage.SNAPSHOT:
+				return createSnapshotFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -125,6 +129,8 @@ public class DaoFactoryImpl extends EFactoryImpl implements DaoFactory {
 				return convertUserToString(eDataType, instanceValue);
 			case DaoPackage.CONTAINER:
 				return convertContainerToString(eDataType, instanceValue);
+			case DaoPackage.SNAPSHOT:
+				return convertSnapshotToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -235,6 +241,16 @@ public class DaoFactoryImpl extends EFactoryImpl implements DaoFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ContentObjectDao createContentObjectDao() {
+		ContentObjectDaoImpl contentObjectDao = new ContentObjectDaoImpl();
+		return contentObjectDao;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public List createListFromString(EDataType eDataType, String initialValue) {
 		return (List)super.createFromString(eDataType, initialValue);
 	}
@@ -335,6 +351,24 @@ public class DaoFactoryImpl extends EFactoryImpl implements DaoFactory {
 	 * @generated
 	 */
 	public String convertContainerToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Snapshot createSnapshotFromString(EDataType eDataType, String initialValue) {
+		return (Snapshot)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertSnapshotToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
 	}
 

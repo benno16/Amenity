@@ -17,7 +17,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Text;
 
-import com.amenity.engine.helper.gui.SynergyProjectLabelProvider;
+import com.amenity.engine.helper.gui.labelProvider.GenericNameLabelProvider;
 import com.amenity.engine.helper.synergy.SynergyProject;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -136,7 +136,7 @@ public class Page3_Synergy extends WizardPage {
 				return ((java.util.List<SynergyProject>)inputElement ) .toArray();
 			}
 		});
-		listViewer.setLabelProvider(new SynergyProjectLabelProvider());
+		listViewer.setLabelProvider(new GenericNameLabelProvider());
 		listViewer.setInput(projects);
 		
 		
@@ -172,7 +172,7 @@ public class Page3_Synergy extends WizardPage {
 		        		ProjectWizard wizard = (ProjectWizard)getWizard();
 		        		wizard.connection.setRelease(  
 		        				structuredSelection.getFirstElement().toString() );
-		        		wizard.connection.setDatabase( wizard.connection.getProject() + 
+		        		wizard.connection.setDatabase( wizard.connection.getProject() + "-" +
 		        				wizard.connection.getRelease());
 		        		System.out.println(">>>" + 
 		        				structuredSelection.getFirstElement().toString() );

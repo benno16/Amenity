@@ -26,14 +26,14 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link general.Snapshot#getFunctions <em>Functions</em>}</li>
  *   <li>{@link general.Snapshot#getGeneral <em>General</em>}</li>
  *   <li>{@link general.Snapshot#getSystemComponent <em>System Component</em>}</li>
- *   <li>{@link general.Snapshot#getEReference0 <em>EReference0</em>}</li>
- *   <li>{@link general.Snapshot#getEReference1 <em>EReference1</em>}</li>
- *   <li>{@link general.Snapshot#getEReference2 <em>EReference2</em>}</li>
+ *   <li>{@link general.Snapshot#getDetailedProperties <em>Detailed Properties</em>}</li>
+ *   <li>{@link general.Snapshot#getGeneralProperties <em>General Properties</em>}</li>
+ *   <li>{@link general.Snapshot#getVia <em>Via</em>}</li>
  * </ul>
  * </p>
  *
  * @see general.GeneralPackage#getSnapshot()
- * @model
+ * @model annotation="teneo.jpa value='@OnDelete(action = OnDeleteAction.CASCADE)'"
  * @generated
  */
 public interface Snapshot extends EObject {
@@ -282,81 +282,81 @@ public interface Snapshot extends EObject {
 	void setSystemComponent(SystemComponentLevelDocumentationFileProperty value);
 
 	/**
-	 * Returns the value of the '<em><b>EReference0</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Detailed Properties</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>EReference0</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Detailed Properties</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>EReference0</em>' containment reference.
-	 * @see #setEReference0(SystemComponentLevelDocumentationFileProperty)
-	 * @see general.GeneralPackage#getSnapshot_EReference0()
+	 * @return the value of the '<em>Detailed Properties</em>' containment reference.
+	 * @see #setDetailedProperties(SystemComponentLevelDocumentationFileProperty)
+	 * @see general.GeneralPackage#getSnapshot_DetailedProperties()
 	 * @model containment="true"
 	 * @generated
 	 */
-	SystemComponentLevelDocumentationFileProperty getEReference0();
+	SystemComponentLevelDocumentationFileProperty getDetailedProperties();
 
 	/**
-	 * Sets the value of the '{@link general.Snapshot#getEReference0 <em>EReference0</em>}' containment reference.
+	 * Sets the value of the '{@link general.Snapshot#getDetailedProperties <em>Detailed Properties</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>EReference0</em>' containment reference.
-	 * @see #getEReference0()
+	 * @param value the new value of the '<em>Detailed Properties</em>' containment reference.
+	 * @see #getDetailedProperties()
 	 * @generated
 	 */
-	void setEReference0(SystemComponentLevelDocumentationFileProperty value);
+	void setDetailedProperties(SystemComponentLevelDocumentationFileProperty value);
 
 	/**
-	 * Returns the value of the '<em><b>EReference1</b></em>' containment reference.
+	 * Returns the value of the '<em><b>General Properties</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>EReference1</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>General Properties</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>EReference1</em>' containment reference.
-	 * @see #setEReference1(Function)
-	 * @see general.GeneralPackage#getSnapshot_EReference1()
+	 * @return the value of the '<em>General Properties</em>' containment reference.
+	 * @see #setGeneralProperties(GeneralDocumentationFileProperty)
+	 * @see general.GeneralPackage#getSnapshot_GeneralProperties()
 	 * @model containment="true"
 	 * @generated
 	 */
-	Function getEReference1();
+	GeneralDocumentationFileProperty getGeneralProperties();
 
 	/**
-	 * Sets the value of the '{@link general.Snapshot#getEReference1 <em>EReference1</em>}' containment reference.
+	 * Sets the value of the '{@link general.Snapshot#getGeneralProperties <em>General Properties</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>EReference1</em>' containment reference.
-	 * @see #getEReference1()
+	 * @param value the new value of the '<em>General Properties</em>' containment reference.
+	 * @see #getGeneralProperties()
 	 * @generated
 	 */
-	void setEReference1(Function value);
+	void setGeneralProperties(GeneralDocumentationFileProperty value);
 
 	/**
-	 * Returns the value of the '<em><b>EReference2</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Via</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>EReference2</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Via</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>EReference2</em>' containment reference.
-	 * @see #setEReference2(GeneralDocumentationFileProperty)
-	 * @see general.GeneralPackage#getSnapshot_EReference2()
-	 * @model containment="true"
+	 * @return the value of the '<em>Via</em>' reference.
+	 * @see #setVia(Connection)
+	 * @see general.GeneralPackage#getSnapshot_Via()
+	 * @model
 	 * @generated
 	 */
-	GeneralDocumentationFileProperty getEReference2();
+	Connection getVia();
 
 	/**
-	 * Sets the value of the '{@link general.Snapshot#getEReference2 <em>EReference2</em>}' containment reference.
+	 * Sets the value of the '{@link general.Snapshot#getVia <em>Via</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>EReference2</em>' containment reference.
-	 * @see #getEReference2()
+	 * @param value the new value of the '<em>Via</em>' reference.
+	 * @see #getVia()
 	 * @generated
 	 */
-	void setEReference2(GeneralDocumentationFileProperty value);
+	void setVia(Connection value);
 
 } // Snapshot

@@ -89,4 +89,13 @@
       <eParameters name="containerId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ContentObjectDao" eSuperTypes="#//GenericDao">
+    <eOperations name="getListBySnapshot" eType="#//List">
+      <eParameters name="snapshot" eType="#//Snapshot"/>
+    </eOperations>
+    <eOperations name="deleteListBySnapshot">
+      <eParameters name="snapshot" eType="#//Snapshot"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Snapshot" instanceClassName="general.Snapshot"/>
 </ecore:EPackage>

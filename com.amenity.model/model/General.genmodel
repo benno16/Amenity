@@ -74,7 +74,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//Connection/lastUsed"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference General.ecore#//Connection/partOf"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//Connection/deleted"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference General.ecore#//Connection/EReference0"/>
     </genClasses>
     <genClasses ecoreClass="General.ecore#//Container">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//Container/containerId"/>
@@ -99,9 +98,9 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference General.ecore#//Snapshot/functions"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference General.ecore#//Snapshot/general"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference General.ecore#//Snapshot/systemComponent"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference General.ecore#//Snapshot/EReference0"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference General.ecore#//Snapshot/EReference1"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference General.ecore#//Snapshot/EReference2"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference General.ecore#//Snapshot/detailedProperties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference General.ecore#//Snapshot/generalProperties"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference General.ecore#//Snapshot/via"/>
     </genClasses>
     <genClasses ecoreClass="General.ecore#//ContentObject">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//ContentObject/objectId"/>

@@ -31,7 +31,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link general.Connection#getLastUsed <em>Last Used</em>}</li>
  *   <li>{@link general.Connection#getPartOf <em>Part Of</em>}</li>
  *   <li>{@link general.Connection#isDeleted <em>Deleted</em>}</li>
- *   <li>{@link general.Connection#getEReference0 <em>EReference0</em>}</li>
  * </ul>
  * </p>
  *
@@ -515,31 +514,5 @@ public interface Connection extends EObject {
 	 * @generated
 	 */
 	void setDeleted(boolean value);
-
-	/**
-	 * Returns the value of the '<em><b>EReference0</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>EReference0</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>EReference0</em>' containment reference.
-	 * @see #setEReference0(Snapshot)
-	 * @see general.GeneralPackage#getConnection_EReference0()
-	 * @model containment="true"
-	 * @generated
-	 */
-	Snapshot getEReference0();
-
-	/**
-	 * Sets the value of the '{@link general.Connection#getEReference0 <em>EReference0</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>EReference0</em>' containment reference.
-	 * @see #getEReference0()
-	 * @generated
-	 */
-	void setEReference0(Snapshot value);
 
 } // Connection

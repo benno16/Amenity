@@ -55,6 +55,7 @@ public class UserDaoImpl extends GenericDaoImpl implements UserDao {
 				User.class.getName().toString() + 
 				" u where u.username='" + user.getUsername() + "'");
 		List<User> users = queryRes.list();
+		session.close();
 		if ( users == null || users.size() == 0 ) {
 			return null;
 		}else if ( users.size() == 1) {
@@ -75,6 +76,7 @@ public class UserDaoImpl extends GenericDaoImpl implements UserDao {
 				User.class.getName().toString() + 
 				" u where u.userId='" + id + "'");
 		List<User> users = queryRes.list();
+		session.close();
 		if ( users == null || users.size() == 0 ) {
 			return null;
 		}else if ( users.size() == 1) {

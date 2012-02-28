@@ -50,8 +50,11 @@ public class GeneralQueriesImpl extends GenericDaoImpl implements GeneralQueries
 		session.beginTransaction();
 		Query queryRes = session.createSQLQuery("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA");
 		System.out.println(queryRes.list().size());
-		if ( queryRes.list().size() < 1 ) 
+		if ( queryRes.list().size() < 1 ) {
+			session.close();
 			return false;
+		}
+		session.close();
 		return true;
 		
 	}

@@ -92,16 +92,14 @@ public class HibernateUtilImpl extends EObjectImpl implements HibernateUtil {
 			// Configure the EPackages used by this DataStore.
 			dataStore.setEPackages(new EPackage[] { GeneralPackage.eINSTANCE, 
 					DaoPackage.eINSTANCE });
-
 			// Initialize the DataStore. This sets up the Hibernate mapping and, in
 			// turn, creates the corresponding tables in the database.
 			try {
-				System.out.println("Before sessionfactory creation");
 				/**
 				 * TODO timeout for SQL SessionFactory creation! 
 				 */
 				dataStore.initialize();
-				System.out.println("After sessionfactory creation");
+//				System.out.println(dataStore.getMappingXML());
 			} finally {
 				SESSION_FACTORY_EDEFAULT = dataStore.getSessionFactory();
 			}

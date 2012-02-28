@@ -692,15 +692,6 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConnection_EReference0() {
-		return (EReference)connectionEClass.getEStructuralFeatures().get(17);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getContainer() {
 		return containerEClass;
 	}
@@ -899,7 +890,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSnapshot_EReference0() {
+	public EReference getSnapshot_DetailedProperties() {
 		return (EReference)snapshotEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -908,7 +899,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSnapshot_EReference1() {
+	public EReference getSnapshot_GeneralProperties() {
 		return (EReference)snapshotEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -917,7 +908,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSnapshot_EReference2() {
+	public EReference getSnapshot_Via() {
 		return (EReference)snapshotEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -1688,7 +1679,6 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		createEAttribute(connectionEClass, CONNECTION__LAST_USED);
 		createEReference(connectionEClass, CONNECTION__PART_OF);
 		createEAttribute(connectionEClass, CONNECTION__DELETED);
-		createEReference(connectionEClass, CONNECTION__EREFERENCE0);
 
 		containerEClass = createEClass(CONTAINER);
 		createEAttribute(containerEClass, CONTAINER__CONTAINER_ID);
@@ -1713,9 +1703,9 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		createEReference(snapshotEClass, SNAPSHOT__FUNCTIONS);
 		createEReference(snapshotEClass, SNAPSHOT__GENERAL);
 		createEReference(snapshotEClass, SNAPSHOT__SYSTEM_COMPONENT);
-		createEReference(snapshotEClass, SNAPSHOT__EREFERENCE0);
-		createEReference(snapshotEClass, SNAPSHOT__EREFERENCE1);
-		createEReference(snapshotEClass, SNAPSHOT__EREFERENCE2);
+		createEReference(snapshotEClass, SNAPSHOT__DETAILED_PROPERTIES);
+		createEReference(snapshotEClass, SNAPSHOT__GENERAL_PROPERTIES);
+		createEReference(snapshotEClass, SNAPSHOT__VIA);
 
 		contentObjectEClass = createEClass(CONTENT_OBJECT);
 		createEAttribute(contentObjectEClass, CONTENT_OBJECT__OBJECT_ID);
@@ -1896,7 +1886,6 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		initEAttribute(getConnection_LastUsed(), this.getDate(), "lastUsed", null, 0, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConnection_PartOf(), this.getContainer(), null, "partOf", null, 1, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConnection_Deleted(), ecorePackage.getEBoolean(), "deleted", null, 0, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getConnection_EReference0(), this.getSnapshot(), null, "EReference0", null, 0, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(containerEClass, general.Container.class, "Container", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getContainer_ContainerId(), ecorePackage.getEString(), "containerId", null, 1, 1, general.Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1921,9 +1910,9 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		initEReference(getSnapshot_Functions(), this.getFunction(), null, "functions", null, 0, -1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSnapshot_General(), this.getGeneralDocumentationFileProperty(), null, "general", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSnapshot_SystemComponent(), this.getSystemComponentLevelDocumentationFileProperty(), null, "systemComponent", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSnapshot_EReference0(), this.getSystemComponentLevelDocumentationFileProperty(), null, "EReference0", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSnapshot_EReference1(), this.getFunction(), null, "EReference1", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSnapshot_EReference2(), this.getGeneralDocumentationFileProperty(), null, "EReference2", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSnapshot_DetailedProperties(), this.getSystemComponentLevelDocumentationFileProperty(), null, "detailedProperties", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSnapshot_GeneralProperties(), this.getGeneralDocumentationFileProperty(), null, "generalProperties", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSnapshot_Via(), this.getConnection(), null, "via", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(contentObjectEClass, ContentObject.class, "ContentObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getContentObject_ObjectId(), ecorePackage.getEString(), "objectId", null, 1, 1, ContentObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2063,6 +2052,12 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 			 "value", "@GenericGenerator(name = \"system-uuid\", strategy = \"uuid2\")"
 		   });		
 		addAnnotation
+		  (userEClass, 
+		   source, 
+		   new String[] {
+			 "value", "@OnDelete(action = OnDeleteAction.CASCADE)"
+		   });		
+		addAnnotation
 		  (getUser_UserId(), 
 		   source, 
 		   new String[] {
@@ -2105,6 +2100,12 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 			 "value", "@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"
 		   });		
 		addAnnotation
+		  (containerEClass, 
+		   source, 
+		   new String[] {
+			 "value", "@OnDelete(action = OnDeleteAction.CASCADE)"
+		   });		
+		addAnnotation
 		  (getContainer_ContainerId(), 
 		   source, 
 		   new String[] {
@@ -2115,6 +2116,12 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		   source, 
 		   new String[] {
 			 "value", "@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"
+		   });		
+		addAnnotation
+		  (snapshotEClass, 
+		   source, 
+		   new String[] {
+			 "value", "@OnDelete(action = OnDeleteAction.CASCADE)"
 		   });		
 		addAnnotation
 		  (getSnapshot_SnapshotId(), 
@@ -2147,6 +2154,12 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 			 "value", "@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"
 		   });		
 		addAnnotation
+		  (getFolder_Children(), 
+		   source, 
+		   new String[] {
+			 "value", "@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"
+		   });		
+		addAnnotation
 		  (getFolder_RootDirectory(), 
 		   source, 
 		   new String[] {
@@ -2163,6 +2176,12 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		   source, 
 		   new String[] {
 			 "value", "@Id @GeneratedValue(generator=\"system-uuid\")"
+		   });		
+		addAnnotation
+		  (functionEClass, 
+		   source, 
+		   new String[] {
+			 "value", "@OnDelete(action = OnDeleteAction.CASCADE)"
 		   });		
 		addAnnotation
 		  (getFunction_FunctionId(), 

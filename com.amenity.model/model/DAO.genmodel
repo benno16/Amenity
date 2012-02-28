@@ -11,6 +11,7 @@
     <genDataTypes ecoreDataType="DAO.ecore#//SessionFactory"/>
     <genDataTypes ecoreDataType="DAO.ecore#//User"/>
     <genDataTypes ecoreDataType="DAO.ecore#//Container"/>
+    <genDataTypes ecoreDataType="DAO.ecore#//Snapshot"/>
     <genClasses ecoreClass="DAO.ecore#//GenericDao">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DAO.ecore#//GenericDao/persistentClass"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DAO.ecore#//GenericDao/session"/>
@@ -70,6 +71,14 @@
     <genClasses ecoreClass="DAO.ecore#//SnapshotDao">
       <genOperations ecoreOperation="DAO.ecore#//SnapshotDao/getListByContainer">
         <genParameters ecoreParameter="DAO.ecore#//SnapshotDao/getListByContainer/containerId"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="DAO.ecore#//ContentObjectDao">
+      <genOperations ecoreOperation="DAO.ecore#//ContentObjectDao/getListBySnapshot">
+        <genParameters ecoreParameter="DAO.ecore#//ContentObjectDao/getListBySnapshot/snapshot"/>
+      </genOperations>
+      <genOperations ecoreOperation="DAO.ecore#//ContentObjectDao/deleteListBySnapshot">
+        <genParameters ecoreParameter="DAO.ecore#//ContentObjectDao/deleteListBySnapshot/snapshot"/>
       </genOperations>
     </genClasses>
   </genPackages>

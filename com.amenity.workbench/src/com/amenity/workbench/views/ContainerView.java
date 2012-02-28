@@ -1,9 +1,11 @@
 package com.amenity.workbench.views;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 
 import general.Container;
+import general.Snapshot;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
@@ -16,8 +18,11 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.TableColumn;
 
 import com.amenity.engine.helper.gui.ContainerLabelProvider;
+import com.amenity.engine.helper.gui.contentProvider.ConnectionTreeContentProvider;
+import com.amenity.engine.helper.gui.labelProvider.GenericNameLabelProvider;
 import com.amenity.workbench.SessionSourceProvider;
 import com.amenity.workbench.dialogs.ModifyContainerDialog;
 import com.amenity.workbench.wizards.addContainer.ContainerWizard;
@@ -26,14 +31,20 @@ import dao.ContainerDao;
 import dao.DaoFactory;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TableViewerColumn;
 
 import swing2swt.layout.BorderLayout;
 import org.eclipse.wb.swt.ResourceManager;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.jface.viewers.TableViewer;
 
 public class ContainerView extends ViewPart {
 
@@ -45,9 +56,12 @@ public class ContainerView extends ViewPart {
 	private Button btnModify;
 	private Button btnCreate;
 	private ListViewer listViewer;
-	private ISelection containerSelection;
+	private ISelection objectSelection;
 	private IStructuredSelection structuredSelection;
-	
+	private TreeViewer detailTreeViewer;
+	private Tree detailTree;
+	private Table settingsTable;
+	private TableViewer settingsTableViewer;
 	
 	public ContainerView() {
 	}
@@ -69,7 +83,7 @@ public class ContainerView extends ViewPart {
 		composite_2.setLayout(null);
 		
 		Label label_1 = new Label(composite_2, SWT.SEPARATOR | SWT.HORIZONTAL);
-		label_1.setBounds(0, 167, 271, 2);
+		label_1.setBounds(0, 167, 261, 2);
 		
 		Label lblAvailableContainer = new Label(composite_2, SWT.NONE);
 		lblAvailableContainer.setBounds(10, 10, 237, 15);
@@ -166,7 +180,7 @@ public class ContainerView extends ViewPart {
 				/**
 				 * TODO set global var
 				 */
-				containerSelection = listViewer.getSelection();
+				objectSelection = listViewer.getSelection();
 				
 			}
 		});
@@ -174,13 +188,13 @@ public class ContainerView extends ViewPart {
 
 		    public void selectionChanged(SelectionChangedEvent event) {
 		        // Handle selection changed event here
-		        containerSelection = event.getSelection();
-		        structuredSelection = (IStructuredSelection) containerSelection;
+		    	objectSelection = event.getSelection();
+		        structuredSelection = (IStructuredSelection) objectSelection;
 		        if ( !structuredSelection.isEmpty()) {
 		        	if ( structuredSelection.getFirstElement() instanceof Container ) {
 		        		SessionSourceProvider.CURRENT_CONTAINER = 
 		        			(Container) structuredSelection.getFirstElement(); 
-		        		System.out.println(">>>" + ((Container) structuredSelection.getFirstElement() ).getName());
+		        		detailTreeViewer.setInput(SessionSourceProvider.CURRENT_CONTAINER);
 		        	}
 		        }
 			}
@@ -195,11 +209,105 @@ public class ContainerView extends ViewPart {
 		});
 		listViewer.setLabelProvider(new ContainerLabelProvider());
 		listViewer.setInput(SessionSourceProvider.CONTAINER_LIST);
-		
 
+		detailTreeViewer = new TreeViewer(composite_2, SWT.BORDER);
+		detailTreeViewer.setAutoExpandLevel(2);
+		detailTree = detailTreeViewer.getTree();
+		detailTree.setBounds(10, 194, 237, 265);
+		
+		Label lblConnectionsAndSnapshots = new Label(composite_2, SWT.NONE);
+		lblConnectionsAndSnapshots.setBounds(10, 175, 241, 13);
+		lblConnectionsAndSnapshots.setText("Connections and Snapshots");
+
+		Composite composite = new Composite(parent, SWT.NONE);
+		composite.setLayoutData(BorderLayout.SOUTH);
+		
+		detailTreeViewer.setLabelProvider(new GenericNameLabelProvider());
+		detailTreeViewer.setContentProvider(new ConnectionTreeContentProvider());
+		detailTreeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				objectSelection = event.getSelection();
+				structuredSelection = (IStructuredSelection) objectSelection;
+				if ( !structuredSelection.isEmpty()) {
+					if ( structuredSelection.getFirstElement() instanceof Snapshot ) {
+						SessionSourceProvider.CURRENT_SNAPSHOT = 
+								(Snapshot) structuredSelection.getFirstElement();
+						java.util.List<Snapshot> snapshots = new ArrayList<Snapshot>();
+						snapshots.add(SessionSourceProvider.CURRENT_SNAPSHOT);
+						settingsTableViewer.setInput(snapshots.toArray());
+					}
+				}
+			}
+		});
+		/**
+		 * TODO: Fill in settings table
+		 */
+		settingsTableViewer = new TableViewer(parent, SWT.BORDER | SWT.FULL_SELECTION);
+		createColumns(parent, settingsTable);
+		settingsTable = settingsTableViewer.getTable();
+		settingsTable.setLayoutData(BorderLayout.CENTER);
+		settingsTable.setHeaderVisible(true);
+		settingsTable.setLinesVisible(true);
+//		// publish viewer
+//		getSite().setSelectionProvider(settingsTableViewer);
+		settingsTableViewer.setContentProvider(new ArrayContentProvider());
+		
+		GridData gridData = new GridData();
+		gridData.verticalAlignment = GridData.FILL;
+		gridData.horizontalSpan = 2;
+		gridData.grabExcessHorizontalSpace = true;
+		gridData.grabExcessVerticalSpace = true;
+		gridData.horizontalAlignment = GridData.FILL;
+		settingsTableViewer.getControl().setLayoutData(gridData);
+		
 		enableButtons();
 	}
 	
+	private void createColumns(Composite parent2, Table settingsTable2) {
+		String[] titles = {"Name", "Comment" , "Connection"};
+		int[] bounds = {100, 100, 100};
+		TableViewerColumn col = createTableViewerColumn(titles[0], bounds[0], 0);
+		col.setLabelProvider(new ColumnLabelProvider() {
+			@Override
+			public String getText(Object element) {
+				Snapshot s = (Snapshot) element;
+				return s.getName();
+			}
+		});
+
+		col = createTableViewerColumn(titles[1], bounds[1], 1);
+		col.setLabelProvider(new ColumnLabelProvider() {
+			@Override
+			public String getText(Object element) {
+				Snapshot s = (Snapshot) element;
+				return s.getComment();
+			}
+		});
+
+		col = createTableViewerColumn(titles[2], bounds[2], 2);
+		col.setLabelProvider(new ColumnLabelProvider() {
+			@Override
+			public String getText(Object element) {
+				Snapshot s = (Snapshot) element;
+				return s.getVia().getConnectionType().getName();
+			}
+		});
+		
+	}
+
+	private TableViewerColumn createTableViewerColumn(String string, int bound,
+			final int colNumber) {
+		final TableViewerColumn viewerColumn = new TableViewerColumn(settingsTableViewer,
+				SWT.NONE);
+		final TableColumn column = viewerColumn.getColumn();
+		column.setText(string);
+		column.setWidth(bound);
+		column.setResizable(true);
+		column.setMoveable(true);
+		return viewerColumn;
+	}
+
 	protected static Comparator<Container> newAscStringComparator() {
 	    return new Comparator<Container>() {
 	      @Override

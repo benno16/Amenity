@@ -527,6 +527,17 @@ public interface DaoPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '<em>Folder</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see general.Folder
+	 * @see dao.impl.DaoPackageImpl#getFolder()
+	 * @generated
+	 */
+	int FOLDER = 18;
+
+
+	/**
 	 * Returns the meta object for class '{@link dao.GenericDao <em>Generic Dao</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -745,6 +756,17 @@ public interface DaoPackage extends EPackage {
 	 * @generated
 	 */
 	EDataType getSnapshot();
+
+	/**
+	 * Returns the meta object for data type '{@link general.Folder <em>Folder</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Folder</em>'.
+	 * @see general.Folder
+	 * @model instanceClass="general.Folder"
+	 * @generated
+	 */
+	EDataType getFolder();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -971,6 +993,16 @@ public interface DaoPackage extends EPackage {
 		 * @generated
 		 */
 		EDataType SNAPSHOT = eINSTANCE.getSnapshot();
+
+		/**
+		 * The meta object literal for the '<em>Folder</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see general.Folder
+		 * @see dao.impl.DaoPackageImpl#getFolder()
+		 * @generated
+		 */
+		EDataType FOLDER = eINSTANCE.getFolder();
 
 	}
 

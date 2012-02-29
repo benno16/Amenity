@@ -159,7 +159,7 @@ public class LoginDialog extends Dialog {
 	 */
 	@Override
 	protected Point getInitialSize() {
-		return new Point(332, 199);
+		return new Point(332, 177);
 	}
 	
 	@SuppressWarnings("unchecked")

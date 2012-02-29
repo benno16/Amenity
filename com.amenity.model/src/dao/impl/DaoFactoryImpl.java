@@ -4,6 +4,7 @@ package dao.impl;
 
 import dao.*;
 
+import general.Folder;
 import general.Snapshot;
 import general.User;
 
@@ -104,6 +105,8 @@ public class DaoFactoryImpl extends EFactoryImpl implements DaoFactory {
 				return createContainerFromString(eDataType, initialValue);
 			case DaoPackage.SNAPSHOT:
 				return createSnapshotFromString(eDataType, initialValue);
+			case DaoPackage.FOLDER:
+				return createFolderFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -131,6 +134,8 @@ public class DaoFactoryImpl extends EFactoryImpl implements DaoFactory {
 				return convertContainerToString(eDataType, instanceValue);
 			case DaoPackage.SNAPSHOT:
 				return convertSnapshotToString(eDataType, instanceValue);
+			case DaoPackage.FOLDER:
+				return convertFolderToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -369,6 +374,24 @@ public class DaoFactoryImpl extends EFactoryImpl implements DaoFactory {
 	 * @generated
 	 */
 	public String convertSnapshotToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Folder createFolderFromString(EDataType eDataType, String initialValue) {
+		return (Folder)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertFolderToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
 	}
 

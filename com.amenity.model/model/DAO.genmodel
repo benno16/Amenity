@@ -12,6 +12,7 @@
     <genDataTypes ecoreDataType="DAO.ecore#//User"/>
     <genDataTypes ecoreDataType="DAO.ecore#//Container"/>
     <genDataTypes ecoreDataType="DAO.ecore#//Snapshot"/>
+    <genDataTypes ecoreDataType="DAO.ecore#//Folder"/>
     <genClasses ecoreClass="DAO.ecore#//GenericDao">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DAO.ecore#//GenericDao/persistentClass"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DAO.ecore#//GenericDao/session"/>
@@ -66,7 +67,11 @@
         <genParameters ecoreParameter="DAO.ecore#//ConnectionDao/getListByContainer/container"/>
       </genOperations>
     </genClasses>
-    <genClasses ecoreClass="DAO.ecore#//FolderDao"/>
+    <genClasses ecoreClass="DAO.ecore#//FolderDao">
+      <genOperations ecoreOperation="DAO.ecore#//FolderDao/getRootFolderBySnapshot">
+        <genParameters ecoreParameter="DAO.ecore#//FolderDao/getRootFolderBySnapshot/snapshot"/>
+      </genOperations>
+    </genClasses>
     <genClasses ecoreClass="DAO.ecore#//FileDao"/>
     <genClasses ecoreClass="DAO.ecore#//SnapshotDao">
       <genOperations ecoreOperation="DAO.ecore#//SnapshotDao/getListByContainer">

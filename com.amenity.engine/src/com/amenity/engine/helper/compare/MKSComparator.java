@@ -92,15 +92,18 @@ public class MKSComparator {
 				if ( f1.getName().equals(f2.getName()) ){
 					// folder found
 					// create CompareViewObject and add it to list
-					cvo = new CompareViewObject(f1, f2, "==");
-					compareViewObjects.add(cvo);
-					// set found folder to true and clear object
-					// remove the found folder from folders2 to shorten the runtime
-					foundFolder = true;
-					cvo = null;
-					folders2.remove(f2);
-//					System.out.println("-- folder found");
-					break;
+					if ( f1.getRootDirectory() == null || 
+							f2.getRootDirectory() == null || 
+							f1.getRootDirectory().getName().equals(f2.getRootDirectory().getName()) ) {
+						cvo = new CompareViewObject(f1, f2, "==");
+						compareViewObjects.add(cvo);
+						// set found folder to true and clear object
+						// remove the found folder from folders2 to shorten the runtime
+						foundFolder = true;
+						cvo = null;
+						folders2.remove(f2);
+						break;
+					}
 				} // else do nothing
 			}
 			if ( !foundFolder ) {
@@ -108,7 +111,6 @@ public class MKSComparator {
 				cvo = new CompareViewObject(f1, null, "!=");
 				compareViewObjects.add(cvo);
 				cvo = null;
-//				System.out.println("-- folder did not exist in folder2");
 			}
 		}
 		// Now we have to worry about folders that are in folder2 but not in folder1
@@ -116,7 +118,6 @@ public class MKSComparator {
 			cvo = new CompareViewObject(null, f2, "!=");
 			compareViewObjects.add(cvo);
 			cvo = null;
-//			System.out.println("-- folder did not exist in folder1");
 		}
 		
 		/*
@@ -128,25 +129,26 @@ public class MKSComparator {
 				if ( f1.getName().equals(f2.getName()) ){
 					// folder found
 					// now lets check the version and modification date
-					String differenciator = null;
-					if ( f1.getModfiedDate().after(f2.getModfiedDate() )) {
-						// f1 is newer
-						differenciator = ">";
-					} else if ( f1.getModfiedDate().before(f2.getModfiedDate() )) {
-						differenciator = "<";
-					} else {
-						differenciator = "==";
+					if ( f1.getRootDir().getName().equals(f2.getRootDir().getName())) {
+						String differenciator = null;
+						if ( f1.getModfiedDate().after(f2.getModfiedDate() )) {
+							// f1 is newer
+							differenciator = ">";
+						} else if ( f1.getModfiedDate().before(f2.getModfiedDate() )) {
+							differenciator = "<";
+						} else {
+							differenciator = "==";
+						}
+						// create CompareViewObject and add it to list
+						cvo = new CompareViewObject(f1, f2, differenciator);
+						compareViewObjects.add(cvo);
+						// set found folder to true and clear object
+						// remove the found folder from folders2 to shorten the runtime
+						foundFile = true;
+						cvo = null;
+						files2.remove(f2);
+						break;
 					}
-					// create CompareViewObject and add it to list
-					cvo = new CompareViewObject(f1, f2, differenciator);
-					compareViewObjects.add(cvo);
-					// set found folder to true and clear object
-					// remove the found folder from folders2 to shorten the runtime
-					foundFile = true;
-					cvo = null;
-					files2.remove(f2);
-//					System.out.println("-- folder found");
-					break;
 				} // else do nothing
 			}
 			if ( !foundFile ) {
@@ -154,7 +156,6 @@ public class MKSComparator {
 				cvo = new CompareViewObject(f1, null, "!=");
 				compareViewObjects.add(cvo);
 				cvo = null;
-				System.out.println("-- file did not exist in folder2");
 			}
 		}
 		// Now we have to worry about folders that are in folder2 but not in folder1
@@ -162,7 +163,6 @@ public class MKSComparator {
 			cvo = new CompareViewObject(null, f2, "!=");
 			compareViewObjects.add(cvo);
 			cvo = null;
-			System.out.println("-- file did not exist in folder1");
 		}
 	}
 	
@@ -201,10 +201,14 @@ public class MKSComparator {
 		for ( int i = 0 ; i < 999 ; i++ ){
 			int itemsFound = 0;
 			// break operation to not waste runtime! 
-			if ( noLevelResult > 2 ) {
+			if ( noLevelResult > 20 ) {
 				break;
 			}
 			for ( CompareViewObject cvfo : compareViewFolderObjects ) {
+				/**
+				 * TODO: implement the other way round
+				 */
+				if ( cvfo.getFolder1() != null ) {
 				if ( cvfo.getFolder1().getLevel() == i ) { // || cvfo.getFolder2().getLevel() == i) {
 					/*
 					 * now we use the differenciator to diff between the folders
@@ -242,6 +246,7 @@ public class MKSComparator {
 							gridItem = new GridItem ( 
 									getParentGrid(cvfo.getFolder1().getRootDirectory()), SWT.NONE);
 						}
+						gridItem = colorGrid(gridItem, 192, 80, 77);
 						
 					} else {
 						/*
@@ -254,21 +259,104 @@ public class MKSComparator {
 					if ( cvfo.getFolder1() != null ) {
 						gridItem.setText(0,cvfo.getFolder1().getName().toString());
 						gridItem.setText(3,cvfo.getFolder1().getObjectId());
+						gridItem.setImage(0,PlatformUI.getWorkbench().getSharedImages()
+								.getImage(ISharedImages.IMG_OBJ_FOLDER));
 					}
 					if ( cvfo.getFolder2() != null ) {
 						gridItem.setText(5,cvfo.getFolder2().getName().toString());
 						gridItem.setText(8,cvfo.getFolder2().getObjectId());
+						gridItem.setImage(5,PlatformUI.getWorkbench().getSharedImages()
+								.getImage(ISharedImages.IMG_OBJ_FOLDER));
 					}
 					gridItem.setText(4, cvfo.getDifferenciator());
-					gridItem.setImage(0,PlatformUI.getWorkbench().getSharedImages()
-							.getImage(ISharedImages.IMG_OBJ_FOLDER));
-					gridItem.setImage(5,PlatformUI.getWorkbench().getSharedImages()
-							.getImage(ISharedImages.IMG_OBJ_FOLDER));
 					
 					gridItems.add(gridItem);
 					itemsFound++;
 				}
+			} 
+
+				/**
+				 * TODO: change temp to perm
+				 */
+				
+				else 
+				if ( cvfo.getFolder2() != null &&
+						cvfo.getFolder1() == null ) {
+					if ( cvfo.getFolder2().getLevel() == i ) { // || cvfo.getFolder2().getLevel() == i) {
+						/*
+						 * now we use the differenciator to diff between the folders
+						 * in order to know what folder to use
+						 */
+						if ( cvfo.getDifferenciator().equalsIgnoreCase("==") || 
+								cvfo.getDifferenciator().equalsIgnoreCase("<") || 
+								cvfo.getDifferenciator().equalsIgnoreCase(">") ) {
+							// They both exist, so we use Folder1 as "main" folder
+							
+//							System.err.println("--" + cvfo.getFolder1().getName() + "--"
+//									+cvfo.getFolder2().getName() + "--" + cvfo.getDifferenciator()+"--" + 
+//									cvfo.getFolder1().getRootDirectory() + "--" + 
+//									cvfo.getFolder2().getRootDirectory()  + "--" );
+							
+							if ( cvfo.getFolder2().getRootDirectory() == null ) {
+								// folder is root! 
+								// static new root creation!
+								gridItem = new GridItem ( grid, SWT.NONE );
+								gridItem.setExpanded(true);
+							} else {
+								// it has a daddy which is already created and hence is looked up
+								gridItem = new GridItem ( 
+										getParentGrid(cvfo.getFolder2().getRootDirectory()), SWT.NONE);
+							}
+						} else if ( cvfo.getDifferenciator().equalsIgnoreCase("!=")) {
+							
+							if ( cvfo.getFolder2() == null ) {
+								// we use folder 2 as master
+								gridItem = new GridItem ( 
+										getParentGrid(cvfo.getFolder1().getRootDirectory()), SWT.NONE);
+								
+							} else {
+								// we use folder 1 as master
+								gridItem = new GridItem ( 
+										getParentGrid(cvfo.getFolder2().getRootDirectory()), SWT.NONE);
+							}
+							gridItem = colorGrid(gridItem, 192, 80, 77);
+							
+						} else {
+							/*
+							 * TODO
+							 * nicer messages
+							 */
+							System.out.println("an error occured");
+							continue;
+						}
+						if ( cvfo.getFolder1() != null ) {
+							gridItem.setText(0,cvfo.getFolder1().getName().toString());
+							gridItem.setText(3,cvfo.getFolder1().getObjectId());
+							gridItem.setImage(0,PlatformUI.getWorkbench().getSharedImages()
+									.getImage(ISharedImages.IMG_OBJ_FOLDER));
+						}
+						if ( cvfo.getFolder2() != null ) {
+							gridItem.setText(5,cvfo.getFolder2().getName().toString());
+							gridItem.setText(8,cvfo.getFolder2().getObjectId());
+							gridItem.setImage(5,PlatformUI.getWorkbench().getSharedImages()
+									.getImage(ISharedImages.IMG_OBJ_FOLDER));
+						}
+						gridItem.setText(4, cvfo.getDifferenciator());
+						
+						gridItems.add(gridItem);
+						itemsFound++;
+					}
+				}
+				
 			}
+			
+			
+			
+			
+			
+			/**
+			 * END TEMP
+			 */
 			if ( itemsFound < 1 ) 
 				noLevelResult++;
 		}
@@ -283,10 +371,11 @@ public class MKSComparator {
 		for ( int i = 0 ; i < 999 ; i++ ){
 			int itemsFound = 0;
 			// break operation to not waste runtime! 
-			if ( noLevelResult > 2 ) {
+			if ( noLevelResult > 20 ) {
 				break;
 			}
 			for ( CompareViewObject cvfo : compareViewFileObjects ) {
+				if ( cvfo.getFile1() != null ) {
 				if ( cvfo.getFile1().getLevel() == i  ) { //|| cvfo.getFile1().getLevel() == i ) {
 					/*
 					 * now we use the differenciator to diff between the folders
@@ -305,15 +394,11 @@ public class MKSComparator {
 						if ( cvfo.getDifferenciator().equalsIgnoreCase("<") || 
 								cvfo.getDifferenciator().equalsIgnoreCase(">") ) {
 //							System.out.println("set color " + cvfo.getFile1().getRootDir());
-							gridItem.setBackground(0, new Color(Display.getCurrent(), 230, 184, 184));
-							gridItem.setBackground(1, new Color(Display.getCurrent(), 230, 184, 184));
-							gridItem.setBackground(2, new Color(Display.getCurrent(), 230, 184, 184));
-							gridItem.setBackground(3, new Color(Display.getCurrent(), 230, 184, 184));
-							gridItem.setBackground(4, new Color(Display.getCurrent(), 230, 184, 184));
-							gridItem.setBackground(5, new Color(Display.getCurrent(), 230, 184, 184));
-							gridItem.setBackground(6, new Color(Display.getCurrent(), 230, 184, 184));
-							gridItem.setBackground(7, new Color(Display.getCurrent(), 230, 184, 184));
-							gridItem.setBackground(8, new Color(Display.getCurrent(), 230, 184, 184));
+							// hellrot
+//							gridItem = colorGrid(gridItem, 230, 184, 184);
+							// gelb
+							gridItem = colorGrid(gridItem, 238, 232, 170);
+							
 							getParentGrid(cvfo.getFile1().getRootDir()).setExpanded(true);
 						}
 					} else if ( cvfo.getDifferenciator().equalsIgnoreCase("!=")) {
@@ -328,15 +413,7 @@ public class MKSComparator {
 							gridItem = new GridItem ( 
 									getParentGrid(cvfo.getFile1().getRootDir()), SWT.NONE);
 						}
-						gridItem.setBackground(0, new Color(Display.getCurrent(), 192, 80, 77));
-						gridItem.setBackground(1, new Color(Display.getCurrent(), 192, 80, 77));
-						gridItem.setBackground(2, new Color(Display.getCurrent(), 192, 80, 77));
-						gridItem.setBackground(3, new Color(Display.getCurrent(), 192, 80, 77));
-						gridItem.setBackground(4, new Color(Display.getCurrent(), 192, 80, 77));
-						gridItem.setBackground(5, new Color(Display.getCurrent(), 192, 80, 77));
-						gridItem.setBackground(6, new Color(Display.getCurrent(), 192, 80, 77));
-						gridItem.setBackground(7, new Color(Display.getCurrent(), 192, 80, 77));
-						gridItem.setBackground(8, new Color(Display.getCurrent(), 192, 80, 77));
+						gridItem = colorGrid(gridItem, 192, 80, 77);
 						
 					} else {
 						/*
@@ -351,22 +428,101 @@ public class MKSComparator {
 						gridItem.setText(1,cvfo.getFile1().getVersion());
 						gridItem.setText(2,df.format(cvfo.getFile1().getModfiedDate()));
 						gridItem.setText(3,cvfo.getFile1().getObjectId());
+						gridItem.setImage(0,PlatformUI.getWorkbench().getSharedImages()
+								.getImage(ISharedImages.IMG_OBJ_FILE));
 					}
 					if ( cvfo.getFile2() != null ) {
 						gridItem.setText(5,cvfo.getFile2().getName().toString());
 						gridItem.setText(6,cvfo.getFile2().getVersion());
 						gridItem.setText(7,df.format(cvfo.getFile2().getModfiedDate()));
 						gridItem.setText(8,cvfo.getFile2().getObjectId());
+						gridItem.setImage(5,PlatformUI.getWorkbench().getSharedImages()
+								.getImage(ISharedImages.IMG_OBJ_FILE));
 					}
 					gridItem.setText(4, cvfo.getDifferenciator());
-					gridItem.setImage(0,PlatformUI.getWorkbench().getSharedImages()
-							.getImage(ISharedImages.IMG_OBJ_FILE));
-					gridItem.setImage(5,PlatformUI.getWorkbench().getSharedImages()
-							.getImage(ISharedImages.IMG_OBJ_FILE));
 					
 					gridItems.add(gridItem);
 					itemsFound++;
 				}
+				}
+				
+				/**
+				 * TEMP
+				 * TODO: CLEAR TABLE!!! 
+				 * Configuration missing due to new Label Provider! 
+				 */
+				if ( cvfo.getFile2() != null &&
+						cvfo.getFile1() == null) {
+					if ( cvfo.getFile2().getLevel() == i  ) { //|| cvfo.getFile1().getLevel() == i ) {
+						/*
+						 * now we use the differenciator to diff between the folders
+						 * in order to know what folder to use
+						 */
+						if ( cvfo.getDifferenciator().equalsIgnoreCase("==") || 
+								cvfo.getDifferenciator().equalsIgnoreCase("<") || 
+								cvfo.getDifferenciator().equalsIgnoreCase(">") ) {
+							// They both exist, so we use Folder1 as "main" folder
+							
+							// it has a daddy which is already created and hence is looked up
+							gridItem = new GridItem ( 
+									getParentGrid(cvfo.getFile2().getRootDir()), SWT.NONE);
+
+							
+							if ( cvfo.getDifferenciator().equalsIgnoreCase("<") || 
+									cvfo.getDifferenciator().equalsIgnoreCase(">") ) {
+//								System.out.println("set color " + cvfo.getFile1().getRootDir());
+								// hellrot
+//								gridItem = colorGrid(gridItem, 230, 184, 184);
+								// gelb
+								gridItem = colorGrid(gridItem, 238, 232, 170);
+								getParentGrid(cvfo.getFile1().getRootDir()).setExpanded(true);
+							}
+						} else if ( cvfo.getDifferenciator().equalsIgnoreCase("!=")) {
+							
+							if ( cvfo.getFile1() == null ) {
+								// we use folder 2 as master
+								gridItem = new GridItem ( 
+										getParentGrid(cvfo.getFile2().getRootDir()), SWT.NONE);
+								
+							} else {
+								// we use folder 1 as master
+								gridItem = new GridItem ( 
+										getParentGrid(cvfo.getFile1().getRootDir()), SWT.NONE);
+							}
+							gridItem = colorGrid(gridItem, 192, 80, 77);
+							
+						} else {
+							/*
+							 * TODO
+							 * nicer messages
+							 */
+							System.out.println("an error occured");
+							continue;
+						}
+						if ( cvfo.getFile1() != null ) {
+							gridItem.setText(0,cvfo.getFile1().getName().toString());
+							gridItem.setText(1,cvfo.getFile1().getVersion());
+							gridItem.setText(2,df.format(cvfo.getFile1().getModfiedDate()));
+							gridItem.setText(3,cvfo.getFile1().getObjectId());
+							gridItem.setImage(0,PlatformUI.getWorkbench().getSharedImages()
+									.getImage(ISharedImages.IMG_OBJ_FILE));
+						}
+						if ( cvfo.getFile2() != null ) {
+							gridItem.setText(5,cvfo.getFile2().getName().toString());
+							gridItem.setText(6,cvfo.getFile2().getVersion());
+							gridItem.setText(7,df.format(cvfo.getFile2().getModfiedDate()));
+							gridItem.setText(8,cvfo.getFile2().getObjectId());
+							gridItem.setImage(5,PlatformUI.getWorkbench().getSharedImages()
+									.getImage(ISharedImages.IMG_OBJ_FILE));
+						}
+						gridItem.setText(4, cvfo.getDifferenciator());
+						
+						gridItems.add(gridItem);
+						itemsFound++;
+					}
+					}
+				
+				
 			}
 			if ( itemsFound < 1 ) 
 				noLevelResult++;
@@ -388,6 +544,24 @@ public class MKSComparator {
 		}
 		System.err.println("--- Grid does not exist");
 		return null;
+	}
+	
+	private GridItem colorGrid( GridItem gridItem, int r, int g, int b ) {
+
+		gridItem.setBackground(0, new Color(Display.getCurrent(), r, g, b));
+		gridItem.setBackground(1, new Color(Display.getCurrent(), r, g, b));
+		gridItem.setBackground(2, new Color(Display.getCurrent(), r, g, b));
+		gridItem.setBackground(3, new Color(Display.getCurrent(), r, g, b));
+		gridItem.setBackground(4, new Color(Display.getCurrent(), r, g, b));
+		gridItem.setBackground(5, new Color(Display.getCurrent(), r, g, b));
+		gridItem.setBackground(6, new Color(Display.getCurrent(), r, g, b));
+		gridItem.setBackground(7, new Color(Display.getCurrent(), r, g, b));
+		gridItem.setBackground(8, new Color(Display.getCurrent(), r, g, b));
+		
+		/**
+		 * TODO: check if required or not
+		 */
+		return gridItem;
 	}
 	
 	/**

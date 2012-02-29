@@ -81,7 +81,11 @@
       <eParameters name="container" eType="#//Container"/>
     </eOperations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FolderDao" eSuperTypes="#//GenericDao"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FolderDao" eSuperTypes="#//GenericDao">
+    <eOperations name="getRootFolderBySnapshot" eType="#//Folder">
+      <eParameters name="snapshot" eType="#//Snapshot"/>
+    </eOperations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FileDao" eSuperTypes="#//GenericDao"/>
   <eClassifiers xsi:type="ecore:EDataType" name="Container" instanceClassName="general.Container"/>
   <eClassifiers xsi:type="ecore:EClass" name="SnapshotDao" eSuperTypes="#//GenericDao">
@@ -98,4 +102,5 @@
     </eOperations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Snapshot" instanceClassName="general.Snapshot"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Folder" instanceClassName="general.Folder"/>
 </ecore:EPackage>

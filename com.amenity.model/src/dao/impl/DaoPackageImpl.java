@@ -16,6 +16,7 @@ import dao.HibernateUtil;
 import dao.SnapshotDao;
 import dao.UserDao;
 
+import general.Folder;
 import general.Snapshot;
 import general.User;
 
@@ -166,6 +167,13 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 	 * @generated
 	 */
 	private EDataType snapshotEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType folderEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -422,6 +430,15 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EDataType getFolder() {
+		return folderEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public DaoFactory getDaoFactory() {
 		return (DaoFactory)getEFactoryInstance();
 	}
@@ -478,6 +495,7 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		userEDataType = createEDataType(USER);
 		containerEDataType = createEDataType(CONTAINER);
 		snapshotEDataType = createEDataType(SNAPSHOT);
+		folderEDataType = createEDataType(FOLDER);
 	}
 
 	/**
@@ -593,6 +611,9 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 
 		initEClass(folderDaoEClass, FolderDao.class, "FolderDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		op = addEOperation(folderDaoEClass, this.getFolder(), "getRootFolderBySnapshot", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getSnapshot(), "snapshot", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(fileDaoEClass, FileDao.class, "FileDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(snapshotDaoEClass, SnapshotDao.class, "SnapshotDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -616,6 +637,7 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		initEDataType(userEDataType, User.class, "User", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(containerEDataType, general.Container.class, "Container", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(snapshotEDataType, Snapshot.class, "Snapshot", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(folderEDataType, Folder.class, "Folder", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

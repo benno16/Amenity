@@ -2,6 +2,9 @@
  */
 package dao;
 
+import general.Folder;
+import general.Snapshot;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -14,4 +17,12 @@ package dao;
  * @generated
  */
 public interface FolderDao extends GenericDao {
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model dataType="dao.Folder" snapshotDataType="dao.Snapshot"
+	 * @generated
+	 */
+	Folder getRootFolderBySnapshot(Snapshot snapshot);
 } // FolderDao

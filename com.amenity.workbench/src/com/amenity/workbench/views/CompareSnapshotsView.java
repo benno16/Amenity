@@ -131,9 +131,9 @@ public class CompareSnapshotsView extends ViewPart {
 						
 						if ( structuredSelection.size() == 2 ) {
 							btnCompare.setEnabled(true);
-							snapshot1 = ((Snapshot)structuredSelection.toArray()[0]);
+							snapshot1 = ((Snapshot)structuredSelection.toArray()[1]);
 							label_1.setText(snapshot1.getName());
-							snapshot2 = ((Snapshot)structuredSelection.toArray()[1]);
+							snapshot2 = ((Snapshot)structuredSelection.toArray()[0]);
 							label_2.setText(snapshot2.getName());
 						} else if ( structuredSelection.size() == 1 ) {
 							snapshot1 = ((Snapshot)structuredSelection.getFirstElement());
@@ -174,6 +174,8 @@ public class CompareSnapshotsView extends ViewPart {
 		btnCompare.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+//				grid.clearAll(true);
+				grid.removeAll();
 				paintGrid(snapshot1, snapshot2);
 			}
 		});
@@ -190,7 +192,7 @@ public class CompareSnapshotsView extends ViewPart {
 	    column.setTree(true);
 	    GridColumn column1 = new GridColumn(grid,SWT.NONE);
 	    column1.setText("Version");
-	    column1.setWidth(100);
+	    column1.setWidth(70);
 	    column1.setSummary(false);
 	    GridColumn column2 = new GridColumn(grid,SWT.NONE);
 	    column2.setText("Modified");
@@ -203,7 +205,7 @@ public class CompareSnapshotsView extends ViewPart {
 	    column3.setVisible(false);
 	    GridColumn column4 = new GridColumn(grid,SWT.NONE);
 	    column4.setText("Difference");
-	    column4.setWidth(50);
+	    column4.setWidth(70);
 	    column4.setSummary(false);
 	    GridColumn column5 = new GridColumn(grid,SWT.NONE);
 	    column5.setText("Name");
@@ -211,7 +213,7 @@ public class CompareSnapshotsView extends ViewPart {
 	    column5.setTree(true);
 	    GridColumn column6 = new GridColumn(grid,SWT.NONE);
 	    column6.setText("Version");
-	    column6.setWidth(100);
+	    column6.setWidth(70);
 	    column6.setSummary(false);
 	    GridColumn column7 = new GridColumn(grid,SWT.NONE);
 	    column7.setText("Modified");

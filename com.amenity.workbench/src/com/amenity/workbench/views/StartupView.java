@@ -177,7 +177,7 @@ public class StartupView extends ViewPart {
 	
 	private String buildDate(Date date) {
 		String lastLogin = "Last Login: ";
-		SimpleDateFormat formater = new SimpleDateFormat("EEEE, dd. MMMM yy HH:mm");
+		SimpleDateFormat formater = new SimpleDateFormat("EEEE, dd. MMMM yyyy HH:mm");
 		lastLogin = lastLogin + formater.format(date);
 		
 		return lastLogin;

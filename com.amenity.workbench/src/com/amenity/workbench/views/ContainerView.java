@@ -1,5 +1,6 @@
 package com.amenity.workbench.views;
 
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Iterator;
 
@@ -394,10 +395,11 @@ public class ContainerView extends ViewPart {
 	private void fillSnapshotProperties() {
 		clearSnapshotProperties();
 		grpSettings.setVisible(true);
+		SimpleDateFormat df = new SimpleDateFormat ("yyyy-MM-dd HH:mm");
 		textName.setText(SessionSourceProvider.CURRENT_SNAPSHOT.getName());
 		textComment.setText(SessionSourceProvider.CURRENT_SNAPSHOT.getComment());
 		snapshotVal.setText(SessionSourceProvider.CURRENT_SNAPSHOT.getSnapshotId());
-		lblCreatedval.setText(SessionSourceProvider.CURRENT_SNAPSHOT.getCreated().toString());
+		lblCreatedval.setText(df.format(SessionSourceProvider.CURRENT_SNAPSHOT.getCreated()));
 		textName.setText(SessionSourceProvider.CURRENT_SNAPSHOT.getName());
 		textName.setText(SessionSourceProvider.CURRENT_SNAPSHOT.getName());
 		

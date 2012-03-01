@@ -1,13 +1,13 @@
 package com.amenity.workbench.views;
 
 import general.Container;
-import general.ContentObject;
 import general.Folder;
 import general.Snapshot;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.ui.part.PluginTransfer;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -22,15 +22,22 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.dnd.DragSource;
 import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.dnd.DragSourceEvent;
+import org.eclipse.swt.dnd.DragSourceListener;
+import org.eclipse.swt.dnd.TextTransfer;
+import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.nebula.widgets.grid.Grid;
 import org.eclipse.swt.dnd.DropTarget;
+import org.eclipse.swt.events.DragDetectEvent;
+import org.eclipse.swt.events.DragDetectListener;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
 
-import com.amenity.engine.helper.gui.contentProvider.ComponentObjectTreeContentProvider;
+import com.amenity.engine.helper.gui.SnapshotDragListener;
+import com.amenity.engine.helper.gui.SnapshotTransfer;
 import com.amenity.engine.helper.gui.labelProvider.GenericNameLabelProvider;
 import com.amenity.workbench.SessionSourceProvider;
 
@@ -44,7 +51,6 @@ public class AssignFunctionsView extends ViewPart {
 	private Text functionNameText;
 	private ISelection objectSelection;
 	private IStructuredSelection structuredSelection;
-	private Composite composite;
 	
 	private ComboViewer functionComboViewer;
 	private Combo functionCombo;
@@ -58,7 +64,6 @@ public class AssignFunctionsView extends ViewPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		composite = parent;
 		GridLayout gridLayout = new GridLayout(8,true);
 		parent.setLayout(gridLayout);
 		
@@ -156,18 +161,16 @@ public class AssignFunctionsView extends ViewPart {
 
 			@Override
 			public Object[] getElements(Object inputElement) {
-				/**
-				 * TODO: Query fetching children content objects
-				 */
-				return null;
+				System.out.println(inputElement.getClass().getName().toString());
+				ContentObjectDao contentobjectDao = DaoFactory.eINSTANCE.createContentObjectDao();
+				return contentobjectDao.getChildren(inputElement, SessionSourceProvider.CURRENT_SNAPSHOT).toArray();
 			}
 
 			@Override
 			public Object[] getChildren(Object parentElement) {
-				/**
-				 * TODO: Query fetching children content objects
-				 */
-				return null;
+				ContentObjectDao contentobjectDao = DaoFactory.eINSTANCE.createContentObjectDao();
+				
+				return contentobjectDao.getChildren(parentElement, SessionSourceProvider.CURRENT_SNAPSHOT).toArray();
 			}
 
 			@Override
@@ -182,10 +185,16 @@ public class AssignFunctionsView extends ViewPart {
 			
 		});
 		snapshotTreeViewer.setLabelProvider(new GenericNameLabelProvider());
+		/**
+		 * TODO: Drag and Drop
+		 */
+		int operations = DND.DROP_MOVE | DND.DROP_COPY;
+		Transfer[] transfers = new Transfer[] { SnapshotTransfer.getInstance(), PluginTransfer.getInstance()};
+//		snapshotTreeViewer.addDragSupport(operations, transfers, new SnapshotDragListener(snapshotTreeViewer));
 		
 		DropTarget dropTarget = new DropTarget(snapshotTree, DND.DROP_MOVE);
 		
-		DragSource dragSource_1 = new DragSource(snapshotTree, DND.DROP_MOVE);
+		
 		
 		Composite composite_1 = new Composite(parent, SWT.NONE);
 		composite_1.setLayout(new GridLayout(2, false));
@@ -294,11 +303,6 @@ public class AssignFunctionsView extends ViewPart {
 
 	protected void fillSnapshotTree() {
 		snapshotTree.removeAll();
-//		ContentObjectDao contentObjectDao = DaoFactory.eINSTANCE.createContentObjectDao();
-//		java.util.List<ContentObject> contentObjects = 
-//				contentObjectDao.getListBySnapshot(SessionSourceProvider.CURRENT_SNAPSHOT);
-//		snapshotTreeViewer.setInput(contentObjects.toArray());
-		snapshotTreeViewer.setInput(SessionSourceProvider.CURRENT_SNAPSHOT);
 		FolderDao folderObjectDao = DaoFactory.eINSTANCE.createFolderDao();
 		Folder folder = 
 				folderObjectDao.getRootFolderBySnapshot(

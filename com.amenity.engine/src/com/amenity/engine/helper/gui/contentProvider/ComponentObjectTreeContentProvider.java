@@ -1,6 +1,5 @@
 package com.amenity.engine.helper.gui.contentProvider;
 
-import general.ContentObject;
 import general.File;
 import general.Folder;
 import general.Snapshot;
@@ -8,7 +7,6 @@ import general.Snapshot;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
-import dao.ContentObjectDao;
 import dao.DaoFactory;
 import dao.FileDao;
 import dao.FolderDao;

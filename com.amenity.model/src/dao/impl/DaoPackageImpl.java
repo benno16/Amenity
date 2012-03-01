@@ -629,6 +629,10 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		op = addEOperation(contentObjectDaoEClass, null, "deleteListBySnapshot", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getSnapshot(), "snapshot", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(contentObjectDaoEClass, this.getList(), "getChildren", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEJavaObject(), "parent", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getSnapshot(), "snapshot", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		// Initialize data types
 		initEDataType(listEDataType, List.class, "List", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(queryEDataType, Query.class, "Query", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

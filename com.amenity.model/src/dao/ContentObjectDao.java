@@ -33,4 +33,12 @@ public interface ContentObjectDao extends GenericDao {
 	 */
 	void deleteListBySnapshot(Snapshot snapshot);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model dataType="dao.List" many="false" snapshotDataType="dao.Snapshot"
+	 * @generated
+	 */
+	List getChildren(Object parent, Snapshot snapshot);
+
 } // ContentObjectDao

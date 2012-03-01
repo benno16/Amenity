@@ -100,6 +100,10 @@
     <eOperations name="deleteListBySnapshot">
       <eParameters name="snapshot" eType="#//Snapshot"/>
     </eOperations>
+    <eOperations name="getChildren" eType="#//List">
+      <eParameters name="parent" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      <eParameters name="snapshot" eType="#//Snapshot"/>
+    </eOperations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Snapshot" instanceClassName="general.Snapshot"/>
   <eClassifiers xsi:type="ecore:EDataType" name="Folder" instanceClassName="general.Folder"/>

@@ -439,17 +439,17 @@ public class MksReader {
 		return noError;
 	}
 
-	private void createRootDirectory(String project) {
-		Folder folder = GeneralFactory.eINSTANCE.createFolder();
-		folder.setName(project);
-		folder.setPartOf(snapshot);
-		folder.setRootDirectory(folder);
-		folder.setLevel(0);
-		folder.setModfiedDate(null);
-		folders.add(folder);
-//		folderDao.create(folder);
-		folder = null;
-	}
+//	private void createRootDirectory(String project) {
+//		Folder folder = GeneralFactory.eINSTANCE.createFolder();
+//		folder.setName(project);
+//		folder.setPartOf(snapshot);
+//		folder.setRootDirectory(folder);
+//		folder.setLevel(0);
+//		folder.setModfiedDate(null);
+//		folders.add(folder);
+////		folderDao.create(folder);
+//		folder = null;
+//	}
 
 	public boolean getSandboxFiles() {
 		
@@ -587,6 +587,9 @@ public class MksReader {
 			file.setVersion(memberrevOut);
 //			fileDao.create(file);
 			root.getChildren().add(file);
+			/**
+			 * TODO: check if this would be possible or slow down the process to much
+			 */
 //			updateRootObject(root);
 //			folderDao.update(root);
 			files.add(file);
@@ -607,13 +610,13 @@ public class MksReader {
 		return idOut.substring(lastDotPosition, idOut.length());
 	}
 
-	private void updateRootObject(Folder root) {
-		for ( Folder f : folders ) {
-			if ( f.getFullName().equals(root.getFullName())) {
-				f = root;
-			}
-		}
-	}
+//	private void updateRootObject(Folder root) {
+//		for ( Folder f : folders ) {
+//			if ( f.getFullName().equals(root.getFullName())) {
+//				f = root;
+//			}
+//		}
+//	}
 
 	private String getFolderName(String projectName, String rootName) {
 		/*

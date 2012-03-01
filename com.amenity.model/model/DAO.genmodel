@@ -85,6 +85,10 @@
       <genOperations ecoreOperation="DAO.ecore#//ContentObjectDao/deleteListBySnapshot">
         <genParameters ecoreParameter="DAO.ecore#//ContentObjectDao/deleteListBySnapshot/snapshot"/>
       </genOperations>
+      <genOperations ecoreOperation="DAO.ecore#//ContentObjectDao/getChildren">
+        <genParameters ecoreParameter="DAO.ecore#//ContentObjectDao/getChildren/parent"/>
+        <genParameters ecoreParameter="DAO.ecore#//ContentObjectDao/getChildren/snapshot"/>
+      </genOperations>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

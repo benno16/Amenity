@@ -2,6 +2,7 @@
  */
 package dao.impl;
 
+import general.ContentObject;
 import general.Folder;
 
 import general.Snapshot;
@@ -52,17 +53,19 @@ public class FolderDaoImpl extends GenericDaoImpl implements FolderDao {
 	public Folder getRootFolderBySnapshot(Snapshot snapshot) {
 		session = getSession();
 		session.beginTransaction();
-		String string = "from " + Folder.class.getName().toString() + 
+		String string = "from " + ContentObject.class.getName().toString() + 
 				" where partOf = '" + snapshot.getSnapshotId() + "'" +
 				" order by level ";
 		Query queryRes = session.createQuery(string);
 		List<?> resultList = queryRes.list();
+		System.err.println(">>>> " + resultList.size());
 		session.close();
 		if ( resultList.size() > 0 )
 			return (Folder)resultList.get(0);
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean massInsert(List list, Class<?> class_) {
 		session = getSession();

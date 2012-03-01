@@ -176,7 +176,13 @@ public class CompareSnapshotsView extends ViewPart {
 			public void widgetSelected(SelectionEvent e) {
 //				grid.clearAll(true);
 				grid.removeAll();
-				paintGrid(snapshot1, snapshot2);
+				if ( snapshot1.getVia().getPartOf() != snapshot2.getVia().getPartOf() ) {
+					MessageDialog.openError(container.getShell(), "Incompatible Container", 
+							"The snapshots you are trying to compare belong of different containers. \n" +
+							"Please select two compatible snapshots! \n\n" +
+							"The operation will be cancelled");
+				} else 
+					paintGrid(snapshot1, snapshot2);
 			}
 		});
 		btnCompare.setBounds(448, 52, 75, 25);

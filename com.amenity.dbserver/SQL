@@ -16,7 +16,7 @@ drop table "fileproperty"
 
 drop schema "PUBLIC" cascade
 
-select * from "connection"
+select * from "function"
 
 update "connection" set "container_partof_containerid" = '4a797330-192f-4adb-a1ca-ebaa789e124a'
 where "connectionid" = '029c36a8-783a-4854-bcff-2037071d2522'

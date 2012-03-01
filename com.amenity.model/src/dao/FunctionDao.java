@@ -1,0 +1,28 @@
+/**
+ */
+package dao;
+
+import general.Snapshot;
+
+import java.util.List;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Function Dao</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ *
+ * @see dao.DaoPackage#getFunctionDao()
+ * @model
+ * @generated
+ */
+public interface FunctionDao extends GenericDao {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model dataType="dao.List" many="false" snapshotDataType="dao.Snapshot"
+	 * @generated
+	 */
+	List getFunctionsBySnapshot(Snapshot snapshot);
+
+} // FunctionDao

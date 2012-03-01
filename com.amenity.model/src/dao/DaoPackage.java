@@ -454,6 +454,43 @@ public interface DaoPackage extends EPackage {
 	int CONTENT_OBJECT_DAO_FEATURE_COUNT = GENERIC_DAO_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link dao.impl.FunctionDaoImpl <em>Function Dao</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see dao.impl.FunctionDaoImpl
+	 * @see dao.impl.DaoPackageImpl#getFunctionDao()
+	 * @generated
+	 */
+	int FUNCTION_DAO = 11;
+
+	/**
+	 * The feature id for the '<em><b>Persistent Class</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUNCTION_DAO__PERSISTENT_CLASS = GENERIC_DAO__PERSISTENT_CLASS;
+
+	/**
+	 * The feature id for the '<em><b>Session</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUNCTION_DAO__SESSION = GENERIC_DAO__SESSION;
+
+	/**
+	 * The number of structural features of the '<em>Function Dao</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUNCTION_DAO_FEATURE_COUNT = GENERIC_DAO_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '<em>List</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -461,7 +498,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getList()
 	 * @generated
 	 */
-	int LIST = 11;
+	int LIST = 12;
 
 	/**
 	 * The meta object id for the '<em>Query</em>' data type.
@@ -471,7 +508,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getQuery()
 	 * @generated
 	 */
-	int QUERY = 12;
+	int QUERY = 13;
 
 	/**
 	 * The meta object id for the '<em>Session</em>' data type.
@@ -481,7 +518,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getSession()
 	 * @generated
 	 */
-	int SESSION = 13;
+	int SESSION = 14;
 
 	/**
 	 * The meta object id for the '<em>Session Factory</em>' data type.
@@ -491,7 +528,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getSessionFactory()
 	 * @generated
 	 */
-	int SESSION_FACTORY = 14;
+	int SESSION_FACTORY = 15;
 
 	/**
 	 * The meta object id for the '<em>User</em>' data type.
@@ -501,7 +538,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getUser()
 	 * @generated
 	 */
-	int USER = 15;
+	int USER = 16;
 
 
 	/**
@@ -512,7 +549,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getContainer()
 	 * @generated
 	 */
-	int CONTAINER = 16;
+	int CONTAINER = 17;
 
 
 	/**
@@ -523,7 +560,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getSnapshot()
 	 * @generated
 	 */
-	int SNAPSHOT = 17;
+	int SNAPSHOT = 18;
 
 
 	/**
@@ -534,7 +571,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getFolder()
 	 * @generated
 	 */
-	int FOLDER = 18;
+	int FOLDER = 19;
 
 
 	/**
@@ -679,6 +716,16 @@ public interface DaoPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getContentObjectDao();
+
+	/**
+	 * Returns the meta object for class '{@link dao.FunctionDao <em>Function Dao</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Function Dao</em>'.
+	 * @see dao.FunctionDao
+	 * @generated
+	 */
+	EClass getFunctionDao();
 
 	/**
 	 * Returns the meta object for data type '{@link java.util.List <em>List</em>}'.
@@ -923,6 +970,16 @@ public interface DaoPackage extends EPackage {
 		 * @generated
 		 */
 		EClass CONTENT_OBJECT_DAO = eINSTANCE.getContentObjectDao();
+
+		/**
+		 * The meta object literal for the '{@link dao.impl.FunctionDaoImpl <em>Function Dao</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see dao.impl.FunctionDaoImpl
+		 * @see dao.impl.DaoPackageImpl#getFunctionDao()
+		 * @generated
+		 */
+		EClass FUNCTION_DAO = eINSTANCE.getFunctionDao();
 
 		/**
 		 * The meta object literal for the '<em>List</em>' data type.

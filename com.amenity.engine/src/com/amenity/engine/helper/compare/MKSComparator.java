@@ -542,7 +542,6 @@ public class MKSComparator {
 				return gi;
 			}
 		}
-		System.err.println("--- Grid does not exist");
 		return null;
 	}
 	

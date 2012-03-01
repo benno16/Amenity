@@ -241,7 +241,7 @@
         eType="#//QualityCriteria"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rating" eType="#//QualityCriteria"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ofFile" eType="#//File"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ofFile" eType="#//ContentObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ofFunction" eType="#//Function"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="setOn" eType="#//Date"/>
   </eClassifiers>

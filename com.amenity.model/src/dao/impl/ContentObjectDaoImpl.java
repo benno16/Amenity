@@ -65,13 +65,35 @@ public class ContentObjectDaoImpl extends GenericDaoImpl implements ContentObjec
 		throw new UnsupportedOperationException();
 	}
 
+
+	@Override
+	public Object getById(String id) {
+		session = getSession();
+		session.beginTransaction();
+		Query queryRes = session.createQuery("from " + ContentObject.class.getName().toString() + 
+				" where objectId='" + id + "'");
+
+		@SuppressWarnings("unchecked")
+		List<Snapshot> snapshots = queryRes.list();
+		session.close();
+		
+		if ( snapshots == null || snapshots.size() == 0 ) {
+			return null;
+		}else if ( snapshots.size() == 1) {
+			return snapshots.get(0);
+		} else {
+			System.out.println("multiple entries found");
+			return null;
+		}
+	}
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated NOT 
 	 */
 	@SuppressWarnings("unchecked")
-	public List<?> getChildren(Object parent, Snapshot snapshot) {
+	public List<ContentObject> getChildren(Object parent, Snapshot snapshot) {
 		if ( !(parent instanceof Folder) ) {
 			return null;
 		}

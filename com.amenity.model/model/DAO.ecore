@@ -107,4 +107,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Snapshot" instanceClassName="general.Snapshot"/>
   <eClassifiers xsi:type="ecore:EDataType" name="Folder" instanceClassName="general.Folder"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FunctionDao" eSuperTypes="#//GenericDao">
+    <eOperations name="getFunctionsBySnapshot" eType="#//List">
+      <eParameters name="snapshot" eType="#//Snapshot"/>
+    </eOperations>
+  </eClassifiers>
 </ecore:EPackage>

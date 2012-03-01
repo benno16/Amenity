@@ -10,6 +10,7 @@ import dao.DaoPackage;
 import dao.EventDao;
 import dao.FileDao;
 import dao.FolderDao;
+import dao.FunctionDao;
 import dao.GeneralQueries;
 import dao.GenericDao;
 import dao.HibernateUtil;
@@ -118,6 +119,13 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 	 * @generated
 	 */
 	private EClass contentObjectDaoEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass functionDaoEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -367,6 +375,15 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getFunctionDao() {
+		return functionDaoEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EDataType getList() {
 		return listEDataType;
 	}
@@ -487,6 +504,8 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 
 		contentObjectDaoEClass = createEClass(CONTENT_OBJECT_DAO);
 
+		functionDaoEClass = createEClass(FUNCTION_DAO);
+
 		// Create data types
 		listEDataType = createEDataType(LIST);
 		queryEDataType = createEDataType(QUERY);
@@ -535,6 +554,7 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		fileDaoEClass.getESuperTypes().add(this.getGenericDao());
 		snapshotDaoEClass.getESuperTypes().add(this.getGenericDao());
 		contentObjectDaoEClass.getESuperTypes().add(this.getGenericDao());
+		functionDaoEClass.getESuperTypes().add(this.getGenericDao());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(genericDaoEClass, GenericDao.class, "GenericDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -631,6 +651,11 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 
 		op = addEOperation(contentObjectDaoEClass, this.getList(), "getChildren", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEJavaObject(), "parent", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getSnapshot(), "snapshot", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(functionDaoEClass, FunctionDao.class, "FunctionDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		op = addEOperation(functionDaoEClass, this.getList(), "getFunctionsBySnapshot", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getSnapshot(), "snapshot", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		// Initialize data types

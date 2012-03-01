@@ -40,6 +40,7 @@ public class SessionSourceProvider extends AbstractSourceProvider {
     
     // Session information
     public static String SYNERGY_SID = null;
+    public static List<String> SYNERGY_PROJECT_LIST = null;
     
     boolean loggedIn;
     

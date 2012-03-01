@@ -23,7 +23,6 @@ public class Page2_Synergy extends WizardPage {
 	private Label lblNewLabel;
 	private Button btnConnect;
 	private boolean finished;
-	List<String> projectList;
 	
 	/**
 	 * Create the wizard.
@@ -32,7 +31,6 @@ public class Page2_Synergy extends WizardPage {
 		super("wizardPage");
 		setTitle("Synergy Data Source Profile");
 		setDescription("Please connect to Synergy");
-		projectList = new ArrayList<String>();
 	}
 
 	/**
@@ -80,11 +78,14 @@ public class Page2_Synergy extends WizardPage {
 							System.out.println("Error while creating SID");
 							btnConnect.setEnabled(true);
 						} else {
-							projectList = sgyLogin.getRawProjectList(SessionSourceProvider.SYNERGY_SID);
-							if ( projectList.size() > 0 ) {
-								System.out.println(projectList.size());
+							if ( SessionSourceProvider.SYNERGY_PROJECT_LIST == null )
+								SessionSourceProvider.SYNERGY_PROJECT_LIST = sgyLogin.getRawProjectList(
+										SessionSourceProvider.SYNERGY_SID);
+							
+							if ( SessionSourceProvider.SYNERGY_PROJECT_LIST.size() > 0 ) {
+								System.out.println(SessionSourceProvider.SYNERGY_PROJECT_LIST.size());
 								ProjectWizard wizard = (ProjectWizard)getWizard();
-								wizard.projectList = projectList;
+								wizard.projectList = SessionSourceProvider.SYNERGY_PROJECT_LIST;
 								lblNewLabel.setText("Connected with ID: " + 
 										SessionSourceProvider.SYNERGY_SID);
 								setPageComplete(true);
@@ -149,11 +150,12 @@ public class Page2_Synergy extends WizardPage {
 			System.out.println("Error while creating SID");
 			btnConnect.setEnabled(true);
 		} else {
-			projectList = sgyLogin.getRawProjectList(SessionSourceProvider.SYNERGY_SID);
-			if ( projectList.size() > 0 ) {
-				System.out.println(projectList.size());
+			if ( SessionSourceProvider.SYNERGY_PROJECT_LIST == null )
+				SessionSourceProvider.SYNERGY_PROJECT_LIST = sgyLogin.getRawProjectList(SessionSourceProvider.SYNERGY_SID);
+			if ( SessionSourceProvider.SYNERGY_PROJECT_LIST.size() > 0 ) {
+				System.out.println(SessionSourceProvider.SYNERGY_PROJECT_LIST.size());
 				ProjectWizard wizard = (ProjectWizard)getWizard();
-				wizard.projectList = projectList;
+				wizard.projectList = SessionSourceProvider.SYNERGY_PROJECT_LIST;
 				lblNewLabel.setText("Connected with ID: " + 
 						SessionSourceProvider.SYNERGY_SID);
 				setPageComplete(true);

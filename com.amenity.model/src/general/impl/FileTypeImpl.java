@@ -35,8 +35,7 @@ import org.eclipse.swt.graphics.Image;
  *   <li>{@link general.impl.FileTypeImpl#getName <em>Name</em>}</li>
  *   <li>{@link general.impl.FileTypeImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link general.impl.FileTypeImpl#getIcon <em>Icon</em>}</li>
- *   <li>{@link general.impl.FileTypeImpl#getTool <em>Tool</em>}</li>
- *   <li>{@link general.impl.FileTypeImpl#getUses <em>Uses</em>}</li>
+ *   <li>{@link general.impl.FileTypeImpl#getSuffix <em>Suffix</em>}</li>
  * </ul>
  * </p>
  *
@@ -133,34 +132,24 @@ public class FileTypeImpl extends EObjectImpl implements FileType {
 	protected Image icon = ICON_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getTool() <em>Tool</em>}' attribute.
+	 * The default value of the '{@link #getSuffix() <em>Suffix</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTool()
+	 * @see #getSuffix()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String TOOL_EDEFAULT = null;
+	protected static final String SUFFIX_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getTool() <em>Tool</em>}' attribute.
+	 * The cached value of the '{@link #getSuffix() <em>Suffix</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTool()
+	 * @see #getSuffix()
 	 * @generated
 	 * @ordered
 	 */
-	protected String tool = TOOL_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getUses() <em>Uses</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getUses()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<FileEnding> uses;
+	protected String suffix = SUFFIX_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -295,8 +284,8 @@ public class FileTypeImpl extends EObjectImpl implements FileType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getTool() {
-		return tool;
+	public String getSuffix() {
+		return suffix;
 	}
 
 	/**
@@ -304,52 +293,11 @@ public class FileTypeImpl extends EObjectImpl implements FileType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTool(String newTool) {
-		String oldTool = tool;
-		tool = newTool;
+	public void setSuffix(String newSuffix) {
+		String oldSuffix = suffix;
+		suffix = newSuffix;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.FILE_TYPE__TOOL, oldTool, tool));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<FileEnding> getUses() {
-		if (uses == null) {
-			uses = new EObjectWithInverseResolvingEList<FileEnding>(FileEnding.class, this, GeneralPackage.FILE_TYPE__USES, GeneralPackage.FILE_ENDING__OF_TYPE);
-		}
-		return uses;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GeneralPackage.FILE_TYPE__USES:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getUses()).basicAdd(otherEnd, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GeneralPackage.FILE_TYPE__USES:
-				return ((InternalEList<?>)getUses()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.FILE_TYPE__SUFFIX, oldSuffix, suffix));
 	}
 
 	/**
@@ -368,10 +316,8 @@ public class FileTypeImpl extends EObjectImpl implements FileType {
 				return getDescription();
 			case GeneralPackage.FILE_TYPE__ICON:
 				return getIcon();
-			case GeneralPackage.FILE_TYPE__TOOL:
-				return getTool();
-			case GeneralPackage.FILE_TYPE__USES:
-				return getUses();
+			case GeneralPackage.FILE_TYPE__SUFFIX:
+				return getSuffix();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -397,12 +343,8 @@ public class FileTypeImpl extends EObjectImpl implements FileType {
 			case GeneralPackage.FILE_TYPE__ICON:
 				setIcon((Image)newValue);
 				return;
-			case GeneralPackage.FILE_TYPE__TOOL:
-				setTool((String)newValue);
-				return;
-			case GeneralPackage.FILE_TYPE__USES:
-				getUses().clear();
-				getUses().addAll((Collection<? extends FileEnding>)newValue);
+			case GeneralPackage.FILE_TYPE__SUFFIX:
+				setSuffix((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -428,11 +370,8 @@ public class FileTypeImpl extends EObjectImpl implements FileType {
 			case GeneralPackage.FILE_TYPE__ICON:
 				setIcon(ICON_EDEFAULT);
 				return;
-			case GeneralPackage.FILE_TYPE__TOOL:
-				setTool(TOOL_EDEFAULT);
-				return;
-			case GeneralPackage.FILE_TYPE__USES:
-				getUses().clear();
+			case GeneralPackage.FILE_TYPE__SUFFIX:
+				setSuffix(SUFFIX_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -454,10 +393,8 @@ public class FileTypeImpl extends EObjectImpl implements FileType {
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 			case GeneralPackage.FILE_TYPE__ICON:
 				return ICON_EDEFAULT == null ? icon != null : !ICON_EDEFAULT.equals(icon);
-			case GeneralPackage.FILE_TYPE__TOOL:
-				return TOOL_EDEFAULT == null ? tool != null : !TOOL_EDEFAULT.equals(tool);
-			case GeneralPackage.FILE_TYPE__USES:
-				return uses != null && !uses.isEmpty();
+			case GeneralPackage.FILE_TYPE__SUFFIX:
+				return SUFFIX_EDEFAULT == null ? suffix != null : !SUFFIX_EDEFAULT.equals(suffix);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -480,8 +417,8 @@ public class FileTypeImpl extends EObjectImpl implements FileType {
 		result.append(description);
 		result.append(", icon: ");
 		result.append(icon);
-		result.append(", tool: ");
-		result.append(tool);
+		result.append(", suffix: ");
+		result.append(suffix);
 		result.append(')');
 		return result.toString();
 	}

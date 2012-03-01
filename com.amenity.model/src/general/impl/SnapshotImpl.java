@@ -40,14 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link general.impl.SnapshotImpl#getCreated <em>Created</em>}</li>
  *   <li>{@link general.impl.SnapshotImpl#getName <em>Name</em>}</li>
  *   <li>{@link general.impl.SnapshotImpl#getComment <em>Comment</em>}</li>
- *   <li>{@link general.impl.SnapshotImpl#getPartOf <em>Part Of</em>}</li>
  *   <li>{@link general.impl.SnapshotImpl#isDeleted <em>Deleted</em>}</li>
- *   <li>{@link general.impl.SnapshotImpl#getStores <em>Stores</em>}</li>
- *   <li>{@link general.impl.SnapshotImpl#getFunctions <em>Functions</em>}</li>
- *   <li>{@link general.impl.SnapshotImpl#getGeneral <em>General</em>}</li>
- *   <li>{@link general.impl.SnapshotImpl#getSystemComponent <em>System Component</em>}</li>
- *   <li>{@link general.impl.SnapshotImpl#getDetailedProperties <em>Detailed Properties</em>}</li>
- *   <li>{@link general.impl.SnapshotImpl#getGeneralProperties <em>General Properties</em>}</li>
  *   <li>{@link general.impl.SnapshotImpl#getVia <em>Via</em>}</li>
  * </ul>
  * </p>
@@ -136,16 +129,6 @@ public class SnapshotImpl extends EObjectImpl implements Snapshot {
 	protected String comment = COMMENT_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getPartOf() <em>Part Of</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPartOf()
-	 * @generated
-	 * @ordered
-	 */
-	protected Container partOf;
-
-	/**
 	 * The default value of the '{@link #isDeleted() <em>Deleted</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -164,66 +147,6 @@ public class SnapshotImpl extends EObjectImpl implements Snapshot {
 	 * @ordered
 	 */
 	protected boolean deleted = DELETED_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getStores() <em>Stores</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getStores()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<ContentObject> stores;
-
-	/**
-	 * The cached value of the '{@link #getFunctions() <em>Functions</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFunctions()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Function> functions;
-
-	/**
-	 * The cached value of the '{@link #getGeneral() <em>General</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getGeneral()
-	 * @generated
-	 * @ordered
-	 */
-	protected GeneralDocumentationFileProperty general;
-
-	/**
-	 * The cached value of the '{@link #getSystemComponent() <em>System Component</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSystemComponent()
-	 * @generated
-	 * @ordered
-	 */
-	protected SystemComponentLevelDocumentationFileProperty systemComponent;
-
-	/**
-	 * The cached value of the '{@link #getDetailedProperties() <em>Detailed Properties</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDetailedProperties()
-	 * @generated
-	 * @ordered
-	 */
-	protected SystemComponentLevelDocumentationFileProperty detailedProperties;
-
-	/**
-	 * The cached value of the '{@link #getGeneralProperties() <em>General Properties</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getGeneralProperties()
-	 * @generated
-	 * @ordered
-	 */
-	protected GeneralDocumentationFileProperty generalProperties;
 
 	/**
 	 * The cached value of the '{@link #getVia() <em>Via</em>}' reference.
@@ -343,44 +266,6 @@ public class SnapshotImpl extends EObjectImpl implements Snapshot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Container getPartOf() {
-		if (partOf != null && partOf.eIsProxy()) {
-			InternalEObject oldPartOf = (InternalEObject)partOf;
-			partOf = (Container)eResolveProxy(oldPartOf);
-			if (partOf != oldPartOf) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GeneralPackage.SNAPSHOT__PART_OF, oldPartOf, partOf));
-			}
-		}
-		return partOf;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Container basicGetPartOf() {
-		return partOf;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPartOf(Container newPartOf) {
-		Container oldPartOf = partOf;
-		partOf = newPartOf;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.SNAPSHOT__PART_OF, oldPartOf, partOf));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean isDeleted() {
 		return deleted;
 	}
@@ -395,192 +280,6 @@ public class SnapshotImpl extends EObjectImpl implements Snapshot {
 		deleted = newDeleted;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.SNAPSHOT__DELETED, oldDeleted, deleted));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<ContentObject> getStores() {
-		if (stores == null) {
-			stores = new EObjectWithInverseResolvingEList<ContentObject>(ContentObject.class, this, GeneralPackage.SNAPSHOT__STORES, GeneralPackage.CONTENT_OBJECT__PART_OF);
-		}
-		return stores;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Function> getFunctions() {
-		if (functions == null) {
-			functions = new EObjectResolvingEList<Function>(Function.class, this, GeneralPackage.SNAPSHOT__FUNCTIONS);
-		}
-		return functions;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GeneralDocumentationFileProperty getGeneral() {
-		if (general != null && general.eIsProxy()) {
-			InternalEObject oldGeneral = (InternalEObject)general;
-			general = (GeneralDocumentationFileProperty)eResolveProxy(oldGeneral);
-			if (general != oldGeneral) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GeneralPackage.SNAPSHOT__GENERAL, oldGeneral, general));
-			}
-		}
-		return general;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GeneralDocumentationFileProperty basicGetGeneral() {
-		return general;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setGeneral(GeneralDocumentationFileProperty newGeneral) {
-		GeneralDocumentationFileProperty oldGeneral = general;
-		general = newGeneral;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.SNAPSHOT__GENERAL, oldGeneral, general));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SystemComponentLevelDocumentationFileProperty getSystemComponent() {
-		if (systemComponent != null && systemComponent.eIsProxy()) {
-			InternalEObject oldSystemComponent = (InternalEObject)systemComponent;
-			systemComponent = (SystemComponentLevelDocumentationFileProperty)eResolveProxy(oldSystemComponent);
-			if (systemComponent != oldSystemComponent) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GeneralPackage.SNAPSHOT__SYSTEM_COMPONENT, oldSystemComponent, systemComponent));
-			}
-		}
-		return systemComponent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SystemComponentLevelDocumentationFileProperty basicGetSystemComponent() {
-		return systemComponent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSystemComponent(SystemComponentLevelDocumentationFileProperty newSystemComponent) {
-		SystemComponentLevelDocumentationFileProperty oldSystemComponent = systemComponent;
-		systemComponent = newSystemComponent;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.SNAPSHOT__SYSTEM_COMPONENT, oldSystemComponent, systemComponent));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SystemComponentLevelDocumentationFileProperty getDetailedProperties() {
-		return detailedProperties;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetDetailedProperties(SystemComponentLevelDocumentationFileProperty newDetailedProperties, NotificationChain msgs) {
-		SystemComponentLevelDocumentationFileProperty oldDetailedProperties = detailedProperties;
-		detailedProperties = newDetailedProperties;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GeneralPackage.SNAPSHOT__DETAILED_PROPERTIES, oldDetailedProperties, newDetailedProperties);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDetailedProperties(SystemComponentLevelDocumentationFileProperty newDetailedProperties) {
-		if (newDetailedProperties != detailedProperties) {
-			NotificationChain msgs = null;
-			if (detailedProperties != null)
-				msgs = ((InternalEObject)detailedProperties).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GeneralPackage.SNAPSHOT__DETAILED_PROPERTIES, null, msgs);
-			if (newDetailedProperties != null)
-				msgs = ((InternalEObject)newDetailedProperties).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GeneralPackage.SNAPSHOT__DETAILED_PROPERTIES, null, msgs);
-			msgs = basicSetDetailedProperties(newDetailedProperties, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.SNAPSHOT__DETAILED_PROPERTIES, newDetailedProperties, newDetailedProperties));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GeneralDocumentationFileProperty getGeneralProperties() {
-		return generalProperties;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetGeneralProperties(GeneralDocumentationFileProperty newGeneralProperties, NotificationChain msgs) {
-		GeneralDocumentationFileProperty oldGeneralProperties = generalProperties;
-		generalProperties = newGeneralProperties;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GeneralPackage.SNAPSHOT__GENERAL_PROPERTIES, oldGeneralProperties, newGeneralProperties);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setGeneralProperties(GeneralDocumentationFileProperty newGeneralProperties) {
-		if (newGeneralProperties != generalProperties) {
-			NotificationChain msgs = null;
-			if (generalProperties != null)
-				msgs = ((InternalEObject)generalProperties).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GeneralPackage.SNAPSHOT__GENERAL_PROPERTIES, null, msgs);
-			if (newGeneralProperties != null)
-				msgs = ((InternalEObject)newGeneralProperties).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GeneralPackage.SNAPSHOT__GENERAL_PROPERTIES, null, msgs);
-			msgs = basicSetGeneralProperties(newGeneralProperties, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.SNAPSHOT__GENERAL_PROPERTIES, newGeneralProperties, newGeneralProperties));
 	}
 
 	/**
@@ -626,39 +325,6 @@ public class SnapshotImpl extends EObjectImpl implements Snapshot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GeneralPackage.SNAPSHOT__STORES:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getStores()).basicAdd(otherEnd, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GeneralPackage.SNAPSHOT__STORES:
-				return ((InternalEList<?>)getStores()).basicRemove(otherEnd, msgs);
-			case GeneralPackage.SNAPSHOT__DETAILED_PROPERTIES:
-				return basicSetDetailedProperties(null, msgs);
-			case GeneralPackage.SNAPSHOT__GENERAL_PROPERTIES:
-				return basicSetGeneralProperties(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -670,25 +336,8 @@ public class SnapshotImpl extends EObjectImpl implements Snapshot {
 				return getName();
 			case GeneralPackage.SNAPSHOT__COMMENT:
 				return getComment();
-			case GeneralPackage.SNAPSHOT__PART_OF:
-				if (resolve) return getPartOf();
-				return basicGetPartOf();
 			case GeneralPackage.SNAPSHOT__DELETED:
 				return isDeleted();
-			case GeneralPackage.SNAPSHOT__STORES:
-				return getStores();
-			case GeneralPackage.SNAPSHOT__FUNCTIONS:
-				return getFunctions();
-			case GeneralPackage.SNAPSHOT__GENERAL:
-				if (resolve) return getGeneral();
-				return basicGetGeneral();
-			case GeneralPackage.SNAPSHOT__SYSTEM_COMPONENT:
-				if (resolve) return getSystemComponent();
-				return basicGetSystemComponent();
-			case GeneralPackage.SNAPSHOT__DETAILED_PROPERTIES:
-				return getDetailedProperties();
-			case GeneralPackage.SNAPSHOT__GENERAL_PROPERTIES:
-				return getGeneralProperties();
 			case GeneralPackage.SNAPSHOT__VIA:
 				if (resolve) return getVia();
 				return basicGetVia();
@@ -717,31 +366,8 @@ public class SnapshotImpl extends EObjectImpl implements Snapshot {
 			case GeneralPackage.SNAPSHOT__COMMENT:
 				setComment((String)newValue);
 				return;
-			case GeneralPackage.SNAPSHOT__PART_OF:
-				setPartOf((Container)newValue);
-				return;
 			case GeneralPackage.SNAPSHOT__DELETED:
 				setDeleted((Boolean)newValue);
-				return;
-			case GeneralPackage.SNAPSHOT__STORES:
-				getStores().clear();
-				getStores().addAll((Collection<? extends ContentObject>)newValue);
-				return;
-			case GeneralPackage.SNAPSHOT__FUNCTIONS:
-				getFunctions().clear();
-				getFunctions().addAll((Collection<? extends Function>)newValue);
-				return;
-			case GeneralPackage.SNAPSHOT__GENERAL:
-				setGeneral((GeneralDocumentationFileProperty)newValue);
-				return;
-			case GeneralPackage.SNAPSHOT__SYSTEM_COMPONENT:
-				setSystemComponent((SystemComponentLevelDocumentationFileProperty)newValue);
-				return;
-			case GeneralPackage.SNAPSHOT__DETAILED_PROPERTIES:
-				setDetailedProperties((SystemComponentLevelDocumentationFileProperty)newValue);
-				return;
-			case GeneralPackage.SNAPSHOT__GENERAL_PROPERTIES:
-				setGeneralProperties((GeneralDocumentationFileProperty)newValue);
 				return;
 			case GeneralPackage.SNAPSHOT__VIA:
 				setVia((Connection)newValue);
@@ -770,29 +396,8 @@ public class SnapshotImpl extends EObjectImpl implements Snapshot {
 			case GeneralPackage.SNAPSHOT__COMMENT:
 				setComment(COMMENT_EDEFAULT);
 				return;
-			case GeneralPackage.SNAPSHOT__PART_OF:
-				setPartOf((Container)null);
-				return;
 			case GeneralPackage.SNAPSHOT__DELETED:
 				setDeleted(DELETED_EDEFAULT);
-				return;
-			case GeneralPackage.SNAPSHOT__STORES:
-				getStores().clear();
-				return;
-			case GeneralPackage.SNAPSHOT__FUNCTIONS:
-				getFunctions().clear();
-				return;
-			case GeneralPackage.SNAPSHOT__GENERAL:
-				setGeneral((GeneralDocumentationFileProperty)null);
-				return;
-			case GeneralPackage.SNAPSHOT__SYSTEM_COMPONENT:
-				setSystemComponent((SystemComponentLevelDocumentationFileProperty)null);
-				return;
-			case GeneralPackage.SNAPSHOT__DETAILED_PROPERTIES:
-				setDetailedProperties((SystemComponentLevelDocumentationFileProperty)null);
-				return;
-			case GeneralPackage.SNAPSHOT__GENERAL_PROPERTIES:
-				setGeneralProperties((GeneralDocumentationFileProperty)null);
 				return;
 			case GeneralPackage.SNAPSHOT__VIA:
 				setVia((Connection)null);
@@ -817,22 +422,8 @@ public class SnapshotImpl extends EObjectImpl implements Snapshot {
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GeneralPackage.SNAPSHOT__COMMENT:
 				return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
-			case GeneralPackage.SNAPSHOT__PART_OF:
-				return partOf != null;
 			case GeneralPackage.SNAPSHOT__DELETED:
 				return deleted != DELETED_EDEFAULT;
-			case GeneralPackage.SNAPSHOT__STORES:
-				return stores != null && !stores.isEmpty();
-			case GeneralPackage.SNAPSHOT__FUNCTIONS:
-				return functions != null && !functions.isEmpty();
-			case GeneralPackage.SNAPSHOT__GENERAL:
-				return general != null;
-			case GeneralPackage.SNAPSHOT__SYSTEM_COMPONENT:
-				return systemComponent != null;
-			case GeneralPackage.SNAPSHOT__DETAILED_PROPERTIES:
-				return detailedProperties != null;
-			case GeneralPackage.SNAPSHOT__GENERAL_PROPERTIES:
-				return generalProperties != null;
 			case GeneralPackage.SNAPSHOT__VIA:
 				return via != null;
 		}

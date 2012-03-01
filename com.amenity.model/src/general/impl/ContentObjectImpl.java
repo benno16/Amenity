@@ -398,33 +398,11 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetPartOf(Snapshot newPartOf, NotificationChain msgs) {
+	public void setPartOf(Snapshot newPartOf) {
 		Snapshot oldPartOf = partOf;
 		partOf = newPartOf;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GeneralPackage.CONTENT_OBJECT__PART_OF, oldPartOf, newPartOf);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPartOf(Snapshot newPartOf) {
-		if (newPartOf != partOf) {
-			NotificationChain msgs = null;
-			if (partOf != null)
-				msgs = ((InternalEObject)partOf).eInverseRemove(this, GeneralPackage.SNAPSHOT__STORES, Snapshot.class, msgs);
-			if (newPartOf != null)
-				msgs = ((InternalEObject)newPartOf).eInverseAdd(this, GeneralPackage.SNAPSHOT__STORES, Snapshot.class, msgs);
-			msgs = basicSetPartOf(newPartOf, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.CONTENT_OBJECT__PART_OF, newPartOf, newPartOf));
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.CONTENT_OBJECT__PART_OF, oldPartOf, partOf));
 	}
 
 	/**
@@ -446,36 +424,6 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 		fullName = newFullName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.CONTENT_OBJECT__FULL_NAME, oldFullName, fullName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GeneralPackage.CONTENT_OBJECT__PART_OF:
-				if (partOf != null)
-					msgs = ((InternalEObject)partOf).eInverseRemove(this, GeneralPackage.SNAPSHOT__STORES, Snapshot.class, msgs);
-				return basicSetPartOf((Snapshot)otherEnd, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GeneralPackage.CONTENT_OBJECT__PART_OF:
-				return basicSetPartOf(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

@@ -112,15 +112,6 @@ public interface GeneralFactory extends EFactory {
 	FileType createFileType();
 
 	/**
-	 * Returns a new object of class '<em>File Ending</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>File Ending</em>'.
-	 * @generated
-	 */
-	FileEnding createFileEnding();
-
-	/**
 	 * Returns a new object of class '<em>Function</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -130,67 +121,13 @@ public interface GeneralFactory extends EFactory {
 	Function createFunction();
 
 	/**
-	 * Returns a new object of class '<em>File Property</em>'.
+	 * Returns a new object of class '<em>File Function Status</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>File Property</em>'.
+	 * @return a new object of class '<em>File Function Status</em>'.
 	 * @generated
 	 */
-	FileProperty createFileProperty();
-
-	/**
-	 * Returns a new object of class '<em>Documentation File Property</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Documentation File Property</em>'.
-	 * @generated
-	 */
-	GeneralDocumentationFileProperty createGeneralDocumentationFileProperty();
-
-	/**
-	 * Returns a new object of class '<em>Generic Function SRS File Property</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Generic Function SRS File Property</em>'.
-	 * @generated
-	 */
-	GenericFunctionSRSFileProperty createGenericFunctionSRSFileProperty();
-
-	/**
-	 * Returns a new object of class '<em>System Component Level Documentation File Property</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>System Component Level Documentation File Property</em>'.
-	 * @generated
-	 */
-	SystemComponentLevelDocumentationFileProperty createSystemComponentLevelDocumentationFileProperty();
-
-	/**
-	 * Returns a new object of class '<em>Documentation Type</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Documentation Type</em>'.
-	 * @generated
-	 */
-	GeneralDocumentationType createGeneralDocumentationType();
-
-	/**
-	 * Returns a new object of class '<em>Generic Function SRS Type</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Generic Function SRS Type</em>'.
-	 * @generated
-	 */
-	GenericFunctionSRSType createGenericFunctionSRSType();
-
-	/**
-	 * Returns a new object of class '<em>System Component Level Documentation</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>System Component Level Documentation</em>'.
-	 * @generated
-	 */
-	SystemComponentLevelDocumentation createSystemComponentLevelDocumentation();
+	FileFunctionStatus createFileFunctionStatus();
 
 	/**
 	 * Returns a new object of class '<em>User List</em>'.

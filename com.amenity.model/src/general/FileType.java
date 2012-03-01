@@ -20,8 +20,7 @@ import org.eclipse.swt.graphics.Image;
  *   <li>{@link general.FileType#getName <em>Name</em>}</li>
  *   <li>{@link general.FileType#getDescription <em>Description</em>}</li>
  *   <li>{@link general.FileType#getIcon <em>Icon</em>}</li>
- *   <li>{@link general.FileType#getTool <em>Tool</em>}</li>
- *   <li>{@link general.FileType#getUses <em>Uses</em>}</li>
+ *   <li>{@link general.FileType#getSuffix <em>Suffix</em>}</li>
  * </ul>
  * </p>
  *
@@ -163,47 +162,29 @@ public interface FileType extends EObject {
 	void setIcon(Image value);
 
 	/**
-	 * Returns the value of the '<em><b>Tool</b></em>' attribute.
+	 * Returns the value of the '<em><b>Suffix</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Tool</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Suffix</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Tool</em>' attribute.
-	 * @see #setTool(String)
-	 * @see general.GeneralPackage#getFileType_Tool()
+	 * @return the value of the '<em>Suffix</em>' attribute.
+	 * @see #setSuffix(String)
+	 * @see general.GeneralPackage#getFileType_Suffix()
 	 * @model
 	 * @generated
 	 */
-	String getTool();
+	String getSuffix();
 
 	/**
-	 * Sets the value of the '{@link general.FileType#getTool <em>Tool</em>}' attribute.
+	 * Sets the value of the '{@link general.FileType#getSuffix <em>Suffix</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Tool</em>' attribute.
-	 * @see #getTool()
+	 * @param value the new value of the '<em>Suffix</em>' attribute.
+	 * @see #getSuffix()
 	 * @generated
 	 */
-	void setTool(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Uses</b></em>' reference list.
-	 * The list contents are of type {@link general.FileEnding}.
-	 * It is bidirectional and its opposite is '{@link general.FileEnding#getOfType <em>Of Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Uses</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Uses</em>' reference list.
-	 * @see general.GeneralPackage#getFileType_Uses()
-	 * @see general.FileEnding#getOfType
-	 * @model opposite="ofType"
-	 * @generated
-	 */
-	EList<FileEnding> getUses();
+	void setSuffix(String value);
 
 } // FileType

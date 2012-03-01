@@ -12,6 +12,8 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
 
+import com.amenity.workbench.SessionSourceProvider;
+
 import dao.ConnectionDao;
 import dao.DaoFactory;
 
@@ -41,7 +43,7 @@ public class ProjectWizard extends Wizard {
 		two_mks = new Page2_MKS( connection );
 		three_mks = new Page3_MKS( connection );
 		two_sgy = new Page2_Synergy( connection );
-		three_sgy = new Page3_Synergy( two_sgy.projectList );
+		three_sgy = new Page3_Synergy( SessionSourceProvider.SYNERGY_PROJECT_LIST );
 		four = new Page4( connection );
 		
 		

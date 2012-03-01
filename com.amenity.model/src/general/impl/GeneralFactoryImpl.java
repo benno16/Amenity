@@ -71,15 +71,8 @@ public class GeneralFactoryImpl extends EFactoryImpl implements GeneralFactory {
 			case GeneralPackage.FILE: return createFile();
 			case GeneralPackage.FOLDER: return createFolder();
 			case GeneralPackage.FILE_TYPE: return createFileType();
-			case GeneralPackage.FILE_ENDING: return createFileEnding();
 			case GeneralPackage.FUNCTION: return createFunction();
-			case GeneralPackage.FILE_PROPERTY: return createFileProperty();
-			case GeneralPackage.GENERAL_DOCUMENTATION_FILE_PROPERTY: return createGeneralDocumentationFileProperty();
-			case GeneralPackage.GENERIC_FUNCTION_SRS_FILE_PROPERTY: return createGenericFunctionSRSFileProperty();
-			case GeneralPackage.SYSTEM_COMPONENT_LEVEL_DOCUMENTATION_FILE_PROPERTY: return createSystemComponentLevelDocumentationFileProperty();
-			case GeneralPackage.GENERAL_DOCUMENTATION_TYPE: return createGeneralDocumentationType();
-			case GeneralPackage.GENERIC_FUNCTION_SRS_TYPE: return createGenericFunctionSRSType();
-			case GeneralPackage.SYSTEM_COMPONENT_LEVEL_DOCUMENTATION: return createSystemComponentLevelDocumentation();
+			case GeneralPackage.FILE_FUNCTION_STATUS: return createFileFunctionStatus();
 			case GeneralPackage.USER_LIST: return createUserList();
 			case GeneralPackage.TASK: return createTask();
 			case GeneralPackage.SESSION_SATUS: return createSessionSatus();
@@ -102,6 +95,8 @@ public class GeneralFactoryImpl extends EFactoryImpl implements GeneralFactory {
 				return createConnectionTypeFromString(eDataType, initialValue);
 			case GeneralPackage.QUALITY_CRITERIA:
 				return createQualityCriteriaFromString(eDataType, initialValue);
+			case GeneralPackage.DOCUMENT_TYPE:
+				return createdocumentTypeFromString(eDataType, initialValue);
 			case GeneralPackage.DATE:
 				return createDateFromString(eDataType, initialValue);
 			case GeneralPackage.IMAGE:
@@ -125,6 +120,8 @@ public class GeneralFactoryImpl extends EFactoryImpl implements GeneralFactory {
 				return convertConnectionTypeToString(eDataType, instanceValue);
 			case GeneralPackage.QUALITY_CRITERIA:
 				return convertQualityCriteriaToString(eDataType, instanceValue);
+			case GeneralPackage.DOCUMENT_TYPE:
+				return convertdocumentTypeToString(eDataType, instanceValue);
 			case GeneralPackage.DATE:
 				return convertDateToString(eDataType, instanceValue);
 			case GeneralPackage.IMAGE:
@@ -239,16 +236,6 @@ public class GeneralFactoryImpl extends EFactoryImpl implements GeneralFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FileEnding createFileEnding() {
-		FileEndingImpl fileEnding = new FileEndingImpl();
-		return fileEnding;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Function createFunction() {
 		FunctionImpl function = new FunctionImpl();
 		return function;
@@ -259,69 +246,9 @@ public class GeneralFactoryImpl extends EFactoryImpl implements GeneralFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FileProperty createFileProperty() {
-		FilePropertyImpl fileProperty = new FilePropertyImpl();
-		return fileProperty;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GeneralDocumentationFileProperty createGeneralDocumentationFileProperty() {
-		GeneralDocumentationFilePropertyImpl generalDocumentationFileProperty = new GeneralDocumentationFilePropertyImpl();
-		return generalDocumentationFileProperty;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenericFunctionSRSFileProperty createGenericFunctionSRSFileProperty() {
-		GenericFunctionSRSFilePropertyImpl genericFunctionSRSFileProperty = new GenericFunctionSRSFilePropertyImpl();
-		return genericFunctionSRSFileProperty;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SystemComponentLevelDocumentationFileProperty createSystemComponentLevelDocumentationFileProperty() {
-		SystemComponentLevelDocumentationFilePropertyImpl systemComponentLevelDocumentationFileProperty = new SystemComponentLevelDocumentationFilePropertyImpl();
-		return systemComponentLevelDocumentationFileProperty;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GeneralDocumentationType createGeneralDocumentationType() {
-		GeneralDocumentationTypeImpl generalDocumentationType = new GeneralDocumentationTypeImpl();
-		return generalDocumentationType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenericFunctionSRSType createGenericFunctionSRSType() {
-		GenericFunctionSRSTypeImpl genericFunctionSRSType = new GenericFunctionSRSTypeImpl();
-		return genericFunctionSRSType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SystemComponentLevelDocumentation createSystemComponentLevelDocumentation() {
-		SystemComponentLevelDocumentationImpl systemComponentLevelDocumentation = new SystemComponentLevelDocumentationImpl();
-		return systemComponentLevelDocumentation;
+	public FileFunctionStatus createFileFunctionStatus() {
+		FileFunctionStatusImpl fileFunctionStatus = new FileFunctionStatusImpl();
+		return fileFunctionStatus;
 	}
 
 	/**
@@ -411,6 +338,26 @@ public class GeneralFactoryImpl extends EFactoryImpl implements GeneralFactory {
 	 * @generated
 	 */
 	public String convertQualityCriteriaToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public documentType createdocumentTypeFromString(EDataType eDataType, String initialValue) {
+		documentType result = documentType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertdocumentTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

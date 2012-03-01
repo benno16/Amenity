@@ -19,6 +19,8 @@ import org.eclipse.swt.widgets.Text;
 
 import com.amenity.engine.helper.gui.labelProvider.GenericNameLabelProvider;
 import com.amenity.engine.helper.synergy.SynergyProject;
+import com.amenity.workbench.SessionSourceProvider;
+
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -27,7 +29,6 @@ import org.eclipse.swt.events.KeyEvent;
 
 
 public class Page3_Synergy extends WizardPage {
-	private List<String> projectList;
 	private List<SynergyProject> projects;
 	Text text;
 	ListViewer listViewer;
@@ -40,15 +41,13 @@ public class Page3_Synergy extends WizardPage {
 	 */
 	public Page3_Synergy(List<String> projectList) {
 		super("wizardPage");
-		this.projectList = projectList;
 		projects = new ArrayList<SynergyProject>();
 //		createProjectList(projectList);
 		setTitle("Synergy Data Source Profile");
 		setDescription("Please select Rational Synergy Project");
 	}
 
-	protected void createProjectList(List<String> projectList2) {
-		this.projectList = projectList2;
+	protected void createProjectList(List<String> projectList) {
 		String shortName = "";
 		String release = "";
 		for ( String s : projectList ) {
@@ -85,7 +84,10 @@ public class Page3_Synergy extends WizardPage {
 		Composite container = new Composite(parent, SWT.NULL);
 
 		setControl(container);
-		createProjectList(projectList);
+		if ( SessionSourceProvider.SYNERGY_PROJECT_LIST != null &&
+				SessionSourceProvider.SYNERGY_PROJECT_LIST .size() > 0 ) {
+			createProjectList(SessionSourceProvider.SYNERGY_PROJECT_LIST);
+		}
 		
 		Label lblSelectProject = new Label(container, SWT.NONE);
 		lblSelectProject.setBounds(10, 10, 100, 15);
@@ -200,6 +202,7 @@ public class Page3_Synergy extends WizardPage {
 			public void widgetSelected(SelectionEvent e) {
 				ProjectWizard wizard = (ProjectWizard)getWizard();
 				System.out.println("there are Elements: " + wizard.projectList.size());
+				wizard.projectList = SessionSourceProvider.SYNERGY_PROJECT_LIST;
 				createProjectList(wizard.projectList);
 			}
 		});

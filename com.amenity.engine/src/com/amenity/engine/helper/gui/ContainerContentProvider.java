@@ -40,7 +40,7 @@ public class ContainerContentProvider implements ITreeContentProvider {
 			SnapshotDao snapshotDao = DaoFactory.eINSTANCE.createSnapshotDao();
 			
 			@SuppressWarnings("unchecked")
-			List<Snapshot> snapshots = (List<Snapshot>) snapshotDao.getListByContainer(container.getContainerId());
+			List<Snapshot> snapshots = (List<Snapshot>) snapshotDao.getListByContainer(container);
 			
 			return snapshots.toArray();
 		}

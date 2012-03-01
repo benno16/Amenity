@@ -108,40 +108,12 @@ public class GeneralAdapterFactory extends AdapterFactoryImpl {
 				return createFileTypeAdapter();
 			}
 			@Override
-			public Adapter caseFileEnding(FileEnding object) {
-				return createFileEndingAdapter();
-			}
-			@Override
 			public Adapter caseFunction(Function object) {
 				return createFunctionAdapter();
 			}
 			@Override
-			public Adapter caseFileProperty(FileProperty object) {
-				return createFilePropertyAdapter();
-			}
-			@Override
-			public Adapter caseGeneralDocumentationFileProperty(GeneralDocumentationFileProperty object) {
-				return createGeneralDocumentationFilePropertyAdapter();
-			}
-			@Override
-			public Adapter caseGenericFunctionSRSFileProperty(GenericFunctionSRSFileProperty object) {
-				return createGenericFunctionSRSFilePropertyAdapter();
-			}
-			@Override
-			public Adapter caseSystemComponentLevelDocumentationFileProperty(SystemComponentLevelDocumentationFileProperty object) {
-				return createSystemComponentLevelDocumentationFilePropertyAdapter();
-			}
-			@Override
-			public Adapter caseGeneralDocumentationType(GeneralDocumentationType object) {
-				return createGeneralDocumentationTypeAdapter();
-			}
-			@Override
-			public Adapter caseGenericFunctionSRSType(GenericFunctionSRSType object) {
-				return createGenericFunctionSRSTypeAdapter();
-			}
-			@Override
-			public Adapter caseSystemComponentLevelDocumentation(SystemComponentLevelDocumentation object) {
-				return createSystemComponentLevelDocumentationAdapter();
+			public Adapter caseFileFunctionStatus(FileFunctionStatus object) {
+				return createFileFunctionStatusAdapter();
 			}
 			@Override
 			public Adapter caseUserList(UserList object) {
@@ -316,20 +288,6 @@ public class GeneralAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link general.FileEnding <em>File Ending</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see general.FileEnding
-	 * @generated
-	 */
-	public Adapter createFileEndingAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link general.Function <em>Function</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -344,100 +302,16 @@ public class GeneralAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link general.FileProperty <em>File Property</em>}'.
+	 * Creates a new adapter for an object of class '{@link general.FileFunctionStatus <em>File Function Status</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see general.FileProperty
+	 * @see general.FileFunctionStatus
 	 * @generated
 	 */
-	public Adapter createFilePropertyAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link general.GeneralDocumentationFileProperty <em>Documentation File Property</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see general.GeneralDocumentationFileProperty
-	 * @generated
-	 */
-	public Adapter createGeneralDocumentationFilePropertyAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link general.GenericFunctionSRSFileProperty <em>Generic Function SRS File Property</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see general.GenericFunctionSRSFileProperty
-	 * @generated
-	 */
-	public Adapter createGenericFunctionSRSFilePropertyAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link general.SystemComponentLevelDocumentationFileProperty <em>System Component Level Documentation File Property</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see general.SystemComponentLevelDocumentationFileProperty
-	 * @generated
-	 */
-	public Adapter createSystemComponentLevelDocumentationFilePropertyAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link general.GeneralDocumentationType <em>Documentation Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see general.GeneralDocumentationType
-	 * @generated
-	 */
-	public Adapter createGeneralDocumentationTypeAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link general.GenericFunctionSRSType <em>Generic Function SRS Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see general.GenericFunctionSRSType
-	 * @generated
-	 */
-	public Adapter createGenericFunctionSRSTypeAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link general.SystemComponentLevelDocumentation <em>System Component Level Documentation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see general.SystemComponentLevelDocumentation
-	 * @generated
-	 */
-	public Adapter createSystemComponentLevelDocumentationAdapter() {
+	public Adapter createFileFunctionStatusAdapter() {
 		return null;
 	}
 

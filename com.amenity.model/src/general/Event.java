@@ -135,7 +135,6 @@ public interface Event extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>User</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link general.User#getEvent <em>Event</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>User</em>' reference isn't clear,
@@ -145,8 +144,7 @@ public interface Event extends EObject {
 	 * @return the value of the '<em>User</em>' reference.
 	 * @see #setUser(User)
 	 * @see general.GeneralPackage#getEvent_User()
-	 * @see general.User#getEvent
-	 * @model opposite="event" required="true"
+	 * @model required="true"
 	 * @generated
 	 */
 	User getUser();

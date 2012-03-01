@@ -22,8 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link general.Function#getOverallStatus <em>Overall Status</em>}</li>
  *   <li>{@link general.Function#getModified <em>Modified</em>}</li>
  *   <li>{@link general.Function#isDeleted <em>Deleted</em>}</li>
- *   <li>{@link general.Function#getResponsibleFiles <em>Responsible Files</em>}</li>
- *   <li>{@link general.Function#getHeldBy <em>Held By</em>}</li>
+ *   <li>{@link general.Function#getSnapshot <em>Snapshot</em>}</li>
  * </ul>
  * </p>
  *
@@ -217,45 +216,29 @@ public interface Function extends EObject {
 	void setDeleted(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Responsible Files</b></em>' reference list.
-	 * The list contents are of type {@link general.GenericFunctionSRSFileProperty}.
+	 * Returns the value of the '<em><b>Snapshot</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Responsible Files</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Snapshot</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Responsible Files</em>' reference list.
-	 * @see general.GeneralPackage#getFunction_ResponsibleFiles()
+	 * @return the value of the '<em>Snapshot</em>' reference.
+	 * @see #setSnapshot(Snapshot)
+	 * @see general.GeneralPackage#getFunction_Snapshot()
 	 * @model
 	 * @generated
 	 */
-	EList<GenericFunctionSRSFileProperty> getResponsibleFiles();
+	Snapshot getSnapshot();
 
 	/**
-	 * Returns the value of the '<em><b>Held By</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Held By</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Held By</em>' reference.
-	 * @see #setHeldBy(Snapshot)
-	 * @see general.GeneralPackage#getFunction_HeldBy()
-	 * @model required="true"
-	 * @generated
-	 */
-	Snapshot getHeldBy();
-
-	/**
-	 * Sets the value of the '{@link general.Function#getHeldBy <em>Held By</em>}' reference.
+	 * Sets the value of the '{@link general.Function#getSnapshot <em>Snapshot</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Held By</em>' reference.
-	 * @see #getHeldBy()
+	 * @param value the new value of the '<em>Snapshot</em>' reference.
+	 * @see #getSnapshot()
 	 * @generated
 	 */
-	void setHeldBy(Snapshot value);
+	void setSnapshot(Snapshot value);
 
 } // Function

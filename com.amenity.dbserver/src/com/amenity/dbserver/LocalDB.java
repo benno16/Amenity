@@ -18,10 +18,10 @@ public class LocalDB {
 		 */
 		// production
 //		rootDir = "file:" + rootDir + "/temp/database/amenity;sql.enforce_strict_size=true";
-		// Conti internal D:/uidu1448/Amenity\Amenity\com.amenity.workbench
-//		rootDir = "file:d:/uidu1448/Amenity/Amenity/com.amenity.workbench/database/amenity;sql.enforce_strict_size=true";
+//		Conti internal D:/uidu1448/Amenity\Amenity\com.amenity.workbench
+		rootDir = "file:d:/uidu1448/Amenity/Amenity/com.amenity.workbench/database/amenity;sql.enforce_strict_size=true";
 		// Ben home
-		rootDir = "file:" + rootDir + "/Desktop/Arbeit/__Bachelor/amenity/git/Amenity/com.amenity.workbench/database/amenity;sql.enforce_strict_size=true";
+//		rootDir = "file:" + rootDir + "/Desktop/Arbeit/__Bachelor/amenity/git/Amenity/com.amenity.workbench/database/amenity;sql.enforce_strict_size=true";
 		
 		
 		HsqlProperties p = new HsqlProperties();

@@ -216,7 +216,6 @@ public interface ContentObject extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Part Of</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link general.Snapshot#getStores <em>Stores</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Part Of</em>' reference isn't clear,
@@ -226,8 +225,7 @@ public interface ContentObject extends EObject {
 	 * @return the value of the '<em>Part Of</em>' reference.
 	 * @see #setPartOf(Snapshot)
 	 * @see general.GeneralPackage#getContentObject_PartOf()
-	 * @see general.Snapshot#getStores
-	 * @model opposite="stores" required="true"
+	 * @model required="true"
 	 *        annotation="teneo.jpa value='@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})'"
 	 * @generated
 	 */

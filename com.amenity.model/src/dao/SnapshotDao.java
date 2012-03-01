@@ -2,6 +2,8 @@
  */
 package dao;
 
+import general.Container;
+
 import java.util.List;
 
 /**
@@ -19,8 +21,8 @@ public interface SnapshotDao extends GenericDao {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model dataType="dao.List" many="false"
-	 * @generated
+	 * @generated NOT
 	 */
-	List getListByContainer(String containerId);
+	List getListByContainer(Container container);
 
 } // SnapshotDao

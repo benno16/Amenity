@@ -9,6 +9,7 @@ import general.DataSource;
 import general.Event;
 import general.EventType;
 import general.File;
+import general.FileFunctionStatus;
 import general.FileEnding;
 import general.FileProperty;
 import general.FileType;
@@ -29,6 +30,7 @@ import general.Task;
 import general.User;
 
 import general.UserList;
+import general.documentType;
 import java.util.Date;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -125,13 +127,6 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass fileEndingEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass functionEClass = null;
 
 	/**
@@ -139,49 +134,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass filePropertyEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass generalDocumentationFilePropertyEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass genericFunctionSRSFilePropertyEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass systemComponentLevelDocumentationFilePropertyEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass generalDocumentationTypeEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass genericFunctionSRSTypeEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass systemComponentLevelDocumentationEClass = null;
+	private EClass fileFunctionStatusEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -224,6 +177,13 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * @generated
 	 */
 	private EEnum qualityCriteriaEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum documentTypeEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -370,15 +330,6 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 */
 	public EAttribute getUser_Deleted() {
 		return (EAttribute)userEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getUser_Event() {
-		return (EReference)userEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -836,71 +787,8 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSnapshot_PartOf() {
-		return (EReference)snapshotEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getSnapshot_Deleted() {
-		return (EAttribute)snapshotEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSnapshot_Stores() {
-		return (EReference)snapshotEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSnapshot_Functions() {
-		return (EReference)snapshotEClass.getEStructuralFeatures().get(7);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSnapshot_General() {
-		return (EReference)snapshotEClass.getEStructuralFeatures().get(8);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSnapshot_SystemComponent() {
-		return (EReference)snapshotEClass.getEStructuralFeatures().get(9);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSnapshot_DetailedProperties() {
-		return (EReference)snapshotEClass.getEStructuralFeatures().get(10);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSnapshot_GeneralProperties() {
-		return (EReference)snapshotEClass.getEStructuralFeatures().get(11);
+		return (EAttribute)snapshotEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -909,7 +797,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * @generated
 	 */
 	public EReference getSnapshot_Via() {
-		return (EReference)snapshotEClass.getEStructuralFeatures().get(12);
+		return (EReference)snapshotEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1043,17 +931,8 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFile_HasProperty() {
-		return (EReference)fileEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getFile_Suffix() {
-		return (EAttribute)fileEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)fileEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1070,17 +949,8 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFolder_Children() {
-		return (EReference)folderEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getFolder_RootDirectory() {
-		return (EReference)folderEClass.getEStructuralFeatures().get(1);
+		return (EReference)folderEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1133,53 +1003,8 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFileType_Tool() {
+	public EAttribute getFileType_Suffix() {
 		return (EAttribute)fileTypeEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFileType_Uses() {
-		return (EReference)fileTypeEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getFileEnding() {
-		return fileEndingEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getFileEnding_FileEndingId() {
-		return (EAttribute)fileEndingEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getFileEnding_Name() {
-		return (EAttribute)fileEndingEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFileEnding_OfType() {
-		return (EReference)fileEndingEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1250,7 +1075,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFunction_ResponsibleFiles() {
+	public EReference getFunction_Snapshot() {
 		return (EReference)functionEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -1259,8 +1084,8 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFunction_HeldBy() {
-		return (EReference)functionEClass.getEStructuralFeatures().get(7);
+	public EClass getFileFunctionStatus() {
+		return fileFunctionStatusEClass;
 	}
 
 	/**
@@ -1268,8 +1093,8 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getFileProperty() {
-		return filePropertyEClass;
+	public EAttribute getFileFunctionStatus_FileFunctionStatusId() {
+		return (EAttribute)fileFunctionStatusEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1277,8 +1102,8 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFileProperty_FilePropertyId() {
-		return (EAttribute)filePropertyEClass.getEStructuralFeatures().get(0);
+	public EAttribute getFileFunctionStatus_Required() {
+		return (EAttribute)fileFunctionStatusEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1286,8 +1111,8 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFileProperty_Required() {
-		return (EAttribute)filePropertyEClass.getEStructuralFeatures().get(1);
+	public EAttribute getFileFunctionStatus_UpToDate() {
+		return (EAttribute)fileFunctionStatusEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1295,8 +1120,8 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFileProperty_UpToDate() {
-		return (EAttribute)filePropertyEClass.getEStructuralFeatures().get(2);
+	public EAttribute getFileFunctionStatus_Reviewed() {
+		return (EAttribute)fileFunctionStatusEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1304,8 +1129,8 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFileProperty_Reviewed() {
-		return (EAttribute)filePropertyEClass.getEStructuralFeatures().get(3);
+	public EAttribute getFileFunctionStatus_ConfigurationManagement() {
+		return (EAttribute)fileFunctionStatusEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1313,8 +1138,8 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFileProperty_ConfigurationManagement() {
-		return (EAttribute)filePropertyEClass.getEStructuralFeatures().get(4);
+	public EAttribute getFileFunctionStatus_Rating() {
+		return (EAttribute)fileFunctionStatusEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1322,8 +1147,8 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFileProperty_Rating() {
-		return (EAttribute)filePropertyEClass.getEStructuralFeatures().get(5);
+	public EAttribute getFileFunctionStatus_Comment() {
+		return (EAttribute)fileFunctionStatusEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -1331,8 +1156,8 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFileProperty_Comment() {
-		return (EAttribute)filePropertyEClass.getEStructuralFeatures().get(6);
+	public EReference getFileFunctionStatus_OfFile() {
+		return (EReference)fileFunctionStatusEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -1340,8 +1165,8 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFileProperty_Of() {
-		return (EReference)filePropertyEClass.getEStructuralFeatures().get(7);
+	public EReference getFileFunctionStatus_OfFunction() {
+		return (EReference)fileFunctionStatusEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -1349,107 +1174,8 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getGeneralDocumentationFileProperty() {
-		return generalDocumentationFilePropertyEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGeneralDocumentationFileProperty_Type() {
-		return (EReference)generalDocumentationFilePropertyEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getGenericFunctionSRSFileProperty() {
-		return genericFunctionSRSFilePropertyEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGenericFunctionSRSFileProperty_Type() {
-		return (EReference)genericFunctionSRSFilePropertyEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getSystemComponentLevelDocumentationFileProperty() {
-		return systemComponentLevelDocumentationFilePropertyEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSystemComponentLevelDocumentationFileProperty_Type() {
-		return (EReference)systemComponentLevelDocumentationFilePropertyEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getGeneralDocumentationType() {
-		return generalDocumentationTypeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGeneralDocumentationType_Name() {
-		return (EAttribute)generalDocumentationTypeEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getGenericFunctionSRSType() {
-		return genericFunctionSRSTypeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenericFunctionSRSType_Name() {
-		return (EAttribute)genericFunctionSRSTypeEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getSystemComponentLevelDocumentation() {
-		return systemComponentLevelDocumentationEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getSystemComponentLevelDocumentation_Name() {
-		return (EAttribute)systemComponentLevelDocumentationEClass.getEStructuralFeatures().get(0);
+	public EAttribute getFileFunctionStatus_SetOn() {
+		return (EAttribute)fileFunctionStatusEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -1592,6 +1318,15 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getdocumentType() {
+		return documentTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EDataType getDate() {
 		return dateEDataType;
 	}
@@ -1641,7 +1376,6 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		createEAttribute(userEClass, USER__LAST_USED);
 		createEAttribute(userEClass, USER__TIMES_USED);
 		createEAttribute(userEClass, USER__DELETED);
-		createEReference(userEClass, USER__EVENT);
 
 		eventEClass = createEClass(EVENT);
 		createEAttribute(eventEClass, EVENT__EVENT_ID);
@@ -1697,14 +1431,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		createEAttribute(snapshotEClass, SNAPSHOT__CREATED);
 		createEAttribute(snapshotEClass, SNAPSHOT__NAME);
 		createEAttribute(snapshotEClass, SNAPSHOT__COMMENT);
-		createEReference(snapshotEClass, SNAPSHOT__PART_OF);
 		createEAttribute(snapshotEClass, SNAPSHOT__DELETED);
-		createEReference(snapshotEClass, SNAPSHOT__STORES);
-		createEReference(snapshotEClass, SNAPSHOT__FUNCTIONS);
-		createEReference(snapshotEClass, SNAPSHOT__GENERAL);
-		createEReference(snapshotEClass, SNAPSHOT__SYSTEM_COMPONENT);
-		createEReference(snapshotEClass, SNAPSHOT__DETAILED_PROPERTIES);
-		createEReference(snapshotEClass, SNAPSHOT__GENERAL_PROPERTIES);
 		createEReference(snapshotEClass, SNAPSHOT__VIA);
 
 		contentObjectEClass = createEClass(CONTENT_OBJECT);
@@ -1722,11 +1449,9 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		createEAttribute(fileEClass, FILE__CREATION_DATE);
 		createEAttribute(fileEClass, FILE__STATUS);
 		createEReference(fileEClass, FILE__ROOT_DIR);
-		createEReference(fileEClass, FILE__HAS_PROPERTY);
 		createEAttribute(fileEClass, FILE__SUFFIX);
 
 		folderEClass = createEClass(FOLDER);
-		createEReference(folderEClass, FOLDER__CHILDREN);
 		createEReference(folderEClass, FOLDER__ROOT_DIRECTORY);
 
 		fileTypeEClass = createEClass(FILE_TYPE);
@@ -1734,13 +1459,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		createEAttribute(fileTypeEClass, FILE_TYPE__NAME);
 		createEAttribute(fileTypeEClass, FILE_TYPE__DESCRIPTION);
 		createEAttribute(fileTypeEClass, FILE_TYPE__ICON);
-		createEAttribute(fileTypeEClass, FILE_TYPE__TOOL);
-		createEReference(fileTypeEClass, FILE_TYPE__USES);
-
-		fileEndingEClass = createEClass(FILE_ENDING);
-		createEAttribute(fileEndingEClass, FILE_ENDING__FILE_ENDING_ID);
-		createEAttribute(fileEndingEClass, FILE_ENDING__NAME);
-		createEReference(fileEndingEClass, FILE_ENDING__OF_TYPE);
+		createEAttribute(fileTypeEClass, FILE_TYPE__SUFFIX);
 
 		functionEClass = createEClass(FUNCTION);
 		createEAttribute(functionEClass, FUNCTION__FUNCTION_ID);
@@ -1749,36 +1468,19 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		createEAttribute(functionEClass, FUNCTION__OVERALL_STATUS);
 		createEAttribute(functionEClass, FUNCTION__MODIFIED);
 		createEAttribute(functionEClass, FUNCTION__DELETED);
-		createEReference(functionEClass, FUNCTION__RESPONSIBLE_FILES);
-		createEReference(functionEClass, FUNCTION__HELD_BY);
+		createEReference(functionEClass, FUNCTION__SNAPSHOT);
 
-		filePropertyEClass = createEClass(FILE_PROPERTY);
-		createEAttribute(filePropertyEClass, FILE_PROPERTY__FILE_PROPERTY_ID);
-		createEAttribute(filePropertyEClass, FILE_PROPERTY__REQUIRED);
-		createEAttribute(filePropertyEClass, FILE_PROPERTY__UP_TO_DATE);
-		createEAttribute(filePropertyEClass, FILE_PROPERTY__REVIEWED);
-		createEAttribute(filePropertyEClass, FILE_PROPERTY__CONFIGURATION_MANAGEMENT);
-		createEAttribute(filePropertyEClass, FILE_PROPERTY__RATING);
-		createEAttribute(filePropertyEClass, FILE_PROPERTY__COMMENT);
-		createEReference(filePropertyEClass, FILE_PROPERTY__OF);
-
-		generalDocumentationFilePropertyEClass = createEClass(GENERAL_DOCUMENTATION_FILE_PROPERTY);
-		createEReference(generalDocumentationFilePropertyEClass, GENERAL_DOCUMENTATION_FILE_PROPERTY__TYPE);
-
-		genericFunctionSRSFilePropertyEClass = createEClass(GENERIC_FUNCTION_SRS_FILE_PROPERTY);
-		createEReference(genericFunctionSRSFilePropertyEClass, GENERIC_FUNCTION_SRS_FILE_PROPERTY__TYPE);
-
-		systemComponentLevelDocumentationFilePropertyEClass = createEClass(SYSTEM_COMPONENT_LEVEL_DOCUMENTATION_FILE_PROPERTY);
-		createEReference(systemComponentLevelDocumentationFilePropertyEClass, SYSTEM_COMPONENT_LEVEL_DOCUMENTATION_FILE_PROPERTY__TYPE);
-
-		generalDocumentationTypeEClass = createEClass(GENERAL_DOCUMENTATION_TYPE);
-		createEAttribute(generalDocumentationTypeEClass, GENERAL_DOCUMENTATION_TYPE__NAME);
-
-		genericFunctionSRSTypeEClass = createEClass(GENERIC_FUNCTION_SRS_TYPE);
-		createEAttribute(genericFunctionSRSTypeEClass, GENERIC_FUNCTION_SRS_TYPE__NAME);
-
-		systemComponentLevelDocumentationEClass = createEClass(SYSTEM_COMPONENT_LEVEL_DOCUMENTATION);
-		createEAttribute(systemComponentLevelDocumentationEClass, SYSTEM_COMPONENT_LEVEL_DOCUMENTATION__NAME);
+		fileFunctionStatusEClass = createEClass(FILE_FUNCTION_STATUS);
+		createEAttribute(fileFunctionStatusEClass, FILE_FUNCTION_STATUS__FILE_FUNCTION_STATUS_ID);
+		createEAttribute(fileFunctionStatusEClass, FILE_FUNCTION_STATUS__REQUIRED);
+		createEAttribute(fileFunctionStatusEClass, FILE_FUNCTION_STATUS__UP_TO_DATE);
+		createEAttribute(fileFunctionStatusEClass, FILE_FUNCTION_STATUS__REVIEWED);
+		createEAttribute(fileFunctionStatusEClass, FILE_FUNCTION_STATUS__CONFIGURATION_MANAGEMENT);
+		createEAttribute(fileFunctionStatusEClass, FILE_FUNCTION_STATUS__RATING);
+		createEAttribute(fileFunctionStatusEClass, FILE_FUNCTION_STATUS__COMMENT);
+		createEReference(fileFunctionStatusEClass, FILE_FUNCTION_STATUS__OF_FILE);
+		createEReference(fileFunctionStatusEClass, FILE_FUNCTION_STATUS__OF_FUNCTION);
+		createEAttribute(fileFunctionStatusEClass, FILE_FUNCTION_STATUS__SET_ON);
 
 		userListEClass = createEClass(USER_LIST);
 		createEAttribute(userListEClass, USER_LIST__USERS);
@@ -1799,6 +1501,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		eventTypeEEnum = createEEnum(EVENT_TYPE);
 		connectionTypeEEnum = createEEnum(CONNECTION_TYPE);
 		qualityCriteriaEEnum = createEEnum(QUALITY_CRITERIA);
+		documentTypeEEnum = createEEnum(DOCUMENT_TYPE);
 
 		// Create data types
 		dateEDataType = createEDataType(DATE);
@@ -1835,9 +1538,6 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		// Add supertypes to classes
 		fileEClass.getESuperTypes().add(this.getContentObject());
 		folderEClass.getESuperTypes().add(this.getContentObject());
-		generalDocumentationFilePropertyEClass.getESuperTypes().add(this.getFileProperty());
-		genericFunctionSRSFilePropertyEClass.getESuperTypes().add(this.getFileProperty());
-		systemComponentLevelDocumentationFilePropertyEClass.getESuperTypes().add(this.getFileProperty());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(userEClass, User.class, "User", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1848,14 +1548,13 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		initEAttribute(getUser_LastUsed(), this.getDate(), "lastUsed", null, 1, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getUser_TimesUsed(), ecorePackage.getEInt(), "timesUsed", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getUser_Deleted(), ecorePackage.getEBoolean(), "deleted", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getUser_Event(), this.getEvent(), this.getEvent_User(), "event", null, 0, -1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(eventEClass, Event.class, "Event", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEvent_EventId(), ecorePackage.getEString(), "eventId", null, 1, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEvent_Message(), ecorePackage.getEString(), "message", null, 1, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEvent_Date(), this.getDate(), "date", null, 1, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEvent_UserRelevant(), ecorePackage.getEBoolean(), "userRelevant", null, 1, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEvent_User(), this.getUser(), this.getUser_Event(), "user", null, 1, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEvent_User(), this.getUser(), null, "user", null, 1, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEvent_Type(), this.getEventType(), "type", "", 1, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dataSourceEClass, DataSource.class, "DataSource", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1904,14 +1603,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		initEAttribute(getSnapshot_Created(), this.getDate(), "created", null, 1, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSnapshot_Name(), ecorePackage.getEString(), "name", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSnapshot_Comment(), ecorePackage.getEString(), "comment", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSnapshot_PartOf(), this.getContainer(), null, "partOf", null, 1, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSnapshot_Deleted(), ecorePackage.getEBoolean(), "deleted", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSnapshot_Stores(), this.getContentObject(), this.getContentObject_PartOf(), "stores", null, 0, -1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSnapshot_Functions(), this.getFunction(), null, "functions", null, 0, -1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSnapshot_General(), this.getGeneralDocumentationFileProperty(), null, "general", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSnapshot_SystemComponent(), this.getSystemComponentLevelDocumentationFileProperty(), null, "systemComponent", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSnapshot_DetailedProperties(), this.getSystemComponentLevelDocumentationFileProperty(), null, "detailedProperties", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSnapshot_GeneralProperties(), this.getGeneralDocumentationFileProperty(), null, "generalProperties", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSnapshot_Via(), this.getConnection(), null, "via", null, 0, 1, Snapshot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(contentObjectEClass, ContentObject.class, "ContentObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1921,19 +1613,17 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		initEAttribute(getContentObject_Version(), ecorePackage.getEString(), "version", null, 0, 1, ContentObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getContentObject_Release(), ecorePackage.getEString(), "release", null, 0, 1, ContentObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getContentObject_ModfiedDate(), this.getDate(), "modfiedDate", null, 0, 1, ContentObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getContentObject_PartOf(), this.getSnapshot(), this.getSnapshot_Stores(), "partOf", null, 1, 1, ContentObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getContentObject_PartOf(), this.getSnapshot(), null, "partOf", null, 1, 1, ContentObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getContentObject_FullName(), ecorePackage.getEString(), "fullName", null, 0, 1, ContentObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fileEClass, File.class, "File", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFile_ObjectName(), ecorePackage.getEString(), "objectName", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFile_CreationDate(), this.getDate(), "creationDate", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFile_Status(), ecorePackage.getEString(), "status", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFile_RootDir(), this.getFolder(), this.getFolder_Children(), "rootDir", null, 1, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFile_HasProperty(), this.getFileProperty(), this.getFileProperty_Of(), "hasProperty", null, 0, -1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFile_RootDir(), this.getFolder(), null, "rootDir", null, 1, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFile_Suffix(), ecorePackage.getEString(), "suffix", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(folderEClass, Folder.class, "Folder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFolder_Children(), this.getFile(), this.getFile_RootDir(), "children", null, 0, -1, Folder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFolder_RootDirectory(), this.getFolder(), null, "rootDirectory", null, 0, 1, Folder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fileTypeEClass, FileType.class, "FileType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1941,13 +1631,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		initEAttribute(getFileType_Name(), ecorePackage.getEString(), "name", null, 1, 1, FileType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFileType_Description(), ecorePackage.getEString(), "description", null, 0, 1, FileType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFileType_Icon(), this.getImage(), "icon", null, 1, 1, FileType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFileType_Tool(), ecorePackage.getEString(), "tool", null, 0, 1, FileType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFileType_Uses(), this.getFileEnding(), this.getFileEnding_OfType(), "uses", null, 0, -1, FileType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(fileEndingEClass, FileEnding.class, "FileEnding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFileEnding_FileEndingId(), ecorePackage.getEString(), "fileEndingId", null, 1, 1, FileEnding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFileEnding_Name(), ecorePackage.getEString(), "name", null, 1, 1, FileEnding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFileEnding_OfType(), this.getFileType(), this.getFileType_Uses(), "ofType", null, 1, 1, FileEnding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFileType_Suffix(), ecorePackage.getEString(), "suffix", null, 0, 1, FileType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(functionEClass, Function.class, "Function", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFunction_FunctionId(), ecorePackage.getEString(), "functionId", null, 1, 1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1956,36 +1640,19 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		initEAttribute(getFunction_OverallStatus(), ecorePackage.getEString(), "overallStatus", null, 0, 1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFunction_Modified(), this.getDate(), "modified", null, 0, 1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFunction_Deleted(), ecorePackage.getEBoolean(), "deleted", null, 0, 1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFunction_ResponsibleFiles(), this.getGenericFunctionSRSFileProperty(), null, "responsibleFiles", null, 0, -1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFunction_HeldBy(), this.getSnapshot(), null, "heldBy", null, 1, 1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFunction_Snapshot(), this.getSnapshot(), null, "snapshot", null, 0, 1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(filePropertyEClass, FileProperty.class, "FileProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFileProperty_FilePropertyId(), ecorePackage.getEString(), "filePropertyId", null, 1, 1, FileProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFileProperty_Required(), ecorePackage.getEBoolean(), "required", "true", 1, 1, FileProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFileProperty_UpToDate(), this.getQualityCriteria(), "upToDate", "", 1, 1, FileProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFileProperty_Reviewed(), this.getQualityCriteria(), "reviewed", null, 1, 1, FileProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFileProperty_ConfigurationManagement(), this.getQualityCriteria(), "configurationManagement", null, 1, 1, FileProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFileProperty_Rating(), this.getQualityCriteria(), "rating", null, 1, 1, FileProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFileProperty_Comment(), ecorePackage.getEString(), "comment", null, 0, 1, FileProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFileProperty_Of(), this.getFile(), this.getFile_HasProperty(), "of", null, 0, 1, FileProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(generalDocumentationFilePropertyEClass, GeneralDocumentationFileProperty.class, "GeneralDocumentationFileProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGeneralDocumentationFileProperty_Type(), this.getGeneralDocumentationType(), null, "type", null, 0, -1, GeneralDocumentationFileProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genericFunctionSRSFilePropertyEClass, GenericFunctionSRSFileProperty.class, "GenericFunctionSRSFileProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenericFunctionSRSFileProperty_Type(), this.getGenericFunctionSRSType(), null, "type", null, 0, -1, GenericFunctionSRSFileProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(systemComponentLevelDocumentationFilePropertyEClass, SystemComponentLevelDocumentationFileProperty.class, "SystemComponentLevelDocumentationFileProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSystemComponentLevelDocumentationFileProperty_Type(), this.getSystemComponentLevelDocumentation(), null, "type", null, 0, -1, SystemComponentLevelDocumentationFileProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(generalDocumentationTypeEClass, GeneralDocumentationType.class, "GeneralDocumentationType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGeneralDocumentationType_Name(), ecorePackage.getEString(), "name", null, 1, 1, GeneralDocumentationType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genericFunctionSRSTypeEClass, GenericFunctionSRSType.class, "GenericFunctionSRSType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenericFunctionSRSType_Name(), ecorePackage.getEString(), "name", null, 1, 1, GenericFunctionSRSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(systemComponentLevelDocumentationEClass, SystemComponentLevelDocumentation.class, "SystemComponentLevelDocumentation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getSystemComponentLevelDocumentation_Name(), ecorePackage.getEString(), "name", null, 1, 1, SystemComponentLevelDocumentation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(fileFunctionStatusEClass, FileFunctionStatus.class, "FileFunctionStatus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getFileFunctionStatus_FileFunctionStatusId(), ecorePackage.getEString(), "fileFunctionStatusId", null, 1, 1, FileFunctionStatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFileFunctionStatus_Required(), ecorePackage.getEBoolean(), "required", "true", 0, 1, FileFunctionStatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFileFunctionStatus_UpToDate(), this.getQualityCriteria(), "upToDate", "", 0, 1, FileFunctionStatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFileFunctionStatus_Reviewed(), this.getQualityCriteria(), "reviewed", null, 0, 1, FileFunctionStatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFileFunctionStatus_ConfigurationManagement(), this.getQualityCriteria(), "configurationManagement", null, 0, 1, FileFunctionStatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFileFunctionStatus_Rating(), this.getQualityCriteria(), "rating", null, 0, 1, FileFunctionStatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFileFunctionStatus_Comment(), ecorePackage.getEString(), "comment", null, 0, 1, FileFunctionStatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFileFunctionStatus_OfFile(), this.getFile(), null, "ofFile", null, 0, 1, FileFunctionStatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFileFunctionStatus_OfFunction(), this.getFunction(), null, "ofFunction", null, 0, 1, FileFunctionStatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFileFunctionStatus_SetOn(), this.getDate(), "setOn", null, 0, 1, FileFunctionStatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(userListEClass, UserList.class, "UserList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		EGenericType g1 = createEGenericType(ecorePackage.getEEList());
@@ -2025,6 +1692,49 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		addEEnumLiteral(qualityCriteriaEEnum, QualityCriteria.NULL);
 		addEEnumLiteral(qualityCriteriaEEnum, QualityCriteria.NA);
 
+		initEEnum(documentTypeEEnum, documentType.class, "documentType");
+		addEEnumLiteral(documentTypeEEnum, documentType.SW_PROJECT_PLAN);
+		addEEnumLiteral(documentTypeEEnum, documentType.SW_METRICS);
+		addEEnumLiteral(documentTypeEEnum, documentType.SW_PROJECT_SCHEDULE);
+		addEEnumLiteral(documentTypeEEnum, documentType.PROJECT_RISK_LIST);
+		addEEnumLiteral(documentTypeEEnum, documentType.LESSONS_LEARNED_);
+		addEEnumLiteral(documentTypeEEnum, documentType.SW_RELEASE_NOTE);
+		addEEnumLiteral(documentTypeEEnum, documentType.SW_REQUIREMENTS);
+		addEEnumLiteral(documentTypeEEnum, documentType.HWSW_INTERFACE_SHEET);
+		addEEnumLiteral(documentTypeEEnum, documentType.CONFIGURATION_MANAGEMENT_PLAN);
+		addEEnumLiteral(documentTypeEEnum, documentType.CHANGE_MANAGEMENT_PLAN);
+		addEEnumLiteral(documentTypeEEnum, documentType.CHANGE_MANAGEMENT_REPORT);
+		addEEnumLiteral(documentTypeEEnum, documentType.SW_ARCHITECTURE);
+		addEEnumLiteral(documentTypeEEnum, documentType.PROJECT_LINT_REPORT);
+		addEEnumLiteral(documentTypeEEnum, documentType.SOFTWARE_TEST_PLAN);
+		addEEnumLiteral(documentTypeEEnum, documentType.SOFTWARE_INTEGRATION_PLAN);
+		addEEnumLiteral(documentTypeEEnum, documentType.SW_TEST_SUMMARY_REPORT_);
+		addEEnumLiteral(documentTypeEEnum, documentType.SOFTWARE_QUALITY_ASSURANCE_PLAN);
+		addEEnumLiteral(documentTypeEEnum, documentType.SOFTWARE_QUALITY_ASSURANCE_REPORT);
+		addEEnumLiteral(documentTypeEEnum, documentType.SC_PDP);
+		addEEnumLiteral(documentTypeEEnum, documentType.SYSTEM_CONFIGURATION_MANAGEMENT_PLAN);
+		addEEnumLiteral(documentTypeEEnum, documentType.CHANGE_MANAGEMENT_WITH_MKS_YN);
+		addEEnumLiteral(documentTypeEEnum, documentType.SYSTEM_TEST_SPECIFICATION_IN_DOORS);
+		addEEnumLiteral(documentTypeEEnum, documentType.TEST_PLAN);
+		addEEnumLiteral(documentTypeEEnum, documentType.SYSTEM_INTEGRATION_TEST_SPECIFICATION);
+		addEEnumLiteral(documentTypeEEnum, documentType.CUSTOMER_REQUIREMENTS_SPECIFICATION);
+		addEEnumLiteral(documentTypeEEnum, documentType.SYSTEM_REQUIREMENTS_SPECIFICATION);
+		addEEnumLiteral(documentTypeEEnum, documentType.REQUIREMENTS_ENGINEERING_WITH_DOORS_YN);
+		addEEnumLiteral(documentTypeEEnum, documentType.BIDIRECTIONAL_TRACEABILITY_SYSTEM_REQU_SYSTEM_TC);
+		addEEnumLiteral(documentTypeEEnum, documentType.SYSTEM_ARCHITECTURE_DOCUMENT_);
+		addEEnumLiteral(documentTypeEEnum, documentType.GENERIC_FUNCTION_SRS);
+		addEEnumLiteral(documentTypeEEnum, documentType.SDD);
+		addEEnumLiteral(documentTypeEEnum, documentType.MISRA_LINT_CODE_CHECK_CHECK_LIST);
+		addEEnumLiteral(documentTypeEEnum, documentType.MODEL_REVIEW);
+		addEEnumLiteral(documentTypeEEnum, documentType.SW_UNIT_TEST_SPECIFICATION_);
+		addEEnumLiteral(documentTypeEEnum, documentType.SW_INTEGRATION_TEST_SPECIFICATION_);
+		addEEnumLiteral(documentTypeEEnum, documentType.SW_REQUIREMENTS_TEST_SPECIFICATION);
+		addEEnumLiteral(documentTypeEEnum, documentType.SW_INTEGRATION_TEST_REPORT);
+		addEEnumLiteral(documentTypeEEnum, documentType.SW_REQUIREMENTS_TEST_REPORT);
+		addEEnumLiteral(documentTypeEEnum, documentType.SW_UNIT_TEST_REPORT);
+		addEEnumLiteral(documentTypeEEnum, documentType.ADDITIONAL);
+		addEEnumLiteral(documentTypeEEnum, documentType.ADDITIONAL2);
+
 		// Initialize data types
 		initEDataType(dateEDataType, Date.class, "Date", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(imageEDataType, Image.class, "Image", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
@@ -2062,12 +1772,6 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		   source, 
 		   new String[] {
 			 "value", "@Id @GeneratedValue(generator=\"system-uuid\")"
-		   });		
-		addAnnotation
-		  (getUser_Event(), 
-		   source, 
-		   new String[] {
-			 "value", "@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"
 		   });		
 		addAnnotation
 		  (getEvent_EventId(), 
@@ -2130,12 +1834,6 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 			 "value", "@Id @GeneratedValue(generator=\"system-uuid\")"
 		   });		
 		addAnnotation
-		  (getSnapshot_PartOf(), 
-		   source, 
-		   new String[] {
-			 "value", "@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"
-		   });		
-		addAnnotation
 		  (getContentObject_ObjectId(), 
 		   source, 
 		   new String[] {
@@ -2154,12 +1852,6 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 			 "value", "@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"
 		   });		
 		addAnnotation
-		  (getFolder_Children(), 
-		   source, 
-		   new String[] {
-			 "value", "@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"
-		   });		
-		addAnnotation
 		  (getFolder_RootDirectory(), 
 		   source, 
 		   new String[] {
@@ -2167,12 +1859,6 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		   });		
 		addAnnotation
 		  (getFileType_FileTypeId(), 
-		   source, 
-		   new String[] {
-			 "value", "@Id @GeneratedValue(generator=\"system-uuid\")"
-		   });		
-		addAnnotation
-		  (getFileEnding_FileEndingId(), 
 		   source, 
 		   new String[] {
 			 "value", "@Id @GeneratedValue(generator=\"system-uuid\")"
@@ -2190,7 +1876,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 			 "value", "@Id @GeneratedValue(generator=\"system-uuid\")"
 		   });		
 		addAnnotation
-		  (getFileProperty_FilePropertyId(), 
+		  (getFileFunctionStatus_FileFunctionStatusId(), 
 		   source, 
 		   new String[] {
 			 "value", "@Id @GeneratedValue(generator=\"system-uuid\")"

@@ -12,7 +12,6 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link general.Folder#getChildren <em>Children</em>}</li>
  *   <li>{@link general.Folder#getRootDirectory <em>Root Directory</em>}</li>
  * </ul>
  * </p>
@@ -22,25 +21,6 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface Folder extends ContentObject {
-	/**
-	 * Returns the value of the '<em><b>Children</b></em>' reference list.
-	 * The list contents are of type {@link general.File}.
-	 * It is bidirectional and its opposite is '{@link general.File#getRootDir <em>Root Dir</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Children</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Children</em>' reference list.
-	 * @see general.GeneralPackage#getFolder_Children()
-	 * @see general.File#getRootDir
-	 * @model opposite="rootDir"
-	 *        annotation="teneo.jpa value='@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})'"
-	 * @generated
-	 */
-	EList<File> getChildren();
-
 	/**
 	 * Returns the value of the '<em><b>Root Directory</b></em>' reference.
 	 * <!-- begin-user-doc -->

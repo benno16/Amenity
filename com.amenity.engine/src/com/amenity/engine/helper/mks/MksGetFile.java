@@ -25,6 +25,8 @@ public class MksGetFile {
 	private boolean isSandbox = false;
 	private Session mySession = null;
 	private File file = null;
+	private String fileName;
+	private String amenityTempFolder = "D:\\temp\\amenity\\";
 	
 	public MksGetFile () {
 	}
@@ -36,91 +38,103 @@ public class MksGetFile {
 	
 	public String openFile() throws IOException {
 		
-		String amenityTempFolder = "D:\\temp\\amenity\\";
-		java.io.File f = new java.io.File(amenityTempFolder);
-		
-		Runtime r = Runtime.getRuntime();
-		Process p;
-		if ( !f.isDirectory() ) {
-			String amo = "cmd /C mkdir " + amenityTempFolder;
-			System.err.println(amo);
-			p = r.exec(amo);
-		}
-		
-		String filename = amenityTempFolder + UUID.randomUUID().toString() + "_" + file.getName();
-		String fetchFileAmo = "cmd /C si viewrevision -P " + 
-				file.getFullName().replace(file.getName(), "project.pj") +
-				"  --revision=" + file.getVersion() + " \"" +
-				file.getName() + "\"" + " > \"" + filename + "\"";
-		String openFileAmo = "cmd /C \"" + filename + "\"";
+//		String amenityTempFolder = "D:\\temp\\amenity\\";
+//		java.io.File f = new java.io.File(amenityTempFolder);
+//		
+//		Runtime r = Runtime.getRuntime();
+//		Process p;
+//		if ( !f.isDirectory() ) {
+//			String amo = "cmd /C mkdir " + amenityTempFolder;
+//			System.err.println(amo);
+//			p = r.exec(amo);
+//		}
+//		
+//		String filename = amenityTempFolder + UUID.randomUUID().toString() + "_" + file.getName();
+//		String fetchFileAmo = "cmd /C si viewrevision -P " + 
+//				file.getFullName().replace(file.getName(), "project.pj") +
+//				"  --revision=" + file.getVersion() + " \"" +
+//				file.getName() + "\"" + " > \"" + filename + "\"";
+//		String openFileAmo = "cmd /C \"" + filename + "\"";
+//		try {
+//			p = r.exec(fetchFileAmo);
+//			try {
+//				System.out.println("--starting waiting");
+//				p.waitFor();
+//				Thread.sleep(100);
+//				System.out.println("--finished waiting");
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			p = r.exec(openFileAmo);
+////			p = r.exec(filename);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		
 		try {
-			p = r.exec(fetchFileAmo);
-			try {
-				System.out.println("--starting waiting");
-				p.waitFor();
-				Thread.sleep(100);
-				System.out.println("--finished waiting");
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			IntegrationPointFactory ipf = IntegrationPointFactory.getInstance();
+			IntegrationPoint ip = ipf.createIntegrationPoint(connection.getDatabase(), 
+					port, false , 4 , 10);
+			
+			mySession = ip.createSession(connection.getUsername(),connection.getPassword());
+			
+			CmdRunner myCmdRunner = mySession.createCmdRunner();
+			myCmdRunner.setDefaultHostname(connection.getDatabase());
+			myCmdRunner.setDefaultPort(port);
+			myCmdRunner.setDefaultUsername(connection.getUsername());
+			myCmdRunner.setDefaultPassword(connection.getPassword());
+
+			java.io.File f = new java.io.File(amenityTempFolder);
+			
+			if ( !f.isDirectory() ) {
+				String amo = "cmd /C mkdir " + amenityTempFolder;
+				Runtime.getRuntime().exec(amo);
 			}
-			p = r.exec(openFileAmo);
-//			p = r.exec(filename);
+			
+			fileName = "remote://" + amenityTempFolder + 
+					UUID.randomUUID().toString() + "_" +file.getName();
+			
+			Command myCmd = new Command ( Command.SI , "projectco");
+			myCmd.addOption( new Option( "project" , connection.getProject() ) );
+			myCmd.addOption( new Option( "targetfile", fileName ) );
+			myCmd.addOption( new Option( "cpid", ":none" ) );
+			myCmd.addOption( new Option( "nolock" ) );
+			myCmd.addSelection(file.getName());
+			myCmdRunner.execute(myCmd);
+			
+			
+		} catch (APIException ae) {
+	        System.out.println("--[ Exception ]---------------------------");
+	        ResponseUtil.printAPIException(ae, 1, System.out);
+	        System.out.println("--[ Response In Which It Occured ]--------");
+	        ResponseUtil.printResponse(ae.getResponse(), 1, System.out);
+	    } finally {
+	        try {
+	            if(mySession!=null){
+	                mySession.release();
+	            }
+	        } catch (APIException ae){
+	            System.out.println("--[ Exception ]---------------------------");
+	            ResponseUtil.printAPIException(ae, 1, System.out);
+	            System.out.println("--[ Response In Which It Occured ]--------");
+	            ResponseUtil.printResponse(ae.getResponse(), 1, System.out);
+	        } catch (IOException ioe) {
+	            System.out.println(ioe.getMessage());
+	        }
+	    }
+		openLocalFile();
+		return fileName;
+	}
+	
+	private void openLocalFile() {
+		// strip of remote://
+		String openFileAmo = "cmd /C \"" + fileName.substring(9) + "\"";
+		try {
+			Runtime.getRuntime().exec(openFileAmo);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-//		
-//		
-//		try {
-//			IntegrationPointFactory ipf = IntegrationPointFactory.getInstance();
-//			IntegrationPoint ip = ipf.createIntegrationPoint(connection.getDatabase(), 
-//					port, false , 4 , 10);
-//			
-//			mySession = ip.createSession(connection.getUsername(),connection.getPassword());
-//			
-//			CmdRunner myCmdRunner = mySession.createCmdRunner();
-//			myCmdRunner.setDefaultHostname(connection.getDatabase());
-//			myCmdRunner.setDefaultPort(port);
-//			myCmdRunner.setDefaultUsername(connection.getUsername());
-//			myCmdRunner.setDefaultPassword(connection.getPassword());
-//
-////			System.out.println((SIModelTypeName.WORKING_DIRECTORY));
-////			Command myCmd = new Command ( Command.SI , "viewprefs");
-////			myCmd.addOption( new Option( "command" , SIModelTypeName.WORKING_DIRECTORY ) );
-////			myCmdRunner.execute(myCmd);
-//			
-//			
-//			Command myCmd = new Command ( Command.SI , "projectco");
-//			myCmd.addOption( new Option( "project" , connection.getProject() ) );
-//			myCmd.addOption( new Option( "targetfile", file.getName() ) );
-////					"C:/Program Files/MKS/IntegrityServer2009SP4/data/tmp/" + file.getName() ) );
-//			myCmd.addOption( new Option( "cpid", ":none" ) );
-//			myCmd.addOption( new Option( "nolock" ) );
-//			myCmd.addSelection(file.getName());
-//			myCmdRunner.execute(myCmd);
-//			
-//			System.out.println("I made it Through: " + 
-//					"C:/Program Files/MKS/IntegrityServer2009SP4/data/tmp/" + file.getName());
-//			
-//		} catch (APIException ae) {
-//	        System.out.println("--[ Exception ]---------------------------");
-//	        ResponseUtil.printAPIException(ae, 1, System.out);
-//	        System.out.println("--[ Response In Which It Occured ]--------");
-//	        ResponseUtil.printResponse(ae.getResponse(), 1, System.out);
-//	    } finally {
-//	        try {
-//	            if(mySession!=null){
-//	                mySession.release();
-//	            }
-//	        } catch (APIException ae){
-//	            System.out.println("--[ Exception ]---------------------------");
-//	            ResponseUtil.printAPIException(ae, 1, System.out);
-//	            System.out.println("--[ Response In Which It Occured ]--------");
-//	            ResponseUtil.printResponse(ae.getResponse(), 1, System.out);
-//	        } catch (IOException ioe) {
-//	            System.out.println(ioe.getMessage());
-//	        }
-//	    }
-		return "";
 	}
 }

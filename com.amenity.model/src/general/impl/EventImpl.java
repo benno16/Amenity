@@ -281,33 +281,11 @@ public class EventImpl extends EObjectImpl implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetUser(User newUser, NotificationChain msgs) {
+	public void setUser(User newUser) {
 		User oldUser = user;
 		user = newUser;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GeneralPackage.EVENT__USER, oldUser, newUser);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setUser(User newUser) {
-		if (newUser != user) {
-			NotificationChain msgs = null;
-			if (user != null)
-				msgs = ((InternalEObject)user).eInverseRemove(this, GeneralPackage.USER__EVENT, User.class, msgs);
-			if (newUser != null)
-				msgs = ((InternalEObject)newUser).eInverseAdd(this, GeneralPackage.USER__EVENT, User.class, msgs);
-			msgs = basicSetUser(newUser, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.EVENT__USER, newUser, newUser));
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.EVENT__USER, oldUser, user));
 	}
 
 	/**
@@ -329,36 +307,6 @@ public class EventImpl extends EObjectImpl implements Event {
 		type = newType == null ? TYPE_EDEFAULT : newType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.EVENT__TYPE, oldType, type));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GeneralPackage.EVENT__USER:
-				if (user != null)
-					msgs = ((InternalEObject)user).eInverseRemove(this, GeneralPackage.USER__EVENT, User.class, msgs);
-				return basicSetUser((User)otherEnd, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GeneralPackage.EVENT__USER:
-				return basicSetUser(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

@@ -132,22 +132,13 @@ public interface GeneralPackage extends EPackage {
 	int USER__DELETED = 6;
 
 	/**
-	 * The feature id for the '<em><b>Event</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int USER__EVENT = 7;
-
-	/**
 	 * The number of structural features of the '<em>User</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int USER_FEATURE_COUNT = 8;
+	int USER_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link general.impl.EventImpl <em>Event</em>}' class.
@@ -641,76 +632,13 @@ public interface GeneralPackage extends EPackage {
 	int SNAPSHOT__COMMENT = 3;
 
 	/**
-	 * The feature id for the '<em><b>Part Of</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SNAPSHOT__PART_OF = 4;
-
-	/**
 	 * The feature id for the '<em><b>Deleted</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SNAPSHOT__DELETED = 5;
-
-	/**
-	 * The feature id for the '<em><b>Stores</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SNAPSHOT__STORES = 6;
-
-	/**
-	 * The feature id for the '<em><b>Functions</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SNAPSHOT__FUNCTIONS = 7;
-
-	/**
-	 * The feature id for the '<em><b>General</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SNAPSHOT__GENERAL = 8;
-
-	/**
-	 * The feature id for the '<em><b>System Component</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SNAPSHOT__SYSTEM_COMPONENT = 9;
-
-	/**
-	 * The feature id for the '<em><b>Detailed Properties</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SNAPSHOT__DETAILED_PROPERTIES = 10;
-
-	/**
-	 * The feature id for the '<em><b>General Properties</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SNAPSHOT__GENERAL_PROPERTIES = 11;
+	int SNAPSHOT__DELETED = 4;
 
 	/**
 	 * The feature id for the '<em><b>Via</b></em>' reference.
@@ -719,7 +647,7 @@ public interface GeneralPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SNAPSHOT__VIA = 12;
+	int SNAPSHOT__VIA = 5;
 
 	/**
 	 * The number of structural features of the '<em>Snapshot</em>' class.
@@ -728,7 +656,7 @@ public interface GeneralPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SNAPSHOT_FEATURE_COUNT = 13;
+	int SNAPSHOT_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link general.impl.ContentObjectImpl <em>Content Object</em>}' class.
@@ -940,22 +868,13 @@ public interface GeneralPackage extends EPackage {
 	int FILE__ROOT_DIR = CONTENT_OBJECT_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Has Property</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FILE__HAS_PROPERTY = CONTENT_OBJECT_FEATURE_COUNT + 4;
-
-	/**
 	 * The feature id for the '<em><b>Suffix</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FILE__SUFFIX = CONTENT_OBJECT_FEATURE_COUNT + 5;
+	int FILE__SUFFIX = CONTENT_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>File</em>' class.
@@ -964,7 +883,7 @@ public interface GeneralPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_FEATURE_COUNT = CONTENT_OBJECT_FEATURE_COUNT + 6;
+	int FILE_FEATURE_COUNT = CONTENT_OBJECT_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link general.impl.FolderImpl <em>Folder</em>}' class.
@@ -1049,22 +968,13 @@ public interface GeneralPackage extends EPackage {
 	int FOLDER__FULL_NAME = CONTENT_OBJECT__FULL_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Children</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FOLDER__CHILDREN = CONTENT_OBJECT_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Root Directory</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FOLDER__ROOT_DIRECTORY = CONTENT_OBJECT_FEATURE_COUNT + 1;
+	int FOLDER__ROOT_DIRECTORY = CONTENT_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Folder</em>' class.
@@ -1073,7 +983,7 @@ public interface GeneralPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FOLDER_FEATURE_COUNT = CONTENT_OBJECT_FEATURE_COUNT + 2;
+	int FOLDER_FEATURE_COUNT = CONTENT_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link general.impl.FileTypeImpl <em>File Type</em>}' class.
@@ -1122,22 +1032,13 @@ public interface GeneralPackage extends EPackage {
 	int FILE_TYPE__ICON = 3;
 
 	/**
-	 * The feature id for the '<em><b>Tool</b></em>' attribute.
+	 * The feature id for the '<em><b>Suffix</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_TYPE__TOOL = 4;
-
-	/**
-	 * The feature id for the '<em><b>Uses</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FILE_TYPE__USES = 5;
+	int FILE_TYPE__SUFFIX = 4;
 
 	/**
 	 * The number of structural features of the '<em>File Type</em>' class.
@@ -1146,53 +1047,7 @@ public interface GeneralPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_TYPE_FEATURE_COUNT = 6;
-
-	/**
-	 * The meta object id for the '{@link general.impl.FileEndingImpl <em>File Ending</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see general.impl.FileEndingImpl
-	 * @see general.impl.GeneralPackageImpl#getFileEnding()
-	 * @generated
-	 */
-	int FILE_ENDING = 10;
-
-	/**
-	 * The feature id for the '<em><b>File Ending Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FILE_ENDING__FILE_ENDING_ID = 0;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FILE_ENDING__NAME = 1;
-
-	/**
-	 * The feature id for the '<em><b>Of Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FILE_ENDING__OF_TYPE = 2;
-
-	/**
-	 * The number of structural features of the '<em>File Ending</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FILE_ENDING_FEATURE_COUNT = 3;
+	int FILE_TYPE_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link general.impl.FunctionImpl <em>Function</em>}' class.
@@ -1202,7 +1057,7 @@ public interface GeneralPackage extends EPackage {
 	 * @see general.impl.GeneralPackageImpl#getFunction()
 	 * @generated
 	 */
-	int FUNCTION = 11;
+	int FUNCTION = 10;
 
 	/**
 	 * The feature id for the '<em><b>Function Id</b></em>' attribute.
@@ -1259,22 +1114,13 @@ public interface GeneralPackage extends EPackage {
 	int FUNCTION__DELETED = 5;
 
 	/**
-	 * The feature id for the '<em><b>Responsible Files</b></em>' reference list.
+	 * The feature id for the '<em><b>Snapshot</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FUNCTION__RESPONSIBLE_FILES = 6;
-
-	/**
-	 * The feature id for the '<em><b>Held By</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FUNCTION__HELD_BY = 7;
+	int FUNCTION__SNAPSHOT = 6;
 
 	/**
 	 * The number of structural features of the '<em>Function</em>' class.
@@ -1283,26 +1129,26 @@ public interface GeneralPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FUNCTION_FEATURE_COUNT = 8;
+	int FUNCTION_FEATURE_COUNT = 7;
 
 	/**
-	 * The meta object id for the '{@link general.impl.FilePropertyImpl <em>File Property</em>}' class.
+	 * The meta object id for the '{@link general.impl.FileFunctionStatusImpl <em>File Function Status</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see general.impl.FilePropertyImpl
-	 * @see general.impl.GeneralPackageImpl#getFileProperty()
+	 * @see general.impl.FileFunctionStatusImpl
+	 * @see general.impl.GeneralPackageImpl#getFileFunctionStatus()
 	 * @generated
 	 */
-	int FILE_PROPERTY = 12;
+	int FILE_FUNCTION_STATUS = 11;
 
 	/**
-	 * The feature id for the '<em><b>File Property Id</b></em>' attribute.
+	 * The feature id for the '<em><b>File Function Status Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_PROPERTY__FILE_PROPERTY_ID = 0;
+	int FILE_FUNCTION_STATUS__FILE_FUNCTION_STATUS_ID = 0;
 
 	/**
 	 * The feature id for the '<em><b>Required</b></em>' attribute.
@@ -1311,7 +1157,7 @@ public interface GeneralPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_PROPERTY__REQUIRED = 1;
+	int FILE_FUNCTION_STATUS__REQUIRED = 1;
 
 	/**
 	 * The feature id for the '<em><b>Up To Date</b></em>' attribute.
@@ -1320,7 +1166,7 @@ public interface GeneralPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_PROPERTY__UP_TO_DATE = 2;
+	int FILE_FUNCTION_STATUS__UP_TO_DATE = 2;
 
 	/**
 	 * The feature id for the '<em><b>Reviewed</b></em>' attribute.
@@ -1329,7 +1175,7 @@ public interface GeneralPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_PROPERTY__REVIEWED = 3;
+	int FILE_FUNCTION_STATUS__REVIEWED = 3;
 
 	/**
 	 * The feature id for the '<em><b>Configuration Management</b></em>' attribute.
@@ -1338,7 +1184,7 @@ public interface GeneralPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_PROPERTY__CONFIGURATION_MANAGEMENT = 4;
+	int FILE_FUNCTION_STATUS__CONFIGURATION_MANAGEMENT = 4;
 
 	/**
 	 * The feature id for the '<em><b>Rating</b></em>' attribute.
@@ -1347,7 +1193,7 @@ public interface GeneralPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_PROPERTY__RATING = 5;
+	int FILE_FUNCTION_STATUS__RATING = 5;
 
 	/**
 	 * The feature id for the '<em><b>Comment</b></em>' attribute.
@@ -1356,409 +1202,43 @@ public interface GeneralPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_PROPERTY__COMMENT = 6;
+	int FILE_FUNCTION_STATUS__COMMENT = 6;
 
 	/**
-	 * The feature id for the '<em><b>Of</b></em>' reference.
+	 * The feature id for the '<em><b>Of File</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_PROPERTY__OF = 7;
+	int FILE_FUNCTION_STATUS__OF_FILE = 7;
 
 	/**
-	 * The number of structural features of the '<em>File Property</em>' class.
+	 * The feature id for the '<em><b>Of Function</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_PROPERTY_FEATURE_COUNT = 8;
+	int FILE_FUNCTION_STATUS__OF_FUNCTION = 8;
 
 	/**
-	 * The meta object id for the '{@link general.impl.GeneralDocumentationFilePropertyImpl <em>Documentation File Property</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see general.impl.GeneralDocumentationFilePropertyImpl
-	 * @see general.impl.GeneralPackageImpl#getGeneralDocumentationFileProperty()
-	 * @generated
-	 */
-	int GENERAL_DOCUMENTATION_FILE_PROPERTY = 13;
-
-	/**
-	 * The feature id for the '<em><b>File Property Id</b></em>' attribute.
+	 * The feature id for the '<em><b>Set On</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GENERAL_DOCUMENTATION_FILE_PROPERTY__FILE_PROPERTY_ID = FILE_PROPERTY__FILE_PROPERTY_ID;
+	int FILE_FUNCTION_STATUS__SET_ON = 9;
 
 	/**
-	 * The feature id for the '<em><b>Required</b></em>' attribute.
+	 * The number of structural features of the '<em>File Function Status</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GENERAL_DOCUMENTATION_FILE_PROPERTY__REQUIRED = FILE_PROPERTY__REQUIRED;
-
-	/**
-	 * The feature id for the '<em><b>Up To Date</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERAL_DOCUMENTATION_FILE_PROPERTY__UP_TO_DATE = FILE_PROPERTY__UP_TO_DATE;
-
-	/**
-	 * The feature id for the '<em><b>Reviewed</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERAL_DOCUMENTATION_FILE_PROPERTY__REVIEWED = FILE_PROPERTY__REVIEWED;
-
-	/**
-	 * The feature id for the '<em><b>Configuration Management</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERAL_DOCUMENTATION_FILE_PROPERTY__CONFIGURATION_MANAGEMENT = FILE_PROPERTY__CONFIGURATION_MANAGEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Rating</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERAL_DOCUMENTATION_FILE_PROPERTY__RATING = FILE_PROPERTY__RATING;
-
-	/**
-	 * The feature id for the '<em><b>Comment</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERAL_DOCUMENTATION_FILE_PROPERTY__COMMENT = FILE_PROPERTY__COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Of</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERAL_DOCUMENTATION_FILE_PROPERTY__OF = FILE_PROPERTY__OF;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERAL_DOCUMENTATION_FILE_PROPERTY__TYPE = FILE_PROPERTY_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Documentation File Property</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERAL_DOCUMENTATION_FILE_PROPERTY_FEATURE_COUNT = FILE_PROPERTY_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link general.impl.GenericFunctionSRSFilePropertyImpl <em>Generic Function SRS File Property</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see general.impl.GenericFunctionSRSFilePropertyImpl
-	 * @see general.impl.GeneralPackageImpl#getGenericFunctionSRSFileProperty()
-	 * @generated
-	 */
-	int GENERIC_FUNCTION_SRS_FILE_PROPERTY = 14;
-
-	/**
-	 * The feature id for the '<em><b>File Property Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERIC_FUNCTION_SRS_FILE_PROPERTY__FILE_PROPERTY_ID = FILE_PROPERTY__FILE_PROPERTY_ID;
-
-	/**
-	 * The feature id for the '<em><b>Required</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERIC_FUNCTION_SRS_FILE_PROPERTY__REQUIRED = FILE_PROPERTY__REQUIRED;
-
-	/**
-	 * The feature id for the '<em><b>Up To Date</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERIC_FUNCTION_SRS_FILE_PROPERTY__UP_TO_DATE = FILE_PROPERTY__UP_TO_DATE;
-
-	/**
-	 * The feature id for the '<em><b>Reviewed</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERIC_FUNCTION_SRS_FILE_PROPERTY__REVIEWED = FILE_PROPERTY__REVIEWED;
-
-	/**
-	 * The feature id for the '<em><b>Configuration Management</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERIC_FUNCTION_SRS_FILE_PROPERTY__CONFIGURATION_MANAGEMENT = FILE_PROPERTY__CONFIGURATION_MANAGEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Rating</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERIC_FUNCTION_SRS_FILE_PROPERTY__RATING = FILE_PROPERTY__RATING;
-
-	/**
-	 * The feature id for the '<em><b>Comment</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERIC_FUNCTION_SRS_FILE_PROPERTY__COMMENT = FILE_PROPERTY__COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Of</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERIC_FUNCTION_SRS_FILE_PROPERTY__OF = FILE_PROPERTY__OF;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERIC_FUNCTION_SRS_FILE_PROPERTY__TYPE = FILE_PROPERTY_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Generic Function SRS File Property</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERIC_FUNCTION_SRS_FILE_PROPERTY_FEATURE_COUNT = FILE_PROPERTY_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link general.impl.SystemComponentLevelDocumentationFilePropertyImpl <em>System Component Level Documentation File Property</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see general.impl.SystemComponentLevelDocumentationFilePropertyImpl
-	 * @see general.impl.GeneralPackageImpl#getSystemComponentLevelDocumentationFileProperty()
-	 * @generated
-	 */
-	int SYSTEM_COMPONENT_LEVEL_DOCUMENTATION_FILE_PROPERTY = 15;
-
-	/**
-	 * The feature id for the '<em><b>File Property Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SYSTEM_COMPONENT_LEVEL_DOCUMENTATION_FILE_PROPERTY__FILE_PROPERTY_ID = FILE_PROPERTY__FILE_PROPERTY_ID;
-
-	/**
-	 * The feature id for the '<em><b>Required</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SYSTEM_COMPONENT_LEVEL_DOCUMENTATION_FILE_PROPERTY__REQUIRED = FILE_PROPERTY__REQUIRED;
-
-	/**
-	 * The feature id for the '<em><b>Up To Date</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SYSTEM_COMPONENT_LEVEL_DOCUMENTATION_FILE_PROPERTY__UP_TO_DATE = FILE_PROPERTY__UP_TO_DATE;
-
-	/**
-	 * The feature id for the '<em><b>Reviewed</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SYSTEM_COMPONENT_LEVEL_DOCUMENTATION_FILE_PROPERTY__REVIEWED = FILE_PROPERTY__REVIEWED;
-
-	/**
-	 * The feature id for the '<em><b>Configuration Management</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SYSTEM_COMPONENT_LEVEL_DOCUMENTATION_FILE_PROPERTY__CONFIGURATION_MANAGEMENT = FILE_PROPERTY__CONFIGURATION_MANAGEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Rating</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SYSTEM_COMPONENT_LEVEL_DOCUMENTATION_FILE_PROPERTY__RATING = FILE_PROPERTY__RATING;
-
-	/**
-	 * The feature id for the '<em><b>Comment</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SYSTEM_COMPONENT_LEVEL_DOCUMENTATION_FILE_PROPERTY__COMMENT = FILE_PROPERTY__COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Of</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SYSTEM_COMPONENT_LEVEL_DOCUMENTATION_FILE_PROPERTY__OF = FILE_PROPERTY__OF;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SYSTEM_COMPONENT_LEVEL_DOCUMENTATION_FILE_PROPERTY__TYPE = FILE_PROPERTY_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>System Component Level Documentation File Property</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SYSTEM_COMPONENT_LEVEL_DOCUMENTATION_FILE_PROPERTY_FEATURE_COUNT = FILE_PROPERTY_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link general.impl.GeneralDocumentationTypeImpl <em>Documentation Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see general.impl.GeneralDocumentationTypeImpl
-	 * @see general.impl.GeneralPackageImpl#getGeneralDocumentationType()
-	 * @generated
-	 */
-	int GENERAL_DOCUMENTATION_TYPE = 16;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERAL_DOCUMENTATION_TYPE__NAME = 0;
-
-	/**
-	 * The number of structural features of the '<em>Documentation Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERAL_DOCUMENTATION_TYPE_FEATURE_COUNT = 1;
-
-	/**
-	 * The meta object id for the '{@link general.impl.GenericFunctionSRSTypeImpl <em>Generic Function SRS Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see general.impl.GenericFunctionSRSTypeImpl
-	 * @see general.impl.GeneralPackageImpl#getGenericFunctionSRSType()
-	 * @generated
-	 */
-	int GENERIC_FUNCTION_SRS_TYPE = 17;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERIC_FUNCTION_SRS_TYPE__NAME = 0;
-
-	/**
-	 * The number of structural features of the '<em>Generic Function SRS Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GENERIC_FUNCTION_SRS_TYPE_FEATURE_COUNT = 1;
-
-	/**
-	 * The meta object id for the '{@link general.impl.SystemComponentLevelDocumentationImpl <em>System Component Level Documentation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see general.impl.SystemComponentLevelDocumentationImpl
-	 * @see general.impl.GeneralPackageImpl#getSystemComponentLevelDocumentation()
-	 * @generated
-	 */
-	int SYSTEM_COMPONENT_LEVEL_DOCUMENTATION = 18;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SYSTEM_COMPONENT_LEVEL_DOCUMENTATION__NAME = 0;
-
-	/**
-	 * The number of structural features of the '<em>System Component Level Documentation</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SYSTEM_COMPONENT_LEVEL_DOCUMENTATION_FEATURE_COUNT = 1;
+	int FILE_FUNCTION_STATUS_FEATURE_COUNT = 10;
 
 	/**
 	 * The meta object id for the '{@link general.impl.UserListImpl <em>User List</em>}' class.
@@ -1768,7 +1248,7 @@ public interface GeneralPackage extends EPackage {
 	 * @see general.impl.GeneralPackageImpl#getUserList()
 	 * @generated
 	 */
-	int USER_LIST = 19;
+	int USER_LIST = 12;
 
 	/**
 	 * The feature id for the '<em><b>Users</b></em>' attribute.
@@ -1796,7 +1276,7 @@ public interface GeneralPackage extends EPackage {
 	 * @see general.impl.GeneralPackageImpl#getTask()
 	 * @generated
 	 */
-	int TASK = 20;
+	int TASK = 13;
 
 	/**
 	 * The feature id for the '<em><b>Task Id</b></em>' attribute.
@@ -1860,7 +1340,7 @@ public interface GeneralPackage extends EPackage {
 	 * @see general.impl.GeneralPackageImpl#getSessionSatus()
 	 * @generated
 	 */
-	int SESSION_SATUS = 21;
+	int SESSION_SATUS = 14;
 
 	/**
 	 * The feature id for the '<em><b>Mks Status</b></em>' attribute.
@@ -1906,7 +1386,7 @@ public interface GeneralPackage extends EPackage {
 	 * @see general.impl.GeneralPackageImpl#getEventType()
 	 * @generated
 	 */
-	int EVENT_TYPE = 22;
+	int EVENT_TYPE = 15;
 
 	/**
 	 * The meta object id for the '{@link general.ConnectionType <em>Connection Type</em>}' enum.
@@ -1916,7 +1396,7 @@ public interface GeneralPackage extends EPackage {
 	 * @see general.impl.GeneralPackageImpl#getConnectionType()
 	 * @generated
 	 */
-	int CONNECTION_TYPE = 23;
+	int CONNECTION_TYPE = 16;
 
 	/**
 	 * The meta object id for the '{@link general.QualityCriteria <em>Quality Criteria</em>}' enum.
@@ -1926,7 +1406,17 @@ public interface GeneralPackage extends EPackage {
 	 * @see general.impl.GeneralPackageImpl#getQualityCriteria()
 	 * @generated
 	 */
-	int QUALITY_CRITERIA = 24;
+	int QUALITY_CRITERIA = 17;
+
+	/**
+	 * The meta object id for the '{@link general.documentType <em>document Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see general.documentType
+	 * @see general.impl.GeneralPackageImpl#getdocumentType()
+	 * @generated
+	 */
+	int DOCUMENT_TYPE = 18;
 
 	/**
 	 * The meta object id for the '<em>Date</em>' data type.
@@ -1936,7 +1426,7 @@ public interface GeneralPackage extends EPackage {
 	 * @see general.impl.GeneralPackageImpl#getDate()
 	 * @generated
 	 */
-	int DATE = 25;
+	int DATE = 19;
 
 	/**
 	 * The meta object id for the '<em>Image</em>' data type.
@@ -1946,7 +1436,7 @@ public interface GeneralPackage extends EPackage {
 	 * @see general.impl.GeneralPackageImpl#getImage()
 	 * @generated
 	 */
-	int IMAGE = 26;
+	int IMAGE = 20;
 
 
 	/**
@@ -2035,17 +1525,6 @@ public interface GeneralPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getUser_Deleted();
-
-	/**
-	 * Returns the meta object for the reference list '{@link general.User#getEvent <em>Event</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Event</em>'.
-	 * @see general.User#getEvent()
-	 * @see #getUser()
-	 * @generated
-	 */
-	EReference getUser_Event();
 
 	/**
 	 * Returns the meta object for class '{@link general.Event <em>Event</em>}'.
@@ -2593,17 +2072,6 @@ public interface GeneralPackage extends EPackage {
 	EAttribute getSnapshot_Comment();
 
 	/**
-	 * Returns the meta object for the reference '{@link general.Snapshot#getPartOf <em>Part Of</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Part Of</em>'.
-	 * @see general.Snapshot#getPartOf()
-	 * @see #getSnapshot()
-	 * @generated
-	 */
-	EReference getSnapshot_PartOf();
-
-	/**
 	 * Returns the meta object for the attribute '{@link general.Snapshot#isDeleted <em>Deleted</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2613,72 +2081,6 @@ public interface GeneralPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getSnapshot_Deleted();
-
-	/**
-	 * Returns the meta object for the reference list '{@link general.Snapshot#getStores <em>Stores</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Stores</em>'.
-	 * @see general.Snapshot#getStores()
-	 * @see #getSnapshot()
-	 * @generated
-	 */
-	EReference getSnapshot_Stores();
-
-	/**
-	 * Returns the meta object for the reference list '{@link general.Snapshot#getFunctions <em>Functions</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Functions</em>'.
-	 * @see general.Snapshot#getFunctions()
-	 * @see #getSnapshot()
-	 * @generated
-	 */
-	EReference getSnapshot_Functions();
-
-	/**
-	 * Returns the meta object for the reference '{@link general.Snapshot#getGeneral <em>General</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>General</em>'.
-	 * @see general.Snapshot#getGeneral()
-	 * @see #getSnapshot()
-	 * @generated
-	 */
-	EReference getSnapshot_General();
-
-	/**
-	 * Returns the meta object for the reference '{@link general.Snapshot#getSystemComponent <em>System Component</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>System Component</em>'.
-	 * @see general.Snapshot#getSystemComponent()
-	 * @see #getSnapshot()
-	 * @generated
-	 */
-	EReference getSnapshot_SystemComponent();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link general.Snapshot#getDetailedProperties <em>Detailed Properties</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Detailed Properties</em>'.
-	 * @see general.Snapshot#getDetailedProperties()
-	 * @see #getSnapshot()
-	 * @generated
-	 */
-	EReference getSnapshot_DetailedProperties();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link general.Snapshot#getGeneralProperties <em>General Properties</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>General Properties</em>'.
-	 * @see general.Snapshot#getGeneralProperties()
-	 * @see #getSnapshot()
-	 * @generated
-	 */
-	EReference getSnapshot_GeneralProperties();
 
 	/**
 	 * Returns the meta object for the reference '{@link general.Snapshot#getVia <em>Via</em>}'.
@@ -2844,17 +2246,6 @@ public interface GeneralPackage extends EPackage {
 	EReference getFile_RootDir();
 
 	/**
-	 * Returns the meta object for the reference list '{@link general.File#getHasProperty <em>Has Property</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Has Property</em>'.
-	 * @see general.File#getHasProperty()
-	 * @see #getFile()
-	 * @generated
-	 */
-	EReference getFile_HasProperty();
-
-	/**
 	 * Returns the meta object for the attribute '{@link general.File#getSuffix <em>Suffix</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2874,17 +2265,6 @@ public interface GeneralPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getFolder();
-
-	/**
-	 * Returns the meta object for the reference list '{@link general.Folder#getChildren <em>Children</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Children</em>'.
-	 * @see general.Folder#getChildren()
-	 * @see #getFolder()
-	 * @generated
-	 */
-	EReference getFolder_Children();
 
 	/**
 	 * Returns the meta object for the reference '{@link general.Folder#getRootDirectory <em>Root Directory</em>}'.
@@ -2952,69 +2332,15 @@ public interface GeneralPackage extends EPackage {
 	EAttribute getFileType_Icon();
 
 	/**
-	 * Returns the meta object for the attribute '{@link general.FileType#getTool <em>Tool</em>}'.
+	 * Returns the meta object for the attribute '{@link general.FileType#getSuffix <em>Suffix</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Tool</em>'.
-	 * @see general.FileType#getTool()
+	 * @return the meta object for the attribute '<em>Suffix</em>'.
+	 * @see general.FileType#getSuffix()
 	 * @see #getFileType()
 	 * @generated
 	 */
-	EAttribute getFileType_Tool();
-
-	/**
-	 * Returns the meta object for the reference list '{@link general.FileType#getUses <em>Uses</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Uses</em>'.
-	 * @see general.FileType#getUses()
-	 * @see #getFileType()
-	 * @generated
-	 */
-	EReference getFileType_Uses();
-
-	/**
-	 * Returns the meta object for class '{@link general.FileEnding <em>File Ending</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>File Ending</em>'.
-	 * @see general.FileEnding
-	 * @generated
-	 */
-	EClass getFileEnding();
-
-	/**
-	 * Returns the meta object for the attribute '{@link general.FileEnding#getFileEndingId <em>File Ending Id</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>File Ending Id</em>'.
-	 * @see general.FileEnding#getFileEndingId()
-	 * @see #getFileEnding()
-	 * @generated
-	 */
-	EAttribute getFileEnding_FileEndingId();
-
-	/**
-	 * Returns the meta object for the attribute '{@link general.FileEnding#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see general.FileEnding#getName()
-	 * @see #getFileEnding()
-	 * @generated
-	 */
-	EAttribute getFileEnding_Name();
-
-	/**
-	 * Returns the meta object for the reference '{@link general.FileEnding#getOfType <em>Of Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Of Type</em>'.
-	 * @see general.FileEnding#getOfType()
-	 * @see #getFileEnding()
-	 * @generated
-	 */
-	EReference getFileEnding_OfType();
+	EAttribute getFileType_Suffix();
 
 	/**
 	 * Returns the meta object for class '{@link general.Function <em>Function</em>}'.
@@ -3093,250 +2419,135 @@ public interface GeneralPackage extends EPackage {
 	EAttribute getFunction_Deleted();
 
 	/**
-	 * Returns the meta object for the reference list '{@link general.Function#getResponsibleFiles <em>Responsible Files</em>}'.
+	 * Returns the meta object for the reference '{@link general.Function#getSnapshot <em>Snapshot</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Responsible Files</em>'.
-	 * @see general.Function#getResponsibleFiles()
+	 * @return the meta object for the reference '<em>Snapshot</em>'.
+	 * @see general.Function#getSnapshot()
 	 * @see #getFunction()
 	 * @generated
 	 */
-	EReference getFunction_ResponsibleFiles();
+	EReference getFunction_Snapshot();
 
 	/**
-	 * Returns the meta object for the reference '{@link general.Function#getHeldBy <em>Held By</em>}'.
+	 * Returns the meta object for class '{@link general.FileFunctionStatus <em>File Function Status</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Held By</em>'.
-	 * @see general.Function#getHeldBy()
-	 * @see #getFunction()
+	 * @return the meta object for class '<em>File Function Status</em>'.
+	 * @see general.FileFunctionStatus
 	 * @generated
 	 */
-	EReference getFunction_HeldBy();
+	EClass getFileFunctionStatus();
 
 	/**
-	 * Returns the meta object for class '{@link general.FileProperty <em>File Property</em>}'.
+	 * Returns the meta object for the attribute '{@link general.FileFunctionStatus#getFileFunctionStatusId <em>File Function Status Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>File Property</em>'.
-	 * @see general.FileProperty
+	 * @return the meta object for the attribute '<em>File Function Status Id</em>'.
+	 * @see general.FileFunctionStatus#getFileFunctionStatusId()
+	 * @see #getFileFunctionStatus()
 	 * @generated
 	 */
-	EClass getFileProperty();
+	EAttribute getFileFunctionStatus_FileFunctionStatusId();
 
 	/**
-	 * Returns the meta object for the attribute '{@link general.FileProperty#getFilePropertyId <em>File Property Id</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>File Property Id</em>'.
-	 * @see general.FileProperty#getFilePropertyId()
-	 * @see #getFileProperty()
-	 * @generated
-	 */
-	EAttribute getFileProperty_FilePropertyId();
-
-	/**
-	 * Returns the meta object for the attribute '{@link general.FileProperty#isRequired <em>Required</em>}'.
+	 * Returns the meta object for the attribute '{@link general.FileFunctionStatus#isRequired <em>Required</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Required</em>'.
-	 * @see general.FileProperty#isRequired()
-	 * @see #getFileProperty()
+	 * @see general.FileFunctionStatus#isRequired()
+	 * @see #getFileFunctionStatus()
 	 * @generated
 	 */
-	EAttribute getFileProperty_Required();
+	EAttribute getFileFunctionStatus_Required();
 
 	/**
-	 * Returns the meta object for the attribute '{@link general.FileProperty#getUpToDate <em>Up To Date</em>}'.
+	 * Returns the meta object for the attribute '{@link general.FileFunctionStatus#getUpToDate <em>Up To Date</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Up To Date</em>'.
-	 * @see general.FileProperty#getUpToDate()
-	 * @see #getFileProperty()
+	 * @see general.FileFunctionStatus#getUpToDate()
+	 * @see #getFileFunctionStatus()
 	 * @generated
 	 */
-	EAttribute getFileProperty_UpToDate();
+	EAttribute getFileFunctionStatus_UpToDate();
 
 	/**
-	 * Returns the meta object for the attribute '{@link general.FileProperty#getReviewed <em>Reviewed</em>}'.
+	 * Returns the meta object for the attribute '{@link general.FileFunctionStatus#getReviewed <em>Reviewed</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Reviewed</em>'.
-	 * @see general.FileProperty#getReviewed()
-	 * @see #getFileProperty()
+	 * @see general.FileFunctionStatus#getReviewed()
+	 * @see #getFileFunctionStatus()
 	 * @generated
 	 */
-	EAttribute getFileProperty_Reviewed();
+	EAttribute getFileFunctionStatus_Reviewed();
 
 	/**
-	 * Returns the meta object for the attribute '{@link general.FileProperty#getConfigurationManagement <em>Configuration Management</em>}'.
+	 * Returns the meta object for the attribute '{@link general.FileFunctionStatus#getConfigurationManagement <em>Configuration Management</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Configuration Management</em>'.
-	 * @see general.FileProperty#getConfigurationManagement()
-	 * @see #getFileProperty()
+	 * @see general.FileFunctionStatus#getConfigurationManagement()
+	 * @see #getFileFunctionStatus()
 	 * @generated
 	 */
-	EAttribute getFileProperty_ConfigurationManagement();
+	EAttribute getFileFunctionStatus_ConfigurationManagement();
 
 	/**
-	 * Returns the meta object for the attribute '{@link general.FileProperty#getRating <em>Rating</em>}'.
+	 * Returns the meta object for the attribute '{@link general.FileFunctionStatus#getRating <em>Rating</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Rating</em>'.
-	 * @see general.FileProperty#getRating()
-	 * @see #getFileProperty()
+	 * @see general.FileFunctionStatus#getRating()
+	 * @see #getFileFunctionStatus()
 	 * @generated
 	 */
-	EAttribute getFileProperty_Rating();
+	EAttribute getFileFunctionStatus_Rating();
 
 	/**
-	 * Returns the meta object for the attribute '{@link general.FileProperty#getComment <em>Comment</em>}'.
+	 * Returns the meta object for the attribute '{@link general.FileFunctionStatus#getComment <em>Comment</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Comment</em>'.
-	 * @see general.FileProperty#getComment()
-	 * @see #getFileProperty()
+	 * @see general.FileFunctionStatus#getComment()
+	 * @see #getFileFunctionStatus()
 	 * @generated
 	 */
-	EAttribute getFileProperty_Comment();
+	EAttribute getFileFunctionStatus_Comment();
 
 	/**
-	 * Returns the meta object for the reference '{@link general.FileProperty#getOf <em>Of</em>}'.
+	 * Returns the meta object for the reference '{@link general.FileFunctionStatus#getOfFile <em>Of File</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Of</em>'.
-	 * @see general.FileProperty#getOf()
-	 * @see #getFileProperty()
+	 * @return the meta object for the reference '<em>Of File</em>'.
+	 * @see general.FileFunctionStatus#getOfFile()
+	 * @see #getFileFunctionStatus()
 	 * @generated
 	 */
-	EReference getFileProperty_Of();
+	EReference getFileFunctionStatus_OfFile();
 
 	/**
-	 * Returns the meta object for class '{@link general.GeneralDocumentationFileProperty <em>Documentation File Property</em>}'.
+	 * Returns the meta object for the reference '{@link general.FileFunctionStatus#getOfFunction <em>Of Function</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Documentation File Property</em>'.
-	 * @see general.GeneralDocumentationFileProperty
+	 * @return the meta object for the reference '<em>Of Function</em>'.
+	 * @see general.FileFunctionStatus#getOfFunction()
+	 * @see #getFileFunctionStatus()
 	 * @generated
 	 */
-	EClass getGeneralDocumentationFileProperty();
+	EReference getFileFunctionStatus_OfFunction();
 
 	/**
-	 * Returns the meta object for the reference list '{@link general.GeneralDocumentationFileProperty#getType <em>Type</em>}'.
+	 * Returns the meta object for the attribute '{@link general.FileFunctionStatus#getSetOn <em>Set On</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Type</em>'.
-	 * @see general.GeneralDocumentationFileProperty#getType()
-	 * @see #getGeneralDocumentationFileProperty()
+	 * @return the meta object for the attribute '<em>Set On</em>'.
+	 * @see general.FileFunctionStatus#getSetOn()
+	 * @see #getFileFunctionStatus()
 	 * @generated
 	 */
-	EReference getGeneralDocumentationFileProperty_Type();
-
-	/**
-	 * Returns the meta object for class '{@link general.GenericFunctionSRSFileProperty <em>Generic Function SRS File Property</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Generic Function SRS File Property</em>'.
-	 * @see general.GenericFunctionSRSFileProperty
-	 * @generated
-	 */
-	EClass getGenericFunctionSRSFileProperty();
-
-	/**
-	 * Returns the meta object for the reference list '{@link general.GenericFunctionSRSFileProperty#getType <em>Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Type</em>'.
-	 * @see general.GenericFunctionSRSFileProperty#getType()
-	 * @see #getGenericFunctionSRSFileProperty()
-	 * @generated
-	 */
-	EReference getGenericFunctionSRSFileProperty_Type();
-
-	/**
-	 * Returns the meta object for class '{@link general.SystemComponentLevelDocumentationFileProperty <em>System Component Level Documentation File Property</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>System Component Level Documentation File Property</em>'.
-	 * @see general.SystemComponentLevelDocumentationFileProperty
-	 * @generated
-	 */
-	EClass getSystemComponentLevelDocumentationFileProperty();
-
-	/**
-	 * Returns the meta object for the reference list '{@link general.SystemComponentLevelDocumentationFileProperty#getType <em>Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Type</em>'.
-	 * @see general.SystemComponentLevelDocumentationFileProperty#getType()
-	 * @see #getSystemComponentLevelDocumentationFileProperty()
-	 * @generated
-	 */
-	EReference getSystemComponentLevelDocumentationFileProperty_Type();
-
-	/**
-	 * Returns the meta object for class '{@link general.GeneralDocumentationType <em>Documentation Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Documentation Type</em>'.
-	 * @see general.GeneralDocumentationType
-	 * @generated
-	 */
-	EClass getGeneralDocumentationType();
-
-	/**
-	 * Returns the meta object for the attribute '{@link general.GeneralDocumentationType#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see general.GeneralDocumentationType#getName()
-	 * @see #getGeneralDocumentationType()
-	 * @generated
-	 */
-	EAttribute getGeneralDocumentationType_Name();
-
-	/**
-	 * Returns the meta object for class '{@link general.GenericFunctionSRSType <em>Generic Function SRS Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Generic Function SRS Type</em>'.
-	 * @see general.GenericFunctionSRSType
-	 * @generated
-	 */
-	EClass getGenericFunctionSRSType();
-
-	/**
-	 * Returns the meta object for the attribute '{@link general.GenericFunctionSRSType#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see general.GenericFunctionSRSType#getName()
-	 * @see #getGenericFunctionSRSType()
-	 * @generated
-	 */
-	EAttribute getGenericFunctionSRSType_Name();
-
-	/**
-	 * Returns the meta object for class '{@link general.SystemComponentLevelDocumentation <em>System Component Level Documentation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>System Component Level Documentation</em>'.
-	 * @see general.SystemComponentLevelDocumentation
-	 * @generated
-	 */
-	EClass getSystemComponentLevelDocumentation();
-
-	/**
-	 * Returns the meta object for the attribute '{@link general.SystemComponentLevelDocumentation#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see general.SystemComponentLevelDocumentation#getName()
-	 * @see #getSystemComponentLevelDocumentation()
-	 * @generated
-	 */
-	EAttribute getSystemComponentLevelDocumentation_Name();
+	EAttribute getFileFunctionStatus_SetOn();
 
 	/**
 	 * Returns the meta object for class '{@link general.UserList <em>User List</em>}'.
@@ -3498,6 +2709,16 @@ public interface GeneralPackage extends EPackage {
 	EEnum getQualityCriteria();
 
 	/**
+	 * Returns the meta object for enum '{@link general.documentType <em>document Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>document Type</em>'.
+	 * @see general.documentType
+	 * @generated
+	 */
+	EEnum getdocumentType();
+
+	/**
 	 * Returns the meta object for data type '{@link java.util.Date <em>Date</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3606,14 +2827,6 @@ public interface GeneralPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute USER__DELETED = eINSTANCE.getUser_Deleted();
-
-		/**
-		 * The meta object literal for the '<em><b>Event</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference USER__EVENT = eINSTANCE.getUser_Event();
 
 		/**
 		 * The meta object literal for the '{@link general.impl.EventImpl <em>Event</em>}' class.
@@ -4026,68 +3239,12 @@ public interface GeneralPackage extends EPackage {
 		EAttribute SNAPSHOT__COMMENT = eINSTANCE.getSnapshot_Comment();
 
 		/**
-		 * The meta object literal for the '<em><b>Part Of</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference SNAPSHOT__PART_OF = eINSTANCE.getSnapshot_PartOf();
-
-		/**
 		 * The meta object literal for the '<em><b>Deleted</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute SNAPSHOT__DELETED = eINSTANCE.getSnapshot_Deleted();
-
-		/**
-		 * The meta object literal for the '<em><b>Stores</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference SNAPSHOT__STORES = eINSTANCE.getSnapshot_Stores();
-
-		/**
-		 * The meta object literal for the '<em><b>Functions</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference SNAPSHOT__FUNCTIONS = eINSTANCE.getSnapshot_Functions();
-
-		/**
-		 * The meta object literal for the '<em><b>General</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference SNAPSHOT__GENERAL = eINSTANCE.getSnapshot_General();
-
-		/**
-		 * The meta object literal for the '<em><b>System Component</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference SNAPSHOT__SYSTEM_COMPONENT = eINSTANCE.getSnapshot_SystemComponent();
-
-		/**
-		 * The meta object literal for the '<em><b>Detailed Properties</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference SNAPSHOT__DETAILED_PROPERTIES = eINSTANCE.getSnapshot_DetailedProperties();
-
-		/**
-		 * The meta object literal for the '<em><b>General Properties</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference SNAPSHOT__GENERAL_PROPERTIES = eINSTANCE.getSnapshot_GeneralProperties();
 
 		/**
 		 * The meta object literal for the '<em><b>Via</b></em>' reference feature.
@@ -4214,14 +3371,6 @@ public interface GeneralPackage extends EPackage {
 		EReference FILE__ROOT_DIR = eINSTANCE.getFile_RootDir();
 
 		/**
-		 * The meta object literal for the '<em><b>Has Property</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FILE__HAS_PROPERTY = eINSTANCE.getFile_HasProperty();
-
-		/**
 		 * The meta object literal for the '<em><b>Suffix</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4238,14 +3387,6 @@ public interface GeneralPackage extends EPackage {
 		 * @generated
 		 */
 		EClass FOLDER = eINSTANCE.getFolder();
-
-		/**
-		 * The meta object literal for the '<em><b>Children</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FOLDER__CHILDREN = eINSTANCE.getFolder_Children();
 
 		/**
 		 * The meta object literal for the '<em><b>Root Directory</b></em>' reference feature.
@@ -4298,54 +3439,12 @@ public interface GeneralPackage extends EPackage {
 		EAttribute FILE_TYPE__ICON = eINSTANCE.getFileType_Icon();
 
 		/**
-		 * The meta object literal for the '<em><b>Tool</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Suffix</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FILE_TYPE__TOOL = eINSTANCE.getFileType_Tool();
-
-		/**
-		 * The meta object literal for the '<em><b>Uses</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FILE_TYPE__USES = eINSTANCE.getFileType_Uses();
-
-		/**
-		 * The meta object literal for the '{@link general.impl.FileEndingImpl <em>File Ending</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see general.impl.FileEndingImpl
-		 * @see general.impl.GeneralPackageImpl#getFileEnding()
-		 * @generated
-		 */
-		EClass FILE_ENDING = eINSTANCE.getFileEnding();
-
-		/**
-		 * The meta object literal for the '<em><b>File Ending Id</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute FILE_ENDING__FILE_ENDING_ID = eINSTANCE.getFileEnding_FileEndingId();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute FILE_ENDING__NAME = eINSTANCE.getFileEnding_Name();
-
-		/**
-		 * The meta object literal for the '<em><b>Of Type</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FILE_ENDING__OF_TYPE = eINSTANCE.getFileEnding_OfType();
+		EAttribute FILE_TYPE__SUFFIX = eINSTANCE.getFileType_Suffix();
 
 		/**
 		 * The meta object literal for the '{@link general.impl.FunctionImpl <em>Function</em>}' class.
@@ -4406,38 +3505,30 @@ public interface GeneralPackage extends EPackage {
 		EAttribute FUNCTION__DELETED = eINSTANCE.getFunction_Deleted();
 
 		/**
-		 * The meta object literal for the '<em><b>Responsible Files</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Snapshot</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FUNCTION__RESPONSIBLE_FILES = eINSTANCE.getFunction_ResponsibleFiles();
+		EReference FUNCTION__SNAPSHOT = eINSTANCE.getFunction_Snapshot();
 
 		/**
-		 * The meta object literal for the '<em><b>Held By</b></em>' reference feature.
+		 * The meta object literal for the '{@link general.impl.FileFunctionStatusImpl <em>File Function Status</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
+		 * @see general.impl.FileFunctionStatusImpl
+		 * @see general.impl.GeneralPackageImpl#getFileFunctionStatus()
 		 * @generated
 		 */
-		EReference FUNCTION__HELD_BY = eINSTANCE.getFunction_HeldBy();
+		EClass FILE_FUNCTION_STATUS = eINSTANCE.getFileFunctionStatus();
 
 		/**
-		 * The meta object literal for the '{@link general.impl.FilePropertyImpl <em>File Property</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see general.impl.FilePropertyImpl
-		 * @see general.impl.GeneralPackageImpl#getFileProperty()
-		 * @generated
-		 */
-		EClass FILE_PROPERTY = eINSTANCE.getFileProperty();
-
-		/**
-		 * The meta object literal for the '<em><b>File Property Id</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>File Function Status Id</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FILE_PROPERTY__FILE_PROPERTY_ID = eINSTANCE.getFileProperty_FilePropertyId();
+		EAttribute FILE_FUNCTION_STATUS__FILE_FUNCTION_STATUS_ID = eINSTANCE.getFileFunctionStatus_FileFunctionStatusId();
 
 		/**
 		 * The meta object literal for the '<em><b>Required</b></em>' attribute feature.
@@ -4445,7 +3536,7 @@ public interface GeneralPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FILE_PROPERTY__REQUIRED = eINSTANCE.getFileProperty_Required();
+		EAttribute FILE_FUNCTION_STATUS__REQUIRED = eINSTANCE.getFileFunctionStatus_Required();
 
 		/**
 		 * The meta object literal for the '<em><b>Up To Date</b></em>' attribute feature.
@@ -4453,7 +3544,7 @@ public interface GeneralPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FILE_PROPERTY__UP_TO_DATE = eINSTANCE.getFileProperty_UpToDate();
+		EAttribute FILE_FUNCTION_STATUS__UP_TO_DATE = eINSTANCE.getFileFunctionStatus_UpToDate();
 
 		/**
 		 * The meta object literal for the '<em><b>Reviewed</b></em>' attribute feature.
@@ -4461,7 +3552,7 @@ public interface GeneralPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FILE_PROPERTY__REVIEWED = eINSTANCE.getFileProperty_Reviewed();
+		EAttribute FILE_FUNCTION_STATUS__REVIEWED = eINSTANCE.getFileFunctionStatus_Reviewed();
 
 		/**
 		 * The meta object literal for the '<em><b>Configuration Management</b></em>' attribute feature.
@@ -4469,7 +3560,7 @@ public interface GeneralPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FILE_PROPERTY__CONFIGURATION_MANAGEMENT = eINSTANCE.getFileProperty_ConfigurationManagement();
+		EAttribute FILE_FUNCTION_STATUS__CONFIGURATION_MANAGEMENT = eINSTANCE.getFileFunctionStatus_ConfigurationManagement();
 
 		/**
 		 * The meta object literal for the '<em><b>Rating</b></em>' attribute feature.
@@ -4477,7 +3568,7 @@ public interface GeneralPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FILE_PROPERTY__RATING = eINSTANCE.getFileProperty_Rating();
+		EAttribute FILE_FUNCTION_STATUS__RATING = eINSTANCE.getFileFunctionStatus_Rating();
 
 		/**
 		 * The meta object literal for the '<em><b>Comment</b></em>' attribute feature.
@@ -4485,123 +3576,31 @@ public interface GeneralPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FILE_PROPERTY__COMMENT = eINSTANCE.getFileProperty_Comment();
+		EAttribute FILE_FUNCTION_STATUS__COMMENT = eINSTANCE.getFileFunctionStatus_Comment();
 
 		/**
-		 * The meta object literal for the '<em><b>Of</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Of File</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FILE_PROPERTY__OF = eINSTANCE.getFileProperty_Of();
+		EReference FILE_FUNCTION_STATUS__OF_FILE = eINSTANCE.getFileFunctionStatus_OfFile();
 
 		/**
-		 * The meta object literal for the '{@link general.impl.GeneralDocumentationFilePropertyImpl <em>Documentation File Property</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see general.impl.GeneralDocumentationFilePropertyImpl
-		 * @see general.impl.GeneralPackageImpl#getGeneralDocumentationFileProperty()
-		 * @generated
-		 */
-		EClass GENERAL_DOCUMENTATION_FILE_PROPERTY = eINSTANCE.getGeneralDocumentationFileProperty();
-
-		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Of Function</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference GENERAL_DOCUMENTATION_FILE_PROPERTY__TYPE = eINSTANCE.getGeneralDocumentationFileProperty_Type();
+		EReference FILE_FUNCTION_STATUS__OF_FUNCTION = eINSTANCE.getFileFunctionStatus_OfFunction();
 
 		/**
-		 * The meta object literal for the '{@link general.impl.GenericFunctionSRSFilePropertyImpl <em>Generic Function SRS File Property</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see general.impl.GenericFunctionSRSFilePropertyImpl
-		 * @see general.impl.GeneralPackageImpl#getGenericFunctionSRSFileProperty()
-		 * @generated
-		 */
-		EClass GENERIC_FUNCTION_SRS_FILE_PROPERTY = eINSTANCE.getGenericFunctionSRSFileProperty();
-
-		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Set On</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference GENERIC_FUNCTION_SRS_FILE_PROPERTY__TYPE = eINSTANCE.getGenericFunctionSRSFileProperty_Type();
-
-		/**
-		 * The meta object literal for the '{@link general.impl.SystemComponentLevelDocumentationFilePropertyImpl <em>System Component Level Documentation File Property</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see general.impl.SystemComponentLevelDocumentationFilePropertyImpl
-		 * @see general.impl.GeneralPackageImpl#getSystemComponentLevelDocumentationFileProperty()
-		 * @generated
-		 */
-		EClass SYSTEM_COMPONENT_LEVEL_DOCUMENTATION_FILE_PROPERTY = eINSTANCE.getSystemComponentLevelDocumentationFileProperty();
-
-		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference SYSTEM_COMPONENT_LEVEL_DOCUMENTATION_FILE_PROPERTY__TYPE = eINSTANCE.getSystemComponentLevelDocumentationFileProperty_Type();
-
-		/**
-		 * The meta object literal for the '{@link general.impl.GeneralDocumentationTypeImpl <em>Documentation Type</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see general.impl.GeneralDocumentationTypeImpl
-		 * @see general.impl.GeneralPackageImpl#getGeneralDocumentationType()
-		 * @generated
-		 */
-		EClass GENERAL_DOCUMENTATION_TYPE = eINSTANCE.getGeneralDocumentationType();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute GENERAL_DOCUMENTATION_TYPE__NAME = eINSTANCE.getGeneralDocumentationType_Name();
-
-		/**
-		 * The meta object literal for the '{@link general.impl.GenericFunctionSRSTypeImpl <em>Generic Function SRS Type</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see general.impl.GenericFunctionSRSTypeImpl
-		 * @see general.impl.GeneralPackageImpl#getGenericFunctionSRSType()
-		 * @generated
-		 */
-		EClass GENERIC_FUNCTION_SRS_TYPE = eINSTANCE.getGenericFunctionSRSType();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute GENERIC_FUNCTION_SRS_TYPE__NAME = eINSTANCE.getGenericFunctionSRSType_Name();
-
-		/**
-		 * The meta object literal for the '{@link general.impl.SystemComponentLevelDocumentationImpl <em>System Component Level Documentation</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see general.impl.SystemComponentLevelDocumentationImpl
-		 * @see general.impl.GeneralPackageImpl#getSystemComponentLevelDocumentation()
-		 * @generated
-		 */
-		EClass SYSTEM_COMPONENT_LEVEL_DOCUMENTATION = eINSTANCE.getSystemComponentLevelDocumentation();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SYSTEM_COMPONENT_LEVEL_DOCUMENTATION__NAME = eINSTANCE.getSystemComponentLevelDocumentation_Name();
+		EAttribute FILE_FUNCTION_STATUS__SET_ON = eINSTANCE.getFileFunctionStatus_SetOn();
 
 		/**
 		 * The meta object literal for the '{@link general.impl.UserListImpl <em>User List</em>}' class.
@@ -4734,6 +3733,16 @@ public interface GeneralPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum QUALITY_CRITERIA = eINSTANCE.getQualityCriteria();
+
+		/**
+		 * The meta object literal for the '{@link general.documentType <em>document Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see general.documentType
+		 * @see general.impl.GeneralPackageImpl#getdocumentType()
+		 * @generated
+		 */
+		EEnum DOCUMENT_TYPE = eINSTANCE.getdocumentType();
 
 		/**
 		 * The meta object literal for the '<em>Date</em>' data type.

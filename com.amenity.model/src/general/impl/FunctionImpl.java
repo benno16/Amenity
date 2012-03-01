@@ -35,8 +35,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link general.impl.FunctionImpl#getOverallStatus <em>Overall Status</em>}</li>
  *   <li>{@link general.impl.FunctionImpl#getModified <em>Modified</em>}</li>
  *   <li>{@link general.impl.FunctionImpl#isDeleted <em>Deleted</em>}</li>
- *   <li>{@link general.impl.FunctionImpl#getResponsibleFiles <em>Responsible Files</em>}</li>
- *   <li>{@link general.impl.FunctionImpl#getHeldBy <em>Held By</em>}</li>
+ *   <li>{@link general.impl.FunctionImpl#getSnapshot <em>Snapshot</em>}</li>
  * </ul>
  * </p>
  *
@@ -173,24 +172,14 @@ public class FunctionImpl extends EObjectImpl implements Function {
 	protected boolean deleted = DELETED_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getResponsibleFiles() <em>Responsible Files</em>}' reference list.
+	 * The cached value of the '{@link #getSnapshot() <em>Snapshot</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getResponsibleFiles()
+	 * @see #getSnapshot()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenericFunctionSRSFileProperty> responsibleFiles;
-
-	/**
-	 * The cached value of the '{@link #getHeldBy() <em>Held By</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getHeldBy()
-	 * @generated
-	 * @ordered
-	 */
-	protected Snapshot heldBy;
+	protected Snapshot snapshot;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -367,28 +356,16 @@ public class FunctionImpl extends EObjectImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<GenericFunctionSRSFileProperty> getResponsibleFiles() {
-		if (responsibleFiles == null) {
-			responsibleFiles = new EObjectResolvingEList<GenericFunctionSRSFileProperty>(GenericFunctionSRSFileProperty.class, this, GeneralPackage.FUNCTION__RESPONSIBLE_FILES);
-		}
-		return responsibleFiles;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Snapshot getHeldBy() {
-		if (heldBy != null && heldBy.eIsProxy()) {
-			InternalEObject oldHeldBy = (InternalEObject)heldBy;
-			heldBy = (Snapshot)eResolveProxy(oldHeldBy);
-			if (heldBy != oldHeldBy) {
+	public Snapshot getSnapshot() {
+		if (snapshot != null && snapshot.eIsProxy()) {
+			InternalEObject oldSnapshot = (InternalEObject)snapshot;
+			snapshot = (Snapshot)eResolveProxy(oldSnapshot);
+			if (snapshot != oldSnapshot) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GeneralPackage.FUNCTION__HELD_BY, oldHeldBy, heldBy));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GeneralPackage.FUNCTION__SNAPSHOT, oldSnapshot, snapshot));
 			}
 		}
-		return heldBy;
+		return snapshot;
 	}
 
 	/**
@@ -396,8 +373,8 @@ public class FunctionImpl extends EObjectImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Snapshot basicGetHeldBy() {
-		return heldBy;
+	public Snapshot basicGetSnapshot() {
+		return snapshot;
 	}
 
 	/**
@@ -405,11 +382,11 @@ public class FunctionImpl extends EObjectImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setHeldBy(Snapshot newHeldBy) {
-		Snapshot oldHeldBy = heldBy;
-		heldBy = newHeldBy;
+	public void setSnapshot(Snapshot newSnapshot) {
+		Snapshot oldSnapshot = snapshot;
+		snapshot = newSnapshot;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.FUNCTION__HELD_BY, oldHeldBy, heldBy));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.FUNCTION__SNAPSHOT, oldSnapshot, snapshot));
 	}
 
 	/**
@@ -432,11 +409,9 @@ public class FunctionImpl extends EObjectImpl implements Function {
 				return getModified();
 			case GeneralPackage.FUNCTION__DELETED:
 				return isDeleted();
-			case GeneralPackage.FUNCTION__RESPONSIBLE_FILES:
-				return getResponsibleFiles();
-			case GeneralPackage.FUNCTION__HELD_BY:
-				if (resolve) return getHeldBy();
-				return basicGetHeldBy();
+			case GeneralPackage.FUNCTION__SNAPSHOT:
+				if (resolve) return getSnapshot();
+				return basicGetSnapshot();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -468,12 +443,8 @@ public class FunctionImpl extends EObjectImpl implements Function {
 			case GeneralPackage.FUNCTION__DELETED:
 				setDeleted((Boolean)newValue);
 				return;
-			case GeneralPackage.FUNCTION__RESPONSIBLE_FILES:
-				getResponsibleFiles().clear();
-				getResponsibleFiles().addAll((Collection<? extends GenericFunctionSRSFileProperty>)newValue);
-				return;
-			case GeneralPackage.FUNCTION__HELD_BY:
-				setHeldBy((Snapshot)newValue);
+			case GeneralPackage.FUNCTION__SNAPSHOT:
+				setSnapshot((Snapshot)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -505,11 +476,8 @@ public class FunctionImpl extends EObjectImpl implements Function {
 			case GeneralPackage.FUNCTION__DELETED:
 				setDeleted(DELETED_EDEFAULT);
 				return;
-			case GeneralPackage.FUNCTION__RESPONSIBLE_FILES:
-				getResponsibleFiles().clear();
-				return;
-			case GeneralPackage.FUNCTION__HELD_BY:
-				setHeldBy((Snapshot)null);
+			case GeneralPackage.FUNCTION__SNAPSHOT:
+				setSnapshot((Snapshot)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -535,10 +503,8 @@ public class FunctionImpl extends EObjectImpl implements Function {
 				return MODIFIED_EDEFAULT == null ? modified != null : !MODIFIED_EDEFAULT.equals(modified);
 			case GeneralPackage.FUNCTION__DELETED:
 				return deleted != DELETED_EDEFAULT;
-			case GeneralPackage.FUNCTION__RESPONSIBLE_FILES:
-				return responsibleFiles != null && !responsibleFiles.isEmpty();
-			case GeneralPackage.FUNCTION__HELD_BY:
-				return heldBy != null;
+			case GeneralPackage.FUNCTION__SNAPSHOT:
+				return snapshot != null;
 		}
 		return super.eIsSet(featureID);
 	}

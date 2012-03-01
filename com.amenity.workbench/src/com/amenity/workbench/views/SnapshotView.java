@@ -533,7 +533,7 @@ public class SnapshotView extends ViewPart {
 		
 		SnapshotDao snapshotDao = DaoFactory.eINSTANCE.createSnapshotDao();
 		SessionSourceProvider.SNAPSHOT_LIST = snapshotDao.getListByContainer(
-				SessionSourceProvider.CURRENT_CONTAINER.getContainerId());
+				SessionSourceProvider.CURRENT_CONTAINER);
 
 		snapshotListViewer.setInput(SessionSourceProvider.SNAPSHOT_LIST);
 	}

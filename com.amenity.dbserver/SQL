@@ -6,20 +6,29 @@ select * from "contentobject" where "PARTOF" = '012c9c20-f2a0-4b87-89ec-2fdddcde
 update "contentobject" set "modfieddate" = now() where "PARTOF" = '012c9c20-f2a0-4b87-89ec-2fdddcdeaafa' and "name" = 'algo2.txt'
 
 select * from "snapshot"
-
- 012c9c20-f2a0-4b87-89ec-2fdddcdeaafa Snapshot         8 2012-02-28 15:19:41.895 SecondOne      TestComment1 3a5b3488-3232-4fb2-9e2f-e6b4c6da0184 false   NULL                                                    NULL                                                                         NULL                                                                            NULL                                                              4eb4ffb2-13c0-4d13-914b-f59e96c907f2
- 08db07cd-ccaf-4de0-adae-473dfdc19fdf Snapshot         4 2012-02-29 08:11:45.365 2902   immo 03 comment      ee6f312c-7282-4cd7-b50d-a81719013178 false   NULL                                                    NULL                                                                         NULL                                                                            NULL                                                              NULL
- 24098bf2-bd4f-4b07-9320-47540af45c88 Snapshot         4 2012-02-29 08:09:42.492 29.02                       ee6f312c-7282-4cd7-b50d-a81719013178 false   NULL                                                    NULL                                                                         NULL                                                                            NULL                                                              NULL
- 6a0dcc26-e85c-4758-8130-822af1785002 Snapshot         4 2012-02-28 15:17:21.763 28.02.                      3a5b3488-3232-4fb2-9e2f-e6b4c6da0184 false   NULL                                                    NULL                                                                         NULL                                                                            NULL                                                              4eb4ffb2-13c0-4d13-914b-f59e96c907f2
-
- 
- 
-  0518256c-7d02-4a58-9bea-020f13aef54b File           3 SimTool.vcproj              4 1       IMMO_Test_Tool/00.03 2009-01-23 08:21:30.0 08db07cd-ccaf-4de0-adae-473dfdc19fdf SimTool.vcproj-1:binary:CHRXM~5         SimTool.vcproj-1:binary:CHRXM~5         NULL         integrate c32d217a-d01f-4a04-ab30-caf33e6b1765 .vcproj NULL
-
-   183cc68f-0d35-4e84-8017-c7ba632dee73 File           3 AAL_gArtCalcFunc.c          3 1.7     LabelXXXGiSc_test1test2_johnson 2008-06-05 09:44:11.0 012c9c20-f2a0-4b87-89ec-2fdddcdeaafa /Playground/regensburg/Training_TSR/10_Algorithm_Embedding/AAL_gArtCalcFunc.c NULL                                    2008-06-05 09:44:11.0 none      68a97f72-4319-4a4d-aa81-d176773872c0 .c      NULL
+select * from "container"
 
    
 select * from "contentobject" where "name" = 'root'
-   
-   
-   
+
+
+drop table "fileproperty"
+
+drop schema "PUBLIC" cascade
+
+select * from "connection"
+
+update "connection" set "container_partof_containerid" = '4a797330-192f-4adb-a1ca-ebaa789e124a'
+where "connectionid" = '029c36a8-783a-4854-bcff-2037071d2522'
+
+
+select * from "snapshot" s 
+	inner join "connection" c on s."connection_via_connectionid" = c."connectionid"
+	where c."container_partof_containerid" = 'c0eb818d-f530-43e9-b309-8ef1b7c81868'
+	
+select * from "contentobject" where "snapshot_partof_snapshotid" = '69011638-f174-4dc2-8694-ccba97cfd921'
+
+delete from "contentobject" where "objectid" = '05aa5674-492e-4f12-875c-2f18b5902c2b'
+update "contentobject" set "modfieddate" = now() 
+where "name" = 'algo2.txt' and "snapshot_partof_snapshotid" = '69011638-f174-4dc2-8694-ccba97cfd921'
+

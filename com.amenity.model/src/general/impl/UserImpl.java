@@ -37,7 +37,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link general.impl.UserImpl#getLastUsed <em>Last Used</em>}</li>
  *   <li>{@link general.impl.UserImpl#getTimesUsed <em>Times Used</em>}</li>
  *   <li>{@link general.impl.UserImpl#isDeleted <em>Deleted</em>}</li>
- *   <li>{@link general.impl.UserImpl#getEvent <em>Event</em>}</li>
  * </ul>
  * </p>
  *
@@ -192,16 +191,6 @@ public class UserImpl extends EObjectImpl implements User {
 	 * @ordered
 	 */
 	protected boolean deleted = DELETED_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getEvent() <em>Event</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEvent()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Event> event;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -399,47 +388,6 @@ public class UserImpl extends EObjectImpl implements User {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Event> getEvent() {
-		if (event == null) {
-			event = new EObjectWithInverseResolvingEList<Event>(Event.class, this, GeneralPackage.USER__EVENT, GeneralPackage.EVENT__USER);
-		}
-		return event;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GeneralPackage.USER__EVENT:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getEvent()).basicAdd(otherEnd, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GeneralPackage.USER__EVENT:
-				return ((InternalEList<?>)getEvent()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -457,8 +405,6 @@ public class UserImpl extends EObjectImpl implements User {
 				return getTimesUsed();
 			case GeneralPackage.USER__DELETED:
 				return isDeleted();
-			case GeneralPackage.USER__EVENT:
-				return getEvent();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -493,10 +439,6 @@ public class UserImpl extends EObjectImpl implements User {
 			case GeneralPackage.USER__DELETED:
 				setDeleted((Boolean)newValue);
 				return;
-			case GeneralPackage.USER__EVENT:
-				getEvent().clear();
-				getEvent().addAll((Collection<? extends Event>)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -530,9 +472,6 @@ public class UserImpl extends EObjectImpl implements User {
 			case GeneralPackage.USER__DELETED:
 				setDeleted(DELETED_EDEFAULT);
 				return;
-			case GeneralPackage.USER__EVENT:
-				getEvent().clear();
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -559,8 +498,6 @@ public class UserImpl extends EObjectImpl implements User {
 				return timesUsed != TIMES_USED_EDEFAULT;
 			case GeneralPackage.USER__DELETED:
 				return deleted != DELETED_EDEFAULT;
-			case GeneralPackage.USER__EVENT:
-				return event != null && !event.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

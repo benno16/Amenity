@@ -2,10 +2,15 @@
  */
 package dao.impl;
 
+import dao.ConnectionDao;
+import dao.DaoFactory;
 import dao.DaoPackage;
 import dao.SnapshotDao;
+import general.Connection;
+import general.Container;
 import general.Snapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
@@ -44,16 +49,31 @@ public class SnapshotDaoImpl extends GenericDaoImpl implements SnapshotDao {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated NOT
+	 * 
+	 * select * from "snapshot" s 
+	inner join "connection" c on s."connection_via_connectionid" = c."connectionid"
+	where c."container_partof_containerid" = 'c0eb818d-f530-43e9-b309-8ef1b7c81868'
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Snapshot> getListByContainer(String containerId) {
+	public List<Snapshot> getListByContainer(Container container) {
+		ConnectionDao connectionDao = DaoFactory.eINSTANCE.createConnectionDao();
+
+		List<Connection> tempConnections = connectionDao.getListByContainer(container);
+		
 		session = getSession();
 		session.beginTransaction();
-		String string = "from " + Snapshot.class.getName().toString() + 
-				" where partOf = '" + containerId + "'";
-		Query queryRes = session.createQuery(string);
-		System.out.println("amount of containers: " + queryRes.list().size() );
-		List<Snapshot> resList = queryRes.list();
+		/**
+		 * TODO: solve this with inner join... not working for some reason
+		 */
+		
+		List<Snapshot> resList = new ArrayList<Snapshot>();
+		for ( Connection c : tempConnections ) {
+			Query queryRes = session.createQuery("from " + Snapshot.class.getName().toString() + 
+					" where via = '" + c.getConnectionId() + "'");
+			resList.addAll(queryRes.list());
+		}
+		
+		
 		session.close();
 		return resList;
 	}

@@ -18,7 +18,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link general.File#getCreationDate <em>Creation Date</em>}</li>
  *   <li>{@link general.File#getStatus <em>Status</em>}</li>
  *   <li>{@link general.File#getRootDir <em>Root Dir</em>}</li>
- *   <li>{@link general.File#getHasProperty <em>Has Property</em>}</li>
  *   <li>{@link general.File#getSuffix <em>Suffix</em>}</li>
  * </ul>
  * </p>
@@ -108,7 +107,6 @@ public interface File extends ContentObject {
 
 	/**
 	 * Returns the value of the '<em><b>Root Dir</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link general.Folder#getChildren <em>Children</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Root Dir</em>' reference isn't clear,
@@ -118,8 +116,7 @@ public interface File extends ContentObject {
 	 * @return the value of the '<em>Root Dir</em>' reference.
 	 * @see #setRootDir(Folder)
 	 * @see general.GeneralPackage#getFile_RootDir()
-	 * @see general.Folder#getChildren
-	 * @model opposite="children" required="true"
+	 * @model required="true"
 	 *        annotation="teneo.jpa value='@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})'"
 	 * @generated
 	 */
@@ -134,24 +131,6 @@ public interface File extends ContentObject {
 	 * @generated
 	 */
 	void setRootDir(Folder value);
-
-	/**
-	 * Returns the value of the '<em><b>Has Property</b></em>' reference list.
-	 * The list contents are of type {@link general.FileProperty}.
-	 * It is bidirectional and its opposite is '{@link general.FileProperty#getOf <em>Of</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Has Property</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Has Property</em>' reference list.
-	 * @see general.GeneralPackage#getFile_HasProperty()
-	 * @see general.FileProperty#getOf
-	 * @model opposite="of"
-	 * @generated
-	 */
-	EList<FileProperty> getHasProperty();
 
 	/**
 	 * Returns the value of the '<em><b>Suffix</b></em>' attribute.

@@ -128,60 +128,15 @@ public class GeneralSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GeneralPackage.FILE_ENDING: {
-				FileEnding fileEnding = (FileEnding)theEObject;
-				T result = caseFileEnding(fileEnding);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case GeneralPackage.FUNCTION: {
 				Function function = (Function)theEObject;
 				T result = caseFunction(function);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GeneralPackage.FILE_PROPERTY: {
-				FileProperty fileProperty = (FileProperty)theEObject;
-				T result = caseFileProperty(fileProperty);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GeneralPackage.GENERAL_DOCUMENTATION_FILE_PROPERTY: {
-				GeneralDocumentationFileProperty generalDocumentationFileProperty = (GeneralDocumentationFileProperty)theEObject;
-				T result = caseGeneralDocumentationFileProperty(generalDocumentationFileProperty);
-				if (result == null) result = caseFileProperty(generalDocumentationFileProperty);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GeneralPackage.GENERIC_FUNCTION_SRS_FILE_PROPERTY: {
-				GenericFunctionSRSFileProperty genericFunctionSRSFileProperty = (GenericFunctionSRSFileProperty)theEObject;
-				T result = caseGenericFunctionSRSFileProperty(genericFunctionSRSFileProperty);
-				if (result == null) result = caseFileProperty(genericFunctionSRSFileProperty);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GeneralPackage.SYSTEM_COMPONENT_LEVEL_DOCUMENTATION_FILE_PROPERTY: {
-				SystemComponentLevelDocumentationFileProperty systemComponentLevelDocumentationFileProperty = (SystemComponentLevelDocumentationFileProperty)theEObject;
-				T result = caseSystemComponentLevelDocumentationFileProperty(systemComponentLevelDocumentationFileProperty);
-				if (result == null) result = caseFileProperty(systemComponentLevelDocumentationFileProperty);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GeneralPackage.GENERAL_DOCUMENTATION_TYPE: {
-				GeneralDocumentationType generalDocumentationType = (GeneralDocumentationType)theEObject;
-				T result = caseGeneralDocumentationType(generalDocumentationType);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GeneralPackage.GENERIC_FUNCTION_SRS_TYPE: {
-				GenericFunctionSRSType genericFunctionSRSType = (GenericFunctionSRSType)theEObject;
-				T result = caseGenericFunctionSRSType(genericFunctionSRSType);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GeneralPackage.SYSTEM_COMPONENT_LEVEL_DOCUMENTATION: {
-				SystemComponentLevelDocumentation systemComponentLevelDocumentation = (SystemComponentLevelDocumentation)theEObject;
-				T result = caseSystemComponentLevelDocumentation(systemComponentLevelDocumentation);
+			case GeneralPackage.FILE_FUNCTION_STATUS: {
+				FileFunctionStatus fileFunctionStatus = (FileFunctionStatus)theEObject;
+				T result = caseFileFunctionStatus(fileFunctionStatus);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -358,21 +313,6 @@ public class GeneralSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>File Ending</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>File Ending</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseFileEnding(FileEnding object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Function</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -388,107 +328,17 @@ public class GeneralSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>File Property</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>File Function Status</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>File Property</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>File Function Status</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseFileProperty(FileProperty object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Documentation File Property</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Documentation File Property</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseGeneralDocumentationFileProperty(GeneralDocumentationFileProperty object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Generic Function SRS File Property</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Generic Function SRS File Property</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseGenericFunctionSRSFileProperty(GenericFunctionSRSFileProperty object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>System Component Level Documentation File Property</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>System Component Level Documentation File Property</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseSystemComponentLevelDocumentationFileProperty(SystemComponentLevelDocumentationFileProperty object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Documentation Type</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Documentation Type</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseGeneralDocumentationType(GeneralDocumentationType object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Generic Function SRS Type</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Generic Function SRS Type</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseGenericFunctionSRSType(GenericFunctionSRSType object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>System Component Level Documentation</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>System Component Level Documentation</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseSystemComponentLevelDocumentation(SystemComponentLevelDocumentation object) {
+	public T caseFileFunctionStatus(FileFunctionStatus object) {
 		return null;
 	}
 

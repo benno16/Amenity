@@ -34,7 +34,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link general.impl.FileImpl#getCreationDate <em>Creation Date</em>}</li>
  *   <li>{@link general.impl.FileImpl#getStatus <em>Status</em>}</li>
  *   <li>{@link general.impl.FileImpl#getRootDir <em>Root Dir</em>}</li>
- *   <li>{@link general.impl.FileImpl#getHasProperty <em>Has Property</em>}</li>
  *   <li>{@link general.impl.FileImpl#getSuffix <em>Suffix</em>}</li>
  * </ul>
  * </p>
@@ -111,16 +110,6 @@ public class FileImpl extends ContentObjectImpl implements File {
 	 * @ordered
 	 */
 	protected Folder rootDir;
-
-	/**
-	 * The cached value of the '{@link #getHasProperty() <em>Has Property</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getHasProperty()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<FileProperty> hasProperty;
 
 	/**
 	 * The default value of the '{@link #getSuffix() <em>Suffix</em>}' attribute.
@@ -255,45 +244,11 @@ public class FileImpl extends ContentObjectImpl implements File {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetRootDir(Folder newRootDir, NotificationChain msgs) {
+	public void setRootDir(Folder newRootDir) {
 		Folder oldRootDir = rootDir;
 		rootDir = newRootDir;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GeneralPackage.FILE__ROOT_DIR, oldRootDir, newRootDir);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setRootDir(Folder newRootDir) {
-		if (newRootDir != rootDir) {
-			NotificationChain msgs = null;
-			if (rootDir != null)
-				msgs = ((InternalEObject)rootDir).eInverseRemove(this, GeneralPackage.FOLDER__CHILDREN, Folder.class, msgs);
-			if (newRootDir != null)
-				msgs = ((InternalEObject)newRootDir).eInverseAdd(this, GeneralPackage.FOLDER__CHILDREN, Folder.class, msgs);
-			msgs = basicSetRootDir(newRootDir, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.FILE__ROOT_DIR, newRootDir, newRootDir));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<FileProperty> getHasProperty() {
-		if (hasProperty == null) {
-			hasProperty = new EObjectWithInverseResolvingEList<FileProperty>(FileProperty.class, this, GeneralPackage.FILE__HAS_PROPERTY, GeneralPackage.FILE_PROPERTY__OF);
-		}
-		return hasProperty;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.FILE__ROOT_DIR, oldRootDir, rootDir));
 	}
 
 	/**
@@ -322,41 +277,6 @@ public class FileImpl extends ContentObjectImpl implements File {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GeneralPackage.FILE__ROOT_DIR:
-				if (rootDir != null)
-					msgs = ((InternalEObject)rootDir).eInverseRemove(this, GeneralPackage.FOLDER__CHILDREN, Folder.class, msgs);
-				return basicSetRootDir((Folder)otherEnd, msgs);
-			case GeneralPackage.FILE__HAS_PROPERTY:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getHasProperty()).basicAdd(otherEnd, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GeneralPackage.FILE__ROOT_DIR:
-				return basicSetRootDir(null, msgs);
-			case GeneralPackage.FILE__HAS_PROPERTY:
-				return ((InternalEList<?>)getHasProperty()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -369,8 +289,6 @@ public class FileImpl extends ContentObjectImpl implements File {
 			case GeneralPackage.FILE__ROOT_DIR:
 				if (resolve) return getRootDir();
 				return basicGetRootDir();
-			case GeneralPackage.FILE__HAS_PROPERTY:
-				return getHasProperty();
 			case GeneralPackage.FILE__SUFFIX:
 				return getSuffix();
 		}
@@ -397,10 +315,6 @@ public class FileImpl extends ContentObjectImpl implements File {
 				return;
 			case GeneralPackage.FILE__ROOT_DIR:
 				setRootDir((Folder)newValue);
-				return;
-			case GeneralPackage.FILE__HAS_PROPERTY:
-				getHasProperty().clear();
-				getHasProperty().addAll((Collection<? extends FileProperty>)newValue);
 				return;
 			case GeneralPackage.FILE__SUFFIX:
 				setSuffix((String)newValue);
@@ -429,9 +343,6 @@ public class FileImpl extends ContentObjectImpl implements File {
 			case GeneralPackage.FILE__ROOT_DIR:
 				setRootDir((Folder)null);
 				return;
-			case GeneralPackage.FILE__HAS_PROPERTY:
-				getHasProperty().clear();
-				return;
 			case GeneralPackage.FILE__SUFFIX:
 				setSuffix(SUFFIX_EDEFAULT);
 				return;
@@ -455,8 +366,6 @@ public class FileImpl extends ContentObjectImpl implements File {
 				return STATUS_EDEFAULT == null ? status != null : !STATUS_EDEFAULT.equals(status);
 			case GeneralPackage.FILE__ROOT_DIR:
 				return rootDir != null;
-			case GeneralPackage.FILE__HAS_PROPERTY:
-				return hasProperty != null && !hasProperty.isEmpty();
 			case GeneralPackage.FILE__SUFFIX:
 				return SUFFIX_EDEFAULT == null ? suffix != null : !SUFFIX_EDEFAULT.equals(suffix);
 		}

@@ -586,7 +586,6 @@ public class MksReader {
 			file.setSuffix(getFileSuffix(idOut));
 			file.setVersion(memberrevOut);
 //			fileDao.create(file);
-			root.getChildren().add(file);
 			/**
 			 * TODO: check if this would be possible or slow down the process to much
 			 */

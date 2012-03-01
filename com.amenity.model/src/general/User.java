@@ -23,7 +23,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link general.User#getLastUsed <em>Last Used</em>}</li>
  *   <li>{@link general.User#getTimesUsed <em>Times Used</em>}</li>
  *   <li>{@link general.User#isDeleted <em>Deleted</em>}</li>
- *   <li>{@link general.User#getEvent <em>Event</em>}</li>
  * </ul>
  * </p>
  *
@@ -241,24 +240,5 @@ public interface User extends EObject {
 	 * @generated
 	 */
 	void setDeleted(boolean value);
-
-	/**
-	 * Returns the value of the '<em><b>Event</b></em>' reference list.
-	 * The list contents are of type {@link general.Event}.
-	 * It is bidirectional and its opposite is '{@link general.Event#getUser <em>User</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Event</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Event</em>' reference list.
-	 * @see general.GeneralPackage#getUser_Event()
-	 * @see general.Event#getUser
-	 * @model opposite="user"
-	 *        annotation="teneo.jpa value='@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})'"
-	 * @generated
-	 */
-	EList<Event> getEvent();
 
 } // User

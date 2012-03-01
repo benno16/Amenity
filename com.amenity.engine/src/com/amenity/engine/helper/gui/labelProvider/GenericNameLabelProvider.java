@@ -9,7 +9,6 @@ import com.amenity.engine.helper.synergy.SynergyProject;
 public class GenericNameLabelProvider extends LabelProvider {
 	@Override
 	public String getText(Object element) {
-		
 		if (element instanceof Snapshot) {
 			return ((Snapshot) element).getName();
 		} else 

@@ -28,7 +28,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link general.impl.FolderImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link general.impl.FolderImpl#getRootDirectory <em>Root Directory</em>}</li>
  * </ul>
  * </p>
@@ -36,16 +35,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * @generated
  */
 public class FolderImpl extends ContentObjectImpl implements Folder {
-	/**
-	 * The cached value of the '{@link #getChildren() <em>Children</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getChildren()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<File> children;
-
 	/**
 	 * The cached value of the '{@link #getRootDirectory() <em>Root Directory</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -73,18 +62,6 @@ public class FolderImpl extends ContentObjectImpl implements Folder {
 	@Override
 	protected EClass eStaticClass() {
 		return GeneralPackage.Literals.FOLDER;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<File> getChildren() {
-		if (children == null) {
-			children = new EObjectWithInverseResolvingEList<File>(File.class, this, GeneralPackage.FOLDER__CHILDREN, GeneralPackage.FILE__ROOT_DIR);
-		}
-		return children;
 	}
 
 	/**
@@ -130,40 +107,9 @@ public class FolderImpl extends ContentObjectImpl implements Folder {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GeneralPackage.FOLDER__CHILDREN:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getChildren()).basicAdd(otherEnd, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GeneralPackage.FOLDER__CHILDREN:
-				return ((InternalEList<?>)getChildren()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GeneralPackage.FOLDER__CHILDREN:
-				return getChildren();
 			case GeneralPackage.FOLDER__ROOT_DIRECTORY:
 				if (resolve) return getRootDirectory();
 				return basicGetRootDirectory();
@@ -180,10 +126,6 @@ public class FolderImpl extends ContentObjectImpl implements Folder {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GeneralPackage.FOLDER__CHILDREN:
-				getChildren().clear();
-				getChildren().addAll((Collection<? extends File>)newValue);
-				return;
 			case GeneralPackage.FOLDER__ROOT_DIRECTORY:
 				setRootDirectory((Folder)newValue);
 				return;
@@ -199,9 +141,6 @@ public class FolderImpl extends ContentObjectImpl implements Folder {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GeneralPackage.FOLDER__CHILDREN:
-				getChildren().clear();
-				return;
 			case GeneralPackage.FOLDER__ROOT_DIRECTORY:
 				setRootDirectory((Folder)null);
 				return;
@@ -217,8 +156,6 @@ public class FolderImpl extends ContentObjectImpl implements Folder {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GeneralPackage.FOLDER__CHILDREN:
-				return children != null && !children.isEmpty();
 			case GeneralPackage.FOLDER__ROOT_DIRECTORY:
 				return rootDirectory != null;
 		}

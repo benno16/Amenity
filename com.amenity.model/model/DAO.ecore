@@ -112,4 +112,9 @@
       <eParameters name="snapshot" eType="#//Snapshot"/>
     </eOperations>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FileFunctionStatusDao" eSuperTypes="#//GenericDao">
+    <eOperations name="getFileFunctionStatusBySnapshot" eType="#//List">
+      <eParameters name="snapshot" eType="#//Snapshot"/>
+    </eOperations>
+  </eClassifiers>
 </ecore:EPackage>

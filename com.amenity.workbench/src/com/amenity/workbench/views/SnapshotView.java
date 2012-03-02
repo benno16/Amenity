@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import general.Connection;
+import general.ConnectionType;
 import general.Container;
 import general.ContentObject;
 import general.File;
@@ -507,8 +508,12 @@ public class SnapshotView extends ViewPart {
 							Connection.class.getName().toString() + 
 							" where connectionId = '" + 
 							SessionSourceProvider.CURRENT_SNAPSHOT.getVia().getConnectionId() + "'").get(0);
-					MksGetFile mksGetFile = new MksGetFile(connection, file);
-					mksGetFile.openFile();
+					if ( connection.getConnectionType() == ConnectionType.MKS ) {
+						System.out.println("its a mks connection");
+						MksGetFile mksGetFile = new MksGetFile(connection, file);
+						mksGetFile.openFile();
+					} else 
+						System.out.println("its NOT a mks connection");
 				} catch (Exception ex) {
 					if ( gi == null )
 						MessageDialog.openError(container.getShell(), 

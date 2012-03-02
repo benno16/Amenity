@@ -57,9 +57,9 @@ public class FunctionDaoImpl extends GenericDaoImpl implements FunctionDao {
 		session.beginTransaction();
 		
 		List<Function> resList = new ArrayList<Function>();
-		
-		Query queryRes = session.createQuery("from " + Function.class.getName().toString() + 
-					" where snapshot = '" + snapshot.getSnapshotId() + "'");
+		String query = "from " + Function.class.getName().toString() + 
+				" where snapshot = '" + snapshot.getSnapshotId() + "'";
+		Query queryRes = session.createQuery(query);
 		resList = queryRes.list();
 		
 		session.close();

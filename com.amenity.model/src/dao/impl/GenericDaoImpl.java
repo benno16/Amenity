@@ -162,14 +162,21 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 	public void create(Object object) {
 		session = getSession();
 		session.beginTransaction();
-		session.save(object);
-		session.flush();
 		session.clear();
+		session.saveOrUpdate(object);
+		session.flush();
+		session.evict(object);
 		try {
 			session.getTransaction().commit();
 		} catch ( Exception e ){
 			e.printStackTrace();
 			session.getTransaction().rollback();
+			try {
+				session.merge(object);
+				session.getTransaction().commit();
+			} catch ( Exception ex ) {
+				session.getTransaction().rollback();
+			}
 		} finally {
 			session.close();
 		}

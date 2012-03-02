@@ -1,6 +1,7 @@
 package com.amenity.workbench;
 
 import general.Container;
+import general.Function;
 import general.SessionSatus;
 import general.Snapshot;
 import general.User;
@@ -35,6 +36,7 @@ public class SessionSourceProvider extends AbstractSourceProvider {
     // User Content Information
     public static Snapshot CURRENT_SNAPSHOT = null;
     public static Container CURRENT_CONTAINER = null;
+    public static Function CURRENT_FUNCTION = null;
     public static List<Container> CONTAINER_LIST;
     public static List<Snapshot> SNAPSHOT_LIST;
     

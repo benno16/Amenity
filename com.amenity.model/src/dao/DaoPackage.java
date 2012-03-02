@@ -491,6 +491,43 @@ public interface DaoPackage extends EPackage {
 	int FUNCTION_DAO_FEATURE_COUNT = GENERIC_DAO_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link dao.impl.FileFunctionStatusDaoImpl <em>File Function Status Dao</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see dao.impl.FileFunctionStatusDaoImpl
+	 * @see dao.impl.DaoPackageImpl#getFileFunctionStatusDao()
+	 * @generated
+	 */
+	int FILE_FUNCTION_STATUS_DAO = 12;
+
+	/**
+	 * The feature id for the '<em><b>Persistent Class</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_FUNCTION_STATUS_DAO__PERSISTENT_CLASS = GENERIC_DAO__PERSISTENT_CLASS;
+
+	/**
+	 * The feature id for the '<em><b>Session</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_FUNCTION_STATUS_DAO__SESSION = GENERIC_DAO__SESSION;
+
+	/**
+	 * The number of structural features of the '<em>File Function Status Dao</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_FUNCTION_STATUS_DAO_FEATURE_COUNT = GENERIC_DAO_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '<em>List</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -498,7 +535,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getList()
 	 * @generated
 	 */
-	int LIST = 12;
+	int LIST = 13;
 
 	/**
 	 * The meta object id for the '<em>Query</em>' data type.
@@ -508,7 +545,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getQuery()
 	 * @generated
 	 */
-	int QUERY = 13;
+	int QUERY = 14;
 
 	/**
 	 * The meta object id for the '<em>Session</em>' data type.
@@ -518,7 +555,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getSession()
 	 * @generated
 	 */
-	int SESSION = 14;
+	int SESSION = 15;
 
 	/**
 	 * The meta object id for the '<em>Session Factory</em>' data type.
@@ -528,7 +565,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getSessionFactory()
 	 * @generated
 	 */
-	int SESSION_FACTORY = 15;
+	int SESSION_FACTORY = 16;
 
 	/**
 	 * The meta object id for the '<em>User</em>' data type.
@@ -538,7 +575,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getUser()
 	 * @generated
 	 */
-	int USER = 16;
+	int USER = 17;
 
 
 	/**
@@ -549,7 +586,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getContainer()
 	 * @generated
 	 */
-	int CONTAINER = 17;
+	int CONTAINER = 18;
 
 
 	/**
@@ -560,7 +597,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getSnapshot()
 	 * @generated
 	 */
-	int SNAPSHOT = 18;
+	int SNAPSHOT = 19;
 
 
 	/**
@@ -571,7 +608,7 @@ public interface DaoPackage extends EPackage {
 	 * @see dao.impl.DaoPackageImpl#getFolder()
 	 * @generated
 	 */
-	int FOLDER = 19;
+	int FOLDER = 20;
 
 
 	/**
@@ -726,6 +763,16 @@ public interface DaoPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getFunctionDao();
+
+	/**
+	 * Returns the meta object for class '{@link dao.FileFunctionStatusDao <em>File Function Status Dao</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>File Function Status Dao</em>'.
+	 * @see dao.FileFunctionStatusDao
+	 * @generated
+	 */
+	EClass getFileFunctionStatusDao();
 
 	/**
 	 * Returns the meta object for data type '{@link java.util.List <em>List</em>}'.
@@ -980,6 +1027,16 @@ public interface DaoPackage extends EPackage {
 		 * @generated
 		 */
 		EClass FUNCTION_DAO = eINSTANCE.getFunctionDao();
+
+		/**
+		 * The meta object literal for the '{@link dao.impl.FileFunctionStatusDaoImpl <em>File Function Status Dao</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see dao.impl.FileFunctionStatusDaoImpl
+		 * @see dao.impl.DaoPackageImpl#getFileFunctionStatusDao()
+		 * @generated
+		 */
+		EClass FILE_FUNCTION_STATUS_DAO = eINSTANCE.getFileFunctionStatusDao();
 
 		/**
 		 * The meta object literal for the '<em>List</em>' data type.

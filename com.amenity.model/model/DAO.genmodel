@@ -95,5 +95,10 @@
         <genParameters ecoreParameter="DAO.ecore#//FunctionDao/getFunctionsBySnapshot/snapshot"/>
       </genOperations>
     </genClasses>
+    <genClasses ecoreClass="DAO.ecore#//FileFunctionStatusDao">
+      <genOperations ecoreOperation="DAO.ecore#//FileFunctionStatusDao/getFileFunctionStatusBySnapshot">
+        <genParameters ecoreParameter="DAO.ecore#//FileFunctionStatusDao/getFileFunctionStatusBySnapshot/snapshot"/>
+      </genOperations>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

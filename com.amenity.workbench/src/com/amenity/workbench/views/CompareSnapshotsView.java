@@ -3,6 +3,7 @@ package com.amenity.workbench.views;
 import java.util.List;
 
 import general.Connection;
+import general.ConnectionType;
 import general.ContentObject;
 import general.File;
 import general.Snapshot;
@@ -246,15 +247,25 @@ public class CompareSnapshotsView extends ViewPart {
 					gi = grid.getSelection()[0];
 					System.out.println("Double Click Event " + gi.getText(3) );
 					FileDao fileDao = DaoFactory.eINSTANCE.createFileDao();
-					File file = (File) fileDao.getById(gi.getText(3));
+					File file1 = (File) fileDao.getById(gi.getText(3));
+					File file2 = (File) fileDao.getById(gi.getText(8));
+					
 					ConnectionDao connectionDao = DaoFactory.eINSTANCE.createConnectionDao();
-					Connection connection = null;
-					connection = (Connection) connectionDao.getByQuery("from " + 
+					Connection connection1 = null;
+					connection1 = (Connection) connectionDao.getByQuery("from " + 
 							Connection.class.getName().toString() + 
 							" where connectionId = '" + 
-							SessionSourceProvider.CURRENT_SNAPSHOT.getVia().getConnectionId() + "'").get(0);
-					MksGetFile mksGetFile = new MksGetFile(connection, file);
-					mksGetFile.openFile();
+							snapshot1.getVia().getConnectionId() + "'").get(0);
+					
+					Connection connection2 = null;
+					connection2 = (Connection) connectionDao.getByQuery("from " + 
+							Connection.class.getName().toString() + 
+							" where connectionId = '" + 
+							snapshot1.getVia().getConnectionId() + "'").get(0);
+					if ( connection1.getConnectionType() == ConnectionType.MKS && 
+							connection2.getConnectionType() == ConnectionType.MKS )
+						new MksGetFile(connection1, file1, connection2, file2);
+					
 				} catch (Exception ex) {
 					if ( gi == null )
 						MessageDialog.openError(container.getShell(), 

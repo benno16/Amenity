@@ -1,11 +1,10 @@
 package com.amenity.engine.helper.mks;
 
 import general.Connection;
+import general.ConnectionType;
 import general.File;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import com.mks.api.CmdRunner;
@@ -15,7 +14,6 @@ import com.mks.api.IntegrationPointFactory;
 import com.mks.api.Option;
 import com.mks.api.Session;
 import com.mks.api.response.APIException;
-import com.mks.api.si.SIModelTypeName;
 import com.mks.api.util.ResponseUtil;
 
 public class MksGetFile {
@@ -28,51 +26,30 @@ public class MksGetFile {
 	private String fileName;
 	private String amenityTempFolder = "D:\\temp\\amenity\\";
 	
-	public MksGetFile () {
+	@SuppressWarnings("unused")
+	private MksGetFile () {
 	}
 	
 	public MksGetFile ( Connection connection, File file ) {
 		this.connection = connection;
 		this.file = file;
 	}
+
+	public MksGetFile ( Connection connection1, File file1, 
+			Connection connection2, File file2) throws IOException {
+		this.connection = connection1;
+		this.file = file1;
+		String fileName1 = openFile().substring(9);
+		this.connection = connection2;
+		this.file = file2;
+		String fileName2 = openFile().substring(9);
+		
+		compareFiles(fileName1,fileName2);
+		
+	}
 	
 	public String openFile() throws IOException {
 		
-//		String amenityTempFolder = "D:\\temp\\amenity\\";
-//		java.io.File f = new java.io.File(amenityTempFolder);
-//		
-//		Runtime r = Runtime.getRuntime();
-//		Process p;
-//		if ( !f.isDirectory() ) {
-//			String amo = "cmd /C mkdir " + amenityTempFolder;
-//			System.err.println(amo);
-//			p = r.exec(amo);
-//		}
-//		
-//		String filename = amenityTempFolder + UUID.randomUUID().toString() + "_" + file.getName();
-//		String fetchFileAmo = "cmd /C si viewrevision -P " + 
-//				file.getFullName().replace(file.getName(), "project.pj") +
-//				"  --revision=" + file.getVersion() + " \"" +
-//				file.getName() + "\"" + " > \"" + filename + "\"";
-//		String openFileAmo = "cmd /C \"" + filename + "\"";
-//		try {
-//			p = r.exec(fetchFileAmo);
-//			try {
-//				System.out.println("--starting waiting");
-//				p.waitFor();
-//				Thread.sleep(100);
-//				System.out.println("--finished waiting");
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			p = r.exec(openFileAmo);
-////			p = r.exec(filename);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		
 		try {
 			IntegrationPointFactory ipf = IntegrationPointFactory.getInstance();
 			IntegrationPoint ip = ipf.createIntegrationPoint(connection.getDatabase(), 
@@ -100,6 +77,7 @@ public class MksGetFile {
 			myCmd.addOption( new Option( "project" , connection.getProject() ) );
 			myCmd.addOption( new Option( "targetfile", fileName ) );
 			myCmd.addOption( new Option( "cpid", ":none" ) );
+			myCmd.addOption( new Option( "revision", file.getVersion() ) );
 			myCmd.addOption( new Option( "nolock" ) );
 			myCmd.addSelection(file.getName());
 			myCmdRunner.execute(myCmd);
@@ -133,6 +111,18 @@ public class MksGetFile {
 		String openFileAmo = "cmd /C \"" + fileName.substring(9) + "\"";
 		try {
 			Runtime.getRuntime().exec(openFileAmo);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	private void compareFiles( String file1, String file2) {
+		// M:\pmtqtools\Admin\BeyondCompare\Beyond Compare 3\BCompare.exe file1 file2
+		try {
+			ProcessBuilder builder = new ProcessBuilder (
+					"M:\\pmtqtools\\Admin\\Beyond" +
+					"Compare\\Beyond Compare 3\\BCompare.exe", file1, file2);
+			Process p = builder.start(); 
+			System.err.println(p.exitValue());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

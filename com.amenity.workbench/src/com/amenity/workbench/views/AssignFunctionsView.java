@@ -7,6 +7,7 @@ import java.util.Date;
 import general.Container;
 import general.ContentObject;
 import general.File;
+import general.FileFunctionStatus;
 import general.Folder;
 import general.Function;
 import general.GeneralFactory;
@@ -55,6 +56,7 @@ import com.amenity.workbench.dialogs.CreateFunctionDialog;
 import dao.ContainerDao;
 import dao.ContentObjectDao;
 import dao.DaoFactory;
+import dao.FileFunctionStatusDao;
 import dao.FolderDao;
 import dao.FunctionDao;
 import dao.SnapshotDao;
@@ -139,6 +141,7 @@ public class AssignFunctionsView extends ViewPart {
 		        	if ( structuredSelection.getFirstElement() instanceof Snapshot ) {
 		        		SessionSourceProvider.CURRENT_SNAPSHOT = 
 		        				(Snapshot) structuredSelection.getFirstElement();
+		        		
 		        		fillFunctionCombo();
 		        		fillSnapshotTree();
 		        	}
@@ -161,6 +164,19 @@ public class AssignFunctionsView extends ViewPart {
 			@Override
 			public Object[] getElements(Object inputElement) {
 				return ((java.util.List<Snapshot>)inputElement ) .toArray();
+			}
+		});
+		functionComboViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				objectSelection = event.getSelection();
+				structuredSelection = (IStructuredSelection) objectSelection;
+				if ( !structuredSelection.isEmpty()) {
+					if ( structuredSelection.getFirstElement() instanceof Function) {
+						SessionSourceProvider.CURRENT_FUNCTION = (Function) 
+								structuredSelection.getFirstElement();
+					}
+				}
 			}
 		});
 		
@@ -250,7 +266,8 @@ public class AssignFunctionsView extends ViewPart {
 			}
 			
 		});
-		snapshotTreeViewer.setLabelProvider(new SnapshotStyledLabelProvder(""));
+		snapshotTreeViewer.setLabelProvider(new SnapshotStyledLabelProvder
+				(SessionSourceProvider.CURRENT_SNAPSHOT));
 		/**
 		 * TODO: Temp sorter implementation
 		 * Issue here its basically sorting strictly by name not type! 
@@ -329,7 +346,6 @@ public class AssignFunctionsView extends ViewPart {
 
 			@Override
 			public Object[] getElements(Object inputElement) {
-				
 				return contentObjects.toArray();
 			}
 
@@ -364,9 +380,23 @@ public class AssignFunctionsView extends ViewPart {
 			
 			@Override
 			public boolean performDrop(Object data) {
-				ContentObjectDao contentObjectDao = DaoFactory.eINSTANCE.createContentObjectDao();
-				contentObjects.add((ContentObject) contentObjectDao.getById(data.toString()));
-				functionTreeViewer.setInput(contentObjects);
+				/**
+				 * TODO: prettier message
+				 */
+				if ( SessionSourceProvider.CURRENT_FUNCTION != null ) {
+					ContentObjectDao contentObjectDao = DaoFactory.eINSTANCE.createContentObjectDao();
+					contentObjects.add((ContentObject) contentObjectDao.getById(data.toString()));
+					FileFunctionStatusDao fileFunctionStatusDao = 
+							DaoFactory.eINSTANCE.createFileFunctionStatusDao();
+					
+					for ( ContentObject co : contentObjects) {
+						FileFunctionStatus ffs = GeneralFactory.eINSTANCE.createFileFunctionStatus();
+						ffs.setOfFile(co);
+						ffs.setOfFunction(SessionSourceProvider.CURRENT_FUNCTION);
+						fileFunctionStatusDao.create(ffs);
+					}
+					functionTreeViewer.setInput(contentObjects);
+				}
 				return false;
 			}
 
@@ -455,6 +485,15 @@ public class AssignFunctionsView extends ViewPart {
 		btnSave.setText("Save");
 		btnSave.setImage(PlatformUI.getWorkbench().getSharedImages()
 					.getImage(ISharedImages.IMG_ETOOL_SAVE_EDIT));
+		btnSave.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				/**
+				 * TODO: read info from middle tree and store asso
+				 * 
+				 */
+			}
+		});
 		new Label(parent, SWT.NONE);
 		new Label(parent, SWT.NONE);
 		new Label(parent, SWT.NONE);
@@ -496,6 +535,8 @@ public class AssignFunctionsView extends ViewPart {
 
 	protected void fillSnapshotTree() {
 		snapshotTree.removeAll();
+		snapshotTreeViewer.setLabelProvider(new SnapshotStyledLabelProvder
+				(SessionSourceProvider.CURRENT_SNAPSHOT));
 		FolderDao folderObjectDao = DaoFactory.eINSTANCE.createFolderDao();
 		Folder folder = 
 				folderObjectDao.getRootFolderBySnapshot(

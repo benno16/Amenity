@@ -2,6 +2,7 @@
  */
 package general.impl;
 
+import general.ContentObject;
 import general.File;
 import general.FileFunctionStatus;
 import general.Function;
@@ -198,7 +199,7 @@ public class FileFunctionStatusImpl extends EObjectImpl implements FileFunctionS
 	 * @generated
 	 * @ordered
 	 */
-	protected File ofFile;
+	protected ContentObject ofFile;
 
 	/**
 	 * The cached value of the '{@link #getOfFunction() <em>Of Function</em>}' reference.
@@ -426,10 +427,10 @@ public class FileFunctionStatusImpl extends EObjectImpl implements FileFunctionS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public File getOfFile() {
+	public ContentObject getOfFile() {
 		if (ofFile != null && ofFile.eIsProxy()) {
 			InternalEObject oldOfFile = (InternalEObject)ofFile;
-			ofFile = (File)eResolveProxy(oldOfFile);
+			ofFile = (ContentObject)eResolveProxy(oldOfFile);
 			if (ofFile != oldOfFile) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GeneralPackage.FILE_FUNCTION_STATUS__OF_FILE, oldOfFile, ofFile));
@@ -443,7 +444,7 @@ public class FileFunctionStatusImpl extends EObjectImpl implements FileFunctionS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public File basicGetOfFile() {
+	public ContentObject basicGetOfFile() {
 		return ofFile;
 	}
 
@@ -452,8 +453,8 @@ public class FileFunctionStatusImpl extends EObjectImpl implements FileFunctionS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setOfFile(File newOfFile) {
-		File oldOfFile = ofFile;
+	public void setOfFile(ContentObject newOfFile) {
+		ContentObject oldOfFile = ofFile;
 		ofFile = newOfFile;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.FILE_FUNCTION_STATUS__OF_FILE, oldOfFile, ofFile));
@@ -582,7 +583,7 @@ public class FileFunctionStatusImpl extends EObjectImpl implements FileFunctionS
 				setComment((String)newValue);
 				return;
 			case GeneralPackage.FILE_FUNCTION_STATUS__OF_FILE:
-				setOfFile((File)newValue);
+				setOfFile((ContentObject)newValue);
 				return;
 			case GeneralPackage.FILE_FUNCTION_STATUS__OF_FUNCTION:
 				setOfFunction((Function)newValue);
@@ -624,7 +625,7 @@ public class FileFunctionStatusImpl extends EObjectImpl implements FileFunctionS
 				setComment(COMMENT_EDEFAULT);
 				return;
 			case GeneralPackage.FILE_FUNCTION_STATUS__OF_FILE:
-				setOfFile((File)null);
+				setOfFile((ContentObject)null);
 				return;
 			case GeneralPackage.FILE_FUNCTION_STATUS__OF_FUNCTION:
 				setOfFunction((Function)null);

@@ -265,12 +265,12 @@ public interface FileFunctionStatus extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Of File</em>' reference.
-	 * @see #setOfFile(File)
+	 * @see #setOfFile(ContentObject)
 	 * @see general.GeneralPackage#getFileFunctionStatus_OfFile()
 	 * @model
 	 * @generated
 	 */
-	File getOfFile();
+	ContentObject getOfFile();
 
 	/**
 	 * Sets the value of the '{@link general.FileFunctionStatus#getOfFile <em>Of File</em>}' reference.
@@ -280,7 +280,7 @@ public interface FileFunctionStatus extends EObject {
 	 * @see #getOfFile()
 	 * @generated
 	 */
-	void setOfFile(File value);
+	void setOfFile(ContentObject value);
 
 	/**
 	 * Returns the value of the '<em><b>Of Function</b></em>' reference.

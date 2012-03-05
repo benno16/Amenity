@@ -45,7 +45,11 @@ public class HibernateUtilImpl extends EObjectImpl implements HibernateUtil {
 	 * @generated NOT
 	 * @ordered
 	 */
-	public static final SessionFactory SESSION_FACTORY_EDEFAULT;
+	private static final SessionFactory SESSION_FACTORY_EDEFAULT;
+
+	public static SessionFactory getSessionFactoryEdefault() {
+		return SESSION_FACTORY_EDEFAULT;
+	}
 
 	static {
 		try {            

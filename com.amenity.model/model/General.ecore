@@ -37,7 +37,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" lowerBound="1" eType="#//Date"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="userRelevant" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="user" lowerBound="1" eType="#//User"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="user" lowerBound="1" eType="#//User"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="#//EventType"
         defaultValueLiteral="">
       <eAnnotations source="teneo.jpa">
@@ -127,7 +128,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="addInfo1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="addInfo2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="addInfo3" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//User">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//User"
+        containment="true">
       <eAnnotations source="teneo.jpa">
         <details key="value" value="@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"/>
       </eAnnotations>
@@ -166,7 +168,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="release" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="modfiedDate" eType="#//Date"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="partOf" lowerBound="1"
-        eType="#//Snapshot">
+        eType="#//Snapshot" containment="true">
       <eAnnotations source="teneo.jpa">
         <details key="value" value="@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"/>
       </eAnnotations>
@@ -271,7 +273,8 @@
         defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="created" eType="#//Date"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//User"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//User"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SessionSatus">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="mksStatus" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"

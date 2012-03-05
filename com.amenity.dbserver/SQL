@@ -6,7 +6,7 @@ select * from "contentobject" where "PARTOF" = '012c9c20-f2a0-4b87-89ec-2fdddcde
 update "contentobject" set "modfieddate" = now() where "PARTOF" = '012c9c20-f2a0-4b87-89ec-2fdddcdeaafa' and "name" = 'algo2.txt'
 
 select * from "snapshot"
-select * from "container"
+delete from "container" where "deleted" = 1
 
    
 select * from "contentobject" where "name" = 'root'

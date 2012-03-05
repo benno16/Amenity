@@ -134,26 +134,26 @@ public interface Event extends EObject {
 	void setUserRelevant(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>User</b></em>' reference.
+	 * Returns the value of the '<em><b>User</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>User</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>User</em>' reference.
+	 * @return the value of the '<em>User</em>' containment reference.
 	 * @see #setUser(User)
 	 * @see general.GeneralPackage#getEvent_User()
-	 * @model required="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	User getUser();
 
 	/**
-	 * Sets the value of the '{@link general.Event#getUser <em>User</em>}' reference.
+	 * Sets the value of the '{@link general.Event#getUser <em>User</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>User</em>' reference.
+	 * @param value the new value of the '<em>User</em>' containment reference.
 	 * @see #getUser()
 	 * @generated
 	 */

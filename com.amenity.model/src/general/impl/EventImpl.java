@@ -118,7 +118,7 @@ public class EventImpl extends EObjectImpl implements Event {
 	protected boolean userRelevant = USER_RELEVANT_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getUser() <em>User</em>}' reference.
+	 * The cached value of the '{@link #getUser() <em>User</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getUser()
@@ -256,14 +256,6 @@ public class EventImpl extends EObjectImpl implements Event {
 	 * @generated
 	 */
 	public User getUser() {
-		if (user != null && user.eIsProxy()) {
-			InternalEObject oldUser = (InternalEObject)user;
-			user = (User)eResolveProxy(oldUser);
-			if (user != oldUser) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GeneralPackage.EVENT__USER, oldUser, user));
-			}
-		}
 		return user;
 	}
 
@@ -272,8 +264,14 @@ public class EventImpl extends EObjectImpl implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public User basicGetUser() {
-		return user;
+	public NotificationChain basicSetUser(User newUser, NotificationChain msgs) {
+		User oldUser = user;
+		user = newUser;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GeneralPackage.EVENT__USER, oldUser, newUser);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -282,10 +280,17 @@ public class EventImpl extends EObjectImpl implements Event {
 	 * @generated
 	 */
 	public void setUser(User newUser) {
-		User oldUser = user;
-		user = newUser;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.EVENT__USER, oldUser, user));
+		if (newUser != user) {
+			NotificationChain msgs = null;
+			if (user != null)
+				msgs = ((InternalEObject)user).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GeneralPackage.EVENT__USER, null, msgs);
+			if (newUser != null)
+				msgs = ((InternalEObject)newUser).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GeneralPackage.EVENT__USER, null, msgs);
+			msgs = basicSetUser(newUser, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.EVENT__USER, newUser, newUser));
 	}
 
 	/**
@@ -315,6 +320,20 @@ public class EventImpl extends EObjectImpl implements Event {
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GeneralPackage.EVENT__USER:
+				return basicSetUser(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GeneralPackage.EVENT__EVENT_ID:
@@ -326,8 +345,7 @@ public class EventImpl extends EObjectImpl implements Event {
 			case GeneralPackage.EVENT__USER_RELEVANT:
 				return isUserRelevant();
 			case GeneralPackage.EVENT__USER:
-				if (resolve) return getUser();
-				return basicGetUser();
+				return getUser();
 			case GeneralPackage.EVENT__TYPE:
 				return getType();
 		}

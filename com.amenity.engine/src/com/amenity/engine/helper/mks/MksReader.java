@@ -339,7 +339,7 @@ public class MksReader {
 			myCmdRunner.setDefaultPort(port);
 			myCmdRunner.setDefaultUsername(connection.getUsername());
 			myCmdRunner.setDefaultPassword(connection.getPassword());
-			
+
 			Command myCmd = new Command ( Command.SI , "viewproject");
 			myCmd.addOption(new Option ( "-R"));	// recursive
 			myCmd.addOption(new Option ( "-Y"));	// say always yes

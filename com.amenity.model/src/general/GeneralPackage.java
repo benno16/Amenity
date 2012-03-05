@@ -187,7 +187,7 @@ public interface GeneralPackage extends EPackage {
 	int EVENT__USER_RELEVANT = 3;
 
 	/**
-	 * The feature id for the '<em><b>User</b></em>' reference.
+	 * The feature id for the '<em><b>User</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -550,7 +550,7 @@ public interface GeneralPackage extends EPackage {
 	int CONTAINER__ADD_INFO3 = 6;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -723,7 +723,7 @@ public interface GeneralPackage extends EPackage {
 	int CONTENT_OBJECT__MODFIED_DATE = 5;
 
 	/**
-	 * The feature id for the '<em><b>Part Of</b></em>' reference.
+	 * The feature id for the '<em><b>Part Of</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -814,7 +814,7 @@ public interface GeneralPackage extends EPackage {
 	int FILE__MODFIED_DATE = CONTENT_OBJECT__MODFIED_DATE;
 
 	/**
-	 * The feature id for the '<em><b>Part Of</b></em>' reference.
+	 * The feature id for the '<em><b>Part Of</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -950,7 +950,7 @@ public interface GeneralPackage extends EPackage {
 	int FOLDER__MODFIED_DATE = CONTENT_OBJECT__MODFIED_DATE;
 
 	/**
-	 * The feature id for the '<em><b>Part Of</b></em>' reference.
+	 * The feature id for the '<em><b>Part Of</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1315,7 +1315,7 @@ public interface GeneralPackage extends EPackage {
 	int TASK__CREATED = 3;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1581,10 +1581,10 @@ public interface GeneralPackage extends EPackage {
 	EAttribute getEvent_UserRelevant();
 
 	/**
-	 * Returns the meta object for the reference '{@link general.Event#getUser <em>User</em>}'.
+	 * Returns the meta object for the containment reference '{@link general.Event#getUser <em>User</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>User</em>'.
+	 * @return the meta object for the containment reference '<em>User</em>'.
 	 * @see general.Event#getUser()
 	 * @see #getEvent()
 	 * @generated
@@ -1985,10 +1985,10 @@ public interface GeneralPackage extends EPackage {
 	EAttribute getContainer_AddInfo3();
 
 	/**
-	 * Returns the meta object for the reference '{@link general.Container#getOwner <em>Owner</em>}'.
+	 * Returns the meta object for the containment reference '{@link general.Container#getOwner <em>Owner</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Owner</em>'.
+	 * @return the meta object for the containment reference '<em>Owner</em>'.
 	 * @see general.Container#getOwner()
 	 * @see #getContainer()
 	 * @generated
@@ -2170,10 +2170,10 @@ public interface GeneralPackage extends EPackage {
 	EAttribute getContentObject_ModfiedDate();
 
 	/**
-	 * Returns the meta object for the reference '{@link general.ContentObject#getPartOf <em>Part Of</em>}'.
+	 * Returns the meta object for the containment reference '{@link general.ContentObject#getPartOf <em>Part Of</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Part Of</em>'.
+	 * @return the meta object for the containment reference '<em>Part Of</em>'.
 	 * @see general.ContentObject#getPartOf()
 	 * @see #getContentObject()
 	 * @generated
@@ -2625,10 +2625,10 @@ public interface GeneralPackage extends EPackage {
 	EAttribute getTask_Created();
 
 	/**
-	 * Returns the meta object for the reference '{@link general.Task#getOwner <em>Owner</em>}'.
+	 * Returns the meta object for the containment reference '{@link general.Task#getOwner <em>Owner</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Owner</em>'.
+	 * @return the meta object for the containment reference '<em>Owner</em>'.
 	 * @see general.Task#getOwner()
 	 * @see #getTask()
 	 * @generated
@@ -2871,7 +2871,7 @@ public interface GeneralPackage extends EPackage {
 		EAttribute EVENT__USER_RELEVANT = eINSTANCE.getEvent_UserRelevant();
 
 		/**
-		 * The meta object literal for the '<em><b>User</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>User</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -3173,7 +3173,7 @@ public interface GeneralPackage extends EPackage {
 		EAttribute CONTAINER__ADD_INFO3 = eINSTANCE.getContainer_AddInfo3();
 
 		/**
-		 * The meta object literal for the '<em><b>Owner</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Owner</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -3313,7 +3313,7 @@ public interface GeneralPackage extends EPackage {
 		EAttribute CONTENT_OBJECT__MODFIED_DATE = eINSTANCE.getContentObject_ModfiedDate();
 
 		/**
-		 * The meta object literal for the '<em><b>Part Of</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Part Of</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -3663,7 +3663,7 @@ public interface GeneralPackage extends EPackage {
 		EAttribute TASK__CREATED = eINSTANCE.getTask_Created();
 
 		/**
-		 * The meta object literal for the '<em><b>Owner</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Owner</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

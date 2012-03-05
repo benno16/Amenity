@@ -10,6 +10,7 @@ import java.util.Date;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
@@ -115,7 +116,7 @@ public class TaskImpl extends EObjectImpl implements Task {
 	protected Date created = CREATED_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getOwner() <em>Owner</em>}' reference.
+	 * The cached value of the '{@link #getOwner() <em>Owner</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwner()
@@ -233,14 +234,6 @@ public class TaskImpl extends EObjectImpl implements Task {
 	 * @generated
 	 */
 	public User getOwner() {
-		if (owner != null && owner.eIsProxy()) {
-			InternalEObject oldOwner = (InternalEObject)owner;
-			owner = (User)eResolveProxy(oldOwner);
-			if (owner != oldOwner) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GeneralPackage.TASK__OWNER, oldOwner, owner));
-			}
-		}
 		return owner;
 	}
 
@@ -249,8 +242,14 @@ public class TaskImpl extends EObjectImpl implements Task {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public User basicGetOwner() {
-		return owner;
+	public NotificationChain basicSetOwner(User newOwner, NotificationChain msgs) {
+		User oldOwner = owner;
+		owner = newOwner;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GeneralPackage.TASK__OWNER, oldOwner, newOwner);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -259,10 +258,31 @@ public class TaskImpl extends EObjectImpl implements Task {
 	 * @generated
 	 */
 	public void setOwner(User newOwner) {
-		User oldOwner = owner;
-		owner = newOwner;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.TASK__OWNER, oldOwner, owner));
+		if (newOwner != owner) {
+			NotificationChain msgs = null;
+			if (owner != null)
+				msgs = ((InternalEObject)owner).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GeneralPackage.TASK__OWNER, null, msgs);
+			if (newOwner != null)
+				msgs = ((InternalEObject)newOwner).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GeneralPackage.TASK__OWNER, null, msgs);
+			msgs = basicSetOwner(newOwner, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.TASK__OWNER, newOwner, newOwner));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GeneralPackage.TASK__OWNER:
+				return basicSetOwner(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -282,8 +302,7 @@ public class TaskImpl extends EObjectImpl implements Task {
 			case GeneralPackage.TASK__CREATED:
 				return getCreated();
 			case GeneralPackage.TASK__OWNER:
-				if (resolve) return getOwner();
-				return basicGetOwner();
+				return getOwner();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

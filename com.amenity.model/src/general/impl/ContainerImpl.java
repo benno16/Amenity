@@ -10,6 +10,7 @@ import java.util.Date;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
@@ -180,7 +181,7 @@ public class ContainerImpl extends EObjectImpl implements Container {
 	protected String addInfo3 = ADD_INFO3_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getOwner() <em>Owner</em>}' reference.
+	 * The cached value of the '{@link #getOwner() <em>Owner</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwner()
@@ -401,14 +402,6 @@ public class ContainerImpl extends EObjectImpl implements Container {
 	 * @generated
 	 */
 	public User getOwner() {
-		if (owner != null && owner.eIsProxy()) {
-			InternalEObject oldOwner = (InternalEObject)owner;
-			owner = (User)eResolveProxy(oldOwner);
-			if (owner != oldOwner) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GeneralPackage.CONTAINER__OWNER, oldOwner, owner));
-			}
-		}
 		return owner;
 	}
 
@@ -417,8 +410,14 @@ public class ContainerImpl extends EObjectImpl implements Container {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public User basicGetOwner() {
-		return owner;
+	public NotificationChain basicSetOwner(User newOwner, NotificationChain msgs) {
+		User oldOwner = owner;
+		owner = newOwner;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GeneralPackage.CONTAINER__OWNER, oldOwner, newOwner);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -427,10 +426,17 @@ public class ContainerImpl extends EObjectImpl implements Container {
 	 * @generated
 	 */
 	public void setOwner(User newOwner) {
-		User oldOwner = owner;
-		owner = newOwner;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.CONTAINER__OWNER, oldOwner, owner));
+		if (newOwner != owner) {
+			NotificationChain msgs = null;
+			if (owner != null)
+				msgs = ((InternalEObject)owner).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GeneralPackage.CONTAINER__OWNER, null, msgs);
+			if (newOwner != null)
+				msgs = ((InternalEObject)newOwner).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GeneralPackage.CONTAINER__OWNER, null, msgs);
+			msgs = basicSetOwner(newOwner, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.CONTAINER__OWNER, newOwner, newOwner));
 	}
 
 	/**
@@ -481,6 +487,20 @@ public class ContainerImpl extends EObjectImpl implements Container {
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GeneralPackage.CONTAINER__OWNER:
+				return basicSetOwner(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GeneralPackage.CONTAINER__CONTAINER_ID:
@@ -498,8 +518,7 @@ public class ContainerImpl extends EObjectImpl implements Container {
 			case GeneralPackage.CONTAINER__ADD_INFO3:
 				return getAddInfo3();
 			case GeneralPackage.CONTAINER__OWNER:
-				if (resolve) return getOwner();
-				return basicGetOwner();
+				return getOwner();
 			case GeneralPackage.CONTAINER__DELETED:
 				return isDeleted();
 			case GeneralPackage.CONTAINER__OWNER_ID:

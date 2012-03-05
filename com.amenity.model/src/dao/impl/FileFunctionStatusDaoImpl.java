@@ -45,7 +45,7 @@ public class FileFunctionStatusDaoImpl extends GenericDaoImpl implements FileFun
 	protected EClass eStaticClass() {
 		return DaoPackage.Literals.FILE_FUNCTION_STATUS_DAO;
 	}
-
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -58,10 +58,8 @@ public class FileFunctionStatusDaoImpl extends GenericDaoImpl implements FileFun
 		List<Function> functions = functionDao.getFunctionsBySnapshot(snapshot1);
 		// now lets fetch its file-function assoziations
 		List<FileFunctionStatus> fileFunctionStatus = new ArrayList<FileFunctionStatus>();
-		
+		functionDao = null;
 		if ( functions != null ) {
-			FileFunctionStatusDao fileFunctionStatusDao = 
-					DaoFactory.eINSTANCE.createFileFunctionStatusDao();
 			session = getSession();
 			session.beginTransaction();
 			

@@ -134,26 +134,26 @@ public interface Task extends EObject {
 	void setCreated(Date value);
 
 	/**
-	 * Returns the value of the '<em><b>Owner</b></em>' reference.
+	 * Returns the value of the '<em><b>Owner</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owner</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owner</em>' reference.
+	 * @return the value of the '<em>Owner</em>' containment reference.
 	 * @see #setOwner(User)
 	 * @see general.GeneralPackage#getTask_Owner()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	User getOwner();
 
 	/**
-	 * Sets the value of the '{@link general.Task#getOwner <em>Owner</em>}' reference.
+	 * Sets the value of the '{@link general.Task#getOwner <em>Owner</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Owner</em>' reference.
+	 * @param value the new value of the '<em>Owner</em>' containment reference.
 	 * @see #getOwner()
 	 * @generated
 	 */

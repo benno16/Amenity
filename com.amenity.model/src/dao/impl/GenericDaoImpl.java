@@ -53,9 +53,8 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 	 * @generated NOT
 	 * @ordered
 	 */
-	protected static final Session SESSION_EDEFAULT = (Session)DaoFactory
-			.eINSTANCE.createHibernateUtil()
-			.getSessionFactory().openSession();
+	protected static final Session SESSION_EDEFAULT = HibernateUtilImpl
+			.getSessionFactoryEdefault().openSession();
 			
 			//.createFromString(DaoPackage.eINSTANCE.getSession(), "");
 
@@ -67,7 +66,7 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 	 * @generated NOT
 	 * @ordered
 	 */
-	protected static Session session;// = SESSION_EDEFAULT;
+	protected Session session;// = SESSION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -117,29 +116,21 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 	 * I modified the session creation return session=!
 	 */
 	public Session getSession() {
-		if ( HibernateUtilImpl.SESSION_FACTORY_EDEFAULT == null ){
+		if ( HibernateUtilImpl.getSessionFactoryEdefault() == null ){
 			System.out.println("The session factory cannot be initialized");
 			return null;
 		}
 		if ( session == null ) {
-			return session = HibernateUtilImpl
-					.SESSION_FACTORY_EDEFAULT.openSession();
+			return session = HibernateUtilImpl.getSessionFactoryEdefault().openSession();
 		} 
-		else if ( session.isOpen() ){
+		else if ( session != null && session.isOpen() ){
 			System.out.println("--- session is open --- ");
+//			return session;
 			session.close();
 		} 
 		return session = HibernateUtilImpl
-				.SESSION_FACTORY_EDEFAULT.openSession(); 
+				.getSessionFactoryEdefault().openSession(); 
 		
-//		try {
-//			session = HibernateUtilImpl.SESSION_FACTORY_EDEFAULT.getCurrentSession();
-//		} catch (HibernateException he ) {
-////			he.printStackTrace();
-//			System.out.println("---- I cannot use the current session");
-//			session = HibernateUtilImpl.SESSION_FACTORY_EDEFAULT.openSession();
-//		}
-//		return session;
 	}
 
 	/**

@@ -216,26 +216,27 @@ public interface Container extends EObject {
 	void setAddInfo3(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Owner</b></em>' reference.
+	 * Returns the value of the '<em><b>Owner</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owner</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owner</em>' reference.
+	 * @return the value of the '<em>Owner</em>' containment reference.
 	 * @see #setOwner(User)
 	 * @see general.GeneralPackage#getContainer_Owner()
-	 * @model annotation="teneo.jpa value='@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})'"
+	 * @model containment="true"
+	 *        annotation="teneo.jpa value='@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})'"
 	 * @generated
 	 */
 	User getOwner();
 
 	/**
-	 * Sets the value of the '{@link general.Container#getOwner <em>Owner</em>}' reference.
+	 * Sets the value of the '{@link general.Container#getOwner <em>Owner</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Owner</em>' reference.
+	 * @param value the new value of the '<em>Owner</em>' containment reference.
 	 * @see #getOwner()
 	 * @generated
 	 */

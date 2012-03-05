@@ -20,6 +20,9 @@ public class Application implements IApplication {
 	 */
 	public Object start(IApplicationContext context) {
 		display = PlatformUI.createDisplay();
+
+		Application.class.getResource("log4j.properties");
+		
 		try {
 			if ( !login() ){
 				return IApplication.EXIT_OK;

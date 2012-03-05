@@ -44,6 +44,7 @@
       <genOperations ecoreOperation="DAO.ecore#//GenericDao/massInsert">
         <genParameters ecoreParameter="DAO.ecore#//GenericDao/massInsert/list"/>
         <genParameters ecoreParameter="DAO.ecore#//GenericDao/massInsert/class"/>
+        <genParameters ecoreParameter="DAO.ecore#//GenericDao/massInsert/object"/>
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="DAO.ecore#//HibernateUtil">

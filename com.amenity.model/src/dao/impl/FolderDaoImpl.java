@@ -67,30 +67,43 @@ public class FolderDaoImpl extends GenericDaoImpl implements FolderDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public boolean massInsert(List list, Class<?> class_) {
+	public boolean massInsert(List list, Class<?> class_, Object object) {
 		session = getSession();
 		Transaction tx = session.beginTransaction();
+		List<Folder> folders;
+		Snapshot s = null;
+		if ( object instanceof Snapshot ) {
+			s = (Snapshot) object;
+			System.err.println(s.getSnapshotId() + " on - " + s.getName());
+		}
 		try {
-			list = (ArrayList<Folder>) list;
+			folders = (ArrayList<Folder>) list;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 		int i = 0;
-		for ( Folder f : (ArrayList<Folder>) list ) {
-			session.save(f);
-			if ( i % 1000 == 0 ) {
-				session.flush();
-				session.clear();
+		for ( Folder f : folders ) {
+			f.setPartOf(s);
+			if ( f.getPartOf() == null ) {
+				System.out.println( f.getName() + " has no snapshot");
+			} else {
+				session.save(f);
+				if ( i % 1000 == 0 ) {
+					session.flush();
+					session.clear();
+				}
+				i++;
 			}
-			i++;
 		}
-		System.out.println("-amount of inserted objects: " + i );
+		System.out.println( i + " were added");
 		try {
 			tx.commit();
 			session.close();
 			return true;
 		} catch ( Exception e ) {
 			tx.rollback();
+			e.printStackTrace();
 			session.close();
 			return false;
 		}

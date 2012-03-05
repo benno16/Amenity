@@ -624,6 +624,7 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		g2 = createEGenericType();
 		g1.getETypeArguments().add(g2);
 		addEParameter(op, g1, "class_", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEJavaObject(), "object", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(hibernateUtilEClass, HibernateUtil.class, "HibernateUtil", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getHibernateUtil_SessionFactory(), this.getSessionFactory(), "sessionFactory", null, 0, 1, HibernateUtil.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

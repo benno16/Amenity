@@ -57,6 +57,7 @@ public interface Event extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Message</b></em>' attribute.
+	 * The default value is <code>""</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Message</em>' attribute isn't clear,
@@ -66,7 +67,8 @@ public interface Event extends EObject {
 	 * @return the value of the '<em>Message</em>' attribute.
 	 * @see #setMessage(String)
 	 * @see general.GeneralPackage#getEvent_Message()
-	 * @model required="true"
+	 * @model default="" required="true"
+	 *        annotation="teneo.jpa value='@Column(length=65535)'"
 	 * @generated
 	 */
 	String getMessage();
@@ -118,7 +120,7 @@ public interface Event extends EObject {
 	 * @return the value of the '<em>User Relevant</em>' attribute.
 	 * @see #setUserRelevant(boolean)
 	 * @see general.GeneralPackage#getEvent_UserRelevant()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	boolean isUserRelevant();
@@ -144,7 +146,7 @@ public interface Event extends EObject {
 	 * @return the value of the '<em>User</em>' containment reference.
 	 * @see #setUser(User)
 	 * @see general.GeneralPackage#getEvent_User()
-	 * @model containment="true" required="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	User getUser();
@@ -162,7 +164,6 @@ public interface Event extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' attribute.
 	 * The default value is <code>""</code>.
-	 * The literals are from the enumeration {@link general.EventType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Type</em>' attribute isn't clear,
@@ -170,24 +171,21 @@ public interface Event extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Type</em>' attribute.
-	 * @see general.EventType
-	 * @see #setType(EventType)
+	 * @see #setType(String)
 	 * @see general.GeneralPackage#getEvent_Type()
-	 * @model default="" required="true"
-	 *        annotation="teneo.jpa value='@Enumerated(ORDINAL)'"
+	 * @model default=""
 	 * @generated
 	 */
-	EventType getType();
+	String getType();
 
 	/**
 	 * Sets the value of the '{@link general.Event#getType <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Type</em>' attribute.
-	 * @see general.EventType
 	 * @see #getType()
 	 * @generated
 	 */
-	void setType(EventType value);
+	void setType(String value);
 
 } // Event

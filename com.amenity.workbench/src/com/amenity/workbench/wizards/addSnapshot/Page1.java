@@ -220,12 +220,8 @@ public class Page1 extends WizardPage {
 	private void createSnapshot() {
 
 		snapshot.setCreated(new Date());
-		snapshot.setName(text_name.getText());
-		snapshot.setComment(text_comment.getText());
-		/**
-		 * TODO: TEST This feature
-		 */
-		System.out.println(current_connection.getConnectionId());
+		snapshot.setName(text_name.getText().length() < 1 ? "-" : text_name.getText() );
+		snapshot.setComment(text_comment.getText().length() < 1 ? "-" : text_comment.getText() );
 		snapshot.setVia(current_connection);
 		SnapshotDao snapshotDao = DaoFactory.eINSTANCE.createSnapshotDao();
 		snapshotDao.create(snapshot);

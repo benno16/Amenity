@@ -723,7 +723,7 @@ public interface GeneralPackage extends EPackage {
 	int CONTENT_OBJECT__MODFIED_DATE = 5;
 
 	/**
-	 * The feature id for the '<em><b>Part Of</b></em>' containment reference.
+	 * The feature id for the '<em><b>Part Of</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -814,7 +814,7 @@ public interface GeneralPackage extends EPackage {
 	int FILE__MODFIED_DATE = CONTENT_OBJECT__MODFIED_DATE;
 
 	/**
-	 * The feature id for the '<em><b>Part Of</b></em>' containment reference.
+	 * The feature id for the '<em><b>Part Of</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -950,7 +950,7 @@ public interface GeneralPackage extends EPackage {
 	int FOLDER__MODFIED_DATE = CONTENT_OBJECT__MODFIED_DATE;
 
 	/**
-	 * The feature id for the '<em><b>Part Of</b></em>' containment reference.
+	 * The feature id for the '<em><b>Part Of</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2170,10 +2170,10 @@ public interface GeneralPackage extends EPackage {
 	EAttribute getContentObject_ModfiedDate();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link general.ContentObject#getPartOf <em>Part Of</em>}'.
+	 * Returns the meta object for the reference '{@link general.ContentObject#getPartOf <em>Part Of</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Part Of</em>'.
+	 * @return the meta object for the reference '<em>Part Of</em>'.
 	 * @see general.ContentObject#getPartOf()
 	 * @see #getContentObject()
 	 * @generated
@@ -3313,7 +3313,7 @@ public interface GeneralPackage extends EPackage {
 		EAttribute CONTENT_OBJECT__MODFIED_DATE = eINSTANCE.getContentObject_ModfiedDate();
 
 		/**
-		 * The meta object literal for the '<em><b>Part Of</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Part Of</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

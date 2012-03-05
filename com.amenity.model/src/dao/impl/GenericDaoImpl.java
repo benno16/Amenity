@@ -280,6 +280,17 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean massInsert(List list, Class<?> class_, Object object) {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public boolean massInsert(List list, Class<?> class_) {

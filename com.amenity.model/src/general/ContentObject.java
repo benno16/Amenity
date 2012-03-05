@@ -215,27 +215,27 @@ public interface ContentObject extends EObject {
 	void setModfiedDate(Date value);
 
 	/**
-	 * Returns the value of the '<em><b>Part Of</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Part Of</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Part Of</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Part Of</em>' containment reference.
+	 * @return the value of the '<em>Part Of</em>' reference.
 	 * @see #setPartOf(Snapshot)
 	 * @see general.GeneralPackage#getContentObject_PartOf()
-	 * @model containment="true" required="true"
+	 * @model required="true"
 	 *        annotation="teneo.jpa value='@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})'"
 	 * @generated
 	 */
 	Snapshot getPartOf();
 
 	/**
-	 * Sets the value of the '{@link general.ContentObject#getPartOf <em>Part Of</em>}' containment reference.
+	 * Sets the value of the '{@link general.ContentObject#getPartOf <em>Part Of</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Part Of</em>' containment reference.
+	 * @param value the new value of the '<em>Part Of</em>' reference.
 	 * @see #getPartOf()
 	 * @generated
 	 */

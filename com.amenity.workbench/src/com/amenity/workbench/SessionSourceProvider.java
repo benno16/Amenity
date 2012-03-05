@@ -10,6 +10,7 @@ import general.UserList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.eclipse.ui.AbstractSourceProvider;
 import org.eclipse.ui.ISources;
@@ -43,7 +44,8 @@ public class SessionSourceProvider extends AbstractSourceProvider {
     // Session information
     public static String SYNERGY_SID = null;
     public static List<String> SYNERGY_PROJECT_LIST = null;
-    
+
+    public static Properties LOG4J_PROPERTIES = null;
     boolean loggedIn;
     
     public void setLoggedIn ( boolean loggedIn ) {

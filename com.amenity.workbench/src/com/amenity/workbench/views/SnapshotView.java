@@ -287,7 +287,6 @@ public class SnapshotView extends ViewPart {
 					if ( structuredSelection.getFirstElement() instanceof Snapshot ) {
 						SessionSourceProvider.CURRENT_SNAPSHOT = 
 								(Snapshot) structuredSelection.getFirstElement();
-						
 						clearSnapshotDetails();
 						btnView.setEnabled(true);
 						label_1.setText(SessionSourceProvider.CURRENT_CONTAINER.getName());

@@ -150,6 +150,6 @@ public interface GenericDao extends EObject {
 	 * @model listDataType="dao.List" listMany="false"
 	 * @generated
 	 */
-	boolean massInsert(List list, Class<?> class_);
+	boolean massInsert(List list, Class<?> class_, Object object);
 
 } // GenericDao

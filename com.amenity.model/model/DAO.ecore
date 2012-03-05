@@ -46,6 +46,7 @@
           <eTypeArguments/>
         </eGenericType>
       </eParameters>
+      <eParameters name="object" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="persistentClass">
       <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaClass">

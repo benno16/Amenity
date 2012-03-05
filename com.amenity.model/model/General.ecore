@@ -33,18 +33,16 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" lowerBound="1" eType="#//Date"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="userRelevant" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="user" lowerBound="1" eType="#//User"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="#//EventType"
-        defaultValueLiteral="">
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="">
       <eAnnotations source="teneo.jpa">
-        <details key="value" value="@Enumerated(ORDINAL)"/>
+        <details key="value" value="@Column(length=65535)"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" lowerBound="1" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="userRelevant" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="user" eType="#//User" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral=""/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="EventType">
     <eLiterals name="Error" literal="Error"/>
@@ -168,7 +166,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="release" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="modfiedDate" eType="#//Date"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="partOf" lowerBound="1"
-        eType="#//Snapshot" containment="true">
+        eType="#//Snapshot">
       <eAnnotations source="teneo.jpa">
         <details key="value" value="@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"/>
       </eAnnotations>

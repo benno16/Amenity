@@ -56,7 +56,7 @@ public class FileDaoImpl extends GenericDaoImpl implements FileDao {
 	}
 
 	@Override
-	public boolean massInsert(List list, Class<?> class_) {
+	public boolean massInsert(List list, Class<?> class_, Object object) {
 		session = getSession();
 		Transaction tx = session.beginTransaction();
 		try {
@@ -73,7 +73,6 @@ public class FileDaoImpl extends GenericDaoImpl implements FileDao {
 			}
 			i++;
 		}
-		System.out.println("-amount of inserted objects: " + i );
 		try {
 			tx.commit();
 			session.close();

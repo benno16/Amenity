@@ -65,7 +65,7 @@ public class EventImpl extends EObjectImpl implements Event {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String MESSAGE_EDEFAULT = null;
+	protected static final String MESSAGE_EDEFAULT = "";
 
 	/**
 	 * The cached value of the '{@link #getMessage() <em>Message</em>}' attribute.
@@ -135,7 +135,7 @@ public class EventImpl extends EObjectImpl implements Event {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final EventType TYPE_EDEFAULT = EventType.ERROR;
+	protected static final String TYPE_EDEFAULT = "";
 
 	/**
 	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -145,7 +145,7 @@ public class EventImpl extends EObjectImpl implements Event {
 	 * @generated
 	 * @ordered
 	 */
-	protected EventType type = TYPE_EDEFAULT;
+	protected String type = TYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -298,7 +298,7 @@ public class EventImpl extends EObjectImpl implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EventType getType() {
+	public String getType() {
 		return type;
 	}
 
@@ -307,9 +307,9 @@ public class EventImpl extends EObjectImpl implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setType(EventType newType) {
-		EventType oldType = type;
-		type = newType == null ? TYPE_EDEFAULT : newType;
+	public void setType(String newType) {
+		String oldType = type;
+		type = newType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.EVENT__TYPE, oldType, type));
 	}
@@ -376,7 +376,7 @@ public class EventImpl extends EObjectImpl implements Event {
 				setUser((User)newValue);
 				return;
 			case GeneralPackage.EVENT__TYPE:
-				setType((EventType)newValue);
+				setType((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -431,7 +431,7 @@ public class EventImpl extends EObjectImpl implements Event {
 			case GeneralPackage.EVENT__USER:
 				return user != null;
 			case GeneralPackage.EVENT__TYPE:
-				return type != TYPE_EDEFAULT;
+				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 		}
 		return super.eIsSet(featureID);
 	}

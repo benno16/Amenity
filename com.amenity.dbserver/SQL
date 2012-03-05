@@ -8,9 +8,11 @@ update "contentobject" set "modfieddate" = now() where "PARTOF" = '012c9c20-f2a0
 select * from "snapshot"
 delete from "container" where "deleted" = 1
 
+delete from "snapshot" where "name" != 't99'
    
-select * from "contentobject" where "name" = 'root'
-
+select * from "contentobject" where "folder_rootdir_objectid" is null 
+and "folder_rootdirectory_objectid" is null
+delete from "contentobject" where "name" = 'test'
 
 drop table "fileproperty"
 
@@ -35,15 +37,25 @@ select * from "snapshot" s
 	inner join "connection" c on s."connection_via_connectionid" = c."connectionid"
 	where c."container_partof_containerid" = 'c0eb818d-f530-43e9-b309-8ef1b7c81868'
 	
-select * from "contentobject" where "objectid" = '04fa4838-2c3e-4043-8c83-58c60e3ebb83'
+select * from "contentobject"
 
-select * from "contentobject" where "objectid" = '4382dfd4-84b4-4cb3-8082-345f05a7b78c'
-
-
+drop table "user"
 
 
-
+delete from "snapshot"
 delete from "contentobject" where "objectid" = '05aa5674-492e-4f12-875c-2f18b5902c2b'
 update "contentobject" set "modfieddate" = now() 
 where "name" = 'algo2.txt' and "snapshot_partof_snapshotid" = '69011638-f174-4dc2-8694-ccba97cfd921'
+
+
+select * from "container"
+u where u."username"='uidu1448'
+
+
+update "container" set "user_owner_userid" = 'a29f2260-a8fa-4521-a801-8fee39413c40'
+
+insert into "event" values( (select count(*) from "event")+1,'Event',
+'0','msg',now(),'0','a29f2260-a8fa-4521-a801-8fee39413c40','INFO');
+
+
 

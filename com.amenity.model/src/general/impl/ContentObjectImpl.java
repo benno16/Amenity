@@ -168,7 +168,7 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 	protected Date modfiedDate = MODFIED_DATE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getPartOf() <em>Part Of</em>}' containment reference.
+	 * The cached value of the '{@link #getPartOf() <em>Part Of</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getPartOf()
@@ -373,6 +373,14 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 	 * @generated
 	 */
 	public Snapshot getPartOf() {
+		if (partOf != null && partOf.eIsProxy()) {
+			InternalEObject oldPartOf = (InternalEObject)partOf;
+			partOf = (Snapshot)eResolveProxy(oldPartOf);
+			if (partOf != oldPartOf) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GeneralPackage.CONTENT_OBJECT__PART_OF, oldPartOf, partOf));
+			}
+		}
 		return partOf;
 	}
 
@@ -381,14 +389,8 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetPartOf(Snapshot newPartOf, NotificationChain msgs) {
-		Snapshot oldPartOf = partOf;
-		partOf = newPartOf;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GeneralPackage.CONTENT_OBJECT__PART_OF, oldPartOf, newPartOf);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+	public Snapshot basicGetPartOf() {
+		return partOf;
 	}
 
 	/**
@@ -397,17 +399,10 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 	 * @generated
 	 */
 	public void setPartOf(Snapshot newPartOf) {
-		if (newPartOf != partOf) {
-			NotificationChain msgs = null;
-			if (partOf != null)
-				msgs = ((InternalEObject)partOf).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GeneralPackage.CONTENT_OBJECT__PART_OF, null, msgs);
-			if (newPartOf != null)
-				msgs = ((InternalEObject)newPartOf).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GeneralPackage.CONTENT_OBJECT__PART_OF, null, msgs);
-			msgs = basicSetPartOf(newPartOf, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.CONTENT_OBJECT__PART_OF, newPartOf, newPartOf));
+		Snapshot oldPartOf = partOf;
+		partOf = newPartOf;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.CONTENT_OBJECT__PART_OF, oldPartOf, partOf));
 	}
 
 	/**
@@ -437,20 +432,6 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GeneralPackage.CONTENT_OBJECT__PART_OF:
-				return basicSetPartOf(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GeneralPackage.CONTENT_OBJECT__OBJECT_ID:
@@ -466,7 +447,8 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 			case GeneralPackage.CONTENT_OBJECT__MODFIED_DATE:
 				return getModfiedDate();
 			case GeneralPackage.CONTENT_OBJECT__PART_OF:
-				return getPartOf();
+				if (resolve) return getPartOf();
+				return basicGetPartOf();
 			case GeneralPackage.CONTENT_OBJECT__FULL_NAME:
 				return getFullName();
 		}

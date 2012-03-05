@@ -34,7 +34,7 @@ public class MksReader {
 
 	private int port = 7001;
 	private Session mySession = null;
-	private Snapshot snapshot;
+	private static Snapshot snapshot;
 	private Connection connection;
 	private List<Folder> folders;
 	private List<File> files;
@@ -49,7 +49,9 @@ public class MksReader {
 	
 	public MksReader ( Connection connection, Snapshot snapshot ) {
 		this.connection = connection;
-		this.snapshot = snapshot;
+		System.out.println("inbound ID: " + snapshot.getSnapshotId());
+		MksReader.snapshot = snapshot;
+		System.out.println("copied ID: " + this.snapshot.getSnapshotId());
 		folders = new ArrayList<Folder>();
 		files = new ArrayList<File>();
 		createRootObject = true;
@@ -459,14 +461,15 @@ public class MksReader {
 
 	private boolean doPersist() {
 		try {
-
-			folderDao.massInsert(folders, Folder.class);
+			System.out.println("---- there are " + folders.size() + " folders");
+			folderDao.massInsert(folders, Folder.class, snapshot);
 //			end = System.currentTimeMillis()/1000;
 //			System.out.println("--- Time to persist folder objects --- " + 
 //					( end- start ) + " seconds");
 //			start = end;
-			
-			fileDao.massInsert(files, File.class);
+
+			System.out.println("---- there are " + files.size() + " files");
+			fileDao.massInsert(files, File.class, snapshot);
 //			end = System.currentTimeMillis()/1000;
 //			System.out.println("--- Time to persist file objects --- " + 
 //					( end- start ) + " seconds");
@@ -553,7 +556,7 @@ public class MksReader {
 //			"|" + stateOut
 //			);
 			Folder folder = GeneralFactory.eINSTANCE.createFolder();
-			folder.setPartOf(snapshot);
+			folder.setPartOf(MksReader.snapshot);
 			Folder root = GeneralFactory.eINSTANCE.createFolder();
 			root = getParentFolder(parentOut);
 			folder.setRootDirectory(root);
@@ -576,7 +579,7 @@ public class MksReader {
 			Folder root = GeneralFactory.eINSTANCE.createFolder();
 			root = getParentFolder(parentOut);
 			file.setRootDir(root);
-			file.setPartOf(snapshot);
+			file.setPartOf(MksReader.snapshot);
 			file.setLevel(root.getLevel() + 1);
 			file.setModfiedDate(getFileDate(membertimestampOut));
 			file.setName(idOut);

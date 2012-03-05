@@ -170,9 +170,9 @@ public class SynergyReader {
 
 			System.err.println("there are: " + folders.size() + " folders and " +
 					files.size() + " files to be inserted");
-			folderDao.massInsert(folders, Folder.class);
+			folderDao.massInsert(folders, Folder.class, snapshot);
 			
-			fileDao.massInsert(files, File.class);
+			fileDao.massInsert(files, File.class, snapshot);
 
 			return true;
 		} catch ( Exception e ) {

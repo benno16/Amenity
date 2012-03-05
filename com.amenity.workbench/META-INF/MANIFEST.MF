@@ -26,4 +26,5 @@ Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
  swing2swt.jar
 Export-Package: com.amenity.workbench.dialogs
+Import-Package: org.apache.log4j;version="1.2.16"
 

@@ -1,7 +1,10 @@
 package com.amenity.workbench;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Properties;
 
+import org.apache.log4j.PropertyConfigurator;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -34,6 +37,13 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
+		
+		SessionSourceProvider.LOG4J_PROPERTIES = new Properties(); 
+		URL url = this.getBundle().getResource("log4j.properties"); 
+		System.err.println(url);
+		SessionSourceProvider.LOG4J_PROPERTIES.load(url.openStream()); 
+		PropertyConfigurator.configure(SessionSourceProvider.LOG4J_PROPERTIES); 
+		
 		plugin = this;
 	}
 

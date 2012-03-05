@@ -1,12 +1,18 @@
 package com.amenity.workbench.dialogs;
 
 import java.util.Date;
+import java.util.UUID;
 
 import general.Container;
 import general.GeneralFactory;
 import general.User;
 import general.UserList;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.MDC;
+import org.apache.log4j.PropertyConfigurator;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.notify.Adapter;
@@ -28,6 +34,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
+import com.amenity.workbench.Application;
 import com.amenity.workbench.SessionSourceProvider;
 
 import dao.ContainerDao;
@@ -206,10 +213,19 @@ public class LoginDialog extends Dialog {
 						SessionSourceProvider.USER = tempUser;
 						ContainerDao containerDao = DaoFactory.eINSTANCE.createContainerDao();
 						SessionSourceProvider.CONTAINER_LIST = containerDao.getListByOwner(Container.class, SessionSourceProvider.USER);
+						
+
+						PropertyConfigurator.configure(SessionSourceProvider.LOG4J_PROPERTIES);
+						MDC.put("userid", SessionSourceProvider.USER.getUserId());
+						Logger log = LogManager.getLogger(LoginDialog.class);
+						MDC.put("uuid",UUID.randomUUID().toString());
+						log.log(Level.FATAL, "ERROR" );
+						log.info("user logged in");
+						
 						super.buttonPressed(buttonId);
 					}
 				} catch ( Exception ex ) {
-					System.out.println("can't find user " + ex.getMessage() );
+					System.out.println("can't find user " + ex.getStackTrace() );
 					ErrorDialog errorDialog = new ErrorDialog(this.getShell(),
 							"Database Connection Error",
 							"There is a problem with the database connection! ",

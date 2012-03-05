@@ -76,6 +76,7 @@ public class GeneralFactoryImpl extends EFactoryImpl implements GeneralFactory {
 			case GeneralPackage.USER_LIST: return createUserList();
 			case GeneralPackage.TASK: return createTask();
 			case GeneralPackage.SESSION_SATUS: return createSessionSatus();
+			case GeneralPackage.CHECK_IN_MILESTONE: return createCheckInMilestone();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -97,6 +98,8 @@ public class GeneralFactoryImpl extends EFactoryImpl implements GeneralFactory {
 				return createQualityCriteriaFromString(eDataType, initialValue);
 			case GeneralPackage.DOCUMENT_TYPE:
 				return createdocumentTypeFromString(eDataType, initialValue);
+			case GeneralPackage.MILESTONE:
+				return createMilestoneFromString(eDataType, initialValue);
 			case GeneralPackage.DATE:
 				return createDateFromString(eDataType, initialValue);
 			case GeneralPackage.IMAGE:
@@ -122,6 +125,8 @@ public class GeneralFactoryImpl extends EFactoryImpl implements GeneralFactory {
 				return convertQualityCriteriaToString(eDataType, instanceValue);
 			case GeneralPackage.DOCUMENT_TYPE:
 				return convertdocumentTypeToString(eDataType, instanceValue);
+			case GeneralPackage.MILESTONE:
+				return convertMilestoneToString(eDataType, instanceValue);
 			case GeneralPackage.DATE:
 				return convertDateToString(eDataType, instanceValue);
 			case GeneralPackage.IMAGE:
@@ -286,6 +291,16 @@ public class GeneralFactoryImpl extends EFactoryImpl implements GeneralFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public CheckInMilestone createCheckInMilestone() {
+		CheckInMilestoneImpl checkInMilestone = new CheckInMilestoneImpl();
+		return checkInMilestone;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EventType createEventTypeFromString(EDataType eDataType, String initialValue) {
 		EventType result = EventType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -358,6 +373,26 @@ public class GeneralFactoryImpl extends EFactoryImpl implements GeneralFactory {
 	 * @generated
 	 */
 	public String convertdocumentTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Milestone createMilestoneFromString(EDataType eDataType, String initialValue) {
+		Milestone result = Milestone.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertMilestoneToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

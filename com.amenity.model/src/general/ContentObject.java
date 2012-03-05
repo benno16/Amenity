@@ -4,6 +4,7 @@ package general;
 
 import java.util.Date;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -22,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link general.ContentObject#getModfiedDate <em>Modfied Date</em>}</li>
  *   <li>{@link general.ContentObject#getPartOf <em>Part Of</em>}</li>
  *   <li>{@link general.ContentObject#getFullName <em>Full Name</em>}</li>
+ *   <li>{@link general.ContentObject#getFunction <em>Function</em>}</li>
  * </ul>
  * </p>
  *
@@ -266,5 +268,21 @@ public interface ContentObject extends EObject {
 	 * @generated
 	 */
 	void setFullName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Function</b></em>' reference list.
+	 * The list contents are of type {@link general.Function}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Function</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Function</em>' reference list.
+	 * @see general.GeneralPackage#getContentObject_Function()
+	 * @model
+	 * @generated
+	 */
+	EList<Function> getFunction();
 
 } // ContentObject

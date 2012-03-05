@@ -49,9 +49,7 @@ public class MksReader {
 	
 	public MksReader ( Connection connection, Snapshot snapshot ) {
 		this.connection = connection;
-		System.out.println("inbound ID: " + snapshot.getSnapshotId());
 		MksReader.snapshot = snapshot;
-		System.out.println("copied ID: " + this.snapshot.getSnapshotId());
 		folders = new ArrayList<Folder>();
 		files = new ArrayList<File>();
 		createRootObject = true;

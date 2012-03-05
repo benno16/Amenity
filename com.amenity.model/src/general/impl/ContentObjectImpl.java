@@ -3,12 +3,15 @@
 package general.impl;
 
 import general.ContentObject;
+import general.Function;
 import general.GeneralPackage;
 import general.Snapshot;
 
+import java.util.Collection;
 import java.util.Date;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
@@ -16,6 +19,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,6 +36,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link general.impl.ContentObjectImpl#getModfiedDate <em>Modfied Date</em>}</li>
  *   <li>{@link general.impl.ContentObjectImpl#getPartOf <em>Part Of</em>}</li>
  *   <li>{@link general.impl.ContentObjectImpl#getFullName <em>Full Name</em>}</li>
+ *   <li>{@link general.impl.ContentObjectImpl#getFunction <em>Function</em>}</li>
  * </ul>
  * </p>
  *
@@ -196,6 +201,16 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 	 * @ordered
 	 */
 	protected String fullName = FULL_NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getFunction() <em>Function</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFunction()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Function> function;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -431,6 +446,18 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Function> getFunction() {
+		if (function == null) {
+			function = new EObjectResolvingEList<Function>(Function.class, this, GeneralPackage.CONTENT_OBJECT__FUNCTION);
+		}
+		return function;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -451,6 +478,8 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 				return basicGetPartOf();
 			case GeneralPackage.CONTENT_OBJECT__FULL_NAME:
 				return getFullName();
+			case GeneralPackage.CONTENT_OBJECT__FUNCTION:
+				return getFunction();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -460,6 +489,7 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -486,6 +516,10 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 				return;
 			case GeneralPackage.CONTENT_OBJECT__FULL_NAME:
 				setFullName((String)newValue);
+				return;
+			case GeneralPackage.CONTENT_OBJECT__FUNCTION:
+				getFunction().clear();
+				getFunction().addAll((Collection<? extends Function>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -523,6 +557,9 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 			case GeneralPackage.CONTENT_OBJECT__FULL_NAME:
 				setFullName(FULL_NAME_EDEFAULT);
 				return;
+			case GeneralPackage.CONTENT_OBJECT__FUNCTION:
+				getFunction().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -551,6 +588,8 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 				return partOf != null;
 			case GeneralPackage.CONTENT_OBJECT__FULL_NAME:
 				return FULL_NAME_EDEFAULT == null ? fullName != null : !FULL_NAME_EDEFAULT.equals(fullName);
+			case GeneralPackage.CONTENT_OBJECT__FUNCTION:
+				return function != null && !function.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

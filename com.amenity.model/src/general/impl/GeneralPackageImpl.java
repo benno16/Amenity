@@ -2,6 +2,7 @@
  */
 package general.impl;
 
+import general.CheckInMilestone;
 import general.Connection;
 import general.ConnectionType;
 import general.ContentObject;
@@ -10,22 +11,15 @@ import general.Event;
 import general.EventType;
 import general.File;
 import general.FileFunctionStatus;
-import general.FileEnding;
-import general.FileProperty;
 import general.FileType;
 import general.Folder;
 import general.Function;
-import general.GeneralDocumentationFileProperty;
-import general.GeneralDocumentationType;
 import general.GeneralFactory;
 import general.GeneralPackage;
-import general.GenericFunctionSRSFileProperty;
-import general.GenericFunctionSRSType;
+import general.Milestone;
 import general.QualityCriteria;
 import general.SessionSatus;
 import general.Snapshot;
-import general.SystemComponentLevelDocumentation;
-import general.SystemComponentLevelDocumentationFileProperty;
 import general.Task;
 import general.User;
 
@@ -162,6 +156,13 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass checkInMilestoneEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum eventTypeEEnum = null;
 
 	/**
@@ -184,6 +185,13 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * @generated
 	 */
 	private EEnum documentTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum milestoneEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -886,6 +894,15 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getContentObject_Function() {
+		return (EReference)contentObjectEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFile() {
 		return fileEClass;
 	}
@@ -1183,6 +1200,15 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getFileFunctionStatus_Type() {
+		return (EAttribute)fileFunctionStatusEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getUserList() {
 		return userListEClass;
 	}
@@ -1291,6 +1317,51 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getCheckInMilestone() {
+		return checkInMilestoneEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCheckInMilestone_CheckInMilestoneId() {
+		return (EAttribute)checkInMilestoneEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCheckInMilestone_Container() {
+		return (EReference)checkInMilestoneEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCheckInMilestone_FileStatus() {
+		return (EReference)checkInMilestoneEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCheckInMilestone_Milestone() {
+		return (EAttribute)checkInMilestoneEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getEventType() {
 		return eventTypeEEnum;
 	}
@@ -1320,6 +1391,15 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 */
 	public EEnum getdocumentType() {
 		return documentTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getMilestone() {
+		return milestoneEEnum;
 	}
 
 	/**
@@ -1443,6 +1523,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		createEAttribute(contentObjectEClass, CONTENT_OBJECT__MODFIED_DATE);
 		createEReference(contentObjectEClass, CONTENT_OBJECT__PART_OF);
 		createEAttribute(contentObjectEClass, CONTENT_OBJECT__FULL_NAME);
+		createEReference(contentObjectEClass, CONTENT_OBJECT__FUNCTION);
 
 		fileEClass = createEClass(FILE);
 		createEAttribute(fileEClass, FILE__OBJECT_NAME);
@@ -1481,6 +1562,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		createEReference(fileFunctionStatusEClass, FILE_FUNCTION_STATUS__OF_FILE);
 		createEReference(fileFunctionStatusEClass, FILE_FUNCTION_STATUS__OF_FUNCTION);
 		createEAttribute(fileFunctionStatusEClass, FILE_FUNCTION_STATUS__SET_ON);
+		createEAttribute(fileFunctionStatusEClass, FILE_FUNCTION_STATUS__TYPE);
 
 		userListEClass = createEClass(USER_LIST);
 		createEAttribute(userListEClass, USER_LIST__USERS);
@@ -1497,11 +1579,18 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		createEAttribute(sessionSatusEClass, SESSION_SATUS__DB_STATUS);
 		createEAttribute(sessionSatusEClass, SESSION_SATUS__SYNERGY_SESSION);
 
+		checkInMilestoneEClass = createEClass(CHECK_IN_MILESTONE);
+		createEAttribute(checkInMilestoneEClass, CHECK_IN_MILESTONE__CHECK_IN_MILESTONE_ID);
+		createEReference(checkInMilestoneEClass, CHECK_IN_MILESTONE__CONTAINER);
+		createEReference(checkInMilestoneEClass, CHECK_IN_MILESTONE__FILE_STATUS);
+		createEAttribute(checkInMilestoneEClass, CHECK_IN_MILESTONE__MILESTONE);
+
 		// Create enums
 		eventTypeEEnum = createEEnum(EVENT_TYPE);
 		connectionTypeEEnum = createEEnum(CONNECTION_TYPE);
 		qualityCriteriaEEnum = createEEnum(QUALITY_CRITERIA);
 		documentTypeEEnum = createEEnum(DOCUMENT_TYPE);
+		milestoneEEnum = createEEnum(MILESTONE);
 
 		// Create data types
 		dateEDataType = createEDataType(DATE);
@@ -1615,6 +1704,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		initEAttribute(getContentObject_ModfiedDate(), this.getDate(), "modfiedDate", null, 0, 1, ContentObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getContentObject_PartOf(), this.getSnapshot(), null, "partOf", null, 1, 1, ContentObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getContentObject_FullName(), ecorePackage.getEString(), "fullName", null, 0, 1, ContentObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getContentObject_Function(), this.getFunction(), null, "function", null, 0, -1, ContentObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fileEClass, File.class, "File", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFile_ObjectName(), ecorePackage.getEString(), "objectName", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1653,6 +1743,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		initEReference(getFileFunctionStatus_OfFile(), this.getContentObject(), null, "ofFile", null, 0, 1, FileFunctionStatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFileFunctionStatus_OfFunction(), this.getFunction(), null, "ofFunction", null, 0, 1, FileFunctionStatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFileFunctionStatus_SetOn(), this.getDate(), "setOn", null, 0, 1, FileFunctionStatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFileFunctionStatus_Type(), this.getdocumentType(), "type", null, 0, 1, FileFunctionStatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(userListEClass, UserList.class, "UserList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		EGenericType g1 = createEGenericType(ecorePackage.getEEList());
@@ -1672,6 +1763,12 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		initEAttribute(getSessionSatus_DbStatus(), ecorePackage.getEBoolean(), "dbStatus", "false", 0, 1, SessionSatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSessionSatus_SynergySession(), ecorePackage.getEString(), "synergySession", "null", 0, 1, SessionSatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(checkInMilestoneEClass, CheckInMilestone.class, "CheckInMilestone", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCheckInMilestone_CheckInMilestoneId(), ecorePackage.getEString(), "checkInMilestoneId", null, 1, 1, CheckInMilestone.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCheckInMilestone_Container(), this.getContainer(), null, "container", null, 0, 1, CheckInMilestone.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCheckInMilestone_FileStatus(), this.getFileFunctionStatus(), null, "fileStatus", null, 0, -1, CheckInMilestone.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCheckInMilestone_Milestone(), this.getMilestone(), "milestone", null, 0, 1, CheckInMilestone.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(eventTypeEEnum, EventType.class, "EventType");
 		addEEnumLiteral(eventTypeEEnum, EventType.ERROR);
@@ -1680,10 +1777,8 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 
 		initEEnum(connectionTypeEEnum, ConnectionType.class, "ConnectionType");
 		addEEnumLiteral(connectionTypeEEnum, ConnectionType.MKS);
+		addEEnumLiteral(connectionTypeEEnum, ConnectionType.MKS_SANDBOX);
 		addEEnumLiteral(connectionTypeEEnum, ConnectionType.SYNERGY);
-		addEEnumLiteral(connectionTypeEEnum, ConnectionType.DOORS);
-		addEEnumLiteral(connectionTypeEEnum, ConnectionType.STAGES);
-		addEEnumLiteral(connectionTypeEEnum, ConnectionType.SHAREPOINT);
 
 		initEEnum(qualityCriteriaEEnum, QualityCriteria.class, "QualityCriteria");
 		addEEnumLiteral(qualityCriteriaEEnum, QualityCriteria.EMPTY);
@@ -1734,6 +1829,19 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		addEEnumLiteral(documentTypeEEnum, documentType.SW_UNIT_TEST_REPORT);
 		addEEnumLiteral(documentTypeEEnum, documentType.ADDITIONAL);
 		addEEnumLiteral(documentTypeEEnum, documentType.ADDITIONAL2);
+
+		initEEnum(milestoneEEnum, Milestone.class, "Milestone");
+		addEEnumLiteral(milestoneEEnum, Milestone.G30);
+		addEEnumLiteral(milestoneEEnum, Milestone.G40);
+		addEEnumLiteral(milestoneEEnum, Milestone.ASAMPLE);
+		addEEnumLiteral(milestoneEEnum, Milestone.BSAMPLE);
+		addEEnumLiteral(milestoneEEnum, Milestone.CSAMPLE);
+		addEEnumLiteral(milestoneEEnum, Milestone.G50);
+		addEEnumLiteral(milestoneEEnum, Milestone.G55);
+		addEEnumLiteral(milestoneEEnum, Milestone.G60);
+		addEEnumLiteral(milestoneEEnum, Milestone.G70);
+		addEEnumLiteral(milestoneEEnum, Milestone.G80);
+		addEEnumLiteral(milestoneEEnum, Milestone.G90);
 
 		// Initialize data types
 		initEDataType(dateEDataType, Date.class, "Date", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
@@ -1883,6 +1991,12 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		   });		
 		addAnnotation
 		  (getTask_TaskId(), 
+		   source, 
+		   new String[] {
+			 "value", "@Id @GeneratedValue(generator=\"system-uuid\")"
+		   });		
+		addAnnotation
+		  (getCheckInMilestone_CheckInMilestoneId(), 
 		   source, 
 		   new String[] {
 			 "value", "@Id @GeneratedValue(generator=\"system-uuid\")"

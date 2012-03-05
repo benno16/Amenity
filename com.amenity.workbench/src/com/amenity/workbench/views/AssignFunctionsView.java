@@ -385,16 +385,25 @@ public class AssignFunctionsView extends ViewPart {
 				 */
 				if ( SessionSourceProvider.CURRENT_FUNCTION != null ) {
 					ContentObjectDao contentObjectDao = DaoFactory.eINSTANCE.createContentObjectDao();
-					contentObjects.add((ContentObject) contentObjectDao.getById(data.toString()));
-					FileFunctionStatusDao fileFunctionStatusDao = 
-							DaoFactory.eINSTANCE.createFileFunctionStatusDao();
+					ContentObject co = GeneralFactory.eINSTANCE.createContentObject();
+					co = (ContentObject) contentObjectDao.getById(data.toString());
 					
-					for ( ContentObject co : contentObjects) {
-						FileFunctionStatus ffs = GeneralFactory.eINSTANCE.createFileFunctionStatus();
-						ffs.setOfFile(co);
-						ffs.setOfFunction(SessionSourceProvider.CURRENT_FUNCTION);
-						fileFunctionStatusDao.create(ffs);
-					}
+					co.getFunction().add(SessionSourceProvider.CURRENT_FUNCTION);
+					contentObjectDao.create(co);
+					contentObjects.add(co);
+					
+					
+//					FileFunctionStatusDao fileFunctionStatusDao = 
+//							DaoFactory.eINSTANCE.createFileFunctionStatusDao();
+					
+//					for ( ContentObject co : contentObjects) {
+////						FileFunctionStatus ffs = GeneralFactory.eINSTANCE.createFileFunctionStatus();
+////						ffs.setOfFile(co);
+////						ffs.setOfFunction(SessionSourceProvider.CURRENT_FUNCTION);
+////						fileFunctionStatusDao.create(ffs);
+//						co.getFunction().add(SessionSourceProvider.CURRENT_FUNCTION);
+//						contentObjectDao.update(co);
+//					}
 					functionTreeViewer.setInput(contentObjects);
 				}
 				return false;

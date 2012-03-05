@@ -1,5 +1,5 @@
 select * from "user"
-
+delete from "user" where "username" = 'Ben'
 update "user" set "username" ='Ben'
 select * from "contentobject" where "PARTOF" = '012c9c20-f2a0-4b87-89ec-2fdddcdeaafa' order by "level" and "name" = 'algo2.txt'
 
@@ -51,6 +51,8 @@ where "name" = 'algo2.txt' and "snapshot_partof_snapshotid" = '69011638-f174-4dc
 select * from "container"
 u where u."username"='uidu1448'
 
+select * from "connection"
+update "connection" set "connectiontype" = 'SYNERGY' where "connectiontype" = 'synergy'
 
 update "container" set "user_owner_userid" = 'a29f2260-a8fa-4521-a801-8fee39413c40'
 

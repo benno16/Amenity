@@ -158,6 +158,12 @@ public class GeneralSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GeneralPackage.CHECK_IN_MILESTONE: {
+				CheckInMilestone checkInMilestone = (CheckInMilestone)theEObject;
+				T result = caseCheckInMilestone(checkInMilestone);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -384,6 +390,21 @@ public class GeneralSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseSessionSatus(SessionSatus object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Check In Milestone</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Check In Milestone</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCheckInMilestone(CheckInMilestone object) {
 		return null;
 	}
 

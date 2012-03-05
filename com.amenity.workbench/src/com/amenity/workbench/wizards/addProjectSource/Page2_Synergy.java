@@ -1,8 +1,5 @@
 package com.amenity.workbench.wizards.addProjectSource;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import general.Connection;
 
 import org.eclipse.jface.wizard.WizardPage;

@@ -19,57 +19,35 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum ConnectionType implements Enumerator {
 	/**
-	 * The '<em><b>Mks</b></em>' literal object.
+	 * The '<em><b>MKS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #MKS_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	MKS(0, "mks", "mks"),
+	MKS(0, "MKS", "MKS"),
 
 	/**
-	 * The '<em><b>Synergy</b></em>' literal object.
+	 * The '<em><b>MKS SANDBOX</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #MKS_SANDBOX_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	MKS_SANDBOX(1, "MKS_SANDBOX", "MKS_SANDBOX"), /**
+	 * The '<em><b>SYNERGY</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #SYNERGY_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	SYNERGY(1, "synergy", "synergy"),
+	SYNERGY(2, "SYNERGY", "SYNERGY");
 
 	/**
-	 * The '<em><b>Doors</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DOORS_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	DOORS(2, "doors", "doors"),
-
-	/**
-	 * The '<em><b>Stages</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #STAGES_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	STAGES(3, "stages", "stages"),
-
-	/**
-	 * The '<em><b>Sharepoint</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #SHAREPOINT_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	SHAREPOINT(4, "sharepoint", "sharepoint");
-
-	/**
-	 * The '<em><b>Mks</b></em>' literal value.
+	 * The '<em><b>MKS</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>Mks</b></em>' literal object isn't clear,
@@ -77,14 +55,29 @@ public enum ConnectionType implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #MKS
-	 * @model name="mks"
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
 	public static final int MKS_VALUE = 0;
 
 	/**
-	 * The '<em><b>Synergy</b></em>' literal value.
+	 * The '<em><b>MKS SANDBOX</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>MKS SANDBOX</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #MKS_SANDBOX
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int MKS_SANDBOX_VALUE = 1;
+
+	/**
+	 * The '<em><b>SYNERGY</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>Synergy</b></em>' literal object isn't clear,
@@ -92,56 +85,11 @@ public enum ConnectionType implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #SYNERGY
-	 * @model name="synergy"
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SYNERGY_VALUE = 1;
-
-	/**
-	 * The '<em><b>Doors</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Doors</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #DOORS
-	 * @model name="doors"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int DOORS_VALUE = 2;
-
-	/**
-	 * The '<em><b>Stages</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Stages</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #STAGES
-	 * @model name="stages"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int STAGES_VALUE = 3;
-
-	/**
-	 * The '<em><b>Sharepoint</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Sharepoint</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #SHAREPOINT
-	 * @model name="sharepoint"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int SHAREPOINT_VALUE = 4;
+	public static final int SYNERGY_VALUE = 2;
 
 	/**
 	 * An array of all the '<em><b>Connection Type</b></em>' enumerators.
@@ -152,10 +100,8 @@ public enum ConnectionType implements Enumerator {
 	private static final ConnectionType[] VALUES_ARRAY =
 		new ConnectionType[] {
 			MKS,
+			MKS_SANDBOX,
 			SYNERGY,
-			DOORS,
-			STAGES,
-			SHAREPOINT,
 		};
 
 	/**
@@ -207,10 +153,8 @@ public enum ConnectionType implements Enumerator {
 	public static ConnectionType get(int value) {
 		switch (value) {
 			case MKS_VALUE: return MKS;
+			case MKS_SANDBOX_VALUE: return MKS_SANDBOX;
 			case SYNERGY_VALUE: return SYNERGY;
-			case DOORS_VALUE: return DOORS;
-			case STAGES_VALUE: return STAGES;
-			case SHAREPOINT_VALUE: return SHAREPOINT;
 		}
 		return null;
 	}

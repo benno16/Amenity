@@ -9,6 +9,7 @@ import general.Function;
 import general.GeneralPackage;
 import general.QualityCriteria;
 
+import general.documentType;
 import java.util.Date;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -36,6 +37,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link general.impl.FileFunctionStatusImpl#getOfFile <em>Of File</em>}</li>
  *   <li>{@link general.impl.FileFunctionStatusImpl#getOfFunction <em>Of Function</em>}</li>
  *   <li>{@link general.impl.FileFunctionStatusImpl#getSetOn <em>Set On</em>}</li>
+ *   <li>{@link general.impl.FileFunctionStatusImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -230,6 +232,26 @@ public class FileFunctionStatusImpl extends EObjectImpl implements FileFunctionS
 	 * @ordered
 	 */
 	protected Date setOn = SET_ON_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final documentType TYPE_EDEFAULT = documentType.SW_PROJECT_PLAN;
+
+	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected documentType type = TYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -524,6 +546,27 @@ public class FileFunctionStatusImpl extends EObjectImpl implements FileFunctionS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public documentType getType() {
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setType(documentType newType) {
+		documentType oldType = type;
+		type = newType == null ? TYPE_EDEFAULT : newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.FILE_FUNCTION_STATUS__TYPE, oldType, type));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -549,6 +592,8 @@ public class FileFunctionStatusImpl extends EObjectImpl implements FileFunctionS
 				return basicGetOfFunction();
 			case GeneralPackage.FILE_FUNCTION_STATUS__SET_ON:
 				return getSetOn();
+			case GeneralPackage.FILE_FUNCTION_STATUS__TYPE:
+				return getType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -590,6 +635,9 @@ public class FileFunctionStatusImpl extends EObjectImpl implements FileFunctionS
 				return;
 			case GeneralPackage.FILE_FUNCTION_STATUS__SET_ON:
 				setSetOn((Date)newValue);
+				return;
+			case GeneralPackage.FILE_FUNCTION_STATUS__TYPE:
+				setType((documentType)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -633,6 +681,9 @@ public class FileFunctionStatusImpl extends EObjectImpl implements FileFunctionS
 			case GeneralPackage.FILE_FUNCTION_STATUS__SET_ON:
 				setSetOn(SET_ON_EDEFAULT);
 				return;
+			case GeneralPackage.FILE_FUNCTION_STATUS__TYPE:
+				setType(TYPE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -665,6 +716,8 @@ public class FileFunctionStatusImpl extends EObjectImpl implements FileFunctionS
 				return ofFunction != null;
 			case GeneralPackage.FILE_FUNCTION_STATUS__SET_ON:
 				return SET_ON_EDEFAULT == null ? setOn != null : !SET_ON_EDEFAULT.equals(setOn);
+			case GeneralPackage.FILE_FUNCTION_STATUS__TYPE:
+				return type != TYPE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -695,6 +748,8 @@ public class FileFunctionStatusImpl extends EObjectImpl implements FileFunctionS
 		result.append(comment);
 		result.append(", setOn: ");
 		result.append(setOn);
+		result.append(", type: ");
+		result.append(type);
 		result.append(')');
 		return result.toString();
 	}

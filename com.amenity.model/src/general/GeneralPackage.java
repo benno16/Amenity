@@ -741,13 +741,22 @@ public interface GeneralPackage extends EPackage {
 	int CONTENT_OBJECT__FULL_NAME = 7;
 
 	/**
+	 * The feature id for the '<em><b>Function</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTENT_OBJECT__FUNCTION = 8;
+
+	/**
 	 * The number of structural features of the '<em>Content Object</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTENT_OBJECT_FEATURE_COUNT = 8;
+	int CONTENT_OBJECT_FEATURE_COUNT = 9;
 
 	/**
 	 * The meta object id for the '{@link general.impl.FileImpl <em>File</em>}' class.
@@ -830,6 +839,15 @@ public interface GeneralPackage extends EPackage {
 	 * @ordered
 	 */
 	int FILE__FULL_NAME = CONTENT_OBJECT__FULL_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Function</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE__FUNCTION = CONTENT_OBJECT__FUNCTION;
 
 	/**
 	 * The feature id for the '<em><b>Object Name</b></em>' attribute.
@@ -966,6 +984,15 @@ public interface GeneralPackage extends EPackage {
 	 * @ordered
 	 */
 	int FOLDER__FULL_NAME = CONTENT_OBJECT__FULL_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Function</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOLDER__FUNCTION = CONTENT_OBJECT__FUNCTION;
 
 	/**
 	 * The feature id for the '<em><b>Root Directory</b></em>' reference.
@@ -1232,13 +1259,22 @@ public interface GeneralPackage extends EPackage {
 	int FILE_FUNCTION_STATUS__SET_ON = 9;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_FUNCTION_STATUS__TYPE = 10;
+
+	/**
 	 * The number of structural features of the '<em>File Function Status</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_FUNCTION_STATUS_FEATURE_COUNT = 10;
+	int FILE_FUNCTION_STATUS_FEATURE_COUNT = 11;
 
 	/**
 	 * The meta object id for the '{@link general.impl.UserListImpl <em>User List</em>}' class.
@@ -1379,6 +1415,61 @@ public interface GeneralPackage extends EPackage {
 	int SESSION_SATUS_FEATURE_COUNT = 3;
 
 	/**
+	 * The meta object id for the '{@link general.impl.CheckInMilestoneImpl <em>Check In Milestone</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see general.impl.CheckInMilestoneImpl
+	 * @see general.impl.GeneralPackageImpl#getCheckInMilestone()
+	 * @generated
+	 */
+	int CHECK_IN_MILESTONE = 15;
+
+	/**
+	 * The feature id for the '<em><b>Check In Milestone Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHECK_IN_MILESTONE__CHECK_IN_MILESTONE_ID = 0;
+
+	/**
+	 * The feature id for the '<em><b>Container</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHECK_IN_MILESTONE__CONTAINER = 1;
+
+	/**
+	 * The feature id for the '<em><b>File Status</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHECK_IN_MILESTONE__FILE_STATUS = 2;
+
+	/**
+	 * The feature id for the '<em><b>Milestone</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHECK_IN_MILESTONE__MILESTONE = 3;
+
+	/**
+	 * The number of structural features of the '<em>Check In Milestone</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHECK_IN_MILESTONE_FEATURE_COUNT = 4;
+
+	/**
 	 * The meta object id for the '{@link general.EventType <em>Event Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1386,7 +1477,7 @@ public interface GeneralPackage extends EPackage {
 	 * @see general.impl.GeneralPackageImpl#getEventType()
 	 * @generated
 	 */
-	int EVENT_TYPE = 15;
+	int EVENT_TYPE = 16;
 
 	/**
 	 * The meta object id for the '{@link general.ConnectionType <em>Connection Type</em>}' enum.
@@ -1396,7 +1487,7 @@ public interface GeneralPackage extends EPackage {
 	 * @see general.impl.GeneralPackageImpl#getConnectionType()
 	 * @generated
 	 */
-	int CONNECTION_TYPE = 16;
+	int CONNECTION_TYPE = 17;
 
 	/**
 	 * The meta object id for the '{@link general.QualityCriteria <em>Quality Criteria</em>}' enum.
@@ -1406,7 +1497,7 @@ public interface GeneralPackage extends EPackage {
 	 * @see general.impl.GeneralPackageImpl#getQualityCriteria()
 	 * @generated
 	 */
-	int QUALITY_CRITERIA = 17;
+	int QUALITY_CRITERIA = 18;
 
 	/**
 	 * The meta object id for the '{@link general.documentType <em>document Type</em>}' enum.
@@ -1416,7 +1507,17 @@ public interface GeneralPackage extends EPackage {
 	 * @see general.impl.GeneralPackageImpl#getdocumentType()
 	 * @generated
 	 */
-	int DOCUMENT_TYPE = 18;
+	int DOCUMENT_TYPE = 19;
+
+	/**
+	 * The meta object id for the '{@link general.Milestone <em>Milestone</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see general.Milestone
+	 * @see general.impl.GeneralPackageImpl#getMilestone()
+	 * @generated
+	 */
+	int MILESTONE = 20;
 
 	/**
 	 * The meta object id for the '<em>Date</em>' data type.
@@ -1426,7 +1527,7 @@ public interface GeneralPackage extends EPackage {
 	 * @see general.impl.GeneralPackageImpl#getDate()
 	 * @generated
 	 */
-	int DATE = 19;
+	int DATE = 21;
 
 	/**
 	 * The meta object id for the '<em>Image</em>' data type.
@@ -1436,7 +1537,7 @@ public interface GeneralPackage extends EPackage {
 	 * @see general.impl.GeneralPackageImpl#getImage()
 	 * @generated
 	 */
-	int IMAGE = 20;
+	int IMAGE = 22;
 
 
 	/**
@@ -2192,6 +2293,17 @@ public interface GeneralPackage extends EPackage {
 	EAttribute getContentObject_FullName();
 
 	/**
+	 * Returns the meta object for the reference list '{@link general.ContentObject#getFunction <em>Function</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Function</em>'.
+	 * @see general.ContentObject#getFunction()
+	 * @see #getContentObject()
+	 * @generated
+	 */
+	EReference getContentObject_Function();
+
+	/**
 	 * Returns the meta object for class '{@link general.File <em>File</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2550,6 +2662,17 @@ public interface GeneralPackage extends EPackage {
 	EAttribute getFileFunctionStatus_SetOn();
 
 	/**
+	 * Returns the meta object for the attribute '{@link general.FileFunctionStatus#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see general.FileFunctionStatus#getType()
+	 * @see #getFileFunctionStatus()
+	 * @generated
+	 */
+	EAttribute getFileFunctionStatus_Type();
+
+	/**
 	 * Returns the meta object for class '{@link general.UserList <em>User List</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2679,6 +2802,60 @@ public interface GeneralPackage extends EPackage {
 	EAttribute getSessionSatus_SynergySession();
 
 	/**
+	 * Returns the meta object for class '{@link general.CheckInMilestone <em>Check In Milestone</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Check In Milestone</em>'.
+	 * @see general.CheckInMilestone
+	 * @generated
+	 */
+	EClass getCheckInMilestone();
+
+	/**
+	 * Returns the meta object for the attribute '{@link general.CheckInMilestone#getCheckInMilestoneId <em>Check In Milestone Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Check In Milestone Id</em>'.
+	 * @see general.CheckInMilestone#getCheckInMilestoneId()
+	 * @see #getCheckInMilestone()
+	 * @generated
+	 */
+	EAttribute getCheckInMilestone_CheckInMilestoneId();
+
+	/**
+	 * Returns the meta object for the reference '{@link general.CheckInMilestone#getContainer <em>Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Container</em>'.
+	 * @see general.CheckInMilestone#getContainer()
+	 * @see #getCheckInMilestone()
+	 * @generated
+	 */
+	EReference getCheckInMilestone_Container();
+
+	/**
+	 * Returns the meta object for the reference list '{@link general.CheckInMilestone#getFileStatus <em>File Status</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>File Status</em>'.
+	 * @see general.CheckInMilestone#getFileStatus()
+	 * @see #getCheckInMilestone()
+	 * @generated
+	 */
+	EReference getCheckInMilestone_FileStatus();
+
+	/**
+	 * Returns the meta object for the attribute '{@link general.CheckInMilestone#getMilestone <em>Milestone</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Milestone</em>'.
+	 * @see general.CheckInMilestone#getMilestone()
+	 * @see #getCheckInMilestone()
+	 * @generated
+	 */
+	EAttribute getCheckInMilestone_Milestone();
+
+	/**
 	 * Returns the meta object for enum '{@link general.EventType <em>Event Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2717,6 +2894,16 @@ public interface GeneralPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getdocumentType();
+
+	/**
+	 * Returns the meta object for enum '{@link general.Milestone <em>Milestone</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Milestone</em>'.
+	 * @see general.Milestone
+	 * @generated
+	 */
+	EEnum getMilestone();
 
 	/**
 	 * Returns the meta object for data type '{@link java.util.Date <em>Date</em>}'.
@@ -3329,6 +3516,14 @@ public interface GeneralPackage extends EPackage {
 		EAttribute CONTENT_OBJECT__FULL_NAME = eINSTANCE.getContentObject_FullName();
 
 		/**
+		 * The meta object literal for the '<em><b>Function</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONTENT_OBJECT__FUNCTION = eINSTANCE.getContentObject_Function();
+
+		/**
 		 * The meta object literal for the '{@link general.impl.FileImpl <em>File</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3603,6 +3798,14 @@ public interface GeneralPackage extends EPackage {
 		EAttribute FILE_FUNCTION_STATUS__SET_ON = eINSTANCE.getFileFunctionStatus_SetOn();
 
 		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FILE_FUNCTION_STATUS__TYPE = eINSTANCE.getFileFunctionStatus_Type();
+
+		/**
 		 * The meta object literal for the '{@link general.impl.UserListImpl <em>User List</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3705,6 +3908,48 @@ public interface GeneralPackage extends EPackage {
 		EAttribute SESSION_SATUS__SYNERGY_SESSION = eINSTANCE.getSessionSatus_SynergySession();
 
 		/**
+		 * The meta object literal for the '{@link general.impl.CheckInMilestoneImpl <em>Check In Milestone</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see general.impl.CheckInMilestoneImpl
+		 * @see general.impl.GeneralPackageImpl#getCheckInMilestone()
+		 * @generated
+		 */
+		EClass CHECK_IN_MILESTONE = eINSTANCE.getCheckInMilestone();
+
+		/**
+		 * The meta object literal for the '<em><b>Check In Milestone Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CHECK_IN_MILESTONE__CHECK_IN_MILESTONE_ID = eINSTANCE.getCheckInMilestone_CheckInMilestoneId();
+
+		/**
+		 * The meta object literal for the '<em><b>Container</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CHECK_IN_MILESTONE__CONTAINER = eINSTANCE.getCheckInMilestone_Container();
+
+		/**
+		 * The meta object literal for the '<em><b>File Status</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CHECK_IN_MILESTONE__FILE_STATUS = eINSTANCE.getCheckInMilestone_FileStatus();
+
+		/**
+		 * The meta object literal for the '<em><b>Milestone</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CHECK_IN_MILESTONE__MILESTONE = eINSTANCE.getCheckInMilestone_Milestone();
+
+		/**
 		 * The meta object literal for the '{@link general.EventType <em>Event Type</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3743,6 +3988,16 @@ public interface GeneralPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum DOCUMENT_TYPE = eINSTANCE.getdocumentType();
+
+		/**
+		 * The meta object literal for the '{@link general.Milestone <em>Milestone</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see general.Milestone
+		 * @see general.impl.GeneralPackageImpl#getMilestone()
+		 * @generated
+		 */
+		EEnum MILESTONE = eINSTANCE.getMilestone();
 
 		/**
 		 * The meta object literal for the '<em>Date</em>' data type.

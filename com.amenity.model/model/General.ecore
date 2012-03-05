@@ -69,11 +69,9 @@
         eType="#//Connection" eOpposite="#//Connection/source"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ConnectionType">
-    <eLiterals name="mks"/>
-    <eLiterals name="synergy" value="1"/>
-    <eLiterals name="doors" value="2"/>
-    <eLiterals name="stages" value="3"/>
-    <eLiterals name="sharepoint" value="4"/>
+    <eLiterals name="MKS"/>
+    <eLiterals name="MKS_SANDBOX" value="1"/>
+    <eLiterals name="SYNERGY" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Connection">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="connectionId" lowerBound="1"
@@ -172,6 +170,8 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fullName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="function" unique="false"
+        upperBound="-1" eType="#//Function"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="File" eSuperTypes="#//ContentObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="objectName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -244,6 +244,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="ofFile" eType="#//ContentObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ofFunction" eType="#//Function"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="setOn" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//documentType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="QualityCriteria">
     <eLiterals name="empty" literal="empty"/>
@@ -325,5 +326,30 @@
     <eLiterals name="SW_Unit_test_Report" value="38" literal="SW_Unit_test_Report"/>
     <eLiterals name="Additional" value="39"/>
     <eLiterals name="Additional2" value="40" literal="Additional2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Milestone">
+    <eLiterals name="G30"/>
+    <eLiterals name="G40" value="1"/>
+    <eLiterals name="A_SAMPLE" value="2"/>
+    <eLiterals name="B_SAMPLE" value="3"/>
+    <eLiterals name="C_SAMPLE" value="4"/>
+    <eLiterals name="G50" value="5"/>
+    <eLiterals name="G55" value="6"/>
+    <eLiterals name="G60" value="7"/>
+    <eLiterals name="G70" value="8"/>
+    <eLiterals name="G80" value="9"/>
+    <eLiterals name="G90" value="10"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CheckInMilestone">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="checkInMilestoneId" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" iD="true">
+      <eAnnotations source="teneo.jpa">
+        <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="container" eType="#//Container"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fileStatus" upperBound="-1"
+        eType="#//FileFunctionStatus"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="milestone" eType="#//Milestone"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -4,7 +4,6 @@ package general.impl;
 
 import general.Function;
 import general.GeneralPackage;
-import general.GenericFunctionSRSFileProperty;
 import general.Snapshot;
 
 import java.util.Collection;

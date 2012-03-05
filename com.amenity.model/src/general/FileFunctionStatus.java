@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link general.FileFunctionStatus#getOfFile <em>Of File</em>}</li>
  *   <li>{@link general.FileFunctionStatus#getOfFunction <em>Of Function</em>}</li>
  *   <li>{@link general.FileFunctionStatus#getSetOn <em>Set On</em>}</li>
+ *   <li>{@link general.FileFunctionStatus#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -333,5 +334,34 @@ public interface FileFunctionStatus extends EObject {
 	 * @generated
 	 */
 	void setSetOn(Date value);
+
+	/**
+	 * Returns the value of the '<em><b>Type</b></em>' attribute.
+	 * The literals are from the enumeration {@link general.documentType}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Type</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Type</em>' attribute.
+	 * @see general.documentType
+	 * @see #setType(documentType)
+	 * @see general.GeneralPackage#getFileFunctionStatus_Type()
+	 * @model
+	 * @generated
+	 */
+	documentType getType();
+
+	/**
+	 * Sets the value of the '{@link general.FileFunctionStatus#getType <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Type</em>' attribute.
+	 * @see general.documentType
+	 * @see #getType()
+	 * @generated
+	 */
+	void setType(documentType value);
 
 } // FileFunctionStatus

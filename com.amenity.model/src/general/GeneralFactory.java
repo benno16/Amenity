@@ -157,6 +157,15 @@ public interface GeneralFactory extends EFactory {
 	SessionSatus createSessionSatus();
 
 	/**
+	 * Returns a new object of class '<em>Check In Milestone</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Check In Milestone</em>'.
+	 * @generated
+	 */
+	CheckInMilestone createCheckInMilestone();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -128,6 +128,10 @@ public class GeneralAdapterFactory extends AdapterFactoryImpl {
 				return createSessionSatusAdapter();
 			}
 			@Override
+			public Adapter caseCheckInMilestone(CheckInMilestone object) {
+				return createCheckInMilestoneAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -354,6 +358,20 @@ public class GeneralAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSessionSatusAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link general.CheckInMilestone <em>Check In Milestone</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see general.CheckInMilestone
+	 * @generated
+	 */
+	public Adapter createCheckInMilestoneAdapter() {
 		return null;
 	}
 

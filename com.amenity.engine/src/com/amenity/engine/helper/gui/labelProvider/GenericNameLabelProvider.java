@@ -3,7 +3,6 @@ package com.amenity.engine.helper.gui.labelProvider;
 import general.*;
 
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;

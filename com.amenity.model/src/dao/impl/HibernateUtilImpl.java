@@ -46,7 +46,7 @@ public class HibernateUtilImpl extends EObjectImpl implements HibernateUtil {
 	 * @ordered
 	 */
 	private static final SessionFactory SESSION_FACTORY_EDEFAULT;
-
+	
 	public static SessionFactory getSessionFactoryEdefault() {
 		return SESSION_FACTORY_EDEFAULT;
 	}
@@ -82,11 +82,16 @@ public class HibernateUtilImpl extends EObjectImpl implements HibernateUtil {
 			hibernateProperties.setProperty(Environment.C3P0_MIN_SIZE, "10");
 			hibernateProperties.setProperty(Environment.C3P0_TIMEOUT, "100");
 			hibernateProperties.setProperty(Environment.AUTOCOMMIT, "false");
-//			hibernateProperties.setProperty(Environment.CACHE_PROVIDER, "org.hibernate.cache.SingletonEhCacheProvider");
-//			hibernateProperties.setProperty(Environment.CACHE_PROVIDER_CONFIG, "transactional|read-write|nonstrict-read-write|read-only");
-			hibernateProperties.setProperty(Environment.USE_QUERY_CACHE, "true");
 			hibernateProperties.setProperty(Environment.POOL_SIZE, "0");
-//			hibernateProperties.setProperty(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
+
+			/**
+			 * TODO: caching provider config
+			 */
+			hibernateProperties.setProperty(Environment.USE_QUERY_CACHE, "true");
+			hibernateProperties.setProperty(Environment.USE_SECOND_LEVEL_CACHE, "true");
+			hibernateProperties.setProperty(Environment.CACHE_PROVIDER, "org.hibernate.cache.SingletonEhCacheProvider");
+			hibernateProperties.setProperty(Environment.CACHE_PROVIDER_CONFIG, "transactional|read-write|nonstrict-read-write|read-only");
+
 
 			final String dataStoreName = "AmenityDataStore";
 			final HbDataStore dataStore = HbHelper.INSTANCE

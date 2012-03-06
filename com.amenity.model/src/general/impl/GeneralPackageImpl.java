@@ -1879,7 +1879,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		  (getUser_UserId(), 
 		   source, 
 		   new String[] {
-			 "value", "@Id @GeneratedValue(generator=\"system-uuid\")"
+			 "value", "@Id @GeneratedValue(generator=\"system-uuid\") @Column(length=36)"
 		   });		
 		addAnnotation
 		  (getEvent_EventId(), 
@@ -1975,7 +1975,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		  (getTask_TaskId(), 
 		   source, 
 		   new String[] {
-			 "value", "@Id @GeneratedValue(generator=\"system-uuid\")"
+			 "value", "@Id @GeneratedValue(generator=\"system-uuid\") @Column(length=36)"
 		   });		
 		addAnnotation
 		  (getCheckInMilestone_CheckInMilestoneId(), 

@@ -41,6 +41,7 @@ public class Page2_Synergy extends WizardPage {
 		
 		btnConnect = new Button(container, SWT.NONE);
 		btnConnect.addSelectionListener(new SelectionAdapter() {
+			@SuppressWarnings("static-access")
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				
@@ -135,6 +136,7 @@ public class Page2_Synergy extends WizardPage {
 		wizard.three_sgy.createProjectList(wizard.projectList);
 	}
 
+	@SuppressWarnings("unused")
 	private void doConnect() {
 		btnConnect.setEnabled(false);
 		

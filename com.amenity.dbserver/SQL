@@ -14,7 +14,7 @@ select * from "contentobject" where "folder_rootdir_objectid" is null
 and "folder_rootdirectory_objectid" is null
 delete from "contentobject" where "name" = 'test'
 
-drop table "fileproperty"
+drop table "task"
 
 drop schema "PUBLIC" cascade
 

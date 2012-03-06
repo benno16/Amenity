@@ -12,7 +12,7 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" unsettable="true"
         iD="true">
       <eAnnotations source="teneo.jpa">
-        <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;)"/>
+        <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;) @Column(length=36)"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="username" lowerBound="1"
@@ -255,7 +255,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="taskId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         iD="true">
       <eAnnotations source="teneo.jpa">
-        <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;)"/>
+        <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;) @Column(length=36)"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="finished" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"

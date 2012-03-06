@@ -39,7 +39,7 @@ public interface Task extends EObject {
 	 * @see #setTaskId(String)
 	 * @see general.GeneralPackage#getTask_TaskId()
 	 * @model id="true"
-	 *        annotation="teneo.jpa value='@Id @GeneratedValue(generator=\"system-uuid\")'"
+	 *        annotation="teneo.jpa value='@Id @GeneratedValue(generator=\"system-uuid\") @Column(length=36)'"
 	 * @generated
 	 */
 	String getTaskId();

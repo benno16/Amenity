@@ -1,7 +1,6 @@
 package com.amenity.engine.helper.mks;
 
 import general.Connection;
-import general.ConnectionType;
 import general.File;
 
 import java.io.IOException;
@@ -20,6 +19,10 @@ public class MksGetFile {
 
 	private Connection connection;
 	private int port = 7001;
+	@SuppressWarnings("unused")
+	/**
+	 * TODO: implement Sandbox FETCH
+	 */
 	private boolean isSandbox = false;
 	private Session mySession = null;
 	private File file = null;

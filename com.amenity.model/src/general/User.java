@@ -45,7 +45,7 @@ public interface User extends EObject {
 	 * @see #setUserId(String)
 	 * @see general.GeneralPackage#getUser_UserId()
 	 * @model unsettable="true" id="true" required="true"
-	 *        annotation="teneo.jpa value='@Id @GeneratedValue(generator=\"system-uuid\")'"
+	 *        annotation="teneo.jpa value='@Id @GeneratedValue(generator=\"system-uuid\") @Column(length=36)'"
 	 * @generated
 	 */
 	String getUserId();

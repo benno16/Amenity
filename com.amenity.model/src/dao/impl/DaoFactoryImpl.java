@@ -156,7 +156,7 @@ public class DaoFactoryImpl extends EFactoryImpl implements DaoFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public HibernateUtil createHibernateUtil() {
 		HibernateUtilImpl hibernateUtil = new HibernateUtilImpl();

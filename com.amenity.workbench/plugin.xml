@@ -81,12 +81,6 @@
             name="Event Log"
             restorable="true">
       </view>
-      <view
-            class="org.eclipse.ui.views.TaskList"
-            id="org.eclipse.ui.views.TaskList"
-            name="Task List"
-            restorable="true">
-      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">

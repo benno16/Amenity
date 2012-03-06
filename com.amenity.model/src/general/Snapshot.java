@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see general.GeneralPackage#getSnapshot()
- * @model annotation="teneo.jpa value='@OnDelete(action = OnDeleteAction.CASCADE)'"
+ * @model
  * @generated
  */
 public interface Snapshot extends EObject {

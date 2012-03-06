@@ -3,16 +3,19 @@ package com.amenity.workbench.views;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 import general.Container;
 import general.ContentObject;
 import general.File;
-import general.FileFunctionStatus;
 import general.Folder;
 import general.Function;
 import general.GeneralFactory;
 import general.Snapshot;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -22,6 +25,7 @@ import org.eclipse.ui.part.ViewPart;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -56,12 +60,15 @@ import com.amenity.workbench.dialogs.CreateFunctionDialog;
 import dao.ContainerDao;
 import dao.ContentObjectDao;
 import dao.DaoFactory;
-import dao.FileFunctionStatusDao;
 import dao.FolderDao;
 import dao.FunctionDao;
 import dao.SnapshotDao;
+import dao.impl.HibernateUtilImpl;
+
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class AssignFunctionsView extends ViewPart {
 	public static String newFn = null;
@@ -80,11 +87,15 @@ public class AssignFunctionsView extends ViewPart {
 	private Composite composite;
 	private java.util.List<ContentObject> contentObjects;
 	private java.util.List<Function> functions;
-	
+	private Logger log;
+	private Transaction tx;
+	private Session s;
 
 	public AssignFunctionsView() {
 		contentObjects = new ArrayList<ContentObject>();
 		functions = new ArrayList<Function>();
+		log = LogManager.getLogger(AssignFunctionsView.class);
+		PropertyConfigurator.configure(SessionSourceProvider.LOG4J_PROPERTIES);
 	}
 
 	@SuppressWarnings("unused")
@@ -167,14 +178,37 @@ public class AssignFunctionsView extends ViewPart {
 			}
 		});
 		functionComboViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@SuppressWarnings("unchecked")
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				objectSelection = event.getSelection();
 				structuredSelection = (IStructuredSelection) objectSelection;
-				if ( !structuredSelection.isEmpty()) {
-					if ( structuredSelection.getFirstElement() instanceof Function) {
-						SessionSourceProvider.CURRENT_FUNCTION = (Function) 
-								structuredSelection.getFirstElement();
+				if ( contentObjects.size() > 1 ) {
+					log.info("saving " + contentObjects.size() + 
+							" objects to function " + SessionSourceProvider.CURRENT_FUNCTION );
+					saveBtnAction();
+				} else {
+					
+					// check if list is not empty
+					if ( !structuredSelection.isEmpty()) {
+						
+						// ensure element is of correct instance
+						if ( structuredSelection.getFirstElement() instanceof Function) {
+							System.out.println("tab");
+							// if a new element is selected clear list and repaint the tree
+							if ( SessionSourceProvider.CURRENT_FUNCTION == null || 
+									!SessionSourceProvider.CURRENT_FUNCTION.equals((Function) 
+									structuredSelection.getFirstElement()) ) {
+								contentObjects.clear();
+								SessionSourceProvider.CURRENT_FUNCTION = (Function) 
+										structuredSelection.getFirstElement();
+								
+								ContentObjectDao coDao = DaoFactory.eINSTANCE.createContentObjectDao();
+								functionTreeViewer.setInput( contentObjects = coDao
+										.getObjectsOfFunction(SessionSourceProvider.CURRENT_FUNCTION, 
+												SessionSourceProvider.CURRENT_SNAPSHOT));
+							}
+						}
 					}
 				}
 			}
@@ -387,24 +421,11 @@ public class AssignFunctionsView extends ViewPart {
 					ContentObjectDao contentObjectDao = DaoFactory.eINSTANCE.createContentObjectDao();
 					ContentObject co = GeneralFactory.eINSTANCE.createContentObject();
 					co = (ContentObject) contentObjectDao.getById(data.toString());
-					
-					co.getFunction().add(SessionSourceProvider.CURRENT_FUNCTION);
-					contentObjectDao.create(co);
 					contentObjects.add(co);
-					
-					
-//					FileFunctionStatusDao fileFunctionStatusDao = 
-//							DaoFactory.eINSTANCE.createFileFunctionStatusDao();
-					
-//					for ( ContentObject co : contentObjects) {
-////						FileFunctionStatus ffs = GeneralFactory.eINSTANCE.createFileFunctionStatus();
-////						ffs.setOfFile(co);
-////						ffs.setOfFunction(SessionSourceProvider.CURRENT_FUNCTION);
-////						fileFunctionStatusDao.create(ffs);
-//						co.getFunction().add(SessionSourceProvider.CURRENT_FUNCTION);
-//						contentObjectDao.update(co);
-//					}
 					functionTreeViewer.setInput(contentObjects);
+				} else {
+					MessageDialog.openInformation(composite.getShell(), 
+							"Information", "Please select or create a function first");
 				}
 				return false;
 			}
@@ -417,14 +438,14 @@ public class AssignFunctionsView extends ViewPart {
 			
 		});
 	    
-		Composite composite = new Composite(parent, SWT.NONE);
-		composite.setLayout(new GridLayout(2, false));
-		composite.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		Composite compositeM = new Composite(parent, SWT.NONE);
+		compositeM.setLayout(new GridLayout(2, false));
+		compositeM.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
 		
-		Button arrowRightLeft = new Button(composite, SWT.NONE);
+		Button arrowRightLeft = new Button(compositeM, SWT.NONE);
 		arrowRightLeft.setText("<");
 		
-		Button arrowRightRight = new Button(composite, SWT.NONE);
+		Button arrowRightRight = new Button(compositeM, SWT.NONE);
 		arrowRightRight.setText(">");
 		
 		Grid statusGrid = new Grid(parent, SWT.BORDER);
@@ -497,17 +518,65 @@ public class AssignFunctionsView extends ViewPart {
 		btnSave.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				/**
-				 * TODO: read info from middle tree and store asso
-				 * 
-				 */
+				if ( MessageDialog.openQuestion(composite.getShell(), "" +
+						"Confirmation Required", "Are you sure you want to add " +
+								"the files to the selected function?") ) {
+					saveBtnAction();
+				}
 			}
 		});
 		new Label(parent, SWT.NONE);
 		new Label(parent, SWT.NONE);
 		new Label(parent, SWT.NONE);
 	}
+	
+	protected void saveBtnAction () {
+		if ( contentObjects.size() > 0 ) {
+			// Iterate through the content object list, store function and remove from list
+			s = HibernateUtilImpl.getSessionFactoryEdefault().openSession();
+			tx = s.beginTransaction();
+			System.out.println("how many are there to be added? " + contentObjects.size());
+			for ( Iterator<ContentObject> iter = contentObjects.iterator(); iter.hasNext(); ) {
+				ContentObject co = iter.next();
 
+				storeFunctionInfoInFile ( co );
+				
+				iter.remove();
+			}
+			tx.commit();
+			s.close();
+		} else {
+			MessageDialog.openInformation(composite.getShell(), 
+					"Information", "nothing to persist");
+		}
+		fillSnapshotTree();
+	}
+
+	protected void storeFunctionInfoInFile( ContentObject co ) {
+		if ( co instanceof File || co instanceof Folder ) {
+			
+			// load the object to be modified
+			s.load(co, co.getObjectId());
+			// assign the function to it
+			co.getFunction().add(SessionSourceProvider.CURRENT_FUNCTION);
+			
+			// store the changes into the database
+			s.merge(co);
+			// commit them and close session
+		}
+		// if its a folder fetch children and perform same operation
+//		if ( co instanceof Folder ) {
+//			java.util.List<ContentObject > coList = getChildren(co);
+//			for ( ContentObject subCo : coList ) {
+//				storeFunctionInfoInFile(subCo);
+//			}
+//		}
+	}
+	@SuppressWarnings("unchecked")
+	protected java.util.List<ContentObject> getChildren ( ContentObject co ) {
+		ContentObjectDao coDao = DaoFactory.eINSTANCE.createContentObjectDao();
+		return coDao.getChildren(co, SessionSourceProvider.CURRENT_SNAPSHOT);
+	}
 	
 	
 
@@ -552,9 +621,6 @@ public class AssignFunctionsView extends ViewPart {
 						SessionSourceProvider.CURRENT_SNAPSHOT);
 		snapshotTreeViewer.setInput(folder);
 	}
-	
-	
-	
 	
 	
 	@Override

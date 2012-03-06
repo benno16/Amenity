@@ -1,10 +1,6 @@
 package com.amenity.engine.helper.gui.labelProvider;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import general.File;
-import general.FileFunctionStatus;
 import general.Folder;
 import general.Snapshot;
 
@@ -15,59 +11,60 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
+import org.hibernate.Session;
 
-import dao.DaoFactory;
-import dao.FileFunctionStatusDao;
+import dao.impl.HibernateUtilImpl;
 
 public class SnapshotStyledLabelProvder extends StyledCellLabelProvider  {
 
-	private Snapshot snapshot;
-	private List<FileFunctionStatus> fileFunctionStatus;
 	
 	public SnapshotStyledLabelProvder ( Snapshot snapshot ){
-		this.snapshot = snapshot;
-		fileFunctionStatus = new ArrayList<FileFunctionStatus>();
 	}
 	
 	@Override
 	public void update(ViewerCell cell) {
+		// fetch cell element
 		Object element = cell.getElement();
-		StyledString text = new StyledString();
 		
-		getFileFunctionStatusList();
+		StyledString text = new StyledString();
+		Session s = HibernateUtilImpl.getSessionFactoryEdefault().openSession();
 		
 		if (element instanceof Folder) {
+			// if element is a file set its name and style if it is part of a function
 			Folder folder = (Folder) element;
+			s.beginTransaction();
+			s.load(folder, folder.getObjectId());
+			
 			text.append(folder.getName());
 			cell.setImage(PlatformUI.getWorkbench().getSharedImages()
 					.getImage(ISharedImages.IMG_OBJ_FOLDER));
-			if ( fileFunctionStatus.contains(folder) ) {
-				System.out.println("---" + folder.getName());
-				cell.setBackground(new Color(Display.getCurrent(), 255, 228, 225));
+
+			if ( ((Folder) element).getFunction().size() > 0  ) {
+				
+				cell.setForeground(new Color(Display.getCurrent(), 120, 120, 120));
+				
 			}
 //				text.append(" ( " +  + " ) ", StyledString.COUNTER_STYLER);
 		} else {
 			File file = (File) element;
+			s.beginTransaction();
+			s.load(file, file.getObjectId());
+			
 			text.append(file.getName());
 			cell.setImage(PlatformUI.getWorkbench().getSharedImages()
 					.getImage(ISharedImages.IMG_OBJ_FILE));
-			if ( fileFunctionStatus.contains(file) ) {
-				System.out.println("---" + file.getName());
-				cell.setBackground(new Color(Display.getCurrent(), 255, 228, 225));
+			if ( ((File)element).getFunction().size() > 0 ) {
+			
+				cell.setForeground(new Color(Display.getCurrent(), 120, 120, 120));
+			
 			}
-////			if ( fnName.length() > 0 )
-////				text.append(" ( " + fnName + " ) ", StyledString.COUNTER_STYLER);
 		}
+		
 		cell.setText(text.toString());
+		
 		cell.setStyleRanges(text.getStyleRanges());
+		s.close();
+		
 		super.update(cell);
-	}
-	
-	@SuppressWarnings("unchecked")
-	private void getFileFunctionStatusList() {
-		FileFunctionStatusDao fileFunctionStatusDao = 
-				DaoFactory.eINSTANCE.createFileFunctionStatusDao();
-		fileFunctionStatus = fileFunctionStatusDao
-				.getFileFunctionStatusBySnapshot(snapshot);
 	}
 }

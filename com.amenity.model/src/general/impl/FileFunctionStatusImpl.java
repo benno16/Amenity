@@ -3,7 +3,6 @@
 package general.impl;
 
 import general.ContentObject;
-import general.File;
 import general.FileFunctionStatus;
 import general.Function;
 import general.GeneralPackage;

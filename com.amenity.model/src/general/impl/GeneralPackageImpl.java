@@ -1930,12 +1930,6 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 			 "value", "@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"
 		   });		
 		addAnnotation
-		  (snapshotEClass, 
-		   source, 
-		   new String[] {
-			 "value", "@OnDelete(action = OnDeleteAction.CASCADE)"
-		   });		
-		addAnnotation
 		  (getSnapshot_SnapshotId(), 
 		   source, 
 		   new String[] {
@@ -1946,12 +1940,6 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		   source, 
 		   new String[] {
 			 "value", "@Id @GeneratedValue(generator=\"system-uuid\")"
-		   });		
-		addAnnotation
-		  (getContentObject_PartOf(), 
-		   source, 
-		   new String[] {
-			 "value", "@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"
 		   });		
 		addAnnotation
 		  (getFile_RootDir(), 
@@ -1970,12 +1958,6 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		   source, 
 		   new String[] {
 			 "value", "@Id @GeneratedValue(generator=\"system-uuid\")"
-		   });		
-		addAnnotation
-		  (functionEClass, 
-		   source, 
-		   new String[] {
-			 "value", "@OnDelete(action = OnDeleteAction.CASCADE)"
 		   });		
 		addAnnotation
 		  (getFunction_FunctionId(), 

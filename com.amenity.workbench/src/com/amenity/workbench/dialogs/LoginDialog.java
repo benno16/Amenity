@@ -219,7 +219,6 @@ public class LoginDialog extends Dialog {
 						MDC.put("userid", SessionSourceProvider.USER.getUserId());
 						Logger log = LogManager.getLogger(LoginDialog.class);
 						MDC.put("uuid",UUID.randomUUID().toString());
-						log.log(Level.FATAL, "ERROR" );
 						log.info("user logged in");
 						
 						super.buttonPressed(buttonId);

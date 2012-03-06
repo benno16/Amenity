@@ -2,12 +2,9 @@
  */
 package dao.impl;
 
-import dao.ConnectionDao;
-import dao.DaoFactory;
 import dao.DaoPackage;
 import dao.FunctionDao;
 
-import general.Connection;
 import general.Function;
 import general.Snapshot;
 
@@ -64,6 +61,18 @@ public class FunctionDaoImpl extends GenericDaoImpl implements FunctionDao {
 		
 		session.close();
 		return resList;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void emtpyFunction(Object function) {
+		session = getSession();
+		session.beginTransaction();
+		session.createQuery("delete from " + Function.class.getName().toString() + 
+				" where f");
 	}
 
 } //FunctionDaoImpl

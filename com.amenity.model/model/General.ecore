@@ -134,9 +134,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ownerId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Snapshot">
-    <eAnnotations source="teneo.jpa">
-      <details key="value" value="@OnDelete(action = OnDeleteAction.CASCADE)"/>
-    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="snapshotId" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="teneo.jpa">
@@ -164,11 +161,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="release" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="modfiedDate" eType="#//Date"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="partOf" lowerBound="1"
-        eType="#//Snapshot">
-      <eAnnotations source="teneo.jpa">
-        <details key="value" value="@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//Snapshot"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fullName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="function" unique="false"
         upperBound="-1" eType="#//Function"/>
@@ -206,9 +199,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="suffix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Function">
-    <eAnnotations source="teneo.jpa">
-      <details key="value" value="@OnDelete(action = OnDeleteAction.CASCADE)"/>
-    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="functionId" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" unsettable="true"
         iD="true">

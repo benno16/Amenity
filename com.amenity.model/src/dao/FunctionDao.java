@@ -25,4 +25,12 @@ public interface FunctionDao extends GenericDao {
 	 */
 	List getFunctionsBySnapshot(Snapshot snapshot);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	void emtpyFunction(Object function);
+
 } // FunctionDao

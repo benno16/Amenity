@@ -41,4 +41,20 @@ public interface ContentObjectDao extends GenericDao {
 	 */
 	List getChildren(Object parent, Snapshot snapshot);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	Object addFunctionToCo(Object function, Object contentObject);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model dataType="dao.List" many="false" snapshotDataType="dao.Snapshot"
+	 * @generated
+	 */
+	List getObjectsOfFunction(Object function, Snapshot snapshot);
+
 } // ContentObjectDao

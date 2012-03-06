@@ -674,10 +674,21 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		addEParameter(op, ecorePackage.getEJavaObject(), "parent", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getSnapshot(), "snapshot", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(contentObjectDaoEClass, ecorePackage.getEJavaObject(), "addFunctionToCo", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEJavaObject(), "function", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEJavaObject(), "contentObject", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(contentObjectDaoEClass, this.getList(), "getObjectsOfFunction", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEJavaObject(), "function", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getSnapshot(), "snapshot", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(functionDaoEClass, FunctionDao.class, "FunctionDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		op = addEOperation(functionDaoEClass, this.getList(), "getFunctionsBySnapshot", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getSnapshot(), "snapshot", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(functionDaoEClass, null, "emtpyFunction", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEJavaObject(), "function", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(fileFunctionStatusDaoEClass, FileFunctionStatusDao.class, "FileFunctionStatusDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

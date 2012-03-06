@@ -7,8 +7,10 @@ import dao.DaoPackage;
 
 import general.ContentObject;
 import general.Folder;
+import general.Function;
 import general.Snapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
@@ -110,6 +112,59 @@ public class ContentObjectDaoImpl extends GenericDaoImpl implements ContentObjec
 		session.close();
 		
 		return returnList;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public Object addFunctionToCo(Object function, Object contentObject) {
+		session = getSession();
+		session.beginTransaction();
+		session.flush();
+		Query queryRes = session.createQuery("from " + ContentObject.class.getName().toString() + 
+				" where objectId='" + ((ContentObject)contentObject).getObjectId() + "'");
+		ContentObject co = (ContentObject)queryRes.list().get(0);
+		co.getFunction().add((Function)function);
+		session.update(co);
+		session.flush();
+		session.close();
+		return co;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public List getObjectsOfFunction(Object function, Snapshot snapshot) {
+		session = getSession();
+		
+		session.beginTransaction();
+		
+		session.load(function, ((Function)function).getFunctionId());
+		
+		String string = "from " + ContentObject.class.getName().toString() + 
+				" where partOf = '" + snapshot.getSnapshotId() + "'";
+		
+		Query queryRes = session.createQuery(string);
+		
+		List<ContentObject> cos = queryRes.list();
+		
+		List<ContentObject> returnCos = new ArrayList<ContentObject>();
+		
+		for ( ContentObject co : cos ) {
+			if ( co.getFunction().size() > 0 ) {
+				if ( co.getFunction().contains(function) ) {
+					returnCos.add(co);
+				}
+			}
+		}
+		
+		session.close();
+		
+		return returnCos;
 	}
 
 } //ContentObjectDaoImpl

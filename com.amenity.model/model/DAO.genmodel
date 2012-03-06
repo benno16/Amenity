@@ -90,10 +90,21 @@
         <genParameters ecoreParameter="DAO.ecore#//ContentObjectDao/getChildren/parent"/>
         <genParameters ecoreParameter="DAO.ecore#//ContentObjectDao/getChildren/snapshot"/>
       </genOperations>
+      <genOperations ecoreOperation="DAO.ecore#//ContentObjectDao/addFunctionToCo">
+        <genParameters ecoreParameter="DAO.ecore#//ContentObjectDao/addFunctionToCo/function"/>
+        <genParameters ecoreParameter="DAO.ecore#//ContentObjectDao/addFunctionToCo/contentObject"/>
+      </genOperations>
+      <genOperations ecoreOperation="DAO.ecore#//ContentObjectDao/getObjectsOfFunction">
+        <genParameters ecoreParameter="DAO.ecore#//ContentObjectDao/getObjectsOfFunction/function"/>
+        <genParameters ecoreParameter="DAO.ecore#//ContentObjectDao/getObjectsOfFunction/snapshot"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="DAO.ecore#//FunctionDao">
       <genOperations ecoreOperation="DAO.ecore#//FunctionDao/getFunctionsBySnapshot">
         <genParameters ecoreParameter="DAO.ecore#//FunctionDao/getFunctionsBySnapshot/snapshot"/>
+      </genOperations>
+      <genOperations ecoreOperation="DAO.ecore#//FunctionDao/emtpyFunction">
+        <genParameters ecoreParameter="DAO.ecore#//FunctionDao/emtpyFunction/function"/>
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="DAO.ecore#//FileFunctionStatusDao">

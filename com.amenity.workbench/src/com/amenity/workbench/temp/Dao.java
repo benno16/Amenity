@@ -1,10 +1,5 @@
 package com.amenity.workbench.temp;
 
-import java.util.Date;
-
-import general.Folder;
-import general.GeneralFactory;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -13,9 +8,6 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
 import com.amenity.workbench.SessionSourceProvider;
-
-import dao.DaoFactory;
-import dao.FolderDao;
 
 public class Dao extends AbstractHandler {
 	

@@ -122,7 +122,7 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 		}
 		if ( session == null ) {
 			return session = HibernateUtilImpl.getSessionFactoryEdefault().openSession();
-		} 
+		}
 		else if ( session != null && session.isOpen() ){
 			System.out.println("--- session is open --- ");
 //			return session;
@@ -130,7 +130,12 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 		} 
 		return session = HibernateUtilImpl
 				.getSessionFactoryEdefault().openSession(); 
-		
+//		if ( session == null ) {
+//			System.out.println("first session ");
+//			return session = HibernateUtilImpl.getSessionFactoryEdefault().openSession();
+//		} else 
+//			return session;
+			
 	}
 
 	/**

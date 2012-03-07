@@ -10,7 +10,7 @@
 		<meta attribute="eclassName" inherit="false">User</meta>
 		<meta attribute="epackage" inherit="false">http://general/1.0</meta>
 		<id name="userId" type="java.lang.String">
-			<column not-null="true" unique="false" name="`userid`" length="36"/>
+			<column not-null="true" unique="false" name="`userid`"/>
 			<generator class="uuid2"/>
 		</id>
 		<discriminator type="string">
@@ -37,6 +37,15 @@
 		<property name="deleted" lazy="false" insert="true" update="true" not-null="false" unique="false" type="boolean">
 			<column not-null="false" unique="false" name="`deleted`"/>
 		</property>
+		<list name="event" table="`user_event`" lazy="true" cascade="persist,merge,refresh,save-update,lock">
+			<key update="true">
+				<column name="`user_userid`" unique="false"/>
+			</key>
+			<list-index column="`user_event_idx`"/>
+			<many-to-many entity-name="Event" unique="true">
+				<column name="`event_eventid`" unique="false"/>
+			</many-to-many>
+		</list>
 	</class>
 	<class name="general.impl.EventImpl" entity-name="Event" abstract="false" lazy="false" discriminator-value="Event" table="`event`">
 		<meta attribute="eclassName" inherit="false">Event</meta>
@@ -51,20 +60,23 @@
 		<version name="e_version" column="e_version" access="org.eclipse.emf.teneo.hibernate.mapping.property.VersionPropertyHandler">
 			<meta attribute="syntheticVersion" inherit="false">true</meta>
 		</version>
-		<property name="message" lazy="false" insert="true" update="true" not-null="false" unique="false" type="java.lang.String">
-			<column not-null="false" unique="false" name="`message`" length="65535"/>
+		<property name="message" lazy="false" insert="true" update="true" not-null="true" unique="false" type="java.lang.String">
+			<column not-null="true" unique="false" name="`message`"/>
 		</property>
 		<property name="date" lazy="false" insert="true" update="true" not-null="true" unique="false" type="timestamp">
 			<column not-null="true" unique="false" name="`date`"/>
 		</property>
-		<property name="userRelevant" lazy="false" insert="true" update="true" not-null="false" unique="false" type="boolean">
-			<column not-null="false" unique="false" name="`userrelevant`"/>
+		<property name="userRelevant" lazy="false" insert="true" update="true" not-null="true" unique="false" type="boolean">
+			<column not-null="true" unique="false" name="`userrelevant`"/>
 		</property>
-		<many-to-one name="user" entity-name="User" lazy="false" cascade="all" foreign-key="event_user" insert="true" update="true" not-null="false">
-			<column not-null="false" unique="false" name="`user_user_userid`"/>
-		</many-to-one>
-		<property name="type" lazy="false" insert="true" update="true" not-null="false" unique="false" type="java.lang.String">
-			<column not-null="false" unique="false" name="`type`"/>
+		<many-to-one name="user" entity-name="User" lazy="false" foreign-key="event_user" insert="true" update="true" not-null="false"/>
+		<property name="type" lazy="false" not-null="true" insert="true" update="true" unique="false">
+			<column not-null="true" unique="false" name="`type`"/>
+			<type name="org.eclipse.emf.teneo.hibernate.mapping.ENumUserIntegerType">
+				<param name="enumClass">general.EventType</param>
+				<param name="eclassifier">EventType</param>
+				<param name="epackage">http://general/1.0</param>
+			</type>
 		</property>
 	</class>
 	<class name="general.impl.DataSourceImpl" entity-name="DataSource" abstract="false" lazy="false" discriminator-value="DataSource" table="`datasource`">
@@ -166,12 +178,15 @@
 		<property name="lastUsed" lazy="false" insert="true" update="true" not-null="false" unique="false" type="timestamp">
 			<column not-null="false" unique="false" name="`lastused`"/>
 		</property>
-		<many-to-one name="partOf" entity-name="Container" lazy="false" cascade="save-update,delete" foreign-key="connection_partof" insert="true" update="true" not-null="true">
+		<many-to-one name="partOf" entity-name="Container" lazy="false" foreign-key="connection_partof" insert="true" update="true" not-null="true">
 			<column not-null="true" unique="false" name="`container_partof_containerid`"/>
 		</many-to-one>
 		<property name="deleted" lazy="false" insert="true" update="true" not-null="false" unique="false" type="boolean">
 			<column not-null="false" unique="false" name="`deleted`"/>
 		</property>
+		<many-to-one name="EReference0" entity-name="Snapshot" lazy="false" cascade="all" foreign-key="connection_ereference0" insert="true" update="true" not-null="false">
+			<column not-null="false" unique="false" name="`snapshot_ereference0_snapshotid`"/>
+		</many-to-one>
 	</class>
 	<class name="general.impl.ContainerImpl" entity-name="Container" abstract="false" lazy="false" discriminator-value="Container" table="`container`">
 		<meta attribute="eclassName" inherit="false">Container</meta>
@@ -204,7 +219,7 @@
 		<property name="addInfo3" lazy="false" insert="true" update="true" not-null="false" unique="false" type="java.lang.String">
 			<column not-null="false" unique="false" name="`addinfo3`"/>
 		</property>
-		<many-to-one name="owner" entity-name="User" lazy="false" cascade="save-update,delete" foreign-key="container_owner" insert="true" update="true" not-null="false">
+		<many-to-one name="owner" entity-name="User" lazy="false" foreign-key="container_owner" insert="true" update="true" not-null="false">
 			<column not-null="false" unique="false" name="`user_owner_userid`"/>
 		</many-to-one>
 		<property name="deleted" lazy="false" insert="true" update="true" not-null="false" unique="false" type="boolean">
@@ -236,11 +251,44 @@
 		<property name="comment" lazy="false" insert="true" update="true" not-null="false" unique="false" type="java.lang.String">
 			<column not-null="false" unique="false" name="`comment`"/>
 		</property>
+		<many-to-one name="partOf" entity-name="Container" lazy="false" foreign-key="snapshot_partof" insert="true" update="true" not-null="true">
+			<column not-null="true" unique="false" name="`container_partof_containerid`"/>
+		</many-to-one>
 		<property name="deleted" lazy="false" insert="true" update="true" not-null="false" unique="false" type="boolean">
 			<column not-null="false" unique="false" name="`deleted`"/>
 		</property>
-		<many-to-one name="via" entity-name="Connection" lazy="false" foreign-key="snapshot_via" insert="true" update="true" not-null="false">
-			<column not-null="false" unique="false" name="`connection_via_connectionid`"/>
+		<list name="stores" table="`snapshot_stores`" lazy="true" cascade="persist,merge,refresh,save-update,lock">
+			<key update="true">
+				<column name="`snapshot_snapshotid`" unique="false"/>
+			</key>
+			<list-index column="`snapshot_stores_idx`"/>
+			<many-to-many entity-name="ContentObject" unique="true">
+				<column name="`contentobject_objectid`" unique="false"/>
+			</many-to-many>
+		</list>
+		<list name="functions" table="`snapshot_functions`" lazy="true" cascade="persist,merge,refresh,save-update,lock">
+			<key update="true">
+				<column name="`snapshot_snapshotid`" unique="false"/>
+			</key>
+			<list-index column="`snapshot_functions_idx`"/>
+			<many-to-many entity-name="Function" unique="true" foreign-key="snapshot_functions">
+				<column name="`function_functionid`" unique="false"/>
+			</many-to-many>
+		</list>
+		<many-to-one name="general" entity-name="GeneralDocumentationFileProperty" lazy="false" foreign-key="snapshot_general" insert="true" update="true" not-null="true">
+			<column not-null="true" unique="false" name="`generaldocumentationfileproperty_general_filepropertyid`"/>
+		</many-to-one>
+		<many-to-one name="systemComponent" entity-name="SystemComponentLevelDocumentationFileProperty" lazy="false" foreign-key="snapshot_systemcomponent" insert="true" update="true" not-null="false">
+			<column not-null="false" unique="false" name="`systemcomponentleveldocumentationfileproperty_systemcomponent_filepropertyid`"/>
+		</many-to-one>
+		<many-to-one name="EReference0" entity-name="SystemComponentLevelDocumentationFileProperty" lazy="false" cascade="all" foreign-key="snapshot_ereference0" insert="true" update="true" not-null="false">
+			<column not-null="false" unique="false" name="`systemcomponentleveldocumentationfileproperty_ereference0_filepropertyid`"/>
+		</many-to-one>
+		<many-to-one name="EReference1" entity-name="Function" lazy="false" cascade="all" foreign-key="snapshot_ereference1" insert="true" update="true" not-null="false">
+			<column not-null="false" unique="false" name="`function_ereference1_functionid`"/>
+		</many-to-one>
+		<many-to-one name="EReference2" entity-name="GeneralDocumentationFileProperty" lazy="false" cascade="all" foreign-key="snapshot_ereference2" insert="true" update="true" not-null="false">
+			<column not-null="false" unique="false" name="`generaldocumentationfileproperty_ereference2_filepropertyid`"/>
 		</many-to-one>
 	</class>
 	<class name="general.impl.ContentObjectImpl" entity-name="ContentObject" abstract="false" lazy="false" discriminator-value="ContentObject" table="`contentobject`">
@@ -271,21 +319,7 @@
 		<property name="modfiedDate" lazy="false" insert="true" update="true" not-null="false" unique="false" type="timestamp">
 			<column not-null="false" unique="false" name="`modfieddate`"/>
 		</property>
-		<many-to-one name="partOf" entity-name="Snapshot" lazy="false" foreign-key="contentobject_partof" insert="true" update="true" not-null="true">
-			<column not-null="true" unique="false" name="`snapshot_partof_snapshotid`"/>
-		</many-to-one>
-		<property name="fullName" lazy="false" insert="true" update="true" not-null="false" unique="false" type="java.lang.String">
-			<column not-null="false" unique="false" name="`fullname`"/>
-		</property>
-		<list name="function" table="`contentobject_function`" lazy="true" cascade="persist,merge,refresh,save-update,lock">
-			<key update="true">
-				<column name="`contentobject_objectid`" unique="false"/>
-			</key>
-			<list-index column="`contentobject_function_idx`"/>
-			<many-to-many entity-name="Function" unique="false" foreign-key="contentobject_function">
-				<column name="`function_functionid`" unique="false"/>
-			</many-to-many>
-		</list>
+		<many-to-one name="partOf" entity-name="Snapshot" lazy="false" foreign-key="contentobject_partof" insert="true" update="true" not-null="false"/>
 	</class>
 	<subclass name="general.impl.FileImpl" entity-name="File" abstract="false" lazy="false" extends="ContentObject" discriminator-value="File">
 		<meta attribute="eclassName" inherit="false">File</meta>
@@ -299,17 +333,33 @@
 		<property name="status" lazy="false" insert="true" update="true" not-null="false" unique="false" type="java.lang.String">
 			<column not-null="false" unique="false" name="`status`"/>
 		</property>
-		<many-to-one name="rootDir" entity-name="Folder" lazy="false" cascade="save-update,delete" foreign-key="file_rootdir" insert="true" update="true" not-null="false">
-			<column not-null="false" unique="false" name="`folder_rootdir_objectid`"/>
+		<many-to-one name="rootDir" entity-name="Folder" lazy="false" foreign-key="file_rootdir" insert="true" update="true" not-null="false"/>
+		<many-to-one name="ofType" entity-name="FileType" lazy="false" foreign-key="file_oftype" insert="true" update="true" not-null="false">
+			<column not-null="false" unique="false" name="`filetype_oftype_filetypeid`"/>
 		</many-to-one>
-		<property name="suffix" lazy="false" insert="true" update="true" not-null="false" unique="false" type="java.lang.String">
-			<column not-null="false" unique="false" name="`suffix`"/>
-		</property>
+		<list name="hasProperty" table="`file_hasproperty`" lazy="true" cascade="persist,merge,refresh,save-update,lock">
+			<key update="true">
+				<column name="`file_objectid`" unique="false"/>
+			</key>
+			<list-index column="`file_hasproperty_idx`"/>
+			<many-to-many entity-name="FileProperty" unique="true">
+				<column name="`fileproperty_filepropertyid`" unique="false"/>
+			</many-to-many>
+		</list>
 	</subclass>
 	<subclass name="general.impl.FolderImpl" entity-name="Folder" abstract="false" lazy="false" extends="ContentObject" discriminator-value="Folder">
 		<meta attribute="eclassName" inherit="false">Folder</meta>
 		<meta attribute="epackage" inherit="false">http://general/1.0</meta>
-		<many-to-one name="rootDirectory" entity-name="Folder" lazy="false" cascade="save-update,delete" foreign-key="folder_rootdirectory" insert="true" update="true" not-null="false">
+		<list name="children" table="`folder_children`" lazy="true" cascade="persist,merge,refresh,save-update,lock">
+			<key update="true">
+				<column name="`folder_objectid`" unique="false"/>
+			</key>
+			<list-index column="`folder_children_idx`"/>
+			<many-to-many entity-name="File" unique="true">
+				<column name="`file_objectid`" unique="false"/>
+			</many-to-many>
+		</list>
+		<many-to-one name="rootDirectory" entity-name="Folder" lazy="false" foreign-key="folder_rootdirectory" insert="true" update="true" not-null="false">
 			<column not-null="false" unique="false" name="`folder_rootdirectory_objectid`"/>
 		</many-to-one>
 	</subclass>
@@ -335,9 +385,36 @@
 		<property name="icon" lazy="false" insert="true" update="true" not-null="true" unique="false" type="general.Image">
 			<column not-null="true" unique="false" name="`icon`"/>
 		</property>
-		<property name="suffix" lazy="false" insert="true" update="true" not-null="false" unique="false" type="java.lang.String">
-			<column not-null="false" unique="false" name="`suffix`"/>
+		<property name="tool" lazy="false" insert="true" update="true" not-null="false" unique="false" type="java.lang.String">
+			<column not-null="false" unique="false" name="`tool`"/>
 		</property>
+		<list name="uses" table="`filetype_uses`" lazy="true" cascade="persist,merge,refresh,save-update,lock">
+			<key update="true">
+				<column name="`filetype_filetypeid`" unique="false"/>
+			</key>
+			<list-index column="`filetype_uses_idx`"/>
+			<many-to-many entity-name="FileEnding" unique="true">
+				<column name="`fileending_fileendingid`" unique="false"/>
+			</many-to-many>
+		</list>
+	</class>
+	<class name="general.impl.FileEndingImpl" entity-name="FileEnding" abstract="false" lazy="false" discriminator-value="FileEnding" table="`fileending`">
+		<meta attribute="eclassName" inherit="false">FileEnding</meta>
+		<meta attribute="epackage" inherit="false">http://general/1.0</meta>
+		<id name="fileEndingId" type="java.lang.String">
+			<column not-null="true" unique="false" name="`fileendingid`"/>
+			<generator class="uuid2"/>
+		</id>
+		<discriminator type="string">
+			<column name="`dtype`" index="fileendingdtype" length="255" not-null="true"/>
+		</discriminator>
+		<version name="e_version" column="e_version" access="org.eclipse.emf.teneo.hibernate.mapping.property.VersionPropertyHandler">
+			<meta attribute="syntheticVersion" inherit="false">true</meta>
+		</version>
+		<property name="name" lazy="false" insert="true" update="true" not-null="true" unique="false" type="java.lang.String">
+			<column not-null="true" unique="false" name="`name`"/>
+		</property>
+		<many-to-one name="ofType" entity-name="FileType" lazy="false" foreign-key="fileending_oftype" insert="true" update="true" not-null="false"/>
 	</class>
 	<class name="general.impl.FunctionImpl" entity-name="Function" abstract="false" lazy="false" discriminator-value="Function" table="`function`">
 		<meta attribute="eclassName" inherit="false">Function</meta>
@@ -367,52 +444,61 @@
 		<property name="deleted" lazy="false" insert="true" update="true" not-null="false" unique="false" type="boolean">
 			<column not-null="false" unique="false" name="`deleted`"/>
 		</property>
-		<many-to-one name="snapshot" entity-name="Snapshot" lazy="false" foreign-key="function_snapshot" insert="true" update="true" not-null="false">
-			<column not-null="false" unique="false" name="`snapshot_snapshot_snapshotid`"/>
+		<list name="responsibleFiles" table="`function_responsiblefiles`" lazy="true" cascade="persist,merge,refresh,save-update,lock">
+			<key update="true">
+				<column name="`function_functionid`" unique="false"/>
+			</key>
+			<list-index column="`function_responsiblefiles_idx`"/>
+			<many-to-many entity-name="GenericFunctionSRSFileProperty" unique="true" foreign-key="function_responsiblefiles">
+				<column name="`genericfunctionsrsfileproperty_filepropertyid`" unique="false"/>
+			</many-to-many>
+		</list>
+		<many-to-one name="heldBy" entity-name="Snapshot" lazy="false" foreign-key="function_heldby" insert="true" update="true" not-null="true">
+			<column not-null="true" unique="false" name="`snapshot_heldby_snapshotid`"/>
 		</many-to-one>
 	</class>
-	<class name="general.impl.FileFunctionStatusImpl" entity-name="FileFunctionStatus" abstract="false" lazy="false" discriminator-value="FileFunctionStatus" table="`filefunctionstatus`">
-		<meta attribute="eclassName" inherit="false">FileFunctionStatus</meta>
+	<class name="general.impl.FilePropertyImpl" entity-name="FileProperty" abstract="false" lazy="false" discriminator-value="FileProperty" table="`fileproperty`">
+		<meta attribute="eclassName" inherit="false">FileProperty</meta>
 		<meta attribute="epackage" inherit="false">http://general/1.0</meta>
-		<id name="fileFunctionStatusId" type="java.lang.String">
-			<column not-null="true" unique="false" name="`filefunctionstatusid`"/>
+		<id name="filePropertyId" type="java.lang.String">
+			<column not-null="true" unique="false" name="`filepropertyid`"/>
 			<generator class="uuid2"/>
 		</id>
 		<discriminator type="string">
-			<column name="`dtype`" index="filefunctionstatusdtype" length="255" not-null="true"/>
+			<column name="`dtype`" index="filepropertydtype" length="255" not-null="true"/>
 		</discriminator>
 		<version name="e_version" column="e_version" access="org.eclipse.emf.teneo.hibernate.mapping.property.VersionPropertyHandler">
 			<meta attribute="syntheticVersion" inherit="false">true</meta>
 		</version>
-		<property name="required" lazy="false" insert="true" update="true" not-null="false" unique="false" type="boolean">
-			<column not-null="false" unique="false" name="`required`"/>
+		<property name="required" lazy="false" insert="true" update="true" not-null="true" unique="false" type="boolean">
+			<column not-null="true" unique="false" name="`required`"/>
 		</property>
-		<property name="upToDate" lazy="false" not-null="false" insert="true" update="true" unique="false">
-			<column not-null="false" unique="false" name="`uptodate`"/>
+		<property name="upToDate" lazy="false" not-null="true" insert="true" update="true" unique="false">
+			<column not-null="true" unique="false" name="`uptodate`"/>
 			<type name="org.eclipse.emf.teneo.hibernate.mapping.ENumUserType">
 				<param name="enumClass">general.QualityCriteria</param>
 				<param name="eclassifier">QualityCriteria</param>
 				<param name="epackage">http://general/1.0</param>
 			</type>
 		</property>
-		<property name="reviewed" lazy="false" not-null="false" insert="true" update="true" unique="false">
-			<column not-null="false" unique="false" name="`reviewed`"/>
+		<property name="reviewed" lazy="false" not-null="true" insert="true" update="true" unique="false">
+			<column not-null="true" unique="false" name="`reviewed`"/>
 			<type name="org.eclipse.emf.teneo.hibernate.mapping.ENumUserType">
 				<param name="enumClass">general.QualityCriteria</param>
 				<param name="eclassifier">QualityCriteria</param>
 				<param name="epackage">http://general/1.0</param>
 			</type>
 		</property>
-		<property name="configurationManagement" lazy="false" not-null="false" insert="true" update="true" unique="false">
-			<column not-null="false" unique="false" name="`configurationmanagement`"/>
+		<property name="configurationManagement" lazy="false" not-null="true" insert="true" update="true" unique="false">
+			<column not-null="true" unique="false" name="`configurationmanagement`"/>
 			<type name="org.eclipse.emf.teneo.hibernate.mapping.ENumUserType">
 				<param name="enumClass">general.QualityCriteria</param>
 				<param name="eclassifier">QualityCriteria</param>
 				<param name="epackage">http://general/1.0</param>
 			</type>
 		</property>
-		<property name="rating" lazy="false" not-null="false" insert="true" update="true" unique="false">
-			<column not-null="false" unique="false" name="`rating`"/>
+		<property name="rating" lazy="false" not-null="true" insert="true" update="true" unique="false">
+			<column not-null="true" unique="false" name="`rating`"/>
 			<type name="org.eclipse.emf.teneo.hibernate.mapping.ENumUserType">
 				<param name="enumClass">general.QualityCriteria</param>
 				<param name="eclassifier">QualityCriteria</param>
@@ -422,119 +508,96 @@
 		<property name="comment" lazy="false" insert="true" update="true" not-null="false" unique="false" type="java.lang.String">
 			<column not-null="false" unique="false" name="`comment`"/>
 		</property>
-		<many-to-one name="ofFile" entity-name="ContentObject" lazy="false" foreign-key="filefunctionstatus_offile" insert="true" update="true" not-null="false">
-			<column not-null="false" unique="false" name="`contentobject_offile_objectid`"/>
-		</many-to-one>
-		<many-to-one name="ofFunction" entity-name="Function" lazy="false" foreign-key="filefunctionstatus_offunction" insert="true" update="true" not-null="false">
-			<column not-null="false" unique="false" name="`function_offunction_functionid`"/>
-		</many-to-one>
-		<property name="setOn" lazy="false" insert="true" update="true" not-null="false" unique="false" type="timestamp">
-			<column not-null="false" unique="false" name="`seton`"/>
-		</property>
-		<property name="type" lazy="false" not-null="false" insert="true" update="true" unique="false">
-			<column not-null="false" unique="false" name="`type`"/>
-			<type name="org.eclipse.emf.teneo.hibernate.mapping.ENumUserType">
-				<param name="enumClass">general.documentType</param>
-				<param name="eclassifier">documentType</param>
-				<param name="epackage">http://general/1.0</param>
-			</type>
-		</property>
+		<many-to-one name="of" entity-name="File" lazy="false" foreign-key="fileproperty_of" insert="true" update="true" not-null="false"/>
 	</class>
-	<class name="general.impl.UserListImpl" entity-name="UserList" abstract="false" lazy="false" discriminator-value="UserList" table="`userlist`">
-		<meta attribute="eclassName" inherit="false">UserList</meta>
+	<subclass name="general.impl.GeneralDocumentationFilePropertyImpl" entity-name="GeneralDocumentationFileProperty" abstract="false" lazy="false" extends="FileProperty" discriminator-value="GeneralDocumentationFileProperty">
+		<meta attribute="eclassName" inherit="false">GeneralDocumentationFileProperty</meta>
 		<meta attribute="epackage" inherit="false">http://general/1.0</meta>
-		<id type="long" name="e_id" column="e_id" access="org.eclipse.emf.teneo.hibernate.mapping.identifier.IdentifierPropertyHandler">
-			<meta attribute="syntheticId" inherit="false">true</meta>
-			<generator class="native"/>
-		</id>
-		<discriminator type="string">
-			<column name="`dtype`" index="userlistdtype" length="255" not-null="true"/>
-		</discriminator>
-		<version name="e_version" column="e_version" access="org.eclipse.emf.teneo.hibernate.mapping.property.VersionPropertyHandler">
-			<meta attribute="syntheticVersion" inherit="false">true</meta>
-		</version>
-	</class>
-	<class name="general.impl.TaskImpl" entity-name="Task" abstract="false" lazy="false" discriminator-value="Task" table="`task`">
-		<meta attribute="eclassName" inherit="false">Task</meta>
-		<meta attribute="epackage" inherit="false">http://general/1.0</meta>
-		<id name="taskId" type="java.lang.String">
-			<column not-null="true" unique="false" name="`taskid`" length="36"/>
-			<generator class="uuid2"/>
-		</id>
-		<discriminator type="string">
-			<column name="`dtype`" index="taskdtype" length="255" not-null="true"/>
-		</discriminator>
-		<version name="e_version" column="e_version" access="org.eclipse.emf.teneo.hibernate.mapping.property.VersionPropertyHandler">
-			<meta attribute="syntheticVersion" inherit="false">true</meta>
-		</version>
-		<property name="finished" lazy="false" insert="true" update="true" not-null="false" unique="false" type="boolean">
-			<column not-null="false" unique="false" name="`finished`"/>
-		</property>
-		<property name="description" lazy="false" insert="true" update="true" not-null="false" unique="false" type="java.lang.String">
-			<column not-null="false" unique="false" name="`description`"/>
-		</property>
-		<property name="created" lazy="false" insert="true" update="true" not-null="false" unique="false" type="timestamp">
-			<column not-null="false" unique="false" name="`created`"/>
-		</property>
-		<many-to-one name="owner" entity-name="User" lazy="false" cascade="all" foreign-key="task_owner" insert="true" update="true" not-null="false">
-			<column not-null="false" unique="false" name="`user_owner_userid`"/>
-		</many-to-one>
-	</class>
-	<class name="general.impl.SessionSatusImpl" entity-name="SessionSatus" abstract="false" lazy="false" discriminator-value="SessionSatus" table="`sessionsatus`">
-		<meta attribute="eclassName" inherit="false">SessionSatus</meta>
-		<meta attribute="epackage" inherit="false">http://general/1.0</meta>
-		<id type="long" name="e_id" column="e_id" access="org.eclipse.emf.teneo.hibernate.mapping.identifier.IdentifierPropertyHandler">
-			<meta attribute="syntheticId" inherit="false">true</meta>
-			<generator class="native"/>
-		</id>
-		<discriminator type="string">
-			<column name="`dtype`" index="sessionsatusdtype" length="255" not-null="true"/>
-		</discriminator>
-		<version name="e_version" column="e_version" access="org.eclipse.emf.teneo.hibernate.mapping.property.VersionPropertyHandler">
-			<meta attribute="syntheticVersion" inherit="false">true</meta>
-		</version>
-		<property name="mksStatus" lazy="false" insert="true" update="true" not-null="false" unique="false" type="boolean">
-			<column not-null="false" unique="false" name="`mksstatus`"/>
-		</property>
-		<property name="dbStatus" lazy="false" insert="true" update="true" not-null="false" unique="false" type="boolean">
-			<column not-null="false" unique="false" name="`dbstatus`"/>
-		</property>
-		<property name="synergySession" lazy="false" insert="true" update="true" not-null="false" unique="false" type="java.lang.String">
-			<column not-null="false" unique="false" name="`synergysession`"/>
-		</property>
-	</class>
-	<class name="general.impl.CheckInMilestoneImpl" entity-name="CheckInMilestone" abstract="false" lazy="false" discriminator-value="CheckInMilestone" table="`checkinmilestone`">
-		<meta attribute="eclassName" inherit="false">CheckInMilestone</meta>
-		<meta attribute="epackage" inherit="false">http://general/1.0</meta>
-		<id name="checkInMilestoneId" type="java.lang.String">
-			<column not-null="true" unique="false" name="`checkinmilestoneid`"/>
-			<generator class="uuid2"/>
-		</id>
-		<discriminator type="string">
-			<column name="`dtype`" index="checkinmilestonedtype" length="255" not-null="true"/>
-		</discriminator>
-		<version name="e_version" column="e_version" access="org.eclipse.emf.teneo.hibernate.mapping.property.VersionPropertyHandler">
-			<meta attribute="syntheticVersion" inherit="false">true</meta>
-		</version>
-		<many-to-one name="container" entity-name="Container" lazy="false" foreign-key="checkinmilestone_container" insert="true" update="true" not-null="false">
-			<column not-null="false" unique="false" name="`container_container_containerid`"/>
-		</many-to-one>
-		<list name="fileStatus" table="`checkinmilestone_filestatus`" lazy="true" cascade="persist,merge,refresh,save-update,lock">
+		<list name="type" table="`generaldocumentationfileproperty_type`" lazy="true" cascade="persist,merge,refresh,save-update,lock">
 			<key update="true">
-				<column name="`checkinmilestone_checkinmilestoneid`" unique="false"/>
+				<column name="`generaldocumentationfileproperty_filepropertyid`" unique="false"/>
 			</key>
-			<list-index column="`checkinmilestone_filestatus_idx`"/>
-			<many-to-many entity-name="FileFunctionStatus" unique="true" foreign-key="checkinmilestone_filestatus">
-				<column name="`filefunctionstatus_filefunctionstatusid`" unique="false"/>
+			<list-index column="`generaldocumentationfileproperty_type_idx`"/>
+			<many-to-many entity-name="GeneralDocumentationType" unique="true" foreign-key="generaldocumentationfileproperty_type">
+				<column name="`generaldocumentationtype_e_id`" unique="false"/>
 			</many-to-many>
 		</list>
-		<property name="milestone" lazy="false" not-null="false" insert="true" update="true" unique="false">
-			<column not-null="false" unique="false" name="`milestone`"/>
-			<type name="org.eclipse.emf.teneo.hibernate.mapping.ENumUserType">
-				<param name="enumClass">general.Milestone</param>
-				<param name="eclassifier">Milestone</param>
-				<param name="epackage">http://general/1.0</param>
-			</type>
+	</subclass>
+	<subclass name="general.impl.GenericFunctionSRSFilePropertyImpl" entity-name="GenericFunctionSRSFileProperty" abstract="false" lazy="false" extends="FileProperty" discriminator-value="GenericFunctionSRSFileProperty">
+		<meta attribute="eclassName" inherit="false">GenericFunctionSRSFileProperty</meta>
+		<meta attribute="epackage" inherit="false">http://general/1.0</meta>
+		<list name="type" table="`genericfunctionsrsfileproperty_type`" lazy="true" cascade="persist,merge,refresh,save-update,lock">
+			<key update="true">
+				<column name="`genericfunctionsrsfileproperty_filepropertyid`" unique="false"/>
+			</key>
+			<list-index column="`genericfunctionsrsfileproperty_type_idx`"/>
+			<many-to-many entity-name="GenericFunctionSRSType" unique="true" foreign-key="genericfunctionsrsfileproperty_type">
+				<column name="`genericfunctionsrstype_e_id`" unique="false"/>
+			</many-to-many>
+		</list>
+	</subclass>
+	<subclass name="general.impl.SystemComponentLevelDocumentationFilePropertyImpl" entity-name="SystemComponentLevelDocumentationFileProperty" abstract="false" lazy="false" extends="FileProperty" discriminator-value="SystemComponentLevelDocumentationFileProperty">
+		<meta attribute="eclassName" inherit="false">SystemComponentLevelDocumentationFileProperty</meta>
+		<meta attribute="epackage" inherit="false">http://general/1.0</meta>
+		<list name="type" table="`systemcomponentleveldocumentationfileproperty_type`" lazy="true" cascade="persist,merge,refresh,save-update,lock">
+			<key update="true">
+				<column name="`systemcomponentleveldocumentationfileproperty_filepropertyid`" unique="false"/>
+			</key>
+			<list-index column="`systemcomponentleveldocumentationfileproperty_type_idx`"/>
+			<many-to-many entity-name="SystemComponentLevelDocumentation" unique="true" foreign-key="systemcomponentleveldocumentationfileproperty_type">
+				<column name="`systemcomponentleveldocumentation_e_id`" unique="false"/>
+			</many-to-many>
+		</list>
+	</subclass>
+	<class name="general.impl.GeneralDocumentationTypeImpl" entity-name="GeneralDocumentationType" abstract="false" lazy="false" discriminator-value="GeneralDocumentationType" table="`generaldocumentationtype`">
+		<meta attribute="eclassName" inherit="false">GeneralDocumentationType</meta>
+		<meta attribute="epackage" inherit="false">http://general/1.0</meta>
+		<id type="long" name="e_id" column="e_id" access="org.eclipse.emf.teneo.hibernate.mapping.identifier.IdentifierPropertyHandler">
+			<meta attribute="syntheticId" inherit="false">true</meta>
+			<generator class="native"/>
+		</id>
+		<discriminator type="string">
+			<column name="`dtype`" index="generaldocumentationtypedtype" length="255" not-null="true"/>
+		</discriminator>
+		<version name="e_version" column="e_version" access="org.eclipse.emf.teneo.hibernate.mapping.property.VersionPropertyHandler">
+			<meta attribute="syntheticVersion" inherit="false">true</meta>
+		</version>
+		<property name="name" lazy="false" insert="true" update="true" not-null="true" unique="false" type="java.lang.String">
+			<column not-null="true" unique="false" name="`name`"/>
+		</property>
+	</class>
+	<class name="general.impl.GenericFunctionSRSTypeImpl" entity-name="GenericFunctionSRSType" abstract="false" lazy="false" discriminator-value="GenericFunctionSRSType" table="`genericfunctionsrstype`">
+		<meta attribute="eclassName" inherit="false">GenericFunctionSRSType</meta>
+		<meta attribute="epackage" inherit="false">http://general/1.0</meta>
+		<id type="long" name="e_id" column="e_id" access="org.eclipse.emf.teneo.hibernate.mapping.identifier.IdentifierPropertyHandler">
+			<meta attribute="syntheticId" inherit="false">true</meta>
+			<generator class="native"/>
+		</id>
+		<discriminator type="string">
+			<column name="`dtype`" index="genericfunctionsrstypedtype" length="255" not-null="true"/>
+		</discriminator>
+		<version name="e_version" column="e_version" access="org.eclipse.emf.teneo.hibernate.mapping.property.VersionPropertyHandler">
+			<meta attribute="syntheticVersion" inherit="false">true</meta>
+		</version>
+		<property name="name" lazy="false" insert="true" update="true" not-null="true" unique="false" type="java.lang.String">
+			<column not-null="true" unique="false" name="`name`"/>
+		</property>
+	</class>
+	<class name="general.impl.SystemComponentLevelDocumentationImpl" entity-name="SystemComponentLevelDocumentation" abstract="false" lazy="false" discriminator-value="SystemComponentLevelDocumentation" table="`systemcomponentleveldocumentation`">
+		<meta attribute="eclassName" inherit="false">SystemComponentLevelDocumentation</meta>
+		<meta attribute="epackage" inherit="false">http://general/1.0</meta>
+		<id type="long" name="e_id" column="e_id" access="org.eclipse.emf.teneo.hibernate.mapping.identifier.IdentifierPropertyHandler">
+			<meta attribute="syntheticId" inherit="false">true</meta>
+			<generator class="native"/>
+		</id>
+		<discriminator type="string">
+			<column name="`dtype`" index="systemcomponentleveldocumentationdtype" length="255" not-null="true"/>
+		</discriminator>
+		<version name="e_version" column="e_version" access="org.eclipse.emf.teneo.hibernate.mapping.property.VersionPropertyHandler">
+			<meta attribute="syntheticVersion" inherit="false">true</meta>
+		</version>
+		<property name="name" lazy="false" insert="true" update="true" not-null="true" unique="false" type="java.lang.String">
+			<column not-null="true" unique="false" name="`name`"/>
 		</property>
 	</class>
 </hibernate-mapping>

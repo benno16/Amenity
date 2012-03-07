@@ -14,6 +14,9 @@ import java.util.Properties;
 
 import org.eclipse.ui.AbstractSourceProvider;
 import org.eclipse.ui.ISources;
+import org.hibernate.Session;
+
+import dao.impl.HibernateUtilImpl;
 
 /**
  * @author Ben
@@ -44,6 +47,8 @@ public class SessionSourceProvider extends AbstractSourceProvider {
     // Session information
     public static String SYNERGY_SID = null;
     public static List<String> SYNERGY_PROJECT_LIST = null;
+//    public static Session HIBERNATE_SESSION = HibernateUtilImpl
+//    		.getSessionFactoryEdefault().openSession();
 
     public static Properties LOG4J_PROPERTIES = null;
     boolean loggedIn;

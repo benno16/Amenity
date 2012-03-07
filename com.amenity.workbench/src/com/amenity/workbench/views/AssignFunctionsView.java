@@ -194,19 +194,29 @@ public class AssignFunctionsView extends ViewPart {
 						
 						// ensure element is of correct instance
 						if ( structuredSelection.getFirstElement() instanceof Function) {
-							System.out.println("tab");
+							
 							// if a new element is selected clear list and repaint the tree
+							
 							if ( SessionSourceProvider.CURRENT_FUNCTION == null || 
 									!SessionSourceProvider.CURRENT_FUNCTION.equals((Function) 
 									structuredSelection.getFirstElement()) ) {
+								
 								contentObjects.clear();
 								SessionSourceProvider.CURRENT_FUNCTION = (Function) 
 										structuredSelection.getFirstElement();
 								
 								ContentObjectDao coDao = DaoFactory.eINSTANCE.createContentObjectDao();
+								
+								/*
+								 * filling the functionTree is a bit tricky
+								 * A simple info fetch will return
+								 * TODO: maybe a styled label provider mod can fix that
+								 */
+								
 								functionTreeViewer.setInput( contentObjects = coDao
 										.getObjectsOfFunction(SessionSourceProvider.CURRENT_FUNCTION, 
 												SessionSourceProvider.CURRENT_SNAPSHOT));
+								
 							}
 						}
 					}
@@ -380,15 +390,62 @@ public class AssignFunctionsView extends ViewPart {
 
 			@Override
 			public Object[] getElements(Object inputElement) {
-				return contentObjects.toArray();
+				/*
+				 *  the input elements are just allowed to be the lowest level elements
+				 *  this means if a content object has a root folder it should
+				 *  not be displayed within the root but this specific folder
+				 *  
+				 */
+				java.util.List<ContentObject> retObj = new ArrayList<ContentObject>();
+				
+				for ( ContentObject coOuter : contentObjects ) {
+					boolean isRoot = true;
+					for ( ContentObject coInner : contentObjects ) {
+						if ( coInner instanceof Folder ) {
+							if ( coOuter instanceof Folder ) {
+								
+								if ( ((Folder)coOuter).getRootDirectory()
+										.getObjectId().equals(((Folder)coInner).getObjectId()) ) {
+									isRoot = false;
+									break;
+								}
+								
+							} else if ( coOuter instanceof File ) {
+								
+								if ( ((File)coOuter).getRootDir()
+										.getObjectId().equals(((Folder)coInner).getObjectId()) ) {
+									isRoot = false;
+									break;
+								}
+								
+							}
+						}
+					}
+					if ( isRoot ) 
+						retObj.add(coOuter);
+				}
+				return retObj.toArray();
 			}
 
 			@Override
 			public Object[] getChildren(Object parentElement) {
-				ContentObjectDao contentobjectDao = DaoFactory.eINSTANCE.createContentObjectDao();
-				
-				return contentobjectDao.getChildren(parentElement, 
-						SessionSourceProvider.CURRENT_SNAPSHOT).toArray();
+				/*
+				 * TODO: modify here to ensure the correct info is displayed
+				 */
+//				ContentObjectDao contentobjectDao = DaoFactory.eINSTANCE.createContentObjectDao();
+//				
+//				return contentobjectDao.getChildren(parentElement, 
+//						SessionSourceProvider.CURRENT_SNAPSHOT).toArray();
+				java.util.List<ContentObject> retObj = new ArrayList<ContentObject>();
+				for ( ContentObject co : contentObjects ) {
+					if ( co instanceof File ) {
+						if ( ((File)co).getRootDir().getObjectId().equals(
+								((Folder)parentElement).getObjectId()) ) {
+							retObj.add(co);
+						}
+					}
+				}
+				return retObj.toArray();
 			}
 
 			@Override
@@ -535,7 +592,8 @@ public class AssignFunctionsView extends ViewPart {
 			// Iterate through the content object list, store function and remove from list
 			s = HibernateUtilImpl.getSessionFactoryEdefault().openSession();
 			tx = s.beginTransaction();
-			System.out.println("how many are there to be added? " + contentObjects.size());
+			s.flush();
+			s.clear();
 			for ( Iterator<ContentObject> iter = contentObjects.iterator(); iter.hasNext(); ) {
 				ContentObject co = iter.next();
 
@@ -554,9 +612,13 @@ public class AssignFunctionsView extends ViewPart {
 
 	protected void storeFunctionInfoInFile( ContentObject co ) {
 		if ( co instanceof File || co instanceof Folder ) {
-			
 			// load the object to be modified
-			s.load(co, co.getObjectId());
+			
+			try { 
+				s.load(co, co.getObjectId());
+			} catch ( Exception e) {
+				e.printStackTrace();
+			}
 			// assign the function to it
 			co.getFunction().add(SessionSourceProvider.CURRENT_FUNCTION);
 			
@@ -565,12 +627,12 @@ public class AssignFunctionsView extends ViewPart {
 			// commit them and close session
 		}
 		// if its a folder fetch children and perform same operation
-//		if ( co instanceof Folder ) {
-//			java.util.List<ContentObject > coList = getChildren(co);
-//			for ( ContentObject subCo : coList ) {
-//				storeFunctionInfoInFile(subCo);
-//			}
-//		}
+		if ( co instanceof Folder ) {
+			java.util.List<ContentObject > coList = getChildren(co);
+			for ( ContentObject subCo : coList ) {
+				storeFunctionInfoInFile(subCo);
+			}
+		}
 	}
 	@SuppressWarnings("unchecked")
 	protected java.util.List<ContentObject> getChildren ( ContentObject co ) {

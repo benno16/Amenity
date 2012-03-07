@@ -83,6 +83,8 @@ public class HibernateUtilImpl extends EObjectImpl implements HibernateUtil {
 			hibernateProperties.setProperty(Environment.C3P0_TIMEOUT, "100");
 			hibernateProperties.setProperty(Environment.AUTOCOMMIT, "false");
 			hibernateProperties.setProperty(Environment.POOL_SIZE, "0");
+			hibernateProperties.setProperty(Environment.AUTO_CLOSE_SESSION, "false");
+			hibernateProperties.setProperty(Environment.FLUSH_BEFORE_COMPLETION, "true");
 
 			/**
 			 * TODO: caching provider config

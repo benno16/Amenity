@@ -151,9 +151,9 @@ public class ContentObjectDaoImpl extends GenericDaoImpl implements ContentObjec
 		Query queryRes = session.createQuery(string);
 		
 		List<ContentObject> cos = queryRes.list();
-		
+
 		List<ContentObject> returnCos = new ArrayList<ContentObject>();
-		
+		// lazy loading requires the session to still be open
 		for ( ContentObject co : cos ) {
 			if ( co.getFunction().size() > 0 ) {
 				if ( co.getFunction().contains(function) ) {
@@ -161,7 +161,7 @@ public class ContentObjectDaoImpl extends GenericDaoImpl implements ContentObjec
 				}
 			}
 		}
-		
+		session.flush();
 		session.close();
 		
 		return returnCos;

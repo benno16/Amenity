@@ -330,14 +330,13 @@ public class AssignFunctionsView extends ViewPart {
 				} else {
 					for ( ContentObject co : CURRENT_FILE_LIST ) {
 						if ( co instanceof Folder ) {
-							/*
-							 * TODO: ERROR HERE FOR TMR! 
-							 */
-							if (((Folder) co).getRootDirectory().equals(((Folder)inputElement)))
+
+							if (((Folder)co).getRootDirectory() != null )
+							if (((Folder) co).getRootDirectory().getObjectId().equals(((Folder)inputElement).getObjectId()))
 								children.add(co);
 						}
 						if ( co instanceof File ) {
-							if (((File) co).getRootDir().equals(((Folder)inputElement)))
+							if (((File) co).getRootDir().getObjectId().equals(((Folder)inputElement).getObjectId()))
 								children.add(co);
 						}
 					}
@@ -351,6 +350,7 @@ public class AssignFunctionsView extends ViewPart {
 				java.util.List<ContentObject> children = new ArrayList<ContentObject>();
 				for ( ContentObject co : CURRENT_FILE_LIST ) {
 					if ( co instanceof Folder ) {
+						if (((Folder)co).getRootDirectory() != null )
 						if (((Folder) co).getRootDirectory().equals(((Folder)parentElement)))
 							children.add(co);
 					}

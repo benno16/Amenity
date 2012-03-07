@@ -48,12 +48,23 @@ public class ContentObjectDaoImpl extends GenericDaoImpl implements ContentObjec
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	public List getListBySnapshot(Snapshot snapshot) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	@SuppressWarnings("unchecked")
+	public List<ContentObject> getListBySnapshot(Snapshot snapshot) {
+		session = getSession();
+		session.beginTransaction();
+		Query queryRes = session.createQuery("from " + ContentObject.class.getName().toString() + 
+				" where partOf ='" + snapshot.getSnapshotId() + "'");
+
+		List<ContentObject> resList = queryRes.list();
+		for ( int i = 0 ; i < resList.size() ; i++ ) {
+			// load the corresponding information!
+			if ( resList.get(i).getFunction().size() > 0 )
+				resList.set(i, resList.get(i));
+		}
+		session.close();
+		return resList;
 	}
 
 	/**

@@ -2,7 +2,6 @@ package com.amenity.engine.helper.gui.labelProvider;
 
 import general.File;
 import general.Folder;
-import general.Snapshot;
 
 import org.eclipse.jface.viewers.StyledCellLabelProvider;
 import org.eclipse.jface.viewers.StyledString;
@@ -18,7 +17,7 @@ import dao.impl.HibernateUtilImpl;
 public class SnapshotStyledLabelProvder extends StyledCellLabelProvider  {
 
 	
-	public SnapshotStyledLabelProvder ( Snapshot snapshot ){
+	public SnapshotStyledLabelProvder (  ){
 	}
 	
 	@Override

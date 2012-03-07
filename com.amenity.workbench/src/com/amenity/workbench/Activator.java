@@ -43,7 +43,7 @@ public class Activator extends AbstractUIPlugin {
 		System.err.println(url);
 		SessionSourceProvider.LOG4J_PROPERTIES.load(url.openStream()); 
 		PropertyConfigurator.configure(SessionSourceProvider.LOG4J_PROPERTIES); 
-		
+	    
 		plugin = this;
 	}
 

@@ -62,8 +62,8 @@ import dao.ContentObjectDao;
 import dao.DaoFactory;
 import dao.FolderDao;
 import dao.FunctionDao;
+import dao.GenericDao;
 import dao.SnapshotDao;
-import dao.impl.HibernateUtilImpl;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -85,16 +85,35 @@ public class AssignFunctionsView extends ViewPart {
 	private Tree snapshotTree;
 	private Tree functionTree;
 	private Composite composite;
-	private java.util.List<ContentObject> contentObjects;
-	private java.util.List<Function> functions;
+//	private java.util.List<ContentObject> contentObjects;
 	private Logger log;
 	private Transaction tx;
 	private Session s;
+	// stores the total snapshot content
+	private static java.util.List<ContentObject> CURRENT_FILE_LIST;
+	// stores the total snapshot content
+	private static java.util.List<ContentObject> CURRENT_FILE_LIST_WITH_FUNCTION;
+	// stores the current function content
+	private static java.util.List<ContentObject> CURRENT_FUNCTION_LIST;
+	// stores the originally read function content
+	private static java.util.List<ContentObject> ORIGINAL_FUNCTION_LIST;
+	// stores the current function content objects
+	private static java.util.List<ContentObject> CURRENT_FUNCTION_FILE_LIST;
+	// stores the originally read function content objects
+	private static java.util.List<ContentObject> ORIGINAL_FUNCTION_FILE_LIST;
 
 	public AssignFunctionsView() {
-		contentObjects = new ArrayList<ContentObject>();
-		functions = new ArrayList<Function>();
+//		contentObjects = new ArrayList<ContentObject>();
 		log = LogManager.getLogger(AssignFunctionsView.class);
+		
+		CURRENT_FILE_LIST = new ArrayList<ContentObject>();
+		
+		CURRENT_FUNCTION_LIST = new ArrayList<ContentObject>();
+		CURRENT_FUNCTION_FILE_LIST = new ArrayList<ContentObject>();
+		
+		ORIGINAL_FUNCTION_LIST = new ArrayList<ContentObject>();
+		ORIGINAL_FUNCTION_FILE_LIST = new ArrayList<ContentObject>();
+		CURRENT_FILE_LIST_WITH_FUNCTION = new ArrayList<ContentObject>();
 		PropertyConfigurator.configure(SessionSourceProvider.LOG4J_PROPERTIES);
 	}
 
@@ -154,7 +173,7 @@ public class AssignFunctionsView extends ViewPart {
 		        				(Snapshot) structuredSelection.getFirstElement();
 		        		
 		        		fillFunctionCombo();
-		        		fillSnapshotTree();
+		        		firstFillSnapshotTree();
 		        	}
 		        }
 			}
@@ -183,10 +202,10 @@ public class AssignFunctionsView extends ViewPart {
 			public void selectionChanged(SelectionChangedEvent event) {
 				objectSelection = event.getSelection();
 				structuredSelection = (IStructuredSelection) objectSelection;
-				if ( contentObjects.size() > 1 ) {
-					log.info("saving " + contentObjects.size() + 
-							" objects to function " + SessionSourceProvider.CURRENT_FUNCTION );
-					saveBtnAction();
+				// may require not null check
+				if ( !CURRENT_FUNCTION_FILE_LIST.containsAll(ORIGINAL_FUNCTION_FILE_LIST) ) {
+					MessageDialog.openWarning(composite.getShell(), "Warning", 
+							"You have to apply the changes");
 				} else {
 					
 					// check if list is not empty
@@ -201,11 +220,32 @@ public class AssignFunctionsView extends ViewPart {
 									!SessionSourceProvider.CURRENT_FUNCTION.equals((Function) 
 									structuredSelection.getFirstElement()) ) {
 								
-								contentObjects.clear();
+								// clear the old content if any
+								ORIGINAL_FUNCTION_FILE_LIST.clear();
+								CURRENT_FUNCTION_FILE_LIST.clear();
+								
+								// set currently selection function
 								SessionSourceProvider.CURRENT_FUNCTION = (Function) 
 										structuredSelection.getFirstElement();
 								
-								ContentObjectDao coDao = DaoFactory.eINSTANCE.createContentObjectDao();
+								// iterate through CURRENT_FILE_LIST_WITH_FUNCTION
+								for ( ContentObject co : CURRENT_FILE_LIST_WITH_FUNCTION ) {
+									
+									// if the function list is not empty search through it and add
+									if ( co.getFunction() != null || co.getFunction().size() > 0 ) {
+										
+										for ( Function f : co.getFunction() ) {
+											if ( f.getFunctionId().equals(
+													SessionSourceProvider.CURRENT_FUNCTION.getFunctionId())) {
+
+												ORIGINAL_FUNCTION_FILE_LIST.add(co);
+												CURRENT_FUNCTION_FILE_LIST.add(co);
+												
+											}
+										}
+
+									}
+								}
 								
 								/*
 								 * filling the functionTree is a bit tricky
@@ -213,9 +253,7 @@ public class AssignFunctionsView extends ViewPart {
 								 * TODO: maybe a styled label provider mod can fix that
 								 */
 								
-								functionTreeViewer.setInput( contentObjects = coDao
-										.getObjectsOfFunction(SessionSourceProvider.CURRENT_FUNCTION, 
-												SessionSourceProvider.CURRENT_SNAPSHOT));
+								functionTreeViewer.setInput( CURRENT_FUNCTION_FILE_LIST );
 								
 							}
 						}
@@ -286,17 +324,42 @@ public class AssignFunctionsView extends ViewPart {
 
 			@Override
 			public Object[] getElements(Object inputElement) {
-				ContentObjectDao contentobjectDao = DaoFactory.eINSTANCE.createContentObjectDao();
-				return contentobjectDao.getChildren(inputElement, 
-						SessionSourceProvider.CURRENT_SNAPSHOT).toArray();
+				java.util.List<ContentObject> children = new ArrayList<ContentObject>();
+				if ( inputElement instanceof File ) {
+					children.add((File)inputElement);
+				} else {
+					for ( ContentObject co : CURRENT_FILE_LIST ) {
+						if ( co instanceof Folder ) {
+							/*
+							 * TODO: ERROR HERE FOR TMR! 
+							 */
+							if (((Folder) co).getRootDirectory().equals(((Folder)inputElement)))
+								children.add(co);
+						}
+						if ( co instanceof File ) {
+							if (((File) co).getRootDir().equals(((Folder)inputElement)))
+								children.add(co);
+						}
+					}
+				}
+				return children.toArray();
 			}
 
 			@Override
 			public Object[] getChildren(Object parentElement) {
-				ContentObjectDao contentobjectDao = DaoFactory.eINSTANCE.createContentObjectDao();
 				
-				return contentobjectDao.getChildren(parentElement, 
-						SessionSourceProvider.CURRENT_SNAPSHOT).toArray();
+				java.util.List<ContentObject> children = new ArrayList<ContentObject>();
+				for ( ContentObject co : CURRENT_FILE_LIST ) {
+					if ( co instanceof Folder ) {
+						if (((Folder) co).getRootDirectory().equals(((Folder)parentElement)))
+							children.add(co);
+					}
+					if ( co instanceof File ) {
+						if (((File) co).getRootDir().equals(((Folder)parentElement)))
+							children.add(co);
+					}
+				}
+				return children.toArray();
 			}
 
 			@Override
@@ -310,8 +373,7 @@ public class AssignFunctionsView extends ViewPart {
 			}
 			
 		});
-		snapshotTreeViewer.setLabelProvider(new SnapshotStyledLabelProvder
-				(SessionSourceProvider.CURRENT_SNAPSHOT));
+		snapshotTreeViewer.setLabelProvider(new SnapshotStyledLabelProvder ());
 		/**
 		 * TODO: Temp sorter implementation
 		 * Issue here its basically sorting strictly by name not type! 
@@ -398,9 +460,9 @@ public class AssignFunctionsView extends ViewPart {
 				 */
 				java.util.List<ContentObject> retObj = new ArrayList<ContentObject>();
 				
-				for ( ContentObject coOuter : contentObjects ) {
+				for ( ContentObject coOuter : CURRENT_FUNCTION_FILE_LIST ) {
 					boolean isRoot = true;
-					for ( ContentObject coInner : contentObjects ) {
+					for ( ContentObject coInner : CURRENT_FUNCTION_FILE_LIST ) {
 						if ( coInner instanceof Folder ) {
 							if ( coOuter instanceof Folder ) {
 								
@@ -437,7 +499,7 @@ public class AssignFunctionsView extends ViewPart {
 //				return contentobjectDao.getChildren(parentElement, 
 //						SessionSourceProvider.CURRENT_SNAPSHOT).toArray();
 				java.util.List<ContentObject> retObj = new ArrayList<ContentObject>();
-				for ( ContentObject co : contentObjects ) {
+				for ( ContentObject co : CURRENT_FUNCTION_FILE_LIST ) {
 					if ( co instanceof File ) {
 						if ( ((File)co).getRootDir().getObjectId().equals(
 								((Folder)parentElement).getObjectId()) ) {
@@ -478,8 +540,8 @@ public class AssignFunctionsView extends ViewPart {
 					ContentObjectDao contentObjectDao = DaoFactory.eINSTANCE.createContentObjectDao();
 					ContentObject co = GeneralFactory.eINSTANCE.createContentObject();
 					co = (ContentObject) contentObjectDao.getById(data.toString());
-					contentObjects.add(co);
-					functionTreeViewer.setInput(contentObjects);
+					CURRENT_FUNCTION_FILE_LIST.add(co);
+					functionTreeViewer.setInput(CURRENT_FUNCTION_FILE_LIST);
 				} else {
 					MessageDialog.openInformation(composite.getShell(), 
 							"Information", "Please select or create a function first");
@@ -569,7 +631,7 @@ public class AssignFunctionsView extends ViewPart {
 		
 		Button btnSave = new Button(parent, SWT.NONE);
 		btnSave.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		btnSave.setText("Save");
+		btnSave.setText("Apply");
 		btnSave.setImage(PlatformUI.getWorkbench().getSharedImages()
 					.getImage(ISharedImages.IMG_ETOOL_SAVE_EDIT));
 		btnSave.addSelectionListener(new SelectionAdapter() {
@@ -587,38 +649,42 @@ public class AssignFunctionsView extends ViewPart {
 		new Label(parent, SWT.NONE);
 	}
 	
+	/*
+	 * TODO: persisting changes on apply
+	 */
 	protected void saveBtnAction () {
-		if ( contentObjects.size() > 0 ) {
-			// Iterate through the content object list, store function and remove from list
-			s = HibernateUtilImpl.getSessionFactoryEdefault().openSession();
-			tx = s.beginTransaction();
-			s.flush();
-			s.clear();
-			for ( Iterator<ContentObject> iter = contentObjects.iterator(); iter.hasNext(); ) {
-				ContentObject co = iter.next();
-
-				storeFunctionInfoInFile ( co );
-				
-				iter.remove();
-			}
-			tx.commit();
-			s.close();
-		} else {
-			MessageDialog.openInformation(composite.getShell(), 
-					"Information", "nothing to persist");
-		}
-		fillSnapshotTree();
+//		if ( contentObjects.size() > 0 ) {
+//			// Iterate through the content object list, store function and remove from list
+//			GenericDao genDao = DaoFactory.eINSTANCE.createGenericDao();
+//			
+//			s = genDao.getSession(); //HibernateUtilImpl.getSessionFactoryEdefault().openSession();
+//			tx = s.beginTransaction();
+////			s.flush();
+////			s.clear();
+//			for ( Iterator<ContentObject> iter = contentObjects.iterator(); iter.hasNext(); ) {
+//				ContentObject co = iter.next();
+//
+//				storeFunctionInfoInFile ( co );
+//				
+//				iter.remove();
+//			}
+//			tx.commit();
+//			s.close();
+//		} else {
+//			MessageDialog.openInformation(composite.getShell(), 
+//					"Information", "nothing to persist");
+//		}
+//		fillSnapshotTree();
 	}
 
 	protected void storeFunctionInfoInFile( ContentObject co ) {
 		if ( co instanceof File || co instanceof Folder ) {
 			// load the object to be modified
 			
-			try { 
-				s.load(co, co.getObjectId());
-			} catch ( Exception e) {
-				e.printStackTrace();
-			}
+			s.evict(co);
+			s.load(co, co.getObjectId());
+//			co = (ContentObject) s.get(ContentObject.class.getName().toString(), co.getObjectId());
+			
 			// assign the function to it
 			co.getFunction().add(SessionSourceProvider.CURRENT_FUNCTION);
 			
@@ -645,11 +711,11 @@ public class AssignFunctionsView extends ViewPart {
 
 	@SuppressWarnings("unchecked")
 	protected void fillFunctionCombo() {
-		functions.clear();
-		contentObjects.clear();
+		
+		CURRENT_FUNCTION_LIST.clear();
 		FunctionDao functionDao = DaoFactory.eINSTANCE.createFunctionDao();
-		functions = functionDao.getFunctionsBySnapshot(SessionSourceProvider.CURRENT_SNAPSHOT);
-		functionComboViewer.setInput(functions);
+		CURRENT_FUNCTION_LIST = functionDao.getFunctionsBySnapshot(SessionSourceProvider.CURRENT_SNAPSHOT);
+		functionComboViewer.setInput(CURRENT_FUNCTION_LIST);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -661,6 +727,7 @@ public class AssignFunctionsView extends ViewPart {
 		snapshotComboViewer.setInput(input);
 		if ( snapshotCombo.getItemCount() > 0 ) 
 			snapshotCombo.select(0);
+		input = null;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -671,17 +738,51 @@ public class AssignFunctionsView extends ViewPart {
 		containerComboViewer.setInput(input);
 		if ( containerCombo.getItemCount() > 0 ) 
 			containerCombo.select(0);
+		input = null;
 	}
 
-	protected void fillSnapshotTree() {
+	/*
+	 * This method reads every content object of the snapshot
+	 * including the function information
+	 */
+	@SuppressWarnings("unchecked")
+	protected void firstFillSnapshotTree() {
+		
+		ContentObjectDao coDao = DaoFactory.eINSTANCE.createContentObjectDao();
+		CURRENT_FILE_LIST = coDao
+				.getListBySnapshot(SessionSourceProvider.CURRENT_SNAPSHOT);
+
+		
+		
+		for ( int i = 0 ; i < CURRENT_FILE_LIST.size() ; i++ ) {
+			// load the corresponding information!
+			if ( CURRENT_FILE_LIST.get(i).getFunction().size() > 0 )
+				CURRENT_FILE_LIST_WITH_FUNCTION.add(CURRENT_FILE_LIST.get(i));
+		}
+		
+		System.out.println("There are : " + CURRENT_FILE_LIST_WITH_FUNCTION.size() + " files with fn");
+		
 		snapshotTree.removeAll();
-		snapshotTreeViewer.setLabelProvider(new SnapshotStyledLabelProvder
-				(SessionSourceProvider.CURRENT_SNAPSHOT));
-		FolderDao folderObjectDao = DaoFactory.eINSTANCE.createFolderDao();
-		Folder folder = 
-				folderObjectDao.getRootFolderBySnapshot(
-						SessionSourceProvider.CURRENT_SNAPSHOT);
-		snapshotTreeViewer.setInput(folder);
+		snapshotTreeViewer.setLabelProvider( new SnapshotStyledLabelProvder() );
+		
+		// find root Folder
+		for ( int i = 0 ; i < CURRENT_FILE_LIST.size() ; i++ ) {
+			
+			if ( CURRENT_FILE_LIST.get(i) instanceof Folder ) {
+				
+				if ( ((Folder)CURRENT_FILE_LIST.get(i)).getRootDirectory() == null  ) {
+
+					System.out.println("The root is : " + 
+							((Folder)CURRENT_FILE_LIST.get(i)).getName());
+					
+					snapshotTreeViewer.setInput(((Folder)CURRENT_FILE_LIST.get(i)));
+					
+				}
+				
+			}
+			
+		}
+		
 	}
 	
 	

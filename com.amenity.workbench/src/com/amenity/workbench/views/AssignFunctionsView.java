@@ -25,6 +25,10 @@ import org.eclipse.ui.part.ViewPart;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ISelection;
@@ -35,6 +39,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerDropAdapter;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSourceEvent;
@@ -52,6 +57,9 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
 
+import com.amenity.engine.helper.gui.filter.FunctionAssigned;
+import com.amenity.engine.helper.gui.filter.FunctionNotAssigned;
+import com.amenity.engine.helper.gui.filter.NoFilter;
 import com.amenity.engine.helper.gui.labelProvider.GenericNameLabelProvider;
 import com.amenity.engine.helper.gui.labelProvider.SnapshotStyledLabelProvder;
 import com.amenity.workbench.SessionSourceProvider;
@@ -60,15 +68,11 @@ import com.amenity.workbench.dialogs.CreateFunctionDialog;
 import dao.ContainerDao;
 import dao.ContentObjectDao;
 import dao.DaoFactory;
-import dao.FolderDao;
 import dao.FunctionDao;
-import dao.GenericDao;
 import dao.SnapshotDao;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 public class AssignFunctionsView extends ViewPart {
 	public static String newFn = null;
@@ -85,18 +89,21 @@ public class AssignFunctionsView extends ViewPart {
 	private Tree snapshotTree;
 	private Tree functionTree;
 	private Composite composite;
+	
+	// filters for tree
+	protected Action actionShowAll, actionHideUsed, actionHideNotUsed;
+	protected ViewerFilter filterShowAll, filterHideUsed, filterHideNotUsed;
+	
 //	private java.util.List<ContentObject> contentObjects;
 	private Logger log;
-	private Transaction tx;
-	private Session s;
 	// stores the total snapshot content
 	private static java.util.List<ContentObject> CURRENT_FILE_LIST;
 	// stores the total snapshot content
 	private static java.util.List<ContentObject> CURRENT_FILE_LIST_WITH_FUNCTION;
 	// stores the current function content
-	private static java.util.List<ContentObject> CURRENT_FUNCTION_LIST;
+	private static java.util.List<Function> CURRENT_FUNCTION_LIST;
 	// stores the originally read function content
-	private static java.util.List<ContentObject> ORIGINAL_FUNCTION_LIST;
+	private static java.util.List<Function> ORIGINAL_FUNCTION_LIST;
 	// stores the current function content objects
 	private static java.util.List<ContentObject> CURRENT_FUNCTION_FILE_LIST;
 	// stores the originally read function content objects
@@ -108,10 +115,10 @@ public class AssignFunctionsView extends ViewPart {
 		
 		CURRENT_FILE_LIST = new ArrayList<ContentObject>();
 		
-		CURRENT_FUNCTION_LIST = new ArrayList<ContentObject>();
+		CURRENT_FUNCTION_LIST = new ArrayList<Function>();
 		CURRENT_FUNCTION_FILE_LIST = new ArrayList<ContentObject>();
 		
-		ORIGINAL_FUNCTION_LIST = new ArrayList<ContentObject>();
+		ORIGINAL_FUNCTION_LIST = new ArrayList<Function>();
 		ORIGINAL_FUNCTION_FILE_LIST = new ArrayList<ContentObject>();
 		CURRENT_FILE_LIST_WITH_FUNCTION = new ArrayList<ContentObject>();
 		PropertyConfigurator.configure(SessionSourceProvider.LOG4J_PROPERTIES);
@@ -172,8 +179,9 @@ public class AssignFunctionsView extends ViewPart {
 		        		SessionSourceProvider.CURRENT_SNAPSHOT = 
 		        				(Snapshot) structuredSelection.getFirstElement();
 		        		
-		        		fillFunctionCombo();
+		        		fillFunctionCombo( false );
 		        		firstFillSnapshotTree();
+		        		clearFunctionTree();
 		        	}
 		        }
 			}
@@ -197,13 +205,13 @@ public class AssignFunctionsView extends ViewPart {
 			}
 		});
 		functionComboViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-			@SuppressWarnings("unchecked")
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				objectSelection = event.getSelection();
 				structuredSelection = (IStructuredSelection) objectSelection;
 				// may require not null check
-				if ( !CURRENT_FUNCTION_FILE_LIST.containsAll(ORIGINAL_FUNCTION_FILE_LIST) ) {
+				if ( CURRENT_FUNCTION_FILE_LIST != null )
+				if ( !ORIGINAL_FUNCTION_FILE_LIST.containsAll(CURRENT_FUNCTION_FILE_LIST) ) {
 					MessageDialog.openWarning(composite.getShell(), "Warning", 
 							"You have to apply the changes");
 				} else {
@@ -235,6 +243,9 @@ public class AssignFunctionsView extends ViewPart {
 									if ( co.getFunction() != null || co.getFunction().size() > 0 ) {
 										
 										for ( Function f : co.getFunction() ) {
+											/*
+											 * TODO: Nullpointer Exception
+											 */
 											if ( f.getFunctionId().equals(
 													SessionSourceProvider.CURRENT_FUNCTION.getFunctionId())) {
 
@@ -246,12 +257,6 @@ public class AssignFunctionsView extends ViewPart {
 
 									}
 								}
-								
-								/*
-								 * filling the functionTree is a bit tricky
-								 * A simple info fetch will return
-								 * TODO: maybe a styled label provider mod can fix that
-								 */
 								
 								functionTreeViewer.setInput( CURRENT_FUNCTION_FILE_LIST );
 								
@@ -275,11 +280,8 @@ public class AssignFunctionsView extends ViewPart {
 						function.setSnapshot(SessionSourceProvider.CURRENT_SNAPSHOT);
 						function.setName(newFn);
 						function.setModified(new Date());
-						FunctionDao functionDao = DaoFactory.eINSTANCE.createFunctionDao();
-						functionDao.create(function);
-//						functions = functionDao.getFunctionsBySnapshot(SessionSourceProvider.CURRENT_SNAPSHOT);
-//						functionComboViewer.setInput(functions);
-						fillFunctionCombo();
+						CURRENT_FUNCTION_LIST.add(function);
+						fillFunctionCombo(true);
 					}
 				}
 				
@@ -346,20 +348,11 @@ public class AssignFunctionsView extends ViewPart {
 
 			@Override
 			public Object[] getChildren(Object parentElement) {
+				/*
+				 * TODO: put this into own method
+				 */
 				
-				java.util.List<ContentObject> children = new ArrayList<ContentObject>();
-				for ( ContentObject co : CURRENT_FILE_LIST ) {
-					if ( co instanceof Folder ) {
-						if (((Folder)co).getRootDirectory() != null )
-						if (((Folder) co).getRootDirectory().equals(((Folder)parentElement)))
-							children.add(co);
-					}
-					if ( co instanceof File ) {
-						if (((File) co).getRootDir().equals(((Folder)parentElement)))
-							children.add(co);
-					}
-				}
-				return children.toArray();
+				return getFolderChildren((ContentObject)parentElement).toArray();
 			}
 
 			@Override
@@ -391,12 +384,11 @@ public class AssignFunctionsView extends ViewPart {
 			}	
 		});
 		
-		
-		/**
-		 * TODO: Drag and Drop
-		 */
+		// static filter!
+//		snapshotTreeViewer.addFilter(new FunctionAssigned());
 		int operations = DND.DROP_MOVE | DND.DROP_COPY;
 		Transfer[] transfers = new Transfer[] { TextTransfer.getInstance() };
+		Transfer[] transfers2 = new Transfer[] { TextTransfer.getInstance() };
 		
 	    snapshotTreeViewer.addDragSupport(operations, transfers, new DragSourceListener() {
 
@@ -410,7 +402,7 @@ public class AssignFunctionsView extends ViewPart {
 				ContentObject firstElement = (ContentObject) selection.getFirstElement();
 				
 				if (TextTransfer.getInstance().isSupportedType(event.dataType)) {
-					event.data = firstElement.getObjectId(); 
+					event.data = firstElement.getObjectId();
 				}
 			}
 			
@@ -420,7 +412,58 @@ public class AssignFunctionsView extends ViewPart {
 
 		});
 		
-		
+		snapshotTreeViewer.addDropSupport(operations, transfers2, new ViewerDropAdapter ( snapshotTreeViewer ) {
+			public void drop ( DropTargetEvent event ) {
+				determineTarget(event);
+				super.drop(event);
+			}
+			
+			@Override
+			public boolean performDrop ( Object data ) {
+				
+				/*
+				 * TODO: removing the files and folders from the iterator
+				 */
+				for ( Iterator<ContentObject> coIter = CURRENT_FUNCTION_FILE_LIST.iterator(); 
+						coIter.hasNext(); ) {
+					ContentObject co = coIter.next();
+					if ( co.getObjectId().equals(data.toString())) {
+						
+						System.out.println(" the dropped file name is: " + co.getName());
+						
+						for ( Iterator<Function> fun = co.getFunction().iterator(); fun.hasNext(); ) {
+							if ( fun.next().getFunctionId()
+									.equals(SessionSourceProvider.CURRENT_FUNCTION.getFunctionId() ))
+								fun.remove();
+						}
+						
+						coIter.remove();
+						for ( Iterator<ContentObject> coIter2 = CURRENT_FILE_LIST_WITH_FUNCTION.iterator(); 
+								coIter2.hasNext(); ) {
+							
+							if ( coIter2.next().equals(co) ) {
+								coIter2.remove();
+								break;
+							}
+							
+						}
+						break;
+						
+					}
+				}
+				refreshSnapshotTree();
+				functionTreeViewer.setInput(CURRENT_FUNCTION_FILE_LIST);
+				
+				return false;
+			}
+			
+			@Override
+			public boolean validateDrop ( Object target, int operation, 
+					TransferData transferType ) {
+				return true;
+			}
+		});
+	    
 		Composite composite_1 = new Composite(parent, SWT.NONE);
 		composite_1.setLayout(new GridLayout(2, false));
 		composite_1.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
@@ -491,23 +534,9 @@ public class AssignFunctionsView extends ViewPart {
 
 			@Override
 			public Object[] getChildren(Object parentElement) {
-				/*
-				 * TODO: modify here to ensure the correct info is displayed
-				 */
-//				ContentObjectDao contentobjectDao = DaoFactory.eINSTANCE.createContentObjectDao();
-//				
-//				return contentobjectDao.getChildren(parentElement, 
-//						SessionSourceProvider.CURRENT_SNAPSHOT).toArray();
-				java.util.List<ContentObject> retObj = new ArrayList<ContentObject>();
-				for ( ContentObject co : CURRENT_FUNCTION_FILE_LIST ) {
-					if ( co instanceof File ) {
-						if ( ((File)co).getRootDir().getObjectId().equals(
-								((Folder)parentElement).getObjectId()) ) {
-							retObj.add(co);
-						}
-					}
-				}
-				return retObj.toArray();
+
+				return getFolderChildren((ContentObject)parentElement).toArray();
+				
 			}
 
 			@Override
@@ -523,6 +552,26 @@ public class AssignFunctionsView extends ViewPart {
 		});
 		functionTreeViewer.setLabelProvider(new GenericNameLabelProvider());
 
+		functionTreeViewer.addDragSupport(operations, transfers2, new DragSourceListener() {
+
+			@Override
+			public void dragStart(DragSourceEvent event) {}
+
+			@Override
+			public void dragSetData(DragSourceEvent event) {
+				IStructuredSelection selection = (IStructuredSelection) functionTreeViewer.getSelection();
+				ContentObject firstElement = (ContentObject) selection.getFirstElement();
+				
+				if (TextTransfer.getInstance().isSupportedType(event.dataType)) {
+					event.data = firstElement.getObjectId();
+				}
+			}
+
+			@Override
+			public void dragFinished(DragSourceEvent event) {}
+			
+		});
+		
 	    functionTreeViewer.addDropSupport(operations, transfers, new ViewerDropAdapter(snapshotComboViewer) {
 
 			public void drop ( DropTargetEvent event ) {
@@ -533,14 +582,19 @@ public class AssignFunctionsView extends ViewPart {
 			
 			@Override
 			public boolean performDrop(Object data) {
-				/**
-				 * TODO: prettier message
+				/*
+				 * TODO: getting content right
+				 * refreshing the snapshottreeviewer
 				 */
 				if ( SessionSourceProvider.CURRENT_FUNCTION != null ) {
-					ContentObjectDao contentObjectDao = DaoFactory.eINSTANCE.createContentObjectDao();
-					ContentObject co = GeneralFactory.eINSTANCE.createContentObject();
-					co = (ContentObject) contentObjectDao.getById(data.toString());
-					CURRENT_FUNCTION_FILE_LIST.add(co);
+					for ( ContentObject co : CURRENT_FILE_LIST )
+						if ( co.getObjectId().equals(data.toString() )) {
+							
+							storeFunctionInfoInFile(co);
+							
+							break;
+						}
+					refreshSnapshotTree();
 					functionTreeViewer.setInput(CURRENT_FUNCTION_FILE_LIST);
 				} else {
 					MessageDialog.openInformation(composite.getShell(), 
@@ -552,6 +606,8 @@ public class AssignFunctionsView extends ViewPart {
 			@Override
 			public boolean validateDrop(Object target, int operation,
 					TransferData transferType) {
+				if ( functionComboViewer.getSelection().isEmpty() )
+					return false;
 				return true;
 			}
 			
@@ -569,8 +625,6 @@ public class AssignFunctionsView extends ViewPart {
 		
 		Grid statusGrid = new Grid(parent, SWT.BORDER);
 		statusGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
-		
-		DropTarget dropTarget_1 = new DropTarget(statusGrid, DND.DROP_MOVE);
 		new Label(parent, SWT.NONE);
 		new Label(parent, SWT.NONE);
 		new Label(parent, SWT.NONE);
@@ -647,8 +701,19 @@ public class AssignFunctionsView extends ViewPart {
 		new Label(parent, SWT.NONE);
 		new Label(parent, SWT.NONE);
 		new Label(parent, SWT.NONE);
+		
+		
+		createFiltersAndSorters();
+		createActions();
+		createMenus();
+		
 	}
 	
+
+	protected void clearFunctionTree() {
+		functionTreeViewer.setInput(null);
+	}
+
 	/*
 	 * TODO: persisting changes on apply
 	 */
@@ -679,42 +744,66 @@ public class AssignFunctionsView extends ViewPart {
 
 	protected void storeFunctionInfoInFile( ContentObject co ) {
 		if ( co instanceof File || co instanceof Folder ) {
-			// load the object to be modified
 			
-			s.evict(co);
-			s.load(co, co.getObjectId());
-//			co = (ContentObject) s.get(ContentObject.class.getName().toString(), co.getObjectId());
+			for ( int i = 0 ; i < CURRENT_FILE_LIST.size() ; i++ ) {
+				if ( CURRENT_FILE_LIST.get(i).getObjectId().equals(co.getObjectId())) {
+					CURRENT_FILE_LIST.get(i).getFunction().add(SessionSourceProvider.CURRENT_FUNCTION);
+					co = CURRENT_FILE_LIST.get(i);
+				}
+			}
 			
-			// assign the function to it
-			co.getFunction().add(SessionSourceProvider.CURRENT_FUNCTION);
-			
-			// store the changes into the database
-			s.merge(co);
-			// commit them and close session
+//			co.getFunction().add(SessionSourceProvider.CURRENT_FUNCTION);
+			CURRENT_FUNCTION_FILE_LIST.add(co);
+			CURRENT_FILE_LIST_WITH_FUNCTION.add(co);
 		}
 		// if its a folder fetch children and perform same operation
 		if ( co instanceof Folder ) {
-			java.util.List<ContentObject > coList = getChildren(co);
+			java.util.List<ContentObject> coList = getFolderChildren(co);
 			for ( ContentObject subCo : coList ) {
 				storeFunctionInfoInFile(subCo);
 			}
 		}
 	}
-	@SuppressWarnings("unchecked")
-	protected java.util.List<ContentObject> getChildren ( ContentObject co ) {
-		ContentObjectDao coDao = DaoFactory.eINSTANCE.createContentObjectDao();
-		return coDao.getChildren(co, SessionSourceProvider.CURRENT_SNAPSHOT);
+	
+	/*
+	 * TODO: this can be used for the content providers as well
+	 */
+	public java.util.List<ContentObject> getFolderChildren ( ContentObject parentElement ) {
+		
+
+		java.util.List<ContentObject> children = new ArrayList<ContentObject>();
+		for ( ContentObject co : CURRENT_FILE_LIST ) {
+			if ( co instanceof Folder ) {
+				if (((Folder)co).getRootDirectory() != null )
+				if (((Folder) co).getRootDirectory().equals(((Folder)parentElement)))
+					children.add(co);
+			}
+			if ( co instanceof File ) {
+				if (((File) co).getRootDir().equals(((Folder)parentElement)))
+					children.add(co);
+			}
+		}
+		
+		return children;
 	}
 	
 	
 
 
 	@SuppressWarnings("unchecked")
-	protected void fillFunctionCombo() {
-		
-		CURRENT_FUNCTION_LIST.clear();
-		FunctionDao functionDao = DaoFactory.eINSTANCE.createFunctionDao();
-		CURRENT_FUNCTION_LIST = functionDao.getFunctionsBySnapshot(SessionSourceProvider.CURRENT_SNAPSHOT);
+	protected void fillFunctionCombo(boolean added) {
+		// if added its a new function selected and not one added
+		if ( !added ) {
+			ORIGINAL_FUNCTION_LIST.clear();
+			CURRENT_FUNCTION_LIST.clear();
+//			CURRENT_FUNCTION_FILE_LIST = null;
+//			ORIGINAL_FUNCTION_FILE_LIST = null;
+			FunctionDao functionDao = DaoFactory.eINSTANCE.createFunctionDao();
+			CURRENT_FUNCTION_LIST = functionDao.getFunctionsBySnapshot(SessionSourceProvider.CURRENT_SNAPSHOT);
+			ORIGINAL_FUNCTION_LIST = CURRENT_FUNCTION_LIST;
+		} 
+
+		functionTreeViewer.setInput(CURRENT_FUNCTION_FILE_LIST);
 		functionComboViewer.setInput(CURRENT_FUNCTION_LIST);
 	}
 
@@ -747,23 +836,25 @@ public class AssignFunctionsView extends ViewPart {
 	 */
 	@SuppressWarnings("unchecked")
 	protected void firstFillSnapshotTree() {
-		
+		CURRENT_FILE_LIST_WITH_FUNCTION.clear();
 		ContentObjectDao coDao = DaoFactory.eINSTANCE.createContentObjectDao();
 		CURRENT_FILE_LIST = coDao
 				.getListBySnapshot(SessionSourceProvider.CURRENT_SNAPSHOT);
 
-		
-		
 		for ( int i = 0 ; i < CURRENT_FILE_LIST.size() ; i++ ) {
 			// load the corresponding information!
 			if ( CURRENT_FILE_LIST.get(i).getFunction().size() > 0 )
 				CURRENT_FILE_LIST_WITH_FUNCTION.add(CURRENT_FILE_LIST.get(i));
 		}
 		
-		System.out.println("There are : " + CURRENT_FILE_LIST_WITH_FUNCTION.size() + " files with fn");
+		refreshSnapshotTree();
 		
+	}
+	
+	protected void refreshSnapshotTree() {
+
 		snapshotTree.removeAll();
-		snapshotTreeViewer.setLabelProvider( new SnapshotStyledLabelProvder() );
+		snapshotTreeViewer.setLabelProvider( new SnapshotStyledLabelProvder(CURRENT_FILE_LIST) );
 		
 		// find root Folder
 		for ( int i = 0 ; i < CURRENT_FILE_LIST.size() ; i++ ) {
@@ -771,9 +862,6 @@ public class AssignFunctionsView extends ViewPart {
 			if ( CURRENT_FILE_LIST.get(i) instanceof Folder ) {
 				
 				if ( ((Folder)CURRENT_FILE_LIST.get(i)).getRootDirectory() == null  ) {
-
-					System.out.println("The root is : " + 
-							((Folder)CURRENT_FILE_LIST.get(i)).getName());
 					
 					snapshotTreeViewer.setInput(((Folder)CURRENT_FILE_LIST.get(i)));
 					
@@ -783,6 +871,88 @@ public class AssignFunctionsView extends ViewPart {
 			
 		}
 		
+	}
+	
+	protected void createActions() {
+		actionShowAll = new Action("Show all items") {
+			public void run() {
+				updateFilter(actionShowAll);
+			}
+		};
+		actionShowAll.setChecked(false);
+		
+		actionHideUsed = new Action("Hide items without function") {
+			public void run() {
+				updateFilter(actionHideUsed);
+			}
+		};
+		actionHideUsed.setChecked(false);
+		
+		actionHideNotUsed = new Action("Hide items with function") {
+			public void run() {
+				updateFilter(actionHideNotUsed);
+			}
+		};
+		actionHideNotUsed.setChecked(false);
+		
+	}
+
+	protected void createFiltersAndSorters() {
+		filterHideUsed = new FunctionAssigned();
+		filterHideNotUsed = new FunctionNotAssigned();
+		filterShowAll = new NoFilter();
+	}
+	
+	/* Multiple filters can be enabled at a time. */
+	protected void updateFilter(Action action) {
+		if(action == actionShowAll) {
+			if(action.isChecked()) {
+				snapshotTreeViewer.addFilter(filterShowAll);
+			} else {
+				snapshotTreeViewer.addFilter(filterShowAll);
+				snapshotTreeViewer.removeFilter(filterHideUsed);
+				snapshotTreeViewer.removeFilter(filterHideNotUsed);
+			}
+		} else if(action == actionHideUsed) {
+			if(action.isChecked()) {
+				snapshotTreeViewer.addFilter(filterHideUsed);
+			} else {
+				snapshotTreeViewer.removeFilter(filterHideUsed);
+				snapshotTreeViewer.addFilter(filterShowAll);
+			}
+		} else if(action == actionHideNotUsed) {
+			if(action.isChecked()) {
+				snapshotTreeViewer.addFilter(filterHideNotUsed);
+			} else {
+				snapshotTreeViewer.removeFilter(filterHideNotUsed);
+				snapshotTreeViewer.addFilter(filterShowAll);
+			}
+		}
+	}
+	
+	protected void createMenus() {
+		IMenuManager rootMenuManager = getViewSite().getActionBars().getMenuManager();
+		rootMenuManager.setRemoveAllWhenShown(true);
+		rootMenuManager.addMenuListener(new IMenuListener() {
+			public void menuAboutToShow(IMenuManager mgr) {
+				fillMenu(mgr);
+			}
+		});
+		fillMenu(rootMenuManager);
+	}
+
+
+	protected void fillMenu(IMenuManager rootMenuManager) {
+		IMenuManager filterSubmenu = new MenuManager("Filters");
+		rootMenuManager.add(filterSubmenu);
+		filterSubmenu.add(actionShowAll);
+		filterSubmenu.add(actionHideUsed);
+		filterSubmenu.add(actionHideNotUsed);
+//		
+//		IMenuManager sortSubmenu = new MenuManager("Sort By");
+//		rootMenuManager.add(sortSubmenu);
+//		sortSubmenu.add(booksBoxesGamesAction);
+//		sortSubmenu.add(noArticleAction);
 	}
 	
 	

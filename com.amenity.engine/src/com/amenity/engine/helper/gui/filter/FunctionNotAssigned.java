@@ -7,6 +7,8 @@ import org.eclipse.jface.viewers.ViewerFilter;
 
 public class FunctionNotAssigned extends ViewerFilter {
 	public boolean select ( Viewer viewer, Object parentElement, Object element ) {
-		return ((ContentObject)element).getFunction().isEmpty();
+		if ( element instanceof ContentObject )
+			return ((ContentObject)element).getFunction().isEmpty();
+		return true;
 	}
 }

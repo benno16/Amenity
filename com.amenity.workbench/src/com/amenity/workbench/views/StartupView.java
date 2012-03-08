@@ -63,9 +63,8 @@ public class StartupView extends ViewPart {
 		else 
 			lblSynergyStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/status/mks_off.png"));
 		
-		if ( SessionSourceProvider.SESSION_STATUS.getSynergySession() == null ) {
-			lblSynergyStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/status/sgy_off.png"));
-		} else if (SessionSourceProvider.SESSION_STATUS.getSynergySession().length() < 9) {
+		if ( SessionSourceProvider.SESSION_STATUS.getSynergySession() == null ||
+				SessionSourceProvider.SESSION_STATUS.getSynergySession().length() < 9) {
 			lblSynergyStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/status/sgy_off.png"));
 		} else 
 			lblSynergyStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/status/sgy_on.png"));

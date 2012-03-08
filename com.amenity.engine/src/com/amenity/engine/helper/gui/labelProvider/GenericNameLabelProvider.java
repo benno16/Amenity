@@ -9,7 +9,7 @@ import org.eclipse.ui.PlatformUI;
 
 import com.amenity.engine.helper.synergy.SynergyProject;
 
-public class GenericNameLabelProvider extends LabelProvider {
+public class GenericNameLabelProvider extends LabelProvider  {
 	
 	@Override
 	public String getText(Object element) {
@@ -69,6 +69,5 @@ public class GenericNameLabelProvider extends LabelProvider {
 		return PlatformUI.getWorkbench().getSharedImages()
 				.getImage(ISharedImages.IMG_OBJ_FILE);
 	}
-
 
 }

@@ -96,7 +96,6 @@ public class FolderDaoImpl extends GenericDaoImpl implements FolderDao {
 				i++;
 			}
 		}
-		System.out.println( i + " were added");
 		try {
 			tx.commit();
 			session.close();

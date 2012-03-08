@@ -48,12 +48,14 @@
             name="Manage Container">
       </view>
       <view
+            allowMultiple="true"
             class="com.amenity.workbench.views.SnapshotView"
             icon="icons/workbench/general/gnome-dev-computer.png"
             id="com.amenity.workbench.views.SnapshotView"
             name="Show Snapshot">
       </view>
       <view
+            allowMultiple="true"
             class="com.amenity.workbench.views.CompareSnapshotsView"
             icon="icons/workbench/general/gnome-searchtool.png"
             id="com.amenity.workbench.views.CompareSnapshotsView"
@@ -115,10 +117,15 @@
                relative="com.amenity.workbench.views.StartupView">
          </view>
          <view
+               closeable="true"
                id="com.amenity.workbench.views.CompareSnapshotsView"
                minimized="false"
+               moveable="true"
                relationship="stack"
-               relative="com.amenity.workbench.views.StartupView">
+               relative="com.amenity.workbench.views.StartupView"
+               showTitle="true"
+               standalone="true"
+               visible="true">
          </view>
          <view
                id="com.amenity.workbench.views.AssignFunctionsView"
@@ -127,8 +134,10 @@
                relative="com.amenity.workbench.views.StartupView">
          </view>
          <view
+               closeable="false"
                id="com.amenity.workbench.views.SetStatsView"
                minimized="false"
+               moveable="true"
                relationship="stack"
                relative="com.amenity.workbench.views.StartupView">
          </view>
@@ -138,6 +147,9 @@
                relationship="stack"
                relative="com.amenity.workbench.views.StartupView">
          </view>
+         <viewShortcut
+               id="org.eclipse.ui.views.TaskList">
+         </viewShortcut>
       </perspectiveExtension>
    </extension>
    <extension
@@ -407,6 +419,9 @@
                priorityLevel="workbench">
          </variable>
       </sourceProvider>
+   </extension>
+   <extension
+         point="com.amenity.engine.helper">
    </extension>
 
 </plugin>

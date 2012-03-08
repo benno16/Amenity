@@ -375,7 +375,8 @@ public class SnapshotView extends ViewPart {
 				    gridItem.setText(3, df.format(f.getModfiedDate()));
 				    gridItem.setText(4, f.getObjectId());
 				    if ( f.getSuffix().equals("-") )
-				    	gridItem.setImage(getDefaultImage());
+				    	gridItem.setImage(PlatformUI.getWorkbench().getSharedImages()
+								.getImage(ISharedImages.IMG_OBJ_FILE));
 				    else 
 				    	gridItem.setImage(getImageIcon(f.getSuffix()));
 				    gridItems.add(gridItem);
@@ -397,7 +398,8 @@ public class SnapshotView extends ViewPart {
 		 */
 		switch (suffix.toLowerCase()) {
 		case ("-"):
-			return getDefaultImage();
+			return PlatformUI.getWorkbench().getSharedImages()
+					.getImage(ISharedImages.IMG_OBJ_FILE);
 		case (".ppt"):
 			return IconFactory.getInstance().getPPTIco();
 		case (".c"):
@@ -419,7 +421,8 @@ public class SnapshotView extends ViewPart {
 		case (".docx"):
 			return IconFactory.getInstance().getWordIco();
 		default:
-			return getDefaultImage();
+			return PlatformUI.getWorkbench().getSharedImages()
+					.getImage(ISharedImages.IMG_OBJ_FILE);
 		}
 	}
 

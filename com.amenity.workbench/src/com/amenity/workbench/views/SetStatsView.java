@@ -1,9 +1,6 @@
 package com.amenity.workbench.views;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.part.ViewPart;
 
 public class SetStatsView extends ViewPart {
@@ -15,8 +12,6 @@ public class SetStatsView extends ViewPart {
 	@Override
 	public void createPartControl(Composite parent) {
 
-		Label lbl = new Label ( parent , SWT.BORDER);
-		lbl.setImage(new Image ( parent.getDisplay(), "d:/temp/setStatusView.png"));
 		
 	}
 

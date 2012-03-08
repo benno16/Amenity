@@ -50,6 +50,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 		configurer.setShowProgressIndicator(true);
 		configurer.setShowStatusLine(true);
 		configurer.setTitle("I BS Q - Amenity");
+		configurer.setShowFastViewBars(true);
 		
 		String prop = IWorkbenchPreferenceConstants.SHOW_TRADITIONAL_STYLE_TABS;
 		PlatformUI.getPreferenceStore().setValue(prop, false);

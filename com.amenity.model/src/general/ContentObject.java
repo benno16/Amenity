@@ -50,7 +50,7 @@ public interface ContentObject extends EObject {
 	 * @generated
 	 */
 	String getObjectId();
-
+	
 	/**
 	 * Sets the value of the '{@link general.ContentObject#getObjectId <em>Object Id</em>}' attribute.
 	 * <!-- begin-user-doc -->

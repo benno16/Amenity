@@ -479,7 +479,7 @@ public class MksReader {
 		}
 	}
 	
-	public void generateContentObject( WorkItem wi ) {
+	private void generateContentObject( WorkItem wi ) {
 		
 		String idOut = "";
 		String stateOut = "";

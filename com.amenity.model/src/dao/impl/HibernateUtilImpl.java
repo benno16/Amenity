@@ -90,7 +90,7 @@ public class HibernateUtilImpl extends EObjectImpl implements HibernateUtil {
 			hibernateProperties.setProperty(Environment.USE_QUERY_CACHE, "true");
 			hibernateProperties.setProperty(Environment.USE_SECOND_LEVEL_CACHE, "true");
 			hibernateProperties.setProperty(Environment.CACHE_PROVIDER, "org.hibernate.cache.SingletonEhCacheProvider");
-			hibernateProperties.setProperty(Environment.CACHE_PROVIDER_CONFIG, "transactional|read-write|nonstrict-read-write|read-only");
+//			hibernateProperties.setProperty(Environment.CACHE_PROVIDER_CONFIG, "transactional|read-write|nonstrict-read-write|read-only");
 
 
 			final String dataStoreName = "AmenityDataStore";
@@ -127,7 +127,7 @@ public class HibernateUtilImpl extends EObjectImpl implements HibernateUtil {
 	 * @ordered
 	 */
 	protected SessionFactory sessionFactory = SESSION_FACTORY_EDEFAULT;
-
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

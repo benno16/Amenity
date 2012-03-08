@@ -30,7 +30,7 @@ public class SynergyReader {
 	private FolderDao folderDao;
 	private FileDao fileDao;
 	private String ccmHomeFolder = "D:/temp/Synergy_client7103";
-	private String ccmEXEFolder = "D:/temp/Synergy_client7103\\bin\\ccm";
+	private String ccmEXEFolder = "D:/temp/Synergy_client7103/bin/ccm";
 	
 	@SuppressWarnings("unused")
 	private SynergyReader() {

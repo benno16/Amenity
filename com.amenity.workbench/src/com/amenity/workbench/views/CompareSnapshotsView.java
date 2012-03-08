@@ -44,28 +44,9 @@ import org.eclipse.swt.events.SelectionEvent;
 
 public class CompareSnapshotsView extends ViewPart {
 
-	// Snapshot left
-//	private Snapshot currentSnapshot1;
-//	private List<Folder> folders1;
-//	private List<File> files1;
-//	private List<ContentObject> contentObjects1;
-//	private List<GridItem> gridItems1;
-	
-	// Snapshot right
-//	private Snapshot currentSnapshot2;
-//	private List<Folder> folders2;
-//	private List<File> files2;
-//	private List<ContentObject> contentObjects2;
-//	private List<GridItem> gridItems2;
 	
 	// general
 	private GenericDao genericDao;
-//	private Composite compositeWest;
-//	private org.eclipse.swt.widgets.List containerList;
-//	private org.eclipse.swt.widgets.List snapshotList;
-//	private java.util.List<Container> containerArray;
-//	private java.util.List<Snapshot> snapshotArray;
-//	private Container currentContainer;
 	private Grid grid;
 	private TreeViewer containerTreeViewer;
 	
@@ -82,18 +63,6 @@ public class CompareSnapshotsView extends ViewPart {
 	public CompareSnapshotsView() {
 		genericDao = DaoFactory.eINSTANCE.createGenericDao();
 		
-//		folders1 = new ArrayList<Folder>();
-//		files1 = new ArrayList<File>();
-//		contentObjects1 = new ArrayList<ContentObject>();
-//		gridItems1 = new ArrayList<GridItem>();
-//		
-//		folders2 = new ArrayList<Folder>();
-//		files2 = new ArrayList<File>();
-//		contentObjects2 = new ArrayList<ContentObject>();
-//		gridItems2 = new ArrayList<GridItem>();
-//		
-//		containerArray = new ArrayList<Container>();
-//		snapshotArray = new ArrayList<Snapshot>();
 	}
 
 	@Override
@@ -286,12 +255,6 @@ public class CompareSnapshotsView extends ViewPart {
 	
 	@SuppressWarnings("unchecked")
 	private void paintGrid ( Snapshot s1, Snapshot s2) {
-//
-//		String query1 = "from " + ContentObject.class.getName().toString() + 
-//				" where partOf = '6a0dcc26-e85c-4758-8130-822af1785002'";
-//
-//		String query2 = "from " + ContentObject.class.getName().toString() + 
-//				" where partOf = '012c9c20-f2a0-4b87-89ec-2fdddcdeaafa'";
 		
 		String query1 = "from " + ContentObject.class.getName().toString() + 
 		" where partOf = '" + s1.getSnapshotId() + "'";

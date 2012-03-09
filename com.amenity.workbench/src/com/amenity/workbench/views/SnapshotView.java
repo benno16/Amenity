@@ -30,6 +30,8 @@ import org.eclipse.ui.part.ViewPart;
 
 import com.amenity.engine.helper.gui.labelProvider.GenericNameLabelProvider;
 import com.amenity.engine.helper.mks.MksGetFile;
+import com.amenity.engine.helper.synergy.SynergyGetFile;
+import com.amenity.engine.helper.synergy.SynergyLogin;
 import com.amenity.workbench.SessionSourceProvider;
 import com.amenity.workbench.supporter.IconFactory;
 import com.amenity.workbench.wizards.addContainer.ContainerWizard;
@@ -514,8 +516,15 @@ public class SnapshotView extends ViewPart {
 						System.out.println("its a mks connection");
 						MksGetFile mksGetFile = new MksGetFile(connection, file);
 						mksGetFile.openFile();
-					} else 
-						System.out.println("its NOT a mks connection");
+					} else if ( connection.getConnectionType() == ConnectionType.SYNERGY ){
+						System.out.println("its a synergy connection");
+						if ( SessionSourceProvider.SYNERGY_SID == null ) {
+							SessionSourceProvider.SYNERGY_SID = new SynergyLogin().getSynergySessionId();
+						}
+						SynergyGetFile synergyGetFile = new SynergyGetFile
+								( SessionSourceProvider.SYNERGY_SID );
+						synergyGetFile.openFile(file);
+					}
 				} catch (Exception ex) {
 					if ( gi == null )
 						MessageDialog.openError(container.getShell(), 

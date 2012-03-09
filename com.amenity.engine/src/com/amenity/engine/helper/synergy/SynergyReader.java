@@ -75,6 +75,14 @@ public class SynergyReader {
 			env.put("CCM_HOME", ccmHomeFolder);
 			env.put("CCM_INI_FILE", "%USERPROFILE%\\ccm71.ini");
 			env.put("CCM_ADDR", sessionID);
+			env.put("PATH", "D:\\ts_mirr\\etoolset\\cw70d;" +
+					"M:\\pmtqtools\\Synergy71\\Synergy_client7103\\bin;" +
+					"M:\\pmtqtools\\Synergy71\\Synergy_client7103\\bin\\util;" +
+					"M:\\pmtqtools\\ccmscripts1015;" +
+					"M:\\pmtqtools\\ccmscripts1015\\perl\\bin;" +
+					"M:\\pmtqtools\\ccmscripts1015\\cygwin\\bin;" +
+					"C:\\Program Files\\Microsoft Office\\Office;" +
+					"M:\\pmtqtools\\ts_ref\\STM_RiMC\\STMTS\\v8.5;%PATH%");
 
 			Process pr = pb.start();
 			

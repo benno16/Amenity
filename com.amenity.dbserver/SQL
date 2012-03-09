@@ -39,7 +39,7 @@ select * from "snapshot" s
 	
 select count(*) FROM "contentobject_function"
 select distinct * from "contentobject_function"
-select * from "contentobject"
+select * from "contentobject_function"
 
 drop table "user"
 

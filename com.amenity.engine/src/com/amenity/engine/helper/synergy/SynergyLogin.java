@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 public class SynergyLogin {
-	
-	private String ccmEXEFolder = "D:/temp/Synergy_client7103\\bin\\ccm";
-	private String ccmHomeFolder = "D:/temp/Synergy_client7103";
+
+	private String ccmEXEFolder = "M:\\pmtqtools\\Synergy71\\Synergy_client7103\\bin\\ccm";
+	private String ccmHomeFolder = "M:\\pmtqtools\\Synergy71\\Synergy_client7103";
 	private String sessionID;
 	
 	public  SynergyLogin() {
@@ -43,7 +43,6 @@ public class SynergyLogin {
 	public String getSynergySessionId() {
 		sessionID = null;
 		long start = System.currentTimeMillis();
-		System.out.println("Do I get here? ");
 		ProcessBuilder pb = new ProcessBuilder ( "cmd", 
 				"/c" , 
 				ccmEXEFolder,
@@ -52,18 +51,34 @@ public class SynergyLogin {
 				"\"%userprofile%\\ccm71.ini\""
 				);
 		Map<String, String> env = pb.environment();
-		System.out.println("Do I get here? ");
 		
-		env.put("CCM_HOME", ccmHomeFolder);
-		env.put("CCM_INI_FILE", "%USERPROFILE%\\ccm71.ini");
+//		env.put("CCM_HOME", ccmHomeFolder);
+//		env.put("CCM_INI_FILE", "%USERPROFILE%\\ccm71.ini");
+//		env.put("PATH", "D:\\ts_mirr\\etoolset\\cw70d;" +
+//				"M:\\pmtqtools\\Synergy71\\Synergy_client7103\\bin;" +
+//				"M:\\pmtqtools\\Synergy71\\Synergy_client7103\\bin\\util;" +
+//				"M:\\pmtqtools\\ccmscripts1015;" +
+//				"M:\\pmtqtools\\ccmscripts1015\\perl\\bin;" +
+//				"M:\\pmtqtools\\ccmscripts1015\\cygwin\\bin;" +
+//				"C:\\Program Files\\Microsoft Office\\Office;" +
+//				"M:\\pmtqtools\\ts_ref\\STM_RiMC\\STMTS\\v8.5;%PATH%");
+		env.put("CCM_HOME","M:/pmtqtools/Synergy71/Synergy_client7103");
+		env.put("PATH","D:/ts_mirr/etoolset/cw70d;M:/pmtqtools/Synergy71/Synergy_client7103/bin;M:/pmtqtools/Synergy71/Synergy_client7103/bin/util;M:/pmtqtools/ccmscripts1015;M:/pmtqtools/ccmscripts1015/perl/bin;M:/pmtqtools/ccmscripts1015/cygwin/bin;C:/Program Files/Microsoft Office/Office;M:/pmtqtools/ts_ref/STM_RiMC/STMTS/v8.5;%PATH%");
+		env.put("TS_LOCAL","d:/ts_mirr");
+		env.put("TS_CTL","M:/pmtqtools/ts_ref/comptab");
+		env.put("CWL","d:/ts_mirr/etoolset/cw70d");
+		env.put("SHELL","d:/ts_mirr/etoolset/cyg132d/bin");
+		env.put("GHS_LMHOST","@ls_rb_ghs_rb_1.conti.de");
+		env.put("GHS_LMWHICH","ghs");
+		env.put("CWINI","%USERPROFILE%/cwright.ini");
+		env.put("CWPST","%USERPROFILE%/cwright.pst");
+		env.put("CCM_INI_FILE","%USERPROFILE%/ccm71.ini");
 		
 		Process pr;
 		try {
 			pr = pb.start();
 			pr.waitFor();
-			System.out.println("Do I get here? ");
 			sessionID = new BufferedReader(new InputStreamReader(pr.getInputStream())).readLine();
-			System.out.println("Do I get here? ");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -90,6 +90,12 @@ public class AssignFunctionsView extends ViewPart {
 	private Tree functionTree;
 	private Composite composite;
 	
+	// drag and drop source information
+	private boolean isSnapshotItem;
+	private boolean isFunctionItem;
+	private boolean isFileAssoItem;
+	
+	
 	// filters for tree
 	protected Action actionShowAll, actionHideUsed, actionHideNotUsed;
 	protected ViewerFilter filterShowAll, filterHideUsed, filterHideNotUsed;
@@ -404,6 +410,7 @@ public class AssignFunctionsView extends ViewPart {
 				if (TextTransfer.getInstance().isSupportedType(event.dataType)) {
 					event.data = firstElement.getObjectId();
 				}
+				setIsSnapshotItem();
 			}
 			
 			@Override
@@ -429,8 +436,6 @@ public class AssignFunctionsView extends ViewPart {
 					ContentObject co = coIter.next();
 					if ( co.getObjectId().equals(data.toString())) {
 						
-						System.out.println(" the dropped file name is: " + co.getName());
-						
 						for ( Iterator<Function> fun = co.getFunction().iterator(); fun.hasNext(); ) {
 							if ( fun.next().getFunctionId()
 									.equals(SessionSourceProvider.CURRENT_FUNCTION.getFunctionId() ))
@@ -453,17 +458,24 @@ public class AssignFunctionsView extends ViewPart {
 				}
 				refreshSnapshotTree();
 				functionTreeViewer.setInput(CURRENT_FUNCTION_FILE_LIST);
-				
+				setUndefinedItem();
 				return false;
 			}
 			
 			@Override
 			public boolean validateDrop ( Object target, int operation, 
 					TransferData transferType ) {
-				return true;
+				System.out.println("snapshotStatus: " + isFunctionItem);
+				return isFunctionItem;
 			}
 		});
 	    
+		snapshotTreeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+	    	
+	    	public void selectionChanged(SelectionChangedEvent event) {
+				setIsSnapshotItem();
+	    	}
+	    });
 		Composite composite_1 = new Composite(parent, SWT.NONE);
 		composite_1.setLayout(new GridLayout(2, false));
 		composite_1.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
@@ -600,6 +612,7 @@ public class AssignFunctionsView extends ViewPart {
 					MessageDialog.openInformation(composite.getShell(), 
 							"Information", "Please select or create a function first");
 				}
+				setUndefinedItem();
 				return false;
 			}
 
@@ -608,10 +621,17 @@ public class AssignFunctionsView extends ViewPart {
 					TransferData transferType) {
 				if ( functionComboViewer.getSelection().isEmpty() )
 					return false;
-				return true;
+				return isSnapshotItem;
 			}
 			
 		});
+	    
+	    functionTreeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+	    	
+	    	public void selectionChanged(SelectionChangedEvent event) {
+				setIsFunctionItem();
+	    	}
+	    });
 	    
 		Composite compositeM = new Composite(parent, SWT.NONE);
 		compositeM.setLayout(new GridLayout(2, false));
@@ -718,6 +738,19 @@ public class AssignFunctionsView extends ViewPart {
 	 * TODO: persisting changes on apply
 	 */
 	protected void saveBtnAction () {
+		
+		if ( !CURRENT_FUNCTION_FILE_LIST.equals(ORIGINAL_FUNCTION_FILE_LIST) ) {
+			
+			ORIGINAL_FUNCTION_FILE_LIST = CURRENT_FUNCTION_FILE_LIST;
+			ContentObjectDao coDao = DaoFactory.eINSTANCE.createContentObjectDao();
+			for ( ContentObject co : CURRENT_FUNCTION_FILE_LIST ) {
+				coDao.update(co);
+			}
+			
+			
+			
+		}
+		
 //		if ( contentObjects.size() > 0 ) {
 //			// Iterate through the content object list, store function and remove from list
 //			GenericDao genDao = DaoFactory.eINSTANCE.createGenericDao();
@@ -954,7 +987,31 @@ public class AssignFunctionsView extends ViewPart {
 //		sortSubmenu.add(booksBoxesGamesAction);
 //		sortSubmenu.add(noArticleAction);
 	}
+
 	
+	private void setIsSnapshotItem () {
+		isSnapshotItem = true;
+		isFunctionItem = false;
+		isFileAssoItem = false;
+	}
+	
+	private void setIsFunctionItem () {
+		isSnapshotItem = false;
+		isFunctionItem = true;
+		isFileAssoItem = false;
+	}
+	
+	private void setIsFileAssoItem () {
+		isSnapshotItem = false;
+		isFunctionItem = false;
+		isFileAssoItem = true;
+	}
+	
+	private void setUndefinedItem () {
+		isSnapshotItem = false;
+		isFunctionItem = false;
+		isFileAssoItem = false;
+	}
 	
 	@Override
 	public void setFocus() {}

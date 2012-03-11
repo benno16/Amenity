@@ -21,6 +21,7 @@ public class ConnectionTreeContentProvider implements ITreeContentProvider {
 
 	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		System.out.println("Input changed");
 	}
 
 	// only accept container as input

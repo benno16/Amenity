@@ -16,6 +16,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.ui.views.properties.IPropertySource;
+
+import properties.ElementProperties;
 
 /**
  * <!-- begin-user-doc -->
@@ -59,6 +62,15 @@ public class ContainerImpl extends EObjectImpl implements Container {
 	 * @ordered
 	 */
 	protected String containerId = CONTAINER_ID_EDEFAULT;
+
+	/**
+	 * This is true if the Container Id attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean containerIdESet;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -266,8 +278,33 @@ public class ContainerImpl extends EObjectImpl implements Container {
 	public void setContainerId(String newContainerId) {
 		String oldContainerId = containerId;
 		containerId = newContainerId;
+		boolean oldContainerIdESet = containerIdESet;
+		containerIdESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.CONTAINER__CONTAINER_ID, oldContainerId, containerId));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.CONTAINER__CONTAINER_ID, oldContainerId, containerId, !oldContainerIdESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetContainerId() {
+		String oldContainerId = containerId;
+		boolean oldContainerIdESet = containerIdESet;
+		containerId = CONTAINER_ID_EDEFAULT;
+		containerIdESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, GeneralPackage.CONTAINER__CONTAINER_ID, oldContainerId, CONTAINER_ID_EDEFAULT, oldContainerIdESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetContainerId() {
+		return containerIdESet;
 	}
 
 	/**
@@ -578,7 +615,7 @@ public class ContainerImpl extends EObjectImpl implements Container {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GeneralPackage.CONTAINER__CONTAINER_ID:
-				setContainerId(CONTAINER_ID_EDEFAULT);
+				unsetContainerId();
 				return;
 			case GeneralPackage.CONTAINER__NAME:
 				setName(NAME_EDEFAULT);
@@ -620,7 +657,7 @@ public class ContainerImpl extends EObjectImpl implements Container {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GeneralPackage.CONTAINER__CONTAINER_ID:
-				return CONTAINER_ID_EDEFAULT == null ? containerId != null : !CONTAINER_ID_EDEFAULT.equals(containerId);
+				return isSetContainerId();
 			case GeneralPackage.CONTAINER__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GeneralPackage.CONTAINER__CREATED:
@@ -654,7 +691,7 @@ public class ContainerImpl extends EObjectImpl implements Container {
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (containerId: ");
-		result.append(containerId);
+		if (containerIdESet) result.append(containerId); else result.append("<unset>");
 		result.append(", name: ");
 		result.append(name);
 		result.append(", created: ");
@@ -675,4 +712,12 @@ public class ContainerImpl extends EObjectImpl implements Container {
 		return result.toString();
 	}
 
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Object getAdapter(Class adapter) {
+		if ( adapter == IPropertySource.class ) {
+			return new ElementProperties(this);
+		}
+		return null;
+	}
 } //ContainerImpl

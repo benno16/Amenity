@@ -56,6 +56,15 @@ public class TaskImpl extends EObjectImpl implements Task {
 	protected String taskId = TASK_ID_EDEFAULT;
 
 	/**
+	 * This is true if the Task Id attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean taskIdESet;
+
+	/**
 	 * The default value of the '{@link #isFinished() <em>Finished</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -161,8 +170,33 @@ public class TaskImpl extends EObjectImpl implements Task {
 	public void setTaskId(String newTaskId) {
 		String oldTaskId = taskId;
 		taskId = newTaskId;
+		boolean oldTaskIdESet = taskIdESet;
+		taskIdESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.TASK__TASK_ID, oldTaskId, taskId));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.TASK__TASK_ID, oldTaskId, taskId, !oldTaskIdESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetTaskId() {
+		String oldTaskId = taskId;
+		boolean oldTaskIdESet = taskIdESet;
+		taskId = TASK_ID_EDEFAULT;
+		taskIdESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, GeneralPackage.TASK__TASK_ID, oldTaskId, TASK_ID_EDEFAULT, oldTaskIdESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetTaskId() {
+		return taskIdESet;
 	}
 
 	/**
@@ -343,7 +377,7 @@ public class TaskImpl extends EObjectImpl implements Task {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GeneralPackage.TASK__TASK_ID:
-				setTaskId(TASK_ID_EDEFAULT);
+				unsetTaskId();
 				return;
 			case GeneralPackage.TASK__FINISHED:
 				setFinished(FINISHED_EDEFAULT);
@@ -370,7 +404,7 @@ public class TaskImpl extends EObjectImpl implements Task {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GeneralPackage.TASK__TASK_ID:
-				return TASK_ID_EDEFAULT == null ? taskId != null : !TASK_ID_EDEFAULT.equals(taskId);
+				return isSetTaskId();
 			case GeneralPackage.TASK__FINISHED:
 				return finished != FINISHED_EDEFAULT;
 			case GeneralPackage.TASK__DESCRIPTION:
@@ -394,7 +428,7 @@ public class TaskImpl extends EObjectImpl implements Task {
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (taskId: ");
-		result.append(taskId);
+		if (taskIdESet) result.append(taskId); else result.append("<unset>");
 		result.append(", finished: ");
 		result.append(finished);
 		result.append(", description: ");

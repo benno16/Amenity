@@ -60,6 +60,15 @@ public class CheckInMilestoneImpl extends EObjectImpl implements CheckInMileston
 	protected String checkInMilestoneId = CHECK_IN_MILESTONE_ID_EDEFAULT;
 
 	/**
+	 * This is true if the Check In Milestone Id attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean checkInMilestoneIdESet;
+
+	/**
 	 * The cached value of the '{@link #getContainer() <em>Container</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -135,8 +144,33 @@ public class CheckInMilestoneImpl extends EObjectImpl implements CheckInMileston
 	public void setCheckInMilestoneId(String newCheckInMilestoneId) {
 		String oldCheckInMilestoneId = checkInMilestoneId;
 		checkInMilestoneId = newCheckInMilestoneId;
+		boolean oldCheckInMilestoneIdESet = checkInMilestoneIdESet;
+		checkInMilestoneIdESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.CHECK_IN_MILESTONE__CHECK_IN_MILESTONE_ID, oldCheckInMilestoneId, checkInMilestoneId));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.CHECK_IN_MILESTONE__CHECK_IN_MILESTONE_ID, oldCheckInMilestoneId, checkInMilestoneId, !oldCheckInMilestoneIdESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetCheckInMilestoneId() {
+		String oldCheckInMilestoneId = checkInMilestoneId;
+		boolean oldCheckInMilestoneIdESet = checkInMilestoneIdESet;
+		checkInMilestoneId = CHECK_IN_MILESTONE_ID_EDEFAULT;
+		checkInMilestoneIdESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, GeneralPackage.CHECK_IN_MILESTONE__CHECK_IN_MILESTONE_ID, oldCheckInMilestoneId, CHECK_IN_MILESTONE_ID_EDEFAULT, oldCheckInMilestoneIdESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetCheckInMilestoneId() {
+		return checkInMilestoneIdESet;
 	}
 
 	/**
@@ -266,7 +300,7 @@ public class CheckInMilestoneImpl extends EObjectImpl implements CheckInMileston
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GeneralPackage.CHECK_IN_MILESTONE__CHECK_IN_MILESTONE_ID:
-				setCheckInMilestoneId(CHECK_IN_MILESTONE_ID_EDEFAULT);
+				unsetCheckInMilestoneId();
 				return;
 			case GeneralPackage.CHECK_IN_MILESTONE__CONTAINER:
 				setContainer((Container)null);
@@ -290,7 +324,7 @@ public class CheckInMilestoneImpl extends EObjectImpl implements CheckInMileston
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GeneralPackage.CHECK_IN_MILESTONE__CHECK_IN_MILESTONE_ID:
-				return CHECK_IN_MILESTONE_ID_EDEFAULT == null ? checkInMilestoneId != null : !CHECK_IN_MILESTONE_ID_EDEFAULT.equals(checkInMilestoneId);
+				return isSetCheckInMilestoneId();
 			case GeneralPackage.CHECK_IN_MILESTONE__CONTAINER:
 				return container != null;
 			case GeneralPackage.CHECK_IN_MILESTONE__FILE_STATUS:
@@ -312,7 +346,7 @@ public class CheckInMilestoneImpl extends EObjectImpl implements CheckInMileston
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (checkInMilestoneId: ");
-		result.append(checkInMilestoneId);
+		if (checkInMilestoneIdESet) result.append(checkInMilestoneId); else result.append("<unset>");
 		result.append(", milestone: ");
 		result.append(milestone);
 		result.append(')');

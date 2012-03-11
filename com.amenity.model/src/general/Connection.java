@@ -4,10 +4,12 @@ package general;
 
 import java.util.Date;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
+ * @implements IAdaptable
  * A representation of the model object '<em><b>Connection</b></em>'.
  * <!-- end-user-doc -->
  *
@@ -38,7 +40,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Connection extends EObject {
+public interface Connection extends EObject, IAdaptable {
 	/**
 	 * Returns the value of the '<em><b>Connection Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->

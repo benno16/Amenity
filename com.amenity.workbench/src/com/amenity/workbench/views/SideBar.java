@@ -110,67 +110,67 @@ public class SideBar extends ViewPart {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				String src = e.item.toString();
-				
-				switch (src) {
-				case ("PShelfItem {Workbench}"):
-					try {
-						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-							.getActivePage().showView("com.amenity.workbench.views.StartupView");
-					} catch (PartInitException e1) {
-						e1.printStackTrace();
-					}
-				break;
-				case ("PShelfItem {Manage Container}"):
-					try {
-						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-							.getActivePage().showView("com.amenity.workbench.views.ContainerView");
-					} catch (PartInitException e1) {
-						e1.printStackTrace();
-					}
-				break;
-				case ("PShelfItem {Show Snapshots}"):
-					try {
-						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-							.getActivePage().showView("com.amenity.workbench.views.SnapshotView");
-					} catch (PartInitException e1) {
-						e1.printStackTrace();
-					}
-				break;
-				case ("PShelfItem {Assign Function}"):
-					try {
-						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-							.getActivePage().showView("com.amenity.workbench.views.AssignFunctionsView");
-					} catch (PartInitException e1) {
-						e1.printStackTrace();
-					}
-				break;
-				case ("PShelfItem {Compare Snapshots}"):
-					try {
-						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-							.getActivePage().showView("com.amenity.workbench.views.CompareSnapshotsView");
-					} catch (PartInitException e1) {
-						e1.printStackTrace();
-					}
-				break;
-				case ("PShelfItem {Event Log}"):
-					try {
-						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-							.getActivePage().showView("com.amenity.workbench.views.EventLogView");
-					} catch (PartInitException e1) {
-						e1.printStackTrace();
-					}
-				break;
-				case ("PShelfItem {Set Status}"):
-					try {
-						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-							.getActivePage().showView("com.amenity.workbench.views.SetStatsView");
-					} catch (PartInitException e1) {
-						e1.printStackTrace();
-					}
-				break;
-					
-				}
+//				String src = e.item.toString();
+//				
+//				switch (src) {
+//				case ("PShelfItem {Workbench}"):
+//					try {
+//						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+//							.getActivePage().showView("com.amenity.workbench.views.StartupView");
+//					} catch (PartInitException e1) {
+//						e1.printStackTrace();
+//					}
+//				break;
+//				case ("PShelfItem {Manage Container}"):
+//					try {
+//						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+//							.getActivePage().showView("com.amenity.workbench.views.ContainerView");
+//					} catch (PartInitException e1) {
+//						e1.printStackTrace();
+//					}
+//				break;
+//				case ("PShelfItem {Show Snapshots}"):
+//					try {
+//						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+//							.getActivePage().showView("com.amenity.workbench.views.SnapshotView");
+//					} catch (PartInitException e1) {
+//						e1.printStackTrace();
+//					}
+//				break;
+//				case ("PShelfItem {Assign Function}"):
+//					try {
+//						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+//							.getActivePage().showView("com.amenity.workbench.views.AssignFunctionsView");
+//					} catch (PartInitException e1) {
+//						e1.printStackTrace();
+//					}
+//				break;
+//				case ("PShelfItem {Compare Snapshots}"):
+//					try {
+//						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+//							.getActivePage().showView("com.amenity.workbench.views.CompareSnapshotsView");
+//					} catch (PartInitException e1) {
+//						e1.printStackTrace();
+//					}
+//				break;
+//				case ("PShelfItem {Event Log}"):
+//					try {
+//						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+//							.getActivePage().showView("com.amenity.workbench.views.EventLogView");
+//					} catch (PartInitException e1) {
+//						e1.printStackTrace();
+//					}
+//				break;
+//				case ("PShelfItem {Set Status}"):
+//					try {
+//						PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+//							.getActivePage().showView("com.amenity.workbench.views.SetStatsView");
+//					} catch (PartInitException e1) {
+//						e1.printStackTrace();
+//					}
+//				break;
+//					
+//				}
 			}
 
 			@Override

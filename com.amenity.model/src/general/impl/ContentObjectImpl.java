@@ -20,6 +20,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.ui.views.properties.IPropertySource;
+
+import properties.ElementProperties;
 
 /**
  * <!-- begin-user-doc -->
@@ -622,4 +625,12 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 		return result.toString();
 	}
 
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Object getAdapter(Class adapter) {
+		if ( adapter == IPropertySource.class ) {
+			return new ElementProperties(this);
+		}
+		return null;
+	}
 } //ContentObjectImpl

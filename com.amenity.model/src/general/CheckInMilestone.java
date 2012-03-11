@@ -35,9 +35,11 @@ public interface CheckInMilestone extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Check In Milestone Id</em>' attribute.
+	 * @see #isSetCheckInMilestoneId()
+	 * @see #unsetCheckInMilestoneId()
 	 * @see #setCheckInMilestoneId(String)
 	 * @see general.GeneralPackage#getCheckInMilestone_CheckInMilestoneId()
-	 * @model id="true" required="true"
+	 * @model unsettable="true" id="true" required="true"
 	 *        annotation="teneo.jpa value='@Id @GeneratedValue(generator=\"system-uuid\")'"
 	 * @generated
 	 */
@@ -48,10 +50,35 @@ public interface CheckInMilestone extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Check In Milestone Id</em>' attribute.
+	 * @see #isSetCheckInMilestoneId()
+	 * @see #unsetCheckInMilestoneId()
 	 * @see #getCheckInMilestoneId()
 	 * @generated
 	 */
 	void setCheckInMilestoneId(String value);
+
+	/**
+	 * Unsets the value of the '{@link general.CheckInMilestone#getCheckInMilestoneId <em>Check In Milestone Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetCheckInMilestoneId()
+	 * @see #getCheckInMilestoneId()
+	 * @see #setCheckInMilestoneId(String)
+	 * @generated
+	 */
+	void unsetCheckInMilestoneId();
+
+	/**
+	 * Returns whether the value of the '{@link general.CheckInMilestone#getCheckInMilestoneId <em>Check In Milestone Id</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Check In Milestone Id</em>' attribute is set.
+	 * @see #unsetCheckInMilestoneId()
+	 * @see #getCheckInMilestoneId()
+	 * @see #setCheckInMilestoneId(String)
+	 * @generated
+	 */
+	boolean isSetCheckInMilestoneId();
 
 	/**
 	 * Returns the value of the '<em><b>Container</b></em>' reference.

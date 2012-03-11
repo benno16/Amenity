@@ -16,14 +16,44 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            class="com.amenity.workbench.Perspective"
+            class="com.amenity.workbench.StartupPerspective"
             fixed="true"
-            icon="icons/product/startup_16_32.png"
-            id="com.amenity.workbench.perspective"
-            name="Amenity for SWQPM">
-         <description>
-            This is the default view for SWPQM
-         </description>
+            icon="icons/workbench/general/package_network.png"
+            id="com.amenity.workbench.StartupPerspective"
+            name="Startup">
+      </perspective>
+      <perspective
+            class="com.amenity.workbench.ManageConnectionsPerspective"
+            fixed="true"
+            icon="icons/workbench/general/drive-harddisk.png"
+            id="com.amenity.workbench.ManageConnectionsPerspective"
+            name="Manage Container">
+      </perspective>
+      <perspective
+            class="com.amenity.workbench.ShowSnapshotPerspective"
+            fixed="true"
+            icon="icons/workbench/general/gnome-dev-computer.png"
+            id="com.amenity.workbench.ShowSnapshotPerspective"
+            name="View Snapshot">
+      </perspective>
+      <perspective
+            class="com.amenity.workbench.CompareSnapshotPerspective"
+            fixed="true"
+            icon="icons/workbench/general/gnome-searchtool.png"
+            id="com.amenity.workbench.CompareSnapshotPerspective"
+            name="Compare Snapshot">
+      </perspective>
+      <perspective
+            class="com.amenity.workbench.AssignFunctionPerspective"
+            icon="icons/workbench/general/bookmark_add.png"
+            id="com.amenity.workbench.AssignFunctionPerspective"
+            name="Assign Function">
+      </perspective>
+      <perspective
+            class="com.amenity.workbench.EventLogPerspective"
+            icon="icons/workbench/general/dialog-warning.png"
+            id="com.amenity.workbench.EventLogPerspective"
+            name="Event Log">
       </perspective>
    </extension>
    <extension
@@ -98,40 +128,74 @@
                standalone="true"
                visible="true">
          </view>
+      </perspectiveExtension>
+      <perspectiveExtension
+            targetID="com.amenity.workbench.StartupPerspective">
          <view
                id="com.amenity.workbench.views.StartupView"
+               minimized="false"
+               relationship="top"
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               id="org.eclipse.ui.views.TaskList"
+               minimized="false"
+               relationship="bottom"
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               id="org.eclipse.ui.views.ProblemView"
+               minimized="false"
+               relationship="stack"
+               relative="org.eclipse.ui.views.TaskList">
+         </view>
+      </perspectiveExtension>
+      <perspectiveExtension
+            targetID="com.amenity.workbench.ManageConnectionsPerspective">
+         <view
+               id="com.amenity.workbench.views.ContainerView"
                minimized="false"
                relationship="left"
                relative="org.eclipse.ui.editorss">
          </view>
          <view
-               id="com.amenity.workbench.views.ContainerView"
+               id="org.eclipse.ui.views.PropertySheet"
                minimized="false"
-               relationship="stack"
-               relative="com.amenity.workbench.views.StartupView">
+               ratio=".2f"
+               relationship="right"
+               relative="org.eclipse.ui.editorss">
          </view>
+      </perspectiveExtension>
+      <perspectiveExtension
+            targetID="com.amenity.workbench.ShowSnapshotPerspective">
          <view
                id="com.amenity.workbench.views.SnapshotView"
                minimized="false"
                relationship="stack"
-               relative="com.amenity.workbench.views.StartupView">
+               relative="org.eclipse.ui.editorss">
          </view>
+      </perspectiveExtension>
+      <perspectiveExtension
+            targetID="com.amenity.workbench.CompareSnapshotPerspective">
          <view
                closeable="true"
                id="com.amenity.workbench.views.CompareSnapshotsView"
                minimized="false"
                moveable="true"
                relationship="stack"
-               relative="com.amenity.workbench.views.StartupView"
+               relative="org.eclipse.ui.editorss"
                showTitle="true"
                standalone="true"
                visible="true">
          </view>
+      </perspectiveExtension>
+      <perspectiveExtension
+            targetID="com.amenity.workbench.AssignFunctionPerspective">
          <view
                id="com.amenity.workbench.views.AssignFunctionsView"
                minimized="false"
                relationship="stack"
-               relative="com.amenity.workbench.views.StartupView">
+               relative="org.eclipse.ui.editorss">
          </view>
          <view
                closeable="false"
@@ -139,17 +203,17 @@
                minimized="false"
                moveable="true"
                relationship="stack"
-               relative="com.amenity.workbench.views.StartupView">
+               relative="org.eclipse.ui.editorss">
          </view>
+      </perspectiveExtension>
+      <perspectiveExtension
+            targetID="com.amenity.workbench.EventLogPerspective">
          <view
                id="com.amenity.workbench.views.EventLogView"
                minimized="false"
                relationship="stack"
-               relative="com.amenity.workbench.views.StartupView">
+               relative="org.eclipse.ui.editorss">
          </view>
-         <viewShortcut
-               id="org.eclipse.ui.views.TaskList">
-         </viewShortcut>
       </perspectiveExtension>
    </extension>
    <extension
@@ -277,6 +341,14 @@
                   label="&amp;Exit"
                   style="push">
             </command>
+         </toolbar>
+         <toolbar
+               id="Perspectives"
+               label="Perspectives">
+            <dynamic
+                  class="com.amenity.workbench.PerspectiveSwitcherMenu"
+                  id="perspectiveSwitcherMenu">
+            </dynamic>
          </toolbar>
       </menuContribution>
    </extension>

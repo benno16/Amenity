@@ -69,10 +69,12 @@ import dao.ContainerDao;
 import dao.ContentObjectDao;
 import dao.DaoFactory;
 import dao.FunctionDao;
+import dao.GenericDao;
 import dao.SnapshotDao;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.hibernate.classic.Session;
 
 public class AssignFunctionsView extends ViewPart {
 	public static String newFn = null;
@@ -740,13 +742,28 @@ public class AssignFunctionsView extends ViewPart {
 	protected void saveBtnAction () {
 		
 		if ( !CURRENT_FUNCTION_FILE_LIST.equals(ORIGINAL_FUNCTION_FILE_LIST) ) {
-			
-			ORIGINAL_FUNCTION_FILE_LIST = CURRENT_FUNCTION_FILE_LIST;
-			ContentObjectDao coDao = DaoFactory.eINSTANCE.createContentObjectDao();
+			System.out.println("I do persist!");
+			GenericDao genDao = DaoFactory.eINSTANCE.createGenericDao();
+			Session s = (Session) genDao.getSession();
+			s.beginTransaction();
 			for ( ContentObject co : CURRENT_FUNCTION_FILE_LIST ) {
-				coDao.update(co);
+//				if ( co instanceof File )
+//					s.get(File.class, co.getObjectId());
+//				else
+//					s.get(Folder.class, co.getObjectId());
+				try {
+					if (s.contains(SessionSourceProvider.CURRENT_SNAPSHOT) ) {
+						System.out.println("true");
+					}
+					s.merge(co);
+					ORIGINAL_FUNCTION_FILE_LIST = CURRENT_FUNCTION_FILE_LIST;
+				} catch (Exception ex){
+					ex.printStackTrace();
+				}
 			}
-			
+			s.getTransaction().commit();
+			s.close();
+
 			
 			
 		}
@@ -782,6 +799,7 @@ public class AssignFunctionsView extends ViewPart {
 				if ( CURRENT_FILE_LIST.get(i).getObjectId().equals(co.getObjectId())) {
 					CURRENT_FILE_LIST.get(i).getFunction().add(SessionSourceProvider.CURRENT_FUNCTION);
 					co = CURRENT_FILE_LIST.get(i);
+					break;
 				}
 			}
 			

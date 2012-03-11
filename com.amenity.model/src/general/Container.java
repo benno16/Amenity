@@ -4,10 +4,12 @@ package general;
 
 import java.util.Date;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
+ * @implements IAdaptable
  * A representation of the model object '<em><b>Container</b></em>'.
  * <!-- end-user-doc -->
  *
@@ -31,7 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model annotation="teneo.jpa value='@OnDelete(action = OnDeleteAction.CASCADE)'"
  * @generated
  */
-public interface Container extends EObject {
+public interface Container extends EObject, IAdaptable {
 	/**
 	 * Returns the value of the '<em><b>Container Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -41,9 +43,11 @@ public interface Container extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Container Id</em>' attribute.
+	 * @see #isSetContainerId()
+	 * @see #unsetContainerId()
 	 * @see #setContainerId(String)
 	 * @see general.GeneralPackage#getContainer_ContainerId()
-	 * @model required="true"
+	 * @model unsettable="true" id="true" required="true"
 	 *        annotation="teneo.jpa value='@Id @GeneratedValue(generator=\"system-uuid\")'"
 	 * @generated
 	 */
@@ -54,10 +58,35 @@ public interface Container extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Container Id</em>' attribute.
+	 * @see #isSetContainerId()
+	 * @see #unsetContainerId()
 	 * @see #getContainerId()
 	 * @generated
 	 */
 	void setContainerId(String value);
+
+	/**
+	 * Unsets the value of the '{@link general.Container#getContainerId <em>Container Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetContainerId()
+	 * @see #getContainerId()
+	 * @see #setContainerId(String)
+	 * @generated
+	 */
+	void unsetContainerId();
+
+	/**
+	 * Returns whether the value of the '{@link general.Container#getContainerId <em>Container Id</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Container Id</em>' attribute is set.
+	 * @see #unsetContainerId()
+	 * @see #getContainerId()
+	 * @see #setContainerId(String)
+	 * @generated
+	 */
+	boolean isSetContainerId();
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.

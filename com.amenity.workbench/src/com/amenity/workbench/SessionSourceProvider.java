@@ -58,14 +58,6 @@ public class SessionSourceProvider extends AbstractSourceProvider {
     	String currentState = loggedIn?LOGGED_IN:LOGGED_OUT;
         fireSourceChanged(ISources.WORKBENCH, SESSION_STATE, currentState);
     }
-
-    public void setUserId ( String userId ) {
-    	SessionSourceProvider.USERID = userId;
-    }
-
-    public String getUserId () {
-    	return SessionSourceProvider.USERID;
-    }
     
 	@Override
 	public void dispose() {

@@ -58,6 +58,15 @@ public class EventImpl extends EObjectImpl implements Event {
 	protected String eventId = EVENT_ID_EDEFAULT;
 
 	/**
+	 * This is true if the Event Id attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean eventIdESet;
+
+	/**
 	 * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -183,8 +192,33 @@ public class EventImpl extends EObjectImpl implements Event {
 	public void setEventId(String newEventId) {
 		String oldEventId = eventId;
 		eventId = newEventId;
+		boolean oldEventIdESet = eventIdESet;
+		eventIdESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.EVENT__EVENT_ID, oldEventId, eventId));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.EVENT__EVENT_ID, oldEventId, eventId, !oldEventIdESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetEventId() {
+		String oldEventId = eventId;
+		boolean oldEventIdESet = eventIdESet;
+		eventId = EVENT_ID_EDEFAULT;
+		eventIdESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, GeneralPackage.EVENT__EVENT_ID, oldEventId, EVENT_ID_EDEFAULT, oldEventIdESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetEventId() {
+		return eventIdESet;
 	}
 
 	/**
@@ -391,7 +425,7 @@ public class EventImpl extends EObjectImpl implements Event {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GeneralPackage.EVENT__EVENT_ID:
-				setEventId(EVENT_ID_EDEFAULT);
+				unsetEventId();
 				return;
 			case GeneralPackage.EVENT__MESSAGE:
 				setMessage(MESSAGE_EDEFAULT);
@@ -421,7 +455,7 @@ public class EventImpl extends EObjectImpl implements Event {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GeneralPackage.EVENT__EVENT_ID:
-				return EVENT_ID_EDEFAULT == null ? eventId != null : !EVENT_ID_EDEFAULT.equals(eventId);
+				return isSetEventId();
 			case GeneralPackage.EVENT__MESSAGE:
 				return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
 			case GeneralPackage.EVENT__DATE:
@@ -447,7 +481,7 @@ public class EventImpl extends EObjectImpl implements Event {
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (eventId: ");
-		result.append(eventId);
+		if (eventIdESet) result.append(eventId); else result.append("<unset>");
 		result.append(", message: ");
 		result.append(message);
 		result.append(", date: ");

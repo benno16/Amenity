@@ -37,9 +37,11 @@ public interface Event extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Event Id</em>' attribute.
+	 * @see #isSetEventId()
+	 * @see #unsetEventId()
 	 * @see #setEventId(String)
 	 * @see general.GeneralPackage#getEvent_EventId()
-	 * @model required="true"
+	 * @model unsettable="true" id="true" required="true"
 	 *        annotation="teneo.jpa value='@Id @GeneratedValue(generator=\"system-uuid\")'"
 	 * @generated
 	 */
@@ -50,10 +52,35 @@ public interface Event extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Event Id</em>' attribute.
+	 * @see #isSetEventId()
+	 * @see #unsetEventId()
 	 * @see #getEventId()
 	 * @generated
 	 */
 	void setEventId(String value);
+
+	/**
+	 * Unsets the value of the '{@link general.Event#getEventId <em>Event Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetEventId()
+	 * @see #getEventId()
+	 * @see #setEventId(String)
+	 * @generated
+	 */
+	void unsetEventId();
+
+	/**
+	 * Returns whether the value of the '{@link general.Event#getEventId <em>Event Id</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Event Id</em>' attribute is set.
+	 * @see #unsetEventId()
+	 * @see #getEventId()
+	 * @see #setEventId(String)
+	 * @generated
+	 */
+	boolean isSetEventId();
 
 	/**
 	 * Returns the value of the '<em><b>Message</b></em>' attribute.

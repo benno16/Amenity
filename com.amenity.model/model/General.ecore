@@ -27,7 +27,8 @@
   <eClassifiers xsi:type="ecore:EDataType" name="Date" instanceClassName="java.util.Date"/>
   <eClassifiers xsi:type="ecore:EClass" name="Event">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="eventId" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" unsettable="true"
+        iD="true">
       <eAnnotations source="teneo.jpa">
         <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;)"/>
       </eAnnotations>
@@ -112,7 +113,8 @@
       <details key="value" value="@OnDelete(action = OnDeleteAction.CASCADE)"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="containerId" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" unsettable="true"
+        iD="true">
       <eAnnotations source="teneo.jpa">
         <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;)"/>
       </eAnnotations>
@@ -135,13 +137,14 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Snapshot">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="snapshotId" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" unsettable="true"
+        iD="true">
       <eAnnotations source="teneo.jpa">
         <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;)"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="created" lowerBound="1"
-        eType="#//Date"/>
+        eType="#//Date" unsettable="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
@@ -253,7 +256,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Task">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="taskId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        iD="true">
+        unsettable="true" iD="true">
       <eAnnotations source="teneo.jpa">
         <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;) @Column(length=36)"/>
       </eAnnotations>
@@ -332,7 +335,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CheckInMilestone">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="checkInMilestoneId" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" iD="true">
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" unsettable="true"
+        iD="true">
       <eAnnotations source="teneo.jpa">
         <details key="value" value="@Id @GeneratedValue(generator=&quot;system-uuid&quot;)"/>
       </eAnnotations>

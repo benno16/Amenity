@@ -36,9 +36,11 @@ public interface Task extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Task Id</em>' attribute.
+	 * @see #isSetTaskId()
+	 * @see #unsetTaskId()
 	 * @see #setTaskId(String)
 	 * @see general.GeneralPackage#getTask_TaskId()
-	 * @model id="true"
+	 * @model unsettable="true" id="true"
 	 *        annotation="teneo.jpa value='@Id @GeneratedValue(generator=\"system-uuid\") @Column(length=36)'"
 	 * @generated
 	 */
@@ -49,10 +51,35 @@ public interface Task extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Task Id</em>' attribute.
+	 * @see #isSetTaskId()
+	 * @see #unsetTaskId()
 	 * @see #getTaskId()
 	 * @generated
 	 */
 	void setTaskId(String value);
+
+	/**
+	 * Unsets the value of the '{@link general.Task#getTaskId <em>Task Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetTaskId()
+	 * @see #getTaskId()
+	 * @see #setTaskId(String)
+	 * @generated
+	 */
+	void unsetTaskId();
+
+	/**
+	 * Returns whether the value of the '{@link general.Task#getTaskId <em>Task Id</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Task Id</em>' attribute is set.
+	 * @see #unsetTaskId()
+	 * @see #getTaskId()
+	 * @see #setTaskId(String)
+	 * @generated
+	 */
+	boolean isSetTaskId();
 
 	/**
 	 * Returns the value of the '<em><b>Finished</b></em>' attribute.

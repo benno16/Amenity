@@ -4,11 +4,13 @@ package general;
 
 import java.util.Date;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
+ * @implements IAdaptable
  * A representation of the model object '<em><b>Content Object</b></em>'.
  * <!-- end-user-doc -->
  *
@@ -31,7 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface ContentObject extends EObject {
+public interface ContentObject extends EObject, IAdaptable {
 	/**
 	 * Returns the value of the '<em><b>Object Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->

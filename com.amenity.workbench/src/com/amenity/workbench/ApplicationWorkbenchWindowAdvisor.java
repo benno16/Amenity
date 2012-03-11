@@ -46,7 +46,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 		configurer.setShowStatusLine(true);
 		configurer.setShowFastViewBars(false);
 		configurer.setShowMenuBar(true);
-		// configurer.setShowPerspectiveBar(true);
+//		configurer.setShowPerspectiveBar(true);
 		configurer.setShowProgressIndicator(true);
 		configurer.setShowStatusLine(true);
 		configurer.setTitle("I BS Q - Amenity");

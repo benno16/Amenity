@@ -4,12 +4,12 @@ package general;
 
 import java.util.Date;
 
-import org.eclipse.emf.common.util.EList;
-
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
+ * @implements IAdaptable
  * A representation of the model object '<em><b>Function</b></em>'.
  * <!-- end-user-doc -->
  *
@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Function extends EObject {
+public interface Function extends EObject, IAdaptable {
 	/**
 	 * Returns the value of the '<em><b>Function Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->

@@ -1,13 +1,16 @@
 package com.amenity.workbench;
 
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.ui.IWorkbenchPreferenceConstants;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
-public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
+import com.amenity.workbench.supporter.WorkbenchConstants;
 
-	private static final String PERSPECTIVE_ID = "com.amenity.workbench.perspective";
+public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 
 	public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(
 			IWorkbenchWindowConfigurer configurer) {
@@ -15,12 +18,19 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 	}
 
 	public String getInitialWindowPerspectiveId() {
-		return PERSPECTIVE_ID;
+		return WorkbenchConstants.STARTUP_PERSPECTIVE_ID;
 	}
+
+	public void preWindowOpen() {
+		IPreferenceStore prefStore = PlatformUI.getPreferenceStore();
+		prefStore.setValue(IWorkbenchPreferenceConstants.ENABLE_ANIMATIONS, true);
+	}
+	
 	
 	@Override
 	public void initialize(IWorkbenchConfigurer configurer) {
 		super.initialize(configurer);
+
 		/*
 		 * TODO: enable once view is finished
 		 */

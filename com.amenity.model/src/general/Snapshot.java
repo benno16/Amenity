@@ -4,12 +4,12 @@ package general;
 
 import java.util.Date;
 
-import org.eclipse.emf.common.util.EList;
-
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
+ * @implements IAdaptable
  * A representation of the model object '<em><b>Snapshot</b></em>'.
  * <!-- end-user-doc -->
  *
@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Snapshot extends EObject {
+public interface Snapshot extends EObject, IAdaptable {
 	/**
 	 * Returns the value of the '<em><b>Snapshot Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -39,9 +39,11 @@ public interface Snapshot extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Snapshot Id</em>' attribute.
+	 * @see #isSetSnapshotId()
+	 * @see #unsetSnapshotId()
 	 * @see #setSnapshotId(String)
 	 * @see general.GeneralPackage#getSnapshot_SnapshotId()
-	 * @model required="true"
+	 * @model unsettable="true" id="true" required="true"
 	 *        annotation="teneo.jpa value='@Id @GeneratedValue(generator=\"system-uuid\")'"
 	 * @generated
 	 */
@@ -52,10 +54,35 @@ public interface Snapshot extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Snapshot Id</em>' attribute.
+	 * @see #isSetSnapshotId()
+	 * @see #unsetSnapshotId()
 	 * @see #getSnapshotId()
 	 * @generated
 	 */
 	void setSnapshotId(String value);
+
+	/**
+	 * Unsets the value of the '{@link general.Snapshot#getSnapshotId <em>Snapshot Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetSnapshotId()
+	 * @see #getSnapshotId()
+	 * @see #setSnapshotId(String)
+	 * @generated
+	 */
+	void unsetSnapshotId();
+
+	/**
+	 * Returns whether the value of the '{@link general.Snapshot#getSnapshotId <em>Snapshot Id</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Snapshot Id</em>' attribute is set.
+	 * @see #unsetSnapshotId()
+	 * @see #getSnapshotId()
+	 * @see #setSnapshotId(String)
+	 * @generated
+	 */
+	boolean isSetSnapshotId();
 
 	/**
 	 * Returns the value of the '<em><b>Created</b></em>' attribute.
@@ -66,9 +93,11 @@ public interface Snapshot extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Created</em>' attribute.
+	 * @see #isSetCreated()
+	 * @see #unsetCreated()
 	 * @see #setCreated(Date)
 	 * @see general.GeneralPackage#getSnapshot_Created()
-	 * @model dataType="general.Date" required="true"
+	 * @model unsettable="true" dataType="general.Date" required="true"
 	 * @generated
 	 */
 	Date getCreated();
@@ -78,10 +107,35 @@ public interface Snapshot extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Created</em>' attribute.
+	 * @see #isSetCreated()
+	 * @see #unsetCreated()
 	 * @see #getCreated()
 	 * @generated
 	 */
 	void setCreated(Date value);
+
+	/**
+	 * Unsets the value of the '{@link general.Snapshot#getCreated <em>Created</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetCreated()
+	 * @see #getCreated()
+	 * @see #setCreated(Date)
+	 * @generated
+	 */
+	void unsetCreated();
+
+	/**
+	 * Returns whether the value of the '{@link general.Snapshot#getCreated <em>Created</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Created</em>' attribute is set.
+	 * @see #unsetCreated()
+	 * @see #getCreated()
+	 * @see #setCreated(Date)
+	 * @generated
+	 */
+	boolean isSetCreated();
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.

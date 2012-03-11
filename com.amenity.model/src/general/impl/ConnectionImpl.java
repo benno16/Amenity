@@ -18,6 +18,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.ui.views.properties.IPropertySource;
+
+import properties.ElementProperties;
 
 /**
  * <!-- begin-user-doc -->
@@ -1108,4 +1111,12 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 		return result.toString();
 	}
 
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Object getAdapter(Class adapter) {
+		if ( adapter == IPropertySource.class ) {
+			return new ElementProperties(this);
+		}
+		return null;
+	}
 } //ConnectionImpl

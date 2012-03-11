@@ -33,7 +33,7 @@ public class Logon extends AbstractHandler {
 		tempUser = userDao.findByUsername(tempUser);
 
 		sessionSourceProvider.setLoggedIn(true);
-		sessionSourceProvider.setUserId(tempUser.getUserId());
+		SessionSourceProvider.USERID = tempUser.getUserId();
 		return null;
 	}
 

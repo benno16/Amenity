@@ -8,6 +8,7 @@ import general.Snapshot;
 
 import java.util.Date;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
@@ -15,9 +16,13 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.ui.views.properties.IPropertySource;
+
+import properties.ElementProperties;
 
 /**
  * <!-- begin-user-doc -->
+ * @implements IAdaptable
  * An implementation of the model object '<em><b>Snapshot</b></em>'.
  * <!-- end-user-doc -->
  * <p>
@@ -34,7 +39,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *
  * @generated
  */
-public class SnapshotImpl extends EObjectImpl implements Snapshot {
+public class SnapshotImpl extends EObjectImpl implements Snapshot, IAdaptable {
 	/**
 	 * The default value of the '{@link #getSnapshotId() <em>Snapshot Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -56,6 +61,15 @@ public class SnapshotImpl extends EObjectImpl implements Snapshot {
 	protected String snapshotId = SNAPSHOT_ID_EDEFAULT;
 
 	/**
+	 * This is true if the Snapshot Id attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean snapshotIdESet;
+
+	/**
 	 * The default value of the '{@link #getCreated() <em>Created</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -74,6 +88,15 @@ public class SnapshotImpl extends EObjectImpl implements Snapshot {
 	 * @ordered
 	 */
 	protected Date created = CREATED_EDEFAULT;
+
+	/**
+	 * This is true if the Created attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean createdESet;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -181,8 +204,33 @@ public class SnapshotImpl extends EObjectImpl implements Snapshot {
 	public void setSnapshotId(String newSnapshotId) {
 		String oldSnapshotId = snapshotId;
 		snapshotId = newSnapshotId;
+		boolean oldSnapshotIdESet = snapshotIdESet;
+		snapshotIdESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.SNAPSHOT__SNAPSHOT_ID, oldSnapshotId, snapshotId));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.SNAPSHOT__SNAPSHOT_ID, oldSnapshotId, snapshotId, !oldSnapshotIdESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetSnapshotId() {
+		String oldSnapshotId = snapshotId;
+		boolean oldSnapshotIdESet = snapshotIdESet;
+		snapshotId = SNAPSHOT_ID_EDEFAULT;
+		snapshotIdESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, GeneralPackage.SNAPSHOT__SNAPSHOT_ID, oldSnapshotId, SNAPSHOT_ID_EDEFAULT, oldSnapshotIdESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetSnapshotId() {
+		return snapshotIdESet;
 	}
 
 	/**
@@ -202,8 +250,33 @@ public class SnapshotImpl extends EObjectImpl implements Snapshot {
 	public void setCreated(Date newCreated) {
 		Date oldCreated = created;
 		created = newCreated;
+		boolean oldCreatedESet = createdESet;
+		createdESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.SNAPSHOT__CREATED, oldCreated, created));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.SNAPSHOT__CREATED, oldCreated, created, !oldCreatedESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetCreated() {
+		Date oldCreated = created;
+		boolean oldCreatedESet = createdESet;
+		created = CREATED_EDEFAULT;
+		createdESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, GeneralPackage.SNAPSHOT__CREATED, oldCreated, CREATED_EDEFAULT, oldCreatedESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetCreated() {
+		return createdESet;
 	}
 
 	/**
@@ -371,10 +444,10 @@ public class SnapshotImpl extends EObjectImpl implements Snapshot {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GeneralPackage.SNAPSHOT__SNAPSHOT_ID:
-				setSnapshotId(SNAPSHOT_ID_EDEFAULT);
+				unsetSnapshotId();
 				return;
 			case GeneralPackage.SNAPSHOT__CREATED:
-				setCreated(CREATED_EDEFAULT);
+				unsetCreated();
 				return;
 			case GeneralPackage.SNAPSHOT__NAME:
 				setName(NAME_EDEFAULT);
@@ -401,9 +474,9 @@ public class SnapshotImpl extends EObjectImpl implements Snapshot {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GeneralPackage.SNAPSHOT__SNAPSHOT_ID:
-				return SNAPSHOT_ID_EDEFAULT == null ? snapshotId != null : !SNAPSHOT_ID_EDEFAULT.equals(snapshotId);
+				return isSetSnapshotId();
 			case GeneralPackage.SNAPSHOT__CREATED:
-				return CREATED_EDEFAULT == null ? created != null : !CREATED_EDEFAULT.equals(created);
+				return isSetCreated();
 			case GeneralPackage.SNAPSHOT__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GeneralPackage.SNAPSHOT__COMMENT:
@@ -427,9 +500,9 @@ public class SnapshotImpl extends EObjectImpl implements Snapshot {
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (snapshotId: ");
-		result.append(snapshotId);
+		if (snapshotIdESet) result.append(snapshotId); else result.append("<unset>");
 		result.append(", created: ");
-		result.append(created);
+		if (createdESet) result.append(created); else result.append("<unset>");
 		result.append(", name: ");
 		result.append(name);
 		result.append(", comment: ");
@@ -438,6 +511,15 @@ public class SnapshotImpl extends EObjectImpl implements Snapshot {
 		result.append(deleted);
 		result.append(')');
 		return result.toString();
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Object getAdapter(Class adapter) {
+		if ( adapter == IPropertySource.class ) {
+			return new ElementProperties(this);
+		}
+		return null;
 	}
 
 } //SnapshotImpl

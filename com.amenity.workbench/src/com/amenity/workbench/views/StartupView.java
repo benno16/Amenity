@@ -12,7 +12,6 @@ import org.eclipse.ui.part.ViewPart;
 
 import com.amenity.workbench.SessionSourceProvider;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.wb.swt.ResourceManager;
@@ -20,8 +19,7 @@ import org.eclipse.wb.swt.ResourceManager;
 public class StartupView extends ViewPart {
 
 	public static final String ID = "com.amenity.workbench.views.StartupView"; //$NON-NLS-1$
-	private Table table;
-	private Table table_1;
+
 	private Label lblLastLogin;
 	private Label lblTimesUsed;
 	private Label lblSynergyStatus;
@@ -103,29 +101,11 @@ public class StartupView extends ViewPart {
 		lblTimesUsed.setText("Times Used: " + SessionSourceProvider
 				.USER.getTimesUsed() );
 		
-		Label lblTaskList = new Label(compInfo, SWT.NONE);
-		lblTaskList.setBounds(10, 60, 304, 15);
-		lblTaskList.setText("Task List");
-		
-		table = new Table(compInfo, SWT.BORDER | SWT.FULL_SELECTION);
-		table.setBounds(10, 81, 304, 122);
-		table.setHeaderVisible(true);
-		table.setLinesVisible(true);
-		
 		Label label = new Label(compInfo, SWT.SEPARATOR | SWT.HORIZONTAL);
 		label.setBounds(10, 52, 304, 2);
 		
 		Composite compError = new Composite(composite, SWT.LEFT);
 		compError.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, true, 1, 1));
-		
-		Label lblLatestErrors = new Label(compError, SWT.NONE);
-		lblLatestErrors.setBounds(10, 10, 304, 15);
-		lblLatestErrors.setText("Latest Errors:");
-		
-		table_1 = new Table(compError, SWT.BORDER | SWT.FULL_SELECTION);
-		table_1.setBounds(10, 31, 304, 117);
-		table_1.setHeaderVisible(true);
-		table_1.setLinesVisible(true);
 		
 		Composite compStatus = new Composite(composite, SWT.BOTTOM |SWT.LEFT);
 		compStatus.setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, false, true, 1, 1));

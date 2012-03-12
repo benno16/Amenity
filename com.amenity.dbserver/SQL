@@ -28,7 +28,6 @@ insert into "filefunctionstatus" ( "filefunctionstatusid", "function_offunction_
 	'029c36a8-783a-4854-bcff-2037071d2578', '856d99f5-1b0a-410a-b0c6-b905df94e22c', 
 	'04fa4838-2c3e-4043-8c83-58c60e3ebb83', 'FileFunctionStatusId', '0'
 
-
 update "connection" set "container_partof_containerid" = '4a797330-192f-4adb-a1ca-ebaa789e124a'
 where "connectionid" = '029c36a8-783a-4854-bcff-2037071d2522'
 

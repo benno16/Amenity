@@ -16,7 +16,7 @@ import general.ContentObject;
 import general.File;
 import general.Folder;
 
-public class MKSComparator {
+public class SnapshotComparator {
 
 	// General things
 	private List<ContentObject> contentObjects1;
@@ -33,10 +33,10 @@ public class MKSComparator {
 	private List<File> files2;
 	
 	@SuppressWarnings("unused")
-	private MKSComparator() {
+	private SnapshotComparator() {
 	}
 	
-	public MKSComparator ( List<ContentObject> contentObjects1, 
+	public SnapshotComparator ( List<ContentObject> contentObjects1, 
 			List<ContentObject> contentObjects2 ) {
 		
 		this.contentObjects1 = contentObjects1;

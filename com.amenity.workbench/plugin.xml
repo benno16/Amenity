@@ -66,12 +66,14 @@
             name="Modules">
       </view>
       <view
+            category="com.amenity.workbench.views.CategoryAmenity"
             class="com.amenity.workbench.views.StartupView"
             icon="icons/workbench/general/package_network.png"
             id="com.amenity.workbench.views.StartupView"
             name="Startup View">
       </view>
       <view
+            category="com.amenity.workbench.views.CategoryAmenity"
             class="com.amenity.workbench.views.ContainerView"
             icon="icons/workbench/general/drive-harddisk.png"
             id="com.amenity.workbench.views.ContainerView"
@@ -79,13 +81,16 @@
       </view>
       <view
             allowMultiple="true"
+            category="com.amenity.workbench.views.CategoryAmenity"
             class="com.amenity.workbench.views.SnapshotView"
             icon="icons/workbench/general/gnome-dev-computer.png"
             id="com.amenity.workbench.views.SnapshotView"
-            name="Show Snapshot">
+            name="Show Snapshot"
+            restorable="true">
       </view>
       <view
             allowMultiple="true"
+            category="com.amenity.workbench.views.CategoryAmenity"
             class="com.amenity.workbench.views.CompareSnapshotsView"
             icon="icons/workbench/general/gnome-searchtool.png"
             id="com.amenity.workbench.views.CompareSnapshotsView"
@@ -93,6 +98,7 @@
             restorable="true">
       </view>
       <view
+            category="com.amenity.workbench.views.CategoryAmenity"
             class="com.amenity.workbench.views.AssignFunctionsView"
             icon="icons/workbench/general/bookmark_add.png"
             id="com.amenity.workbench.views.AssignFunctionsView"
@@ -100,6 +106,7 @@
             restorable="true">
       </view>
       <view
+            category="com.amenity.workbench.views.CategoryAmenity"
             class="com.amenity.workbench.views.SetStatsView"
             icon="icons/workbench/general/up.png"
             id="com.amenity.workbench.views.SetStatsView"
@@ -107,12 +114,23 @@
             restorable="true">
       </view>
       <view
+            category="com.amenity.workbench.views.CategoryAmenity"
             class="com.amenity.workbench.views.EventLogView"
             icon="icons/workbench/general/dialog-warning.png"
             id="com.amenity.workbench.views.EventLogView"
             name="Event Log"
             restorable="true">
       </view>
+      <view
+            class="com.amenity.workbench.ViewSnapshot"
+            id="com.amenity.workbench.ViewSnapshot"
+            name="View Snapshot"
+            restorable="true">
+      </view>
+      <category
+            id="com.amenity.workbench.views.CategoryAmenity"
+            name="Amenity">
+      </category>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -171,8 +189,9 @@
          <view
                id="com.amenity.workbench.views.SnapshotView"
                minimized="false"
-               relationship="stack"
-               relative="org.eclipse.ui.editorss">
+               relationship="right"
+               relative="org.eclipse.ui.editorss"
+               visible="true">
          </view>
       </perspectiveExtension>
       <perspectiveExtension
@@ -194,16 +213,16 @@
          <view
                id="com.amenity.workbench.views.AssignFunctionsView"
                minimized="false"
-               relationship="stack"
+               relationship="right"
                relative="org.eclipse.ui.editorss">
          </view>
          <view
                closeable="false"
-               id="com.amenity.workbench.views.AssignFunctionsView"
+               id="com.amenity.workbench.views.SetStatsView"
                minimized="false"
                moveable="true"
                relationship="stack"
-               relative="org.eclipse.ui.editorss">
+               relative="com.amenity.workbench.views.AssignFunctionsView">
          </view>
       </perspectiveExtension>
       <perspectiveExtension
@@ -334,12 +353,12 @@
                id="ManageContainer"
                label="&amp;Manage Container">
             <command
-                  commandId="com.amenity.workbench.wizard.newDataSoure"
-                  icon="icons/workbench/general/filenew.png"
-                  label="&amp;Add Data Source"
+                  commandId="com.amenity.workbench.views.activities.showContainerView"
+                  icon="icons/workbench/general/folder_new.png"
+                  label="&amp;Add Container"
                   style="push">
                <visibleWhen
-                     checkEnabled="true">
+                     checkEnabled="false">
                   <with
                         variable="activeWorkbenchWindow.activePerspective">
                      <equals
@@ -349,12 +368,12 @@
                </visibleWhen>
             </command>
             <command
-                  commandId="com.amenity.workbench.views.activities.showContainerView"
-                  icon="icons/workbench/general/folder_new.png"
-                  label="&amp;Add Container"
+                  commandId="com.amenity.workbench.wizard.newDataSoure"
+                  icon="icons/workbench/general/filenew.png"
+                  label="&amp;Add Data Source"
                   style="push">
                <visibleWhen
-                     checkEnabled="false">
+                     checkEnabled="true">
                   <with
                         variable="activeWorkbenchWindow.activePerspective">
                      <equals

@@ -22,7 +22,7 @@ import dao.DaoFactory;
 import dao.FileDao;
 import dao.GenericDao;
 
-import com.amenity.engine.helper.compare.MKSComparator;
+import com.amenity.engine.helper.compare.SnapshotComparator;
 import com.amenity.engine.helper.gui.ContainerContentProvider;
 import com.amenity.engine.helper.gui.labelProvider.GenericNameLabelProvider;
 import com.amenity.engine.helper.mks.MksGetFile;
@@ -61,13 +61,14 @@ public class CompareSnapshotsView extends ViewPart {
 	private Snapshot snapshot2;
 	
 	public CompareSnapshotsView() {
-		genericDao = DaoFactory.eINSTANCE.createGenericDao();
+		
 		
 	}
 
 	@Override
 	public void createPartControl(Composite parent) {
 //		Shell shell = parent.getShell();
+		genericDao = DaoFactory.eINSTANCE.createGenericDao();
 		container = parent;
 		parent.setLayout(new GridLayout(2, true));
 		
@@ -86,6 +87,7 @@ public class CompareSnapshotsView extends ViewPart {
 		containerTreeViewer = new TreeViewer(compositeTop, SWT.BORDER | SWT.MULTI);
 		Tree tree = containerTreeViewer.getTree();
 		tree.setLinesVisible(true);
+		
 		containerTreeViewer.setContentProvider(new ContainerContentProvider());
 		containerTreeViewer.setLabelProvider(new GenericNameLabelProvider());
 		containerTreeViewer.setAutoExpandLevel(0);
@@ -262,7 +264,7 @@ public class CompareSnapshotsView extends ViewPart {
 		String query2 = "from " + ContentObject.class.getName().toString() + 
 		" where partOf = '" + s2.getSnapshotId() + "'";
 		
-	    MKSComparator compare = new MKSComparator( (List<ContentObject>) genericDao.getByQuery(query1), 
+		SnapshotComparator compare = new SnapshotComparator( (List<ContentObject>) genericDao.getByQuery(query1), 
 	    		(List<ContentObject>) genericDao.getByQuery(query2));
 	    compare.getComparableGrid(grid);
 	    

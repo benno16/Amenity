@@ -199,7 +199,7 @@
          </view>
          <view
                closeable="false"
-               id="com.amenity.workbench.views.SetStatsView"
+               id="com.amenity.workbench.views.AssignFunctionsView"
                minimized="false"
                moveable="true"
                relationship="stack"
@@ -312,22 +312,10 @@
                id="Main">
             <command
                   commandId="com.amenity.workbench.wizard.newDataSoure"
-                  icon="icons/workbench/general/filenew.png"
-                  label="&amp;New Project"
+                  icon="icons/workbench/general/gohome.png"
+                  label="&amp;Home"
                   style="push"
-                  tooltip="&amp;Create a new DS connection here">
-            </command>
-            <command
-                  commandId="com.amenity.workbench.views.activities.showContainerView"
-                  icon="icons/workbench/general/folder_new.png"
-                  label="&amp;Add Container"
-                  style="push">
-            </command>
-            <command
-                  commandId="com.amenity.workbench.wizard.SnapshotWizardCommand"
-                  icon="icons/workbench/general/gnome-dev-computer.png"
-                  label="&amp;Add Snapshot"
-                  style="push">
+                  tooltip="&amp;Open Startup Perspective">
             </command>
             <command
                   commandId="com.amenity.workbench.temp.Dao"
@@ -340,6 +328,55 @@
                   icon="icons/workbench/general/exit.png"
                   label="&amp;Exit"
                   style="push">
+            </command>
+         </toolbar>
+         <toolbar
+               id="ManageContainer"
+               label="&amp;Manage Container">
+            <command
+                  commandId="com.amenity.workbench.wizard.newDataSoure"
+                  icon="icons/workbench/general/filenew.png"
+                  label="&amp;Add Data Source"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="true">
+                  <with
+                        variable="activeWorkbenchWindow.activePerspective">
+                     <equals
+                           value="com.amenity.workbench.ManageConnectionsPerspective">
+                     </equals>
+                  </with>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="com.amenity.workbench.views.activities.showContainerView"
+                  icon="icons/workbench/general/folder_new.png"
+                  label="&amp;Add Container"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="activeWorkbenchWindow.activePerspective">
+                     <equals
+                           value="com.amenity.workbench.ManageConnectionsPerspective">
+                     </equals>
+                  </with>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="com.amenity.workbench.wizard.SnapshotWizardCommand"
+                  icon="icons/workbench/general/gnome-dev-computer.png"
+                  label="&amp;Add Snapshot"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="activeWorkbenchWindow.activePerspective">
+                     <equals
+                           value="com.amenity.workbench.ManageConnectionsPerspective">
+                     </equals>
+                  </with>
+               </visibleWhen>
             </command>
          </toolbar>
          <toolbar

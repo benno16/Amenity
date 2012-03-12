@@ -13,6 +13,7 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -20,18 +21,19 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.List;
 
-import com.amenity.engine.helper.gui.ContainerLabelProvider;
 import com.amenity.engine.helper.gui.contentProvider.ConnectionTreeContentProvider;
 import com.amenity.engine.helper.gui.labelProvider.GenericNameLabelProvider;
 import com.amenity.workbench.SessionSourceProvider;
 import com.amenity.workbench.dialogs.ModifyContainerDialog;
 import com.amenity.workbench.wizards.addContainer.ContainerWizard;
+import com.amenity.workbench.wizards.addProjectSource.ProjectWizard;
+import com.amenity.workbench.wizards.addSnapshot.SnapshotWizard;
 
 import dao.ContainerDao;
 import dao.DaoFactory;
+import dao.GenericDao;
 
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -43,6 +45,8 @@ import org.eclipse.wb.swt.ResourceManager;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 
 public class ContainerView extends ViewPart {
 
@@ -59,9 +63,16 @@ public class ContainerView extends ViewPart {
 	private TreeViewer detailTreeViewer;
 	private Tree detailTree;
 	private EContentAdapter adapter;
+	private Label label;
+	private Menu menu;
+	private MenuItem mntmNewSnapshot;
+	private MenuItem mntmDeleteSelectedItem;
+	private MenuItem mntmNewConnection;
+	private Object currentObject;
+	
 	
 	public ContainerView() {
-		
+		PlatformUI.getWorkbench();
 		adapter = new EContentAdapter () {
 			public void notifyChanged ( Notification not) {
 				super.notifyChanged(not);
@@ -128,14 +139,8 @@ public class ContainerView extends ViewPart {
 				return ((java.util.List<Container>)inputElement ) .toArray();
 			}
 		});
-		listViewer.setLabelProvider(new ContainerLabelProvider());
+		listViewer.setLabelProvider(new GenericNameLabelProvider() ); //ContainerLabelProvider());
 		listViewer.setInput(SessionSourceProvider.CONTAINER_LIST);
-		new Label(parent, SWT.NONE);
-		new Label(parent, SWT.NONE);
-		new Label(parent, SWT.NONE);
-		new Label(parent, SWT.NONE);
-		new Label(parent, SWT.NONE);
-		new Label(parent, SWT.NONE);
 		
 		btnModify = new Button(parent, SWT.NONE);
 		btnModify.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
@@ -159,51 +164,22 @@ public class ContainerView extends ViewPart {
 		btnCreate.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/folder_new.png"));
 		btnCreate.setText("Create");
 		
+		btnCreate.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+		//				ContainerWizard wizard = new ContainerWizard(SessionSourceProvider.CONTAINER_LIST);
+				ContainerWizard wizard = new ContainerWizard();
+				WizardDialog dialog = new WizardDialog ( parent.getShell(), wizard );
+				dialog.open();
+				enableButtons();
+			}
+		});
+		
 		// Delete Button
 		btnDelete = new Button(parent, SWT.NONE);
 		btnDelete.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
 		btnDelete.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/gtk-cancel.png"));
 		btnDelete.setText("Delete");
-		new Label(parent, SWT.NONE);
-		new Label(parent, SWT.NONE);
-		new Label(parent, SWT.NONE);
-		
-		Label lblConnectionsAndSnapshots = new Label(parent, SWT.NONE);
-		lblConnectionsAndSnapshots.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 3, 1));
-		lblConnectionsAndSnapshots.setText("Connections and Snapshots");
-		new Label(parent, SWT.NONE);
-		new Label(parent, SWT.NONE);
-		new Label(parent, SWT.NONE);
-		
-		detailTreeViewer = new TreeViewer(parent, SWT.BORDER);
-		detailTreeViewer.setAutoExpandLevel(2);
-		detailTree = detailTreeViewer.getTree();
-		GridData gd_detailTree = new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1);
-		gd_detailTree.minimumHeight = 100;
-		detailTree.setLayoutData(gd_detailTree);
-		detailTreeViewer.setLabelProvider(new GenericNameLabelProvider());
-		detailTreeViewer.setContentProvider(new ConnectionTreeContentProvider());
-		getSite().setSelectionProvider(detailTreeViewer);
-		
-		
-		detailTreeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				objectSelection = event.getSelection();
-				structuredSelection = (IStructuredSelection) objectSelection;
-				if ( !structuredSelection.isEmpty()) {
-					if ( structuredSelection.getFirstElement() instanceof Snapshot ) {
-						SessionSourceProvider.CURRENT_SNAPSHOT = 
-								(Snapshot) structuredSelection.getFirstElement();
-						SessionSourceProvider.CURRENT_SNAPSHOT.eAdapters().add(adapter);
-						/**
-						 * TODO: redraw of table in order to show the correct 
-						 * content and not repeating the same...
-						 */
-					} 
-				}
-			}
-		});
 		btnDelete.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -229,17 +205,116 @@ public class ContainerView extends ViewPart {
 				enableButtons();
 			}
 		});
+		new Label(parent, SWT.NONE);
+		new Label(parent, SWT.NONE);
+		new Label(parent, SWT.NONE);
 		
-		btnCreate.addSelectionListener(new SelectionAdapter() {
+		label = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL | SWT.CENTER);
+		label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 3, 1));
+		new Label(parent, SWT.NONE);
+		new Label(parent, SWT.NONE);
+		new Label(parent, SWT.NONE);
+		
+		Label lblConnectionsAndSnapshots = new Label(parent, SWT.NONE);
+		lblConnectionsAndSnapshots.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 3, 1));
+		lblConnectionsAndSnapshots.setText("Connections and Snapshots");
+		new Label(parent, SWT.NONE);
+		new Label(parent, SWT.NONE);
+		new Label(parent, SWT.NONE);
+		
+		detailTreeViewer = new TreeViewer(parent, SWT.BORDER);
+		detailTreeViewer.setAutoExpandLevel(2);
+		detailTree = detailTreeViewer.getTree();
+
+		GridData gd_detailTree = new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1);
+		gd_detailTree.minimumHeight = 100;
+		detailTree.setLayoutData(gd_detailTree);
+		detailTreeViewer.setLabelProvider(new GenericNameLabelProvider());
+		detailTreeViewer.setContentProvider(new ConnectionTreeContentProvider());
+		getSite().setSelectionProvider(detailTreeViewer);
+		
+		menu = new Menu(detailTree);
+		detailTree.setMenu(menu);
+
+		mntmNewConnection = new MenuItem(menu, SWT.NONE);
+		mntmNewConnection.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/folder_new.png"));
+		mntmNewConnection.setText("Add Connection");
+		mntmNewConnection.addSelectionListener(new SelectionAdapter() {
+
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-		//				ContainerWizard wizard = new ContainerWizard(SessionSourceProvider.CONTAINER_LIST);
-				ContainerWizard wizard = new ContainerWizard();
+				ProjectWizard wizard = new ProjectWizard();
 				WizardDialog dialog = new WizardDialog ( parent.getShell(), wizard );
 				dialog.open();
-				enableButtons();
+				listViewer.setInput(SessionSourceProvider.CONTAINER_LIST);
+			}
+			
+		});
+
+		mntmNewSnapshot = new MenuItem(menu, SWT.NONE);
+		mntmNewSnapshot.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/gnome-dev-computer.png"));
+		mntmNewSnapshot.setText("Add Snapshot");
+		mntmNewSnapshot.addSelectionListener(new SelectionAdapter() {
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				SnapshotWizard wizard = new SnapshotWizard();
+				WizardDialog dialog = new WizardDialog ( parent.getShell(), wizard );
+				dialog.open();
+				listViewer.setInput(SessionSourceProvider.CONTAINER_LIST);
+			}
+			
+		});
+		
+		mntmDeleteSelectedItem = new MenuItem(menu, SWT.NONE);
+		mntmDeleteSelectedItem.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/gtk-cancel.png"));
+		mntmDeleteSelectedItem.setText("Delete Selected Item");
+		mntmDeleteSelectedItem.addSelectionListener(new SelectionAdapter() {
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				objectSelection = detailTreeViewer.getSelection();
+				structuredSelection = (IStructuredSelection) objectSelection;
+				
+				if ( !structuredSelection.isEmpty() ) {
+					MessageDialog msg = new MessageDialog ( parent.getShell(), 
+							"Warning", null, 
+							"Are you sure you want to delete the object '" 
+							+ SessionSourceProvider.CURRENT_CONTAINER.getName() + "'? \n" +
+							"This operation cannot be reversed!", 
+							MessageDialog.WARNING, 
+							new String[] {"Delete", "Keep"}, 1);
+					if ( msg.open() == 0 ) {
+						GenericDao gDao = DaoFactory.eINSTANCE.createGenericDao();
+						gDao.delete(structuredSelection);
+					}
+				}
+			}
+			
+		});
+		
+		detailTreeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				objectSelection = event.getSelection();
+				structuredSelection = (IStructuredSelection) objectSelection;
+				if ( !structuredSelection.isEmpty()) {
+					currentObject = structuredSelection.getFirstElement();
+					mntmDeleteSelectedItem.setEnabled(true);
+					
+					if ( structuredSelection.getFirstElement() instanceof Snapshot ) {
+						SessionSourceProvider.CURRENT_SNAPSHOT = 
+								(Snapshot) structuredSelection.getFirstElement();
+						SessionSourceProvider.CURRENT_SNAPSHOT.eAdapters().add(adapter);
+					} 
+				}
 			}
 		});
+		new Label(parent, SWT.NONE);
+		new Label(parent, SWT.NONE);
+		new Label(parent, SWT.NONE);
+		
+		mntmDeleteSelectedItem.setEnabled(false);
 
 	}
 	

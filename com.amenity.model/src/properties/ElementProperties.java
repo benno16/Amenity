@@ -4,6 +4,9 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.PropertyDescriptor;
@@ -41,10 +44,27 @@ public class ElementProperties implements IPropertySource {
 			if ( attribute.getEType().getName().equals("EString") || attribute.getEType().getName().equals("Date") ) {
 				
 				if ( attribute.isUnsettable() || attribute.isID() ) {
-					descriptors.add((IPropertyDescriptor) new PropertyDescriptor ( attribute, attribute.getName() ) );
-				} else 
-					descriptors.add((IPropertyDescriptor) new TextPropertyDescriptor ( attribute, attribute.getName() ) );
-				
+					PropertyDescriptor desc = new PropertyDescriptor ( attribute, attribute.getName() );
+					desc.setLabelProvider(new LabelProvider() {
+						public Image getImage(Object element) {
+//							return null;
+							return org.eclipse.ui.PlatformUI.getWorkbench().getSharedImages()
+									.getImage(ISharedImages.IMG_OBJS_INFO_TSK);
+						}
+					});
+					descriptors.add( (IPropertyDescriptor)desc );
+					
+				} else {
+					PropertyDescriptor desc = new TextPropertyDescriptor ( attribute, attribute.getName() );
+					desc.setLabelProvider(new LabelProvider() {
+						public Image getImage(Object element) {
+//							return null;
+							return org.eclipse.ui.PlatformUI.getWorkbench().getSharedImages()
+									.getImage(ISharedImages.IMG_DEF_VIEW);
+						}
+					});
+					descriptors.add( (IPropertyDescriptor)desc );
+				}
 			} else if ( attribute.getEType() instanceof EEnum ) {
 				EEnum eenum = (EEnum) attribute.getEType();
 				literals = new String[eenum.getELiterals().size()];
@@ -53,7 +73,15 @@ public class ElementProperties implements IPropertySource {
 				for ( EEnumLiteral literal : eenum.getELiterals() ) 
 					literals[k++] = literal.getLiteral();
 				
-				descriptors.add(new ComboBoxPropertyDescriptor ( attribute, attribute.getName(), literals));
+				PropertyDescriptor desc = new ComboBoxPropertyDescriptor ( attribute, attribute.getName(), literals);
+				desc.setLabelProvider(new LabelProvider() {
+					public Image getImage(Object element) {
+//						return null;
+						return org.eclipse.ui.PlatformUI.getWorkbench().getSharedImages()
+								.getImage(ISharedImages.IMG_OBJ_ELEMENT);
+					}
+				});
+				descriptors.add( (IPropertyDescriptor)desc );
 			}
 
 		}

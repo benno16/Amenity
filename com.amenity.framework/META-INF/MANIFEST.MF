@@ -287,4 +287,3 @@ Export-Package: antlr,
  org.xmlpull.v1.wrapper,
  org.xmlpull.v1.wrapper.classic
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Require-Bundle: org.eclipse.swtbot.eclipse.core;bundle-version="2.0.5"

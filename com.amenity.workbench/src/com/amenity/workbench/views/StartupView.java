@@ -25,7 +25,6 @@ public class StartupView extends ViewPart {
 	private Label lblSynergyStatus;
 	private Label lblMksStatus;
 	private Label lblDatabaseStatus;
-//	private IMemento memento;
 
 	public StartupView() {
 
@@ -71,13 +70,8 @@ public class StartupView extends ViewPart {
 
 	/**
 	 * Save selection! 
-	 * http://blog.eclipse-tips.com/2009/08/remember-state.html
+	 * TODO: http://blog.eclipse-tips.com/2009/08/remember-state.html
 	 */
-//	@Override
-//	public void init ( IViewSite site, IMemento memento ) throws PartInitException {
-//		this.memento = memento;
-//		super.init(site, memento);
-//	}
 	
 	/**
 	 * Create contents of the view part.
@@ -123,25 +117,8 @@ public class StartupView extends ViewPart {
 			
 		checkSessionState();
 		createActions();
-//		restoreSelection();
+		
 	}
-
-//	private void restoreSelection() {
-//		if ( memento != null ) {
-//			IMemento storedSelection = memento.getChild("StoredSelection");
-//			if ( storedSelection != null ) {
-//				viewer.setSelection(selection);
-//			}
-//		}
-//	}
-//	@Override
-//	public void saveState(IMemento memento) {
-//		IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
-//		if (!selection.isEmpty()) {
-//			IMemento storedSelection = memento.createChild("StoredSelection");
-//	 	// store the selection under storedSelection
-//		}
-//	}
 	/**
 	 * Create the actions.
 	 */

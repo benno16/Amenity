@@ -41,8 +41,6 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.part.ViewPart;
 
 import com.amenity.workbench.supporter.IconFactory;
-import com.amenity.workbench.supporter.ManageContainerLabelProvider;
-import com.amenity.workbench.supporter.classes.ContainerClass;
 import com.amenity.workbench.wizards.addContainer.ContainerWizard;
 
 @SuppressWarnings("unused")
@@ -51,13 +49,6 @@ public class SideBar extends ViewPart {
 
 	private Composite parent;
 	
-	/**
-	 * The content provider class is responsible for providing objects to the
-	 * view. It can wrap existing objects in adapters or simply return objects
-	 * as-is. These objects may be sensitive to the current input of the view,
-	 * or ignore it and always show the same content (like Task List, for
-	 * example).
-	 */
 	class ViewContentProvider implements IStructuredContentProvider {
 		public void inputChanged(Viewer v, Object oldInput, Object newInput) {
 		}
@@ -241,26 +232,6 @@ public class SideBar extends ViewPart {
 		
 		//viewer.setLabelProvider(new ManageContainerLabelProvider());
 		
-		class TodoLabelProvider extends StyledCellLabelProvider {
-			@Override
-			public void update(ViewerCell cell) {
-				Object element = cell.getElement();
-				StyledString text = new StyledString();
-				
-				if (element instanceof ContainerClass ) {
-					ContainerClass c = (ContainerClass) element;
-					text.append(c.getName());
-					text.append(" (*) ", StyledString.COUNTER_STYLER);
-					cell.setBackground(new Color ( null , 240 , 240 , 240));
-				}
-				
-				cell.setText(text.toString());
-				cell.setStyleRanges(text.getStyleRanges());
-				super.update(cell);
-			}
-		}
-		
-		viewer.setLabelProvider(new TodoLabelProvider());
 		viewer.setAutoExpandLevel(2);
 		//viewer.setInput( new ContainerMockModel() );
 		

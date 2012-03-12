@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.hsqldb.persist.HsqlProperties;
 import org.hsqldb.server.ServerAcl.AclFormatException;
 
-public class LocalDB {
+public class __OLD_LocalDB {
 
 	private org.hsqldb.server.Server server;
 	
@@ -19,10 +19,10 @@ public class LocalDB {
 		// production
 //		rootDir = "file:" + rootDir + "/temp/database/amenity;sql.enforce_strict_size=true";
 //		Conti internal D:/uidu1448/Amenity\Amenity\com.amenity.workbench
-//		rootDir = "file:d:/uidu1448/Amenity/Amenity/com.amenity.workbench/database/amenity;sql.enforce_strict_size=true";
+		rootDir = "file:d:/uidu1448/Amenity/Amenity/com.amenity.workbench/database/amenity;sql.enforce_strict_size=true";
 		// Ben home
 		// C:\Users\Ben\Desktop\Arbeit\__Bachelor\amenity\New\Amenity\com.amenity.workbench\database
-		rootDir = "file:" + rootDir + "/Desktop/Arbeit/__Bachelor/amenity/New/Amenity/com.amenity.workbench/database/amenity;sql.enforce_strict_size=true";
+//		rootDir = "file:" + rootDir + "/Desktop/Arbeit/__Bachelor/amenity/New/Amenity/com.amenity.workbench/database/amenity;sql.enforce_strict_size=true";
 		
 		
 		HsqlProperties p = new HsqlProperties();

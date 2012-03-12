@@ -86,6 +86,8 @@ public class Page2_Synergy extends WizardPage {
 								wizard.projectList = SessionSourceProvider.SYNERGY_PROJECT_LIST;
 								lblNewLabel.setText("Connected with ID: " + 
 										SessionSourceProvider.SYNERGY_SID);
+								SessionSourceProvider.SESSION_STATUS
+									.setSynergySession(SessionSourceProvider.SYNERGY_SID);
 								setPageComplete(true);
 								finished = true;
 								progressBar.setSelection(0);
@@ -132,7 +134,6 @@ public class Page2_Synergy extends WizardPage {
 	
 	void nextPressed() {
 		ProjectWizard wizard = (ProjectWizard)getWizard();
-		System.out.println("there are Elements: " + wizard.projectList.size());
 		wizard.three_sgy.createProjectList(wizard.projectList);
 	}
 

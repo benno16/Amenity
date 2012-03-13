@@ -2,6 +2,9 @@ package com.amenity.workbench.wizards.addProjectSource;
 
 import general.Connection;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -20,6 +23,7 @@ public class Page2_Synergy extends WizardPage {
 	private Label lblNewLabel;
 	private Button btnConnect;
 	private boolean finished;
+	private Logger log;
 	
 	/**
 	 * Create the wizard.
@@ -28,6 +32,11 @@ public class Page2_Synergy extends WizardPage {
 		super("wizardPage");
 		setTitle("Synergy Data Source Profile");
 		setDescription("Please connect to Synergy");
+		/*
+		 * logger creation and initialization
+		 */
+		log = LogManager.getLogger(Page2_Synergy.class);
+		PropertyConfigurator.configure(SessionSourceProvider.LOG4J_PROPERTIES);
 	}
 
 	/**
@@ -73,7 +82,7 @@ public class Page2_Synergy extends WizardPage {
 						
 						SessionSourceProvider.SESSION_STATUS.setSynergySession(SessionSourceProvider.SYNERGY_SID );
 						if ( SessionSourceProvider.SYNERGY_SID == null ) {
-							System.out.println("Error while creating SID");
+							log.error("Error while creating SID");
 							btnConnect.setEnabled(true);
 						} else {
 							if ( SessionSourceProvider.SYNERGY_PROJECT_LIST == null )
@@ -81,7 +90,7 @@ public class Page2_Synergy extends WizardPage {
 										SessionSourceProvider.SYNERGY_SID);
 							
 							if ( SessionSourceProvider.SYNERGY_PROJECT_LIST.size() > 0 ) {
-								System.out.println(SessionSourceProvider.SYNERGY_PROJECT_LIST.size());
+								log.info(SessionSourceProvider.SYNERGY_PROJECT_LIST.size());
 								ProjectWizard wizard = (ProjectWizard)getWizard();
 								wizard.projectList = SessionSourceProvider.SYNERGY_PROJECT_LIST;
 								lblNewLabel.setText("Connected with ID: " + 
@@ -95,7 +104,7 @@ public class Page2_Synergy extends WizardPage {
 								/**
 								 * TODO: Nicer error messages
 								 */
-								System.out.println("Error while reading projects");
+								log.error("Error while reading projects");
 							}
 						}
 					}

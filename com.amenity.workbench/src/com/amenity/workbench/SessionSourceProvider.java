@@ -15,6 +15,8 @@ import java.util.Properties;
 import org.eclipse.ui.AbstractSourceProvider;
 import org.eclipse.ui.ISources;
 
+import com.amenity.engine.helper.synergy.SynergyProject;
+
 /**
  * @author Ben
  * This class provides the session variables! 
@@ -44,6 +46,8 @@ public class SessionSourceProvider extends AbstractSourceProvider {
     // Session information
     public static String SYNERGY_SID = null;
     public static List<String> SYNERGY_PROJECT_LIST = null;
+    public static List<SynergyProject> SYNERGY_PROJECT_LIST_OBJECT = null;
+    
     
 //    public static SessionFactory HIBERNATE_SESSION_FACTORY = null;
 //    public static Session HIBERNATE_SESSION = null;

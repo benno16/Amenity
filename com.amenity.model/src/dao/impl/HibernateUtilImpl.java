@@ -74,7 +74,7 @@ public class HibernateUtilImpl extends EObjectImpl implements HibernateUtil {
 			hibernateProperties.setProperty(
 					PersistenceOptions.CASCADE_POLICY_ON_NON_CONTAINMENT,
 					"REFRESH,PERSIST,MERGE");
-			hibernateProperties.setProperty(Environment.SHOW_SQL, "true");
+			hibernateProperties.setProperty(Environment.SHOW_SQL, "false");
 			hibernateProperties.setProperty(Environment.C3P0_ACQUIRE_INCREMENT, "1");
 			hibernateProperties.setProperty(Environment.C3P0_IDLE_TEST_PERIOD, "100");
 			hibernateProperties.setProperty(Environment.C3P0_MAX_SIZE, "100");

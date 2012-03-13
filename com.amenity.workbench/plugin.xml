@@ -162,7 +162,7 @@
                relative="org.eclipse.ui.editorss">
          </view>
          <view
-               id="org.eclipse.ui.views.ProblemView"
+               id="com.amenity.workbench.views.EventLogView"
                minimized="false"
                relationship="stack"
                relative="org.eclipse.ui.views.TaskList">
@@ -230,7 +230,7 @@
          <view
                id="com.amenity.workbench.views.EventLogView"
                minimized="false"
-               relationship="stack"
+               relationship="top"
                relative="org.eclipse.ui.editorss">
          </view>
       </perspectiveExtension>
@@ -356,6 +356,7 @@
                   commandId="com.amenity.workbench.views.activities.showContainerView"
                   icon="icons/workbench/general/folder_new.png"
                   label="&amp;Add Container"
+                  mnemonic="c"
                   style="push">
                <visibleWhen
                      checkEnabled="false">
@@ -371,6 +372,7 @@
                   commandId="com.amenity.workbench.wizard.newDataSoure"
                   icon="icons/workbench/general/filenew.png"
                   label="&amp;Add Data Source"
+                  mnemonic="s"
                   style="push">
                <visibleWhen
                      checkEnabled="true">
@@ -386,6 +388,7 @@
                   commandId="com.amenity.workbench.wizard.SnapshotWizardCommand"
                   icon="icons/workbench/general/gnome-dev-computer.png"
                   label="&amp;Add Snapshot"
+                  mnemonic="s"
                   style="push">
                <visibleWhen
                      checkEnabled="false">

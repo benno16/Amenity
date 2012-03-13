@@ -29,7 +29,7 @@ import org.eclipse.swt.events.KeyEvent;
 
 
 public class Page3_Synergy extends WizardPage {
-	private List<SynergyProject> projects;
+//	private List<SynergyProject> projects;
 	Text text;
 	ListViewer listViewer;
 	ListViewer listViewer_1;
@@ -41,10 +41,13 @@ public class Page3_Synergy extends WizardPage {
 	 */
 	public Page3_Synergy(List<String> projectList) {
 		super("wizardPage");
-		projects = new ArrayList<SynergyProject>();
-//		createProjectList(projectList);
+
+		SessionSourceProvider.SYNERGY_PROJECT_LIST_OBJECT = new ArrayList<SynergyProject>();
+
 		setTitle("Synergy Data Source Profile");
-		setDescription("Please select Rational Synergy Project");
+		
+		setDescription("Please select a Rational Synergy Project");
+		
 	}
 
 	protected void createProjectList(List<String> projectList) {
@@ -60,7 +63,7 @@ public class Page3_Synergy extends WizardPage {
 			spl.setFullName(s);
 			spl.setShortName(shortName);
 			boolean exists = false;
-			for ( SynergyProject sp : projects ) {
+			for ( SynergyProject sp : SessionSourceProvider.SYNERGY_PROJECT_LIST_OBJECT ) {
 				if (sp.getShortName().equals(shortName)) {
 					sp.getRelease().add(release);
 					exists = true;
@@ -69,11 +72,11 @@ public class Page3_Synergy extends WizardPage {
 			}
 			if ( !exists ) {
 				spl.getRelease().add(release);
-				projects.add(spl);
+				SessionSourceProvider.SYNERGY_PROJECT_LIST_OBJECT.add(spl);
 			}
 		}
-		if ( projects.size() > 0) 
-			listViewer.setInput(projects);
+		if ( SessionSourceProvider.SYNERGY_PROJECT_LIST_OBJECT.size() > 0) 
+			listViewer.setInput(SessionSourceProvider.SYNERGY_PROJECT_LIST_OBJECT);
 	}
 
 	/**
@@ -123,8 +126,6 @@ public class Page3_Synergy extends WizardPage {
 		        				structuredSelection.getFirstElement());
 		        		wizard.connection.setProject( ( (SynergyProject) 
 		        				structuredSelection.getFirstElement() ).getShortName());
-		        		System.out.println(">>>" + ((SynergyProject) 
-		        				structuredSelection.getFirstElement() ).getShortName());
 		        		wizard.connection.setRelease("");
 		        		checkPageComplete();
 		        	}
@@ -139,7 +140,7 @@ public class Page3_Synergy extends WizardPage {
 			}
 		});
 		listViewer.setLabelProvider(new GenericNameLabelProvider());
-		listViewer.setInput(projects);
+		listViewer.setInput(SessionSourceProvider.SYNERGY_PROJECT_LIST_OBJECT);
 		
 		
 		listViewer_1 = new ListViewer(container, SWT.BORDER | SWT.V_SCROLL);
@@ -176,8 +177,6 @@ public class Page3_Synergy extends WizardPage {
 		        				structuredSelection.getFirstElement().toString() );
 		        		wizard.connection.setDatabase( wizard.connection.getProject() + "-" +
 		        				wizard.connection.getRelease());
-		        		System.out.println(">>>" + 
-		        				structuredSelection.getFirstElement().toString() );
 		        		checkPageComplete();
 		        	}
 		        }
@@ -201,7 +200,6 @@ public class Page3_Synergy extends WizardPage {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				ProjectWizard wizard = (ProjectWizard)getWizard();
-				System.out.println("there are Elements: " + wizard.projectList.size());
 				wizard.projectList = SessionSourceProvider.SYNERGY_PROJECT_LIST;
 				createProjectList(wizard.projectList);
 			}
@@ -213,16 +211,12 @@ public class Page3_Synergy extends WizardPage {
 	
 	private void checkPageComplete() {
 		ProjectWizard wizard = (ProjectWizard)getWizard();
-		System.out.println("am I complete? text: " + text.getText() + " " + 
-		" Project: " + wizard.connection.getProject() + " release: " + wizard.connection.getRelease() );
 		if ( text.getText().length() > 1 && wizard.connection.getProject().length() > 0 
 				&& wizard.connection.getRelease().length() > 0 ) {
 			setPageComplete ( true );
-			System.err.println("true");
 		}
 		else {
 			setPageComplete ( false );
-			System.err.println("false");
 		}
 	}
 }

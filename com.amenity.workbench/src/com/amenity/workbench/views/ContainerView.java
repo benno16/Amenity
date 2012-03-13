@@ -68,6 +68,7 @@ public class ContainerView extends ViewPart {
 	private MenuItem mntmNewSnapshot;
 	private MenuItem mntmDeleteSelectedItem;
 	private MenuItem mntmNewConnection;
+	@SuppressWarnings("unused")
 	private Object currentObject;
 	
 	

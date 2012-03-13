@@ -98,6 +98,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//Event/userRelevant"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference General.ecore#//Event/user"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//Event/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//Event/source"/>
     </genClasses>
     <genClasses ecoreClass="General.ecore#//DataSource">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute General.ecore#//DataSource/name"/>

@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link general.Event#isUserRelevant <em>User Relevant</em>}</li>
  *   <li>{@link general.Event#getUser <em>User</em>}</li>
  *   <li>{@link general.Event#getType <em>Type</em>}</li>
+ *   <li>{@link general.Event#getSource <em>Source</em>}</li>
  * </ul>
  * </p>
  *
@@ -214,5 +215,31 @@ public interface Event extends EObject {
 	 * @generated
 	 */
 	void setType(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Source</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Source</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Source</em>' attribute.
+	 * @see #setSource(String)
+	 * @see general.GeneralPackage#getEvent_Source()
+	 * @model
+	 * @generated
+	 */
+	String getSource();
+
+	/**
+	 * Sets the value of the '{@link general.Event#getSource <em>Source</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Source</em>' attribute.
+	 * @see #getSource()
+	 * @generated
+	 */
+	void setSource(String value);
 
 } // Event

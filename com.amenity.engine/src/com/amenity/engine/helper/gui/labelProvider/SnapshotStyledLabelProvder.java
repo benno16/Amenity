@@ -47,10 +47,8 @@ public class SnapshotStyledLabelProvder extends StyledCellLabelProvider  {
 				if ( ((Folder) element).getFunction().size() > 0  ) {
 					
 					colorCell(cell);
-//					cell.setForeground(new Color(Display.getCurrent(), 120, 120, 120));
 					
 				}
-//					text.append(" ( " +  + " ) ", StyledString.COUNTER_STYLER);
 			} else {
 				File file = (File) element;
 				s.beginTransaction();
@@ -62,7 +60,6 @@ public class SnapshotStyledLabelProvder extends StyledCellLabelProvider  {
 				if ( ((File)element).getFunction().size() > 0 ) {
 					
 					colorCell(cell);
-//					cell.setForeground(new Color(Display.getCurrent(), 120, 120, 120));
 				
 				}
 			}

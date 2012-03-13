@@ -27,8 +27,10 @@ public class ProjectWizard extends Wizard {
 	Page4 four;
 	List<String> projectList;
 	
-	Container container = GeneralFactory.eINSTANCE.createContainer(); 
+	Container container = GeneralFactory.eINSTANCE.createContainer();
+	
 	Connection connection;
+	
 	boolean storePassword = false;
 	
 	public ProjectWizard() {

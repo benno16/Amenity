@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link general.impl.EventImpl#isUserRelevant <em>User Relevant</em>}</li>
  *   <li>{@link general.impl.EventImpl#getUser <em>User</em>}</li>
  *   <li>{@link general.impl.EventImpl#getType <em>Type</em>}</li>
+ *   <li>{@link general.impl.EventImpl#getSource <em>Source</em>}</li>
  * </ul>
  * </p>
  *
@@ -155,6 +156,26 @@ public class EventImpl extends EObjectImpl implements Event {
 	 * @ordered
 	 */
 	protected String type = TYPE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getSource() <em>Source</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSource()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SOURCE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getSource() <em>Source</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSource()
+	 * @generated
+	 * @ordered
+	 */
+	protected String source = SOURCE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -353,6 +374,27 @@ public class EventImpl extends EObjectImpl implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getSource() {
+		return source;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSource(String newSource) {
+		String oldSource = source;
+		source = newSource;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.EVENT__SOURCE, oldSource, source));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -382,6 +424,8 @@ public class EventImpl extends EObjectImpl implements Event {
 				return getUser();
 			case GeneralPackage.EVENT__TYPE:
 				return getType();
+			case GeneralPackage.EVENT__SOURCE:
+				return getSource();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -411,6 +455,9 @@ public class EventImpl extends EObjectImpl implements Event {
 				return;
 			case GeneralPackage.EVENT__TYPE:
 				setType((String)newValue);
+				return;
+			case GeneralPackage.EVENT__SOURCE:
+				setSource((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -442,6 +489,9 @@ public class EventImpl extends EObjectImpl implements Event {
 			case GeneralPackage.EVENT__TYPE:
 				setType(TYPE_EDEFAULT);
 				return;
+			case GeneralPackage.EVENT__SOURCE:
+				setSource(SOURCE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -466,6 +516,8 @@ public class EventImpl extends EObjectImpl implements Event {
 				return user != null;
 			case GeneralPackage.EVENT__TYPE:
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+			case GeneralPackage.EVENT__SOURCE:
+				return SOURCE_EDEFAULT == null ? source != null : !SOURCE_EDEFAULT.equals(source);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -490,6 +542,8 @@ public class EventImpl extends EObjectImpl implements Event {
 		result.append(userRelevant);
 		result.append(", type: ");
 		result.append(type);
+		result.append(", source: ");
+		result.append(source);
 		result.append(')');
 		return result.toString();
 	}

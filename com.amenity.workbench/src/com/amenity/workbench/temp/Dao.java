@@ -31,10 +31,10 @@ public class Dao extends AbstractHandler {
 		
 		PropertyConfigurator.configure(SessionSourceProvider.LOG4J_PROPERTIES);
 		
-		log.info("info log");
-		log.error("error log");
-		log.warn("warn log");
-		log.fatal("fatal log");
+		log.info("info log#1");
+		log.error("error log#0");
+		log.warn("warn log#1");
+		log.fatal("fatal log#1");
 		
 		System.out.println("end logging");
 		

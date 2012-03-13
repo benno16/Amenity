@@ -51,6 +51,7 @@ where "name" = 'algo2.txt' and "snapshot_partof_snapshotid" = '69011638-f174-4dc
 
 select * from "container"
 u where u."username"='uidu1448'
+update "container" set "user_owner_userid" = 'a29f2260-a8fa-4521-a801-8fee39413c40'
 
 select * from "connection"
 update "connection" set "connectiontype" = 'SYNERGY' where "connectiontype" = 'synergy'
@@ -60,6 +61,7 @@ update "container" set "user_owner_userid" = 'a29f2260-a8fa-4521-a801-8fee39413c
 insert into "event" values( (select count(*) from "event")+1,'Event',
 '0','msg',now(),'0','a29f2260-a8fa-4521-a801-8fee39413c40','INFO');
 
-update "container" set "user_owner_userid" = 'a29f2260-a8fa-4521-a801-8fee39413c40'
 
+
+select * from "event"
 

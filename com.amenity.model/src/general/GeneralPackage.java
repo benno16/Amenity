@@ -205,13 +205,22 @@ public interface GeneralPackage extends EPackage {
 	int EVENT__TYPE = 5;
 
 	/**
+	 * The feature id for the '<em><b>Source</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT__SOURCE = 6;
+
+	/**
 	 * The number of structural features of the '<em>Event</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_FEATURE_COUNT = 6;
+	int EVENT_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link general.impl.DataSourceImpl <em>Data Source</em>}' class.
@@ -1704,6 +1713,17 @@ public interface GeneralPackage extends EPackage {
 	EAttribute getEvent_Type();
 
 	/**
+	 * Returns the meta object for the attribute '{@link general.Event#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Source</em>'.
+	 * @see general.Event#getSource()
+	 * @see #getEvent()
+	 * @generated
+	 */
+	EAttribute getEvent_Source();
+
+	/**
 	 * Returns the meta object for class '{@link general.DataSource <em>Data Source</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3072,6 +3092,14 @@ public interface GeneralPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute EVENT__TYPE = eINSTANCE.getEvent_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVENT__SOURCE = eINSTANCE.getEvent_Source();
 
 		/**
 		 * The meta object literal for the '{@link general.impl.DataSourceImpl <em>Data Source</em>}' class.

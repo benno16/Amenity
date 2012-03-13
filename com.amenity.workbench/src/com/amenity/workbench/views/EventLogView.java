@@ -305,6 +305,7 @@ public class EventLogView extends ViewPart {
 	@Override
 	public void setFocus() {
 		tableViewerEvent.getControl().setFocus();
+		tableViewerEvent.setInput ( getEventList() );
 	}
 
 	private String buildDate(Date date) {

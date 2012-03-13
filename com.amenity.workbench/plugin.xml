@@ -173,6 +173,7 @@
          <view
                id="com.amenity.workbench.views.ContainerView"
                minimized="false"
+               ratio=".6f"
                relationship="left"
                relative="org.eclipse.ui.editorss">
          </view>
@@ -201,7 +202,7 @@
                id="com.amenity.workbench.views.CompareSnapshotsView"
                minimized="false"
                moveable="true"
-               relationship="stack"
+               relationship="right"
                relative="org.eclipse.ui.editorss"
                showTitle="true"
                standalone="true"

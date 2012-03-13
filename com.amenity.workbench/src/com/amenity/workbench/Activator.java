@@ -40,7 +40,7 @@ public class Activator extends AbstractUIPlugin {
 		
 		SessionSourceProvider.LOG4J_PROPERTIES = new Properties(); 
 		URL url = this.getBundle().getResource("log4j.properties"); 
-		System.err.println(url);
+
 		SessionSourceProvider.LOG4J_PROPERTIES.load(url.openStream()); 
 		PropertyConfigurator.configure(SessionSourceProvider.LOG4J_PROPERTIES); 
 	    

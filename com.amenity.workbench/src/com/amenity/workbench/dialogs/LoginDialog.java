@@ -23,6 +23,7 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -87,23 +88,31 @@ public class LoginDialog extends Dialog {
 	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
+					
+		Composite container = (Composite) super.createDialogArea(parent);
+		
 		parent.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if ( e.keyCode == SWT.ESC)
-					System.out.println("esc");
+				if ( e.keyCode == SWT.ESC) {
+					System.out.println("escp");
+				} else if ( e.keyCode == SWT.CR) {
+					buttonPressed(Window.OK);
+				}
 			}
 		});
-		for ( int i = 0 ; i < parent.getShell().getChildren().length ; i++)
-			parent.getShell().getChildren()[i].addKeyListener(new KeyAdapter() {
+		for ( int i = 0 ; i < container.getChildren().length ; i++)
+			container.getChildren()[i].addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if ( e.keyCode == SWT.ESC)
-					System.out.println("esc");
+				if ( e.keyCode == SWT.ESC) {
+					System.out.println("escp");
+				} else if ( e.keyCode == SWT.CR) {
+					buttonPressed(Window.OK);
+				}
 			}
 		});
-					
-		Composite container = (Composite) super.createDialogArea(parent);
+		
 		container.setLayout(null);
 
 		Label lblUserName = new Label(container, SWT.NONE);

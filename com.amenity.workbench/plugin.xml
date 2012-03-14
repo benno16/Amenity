@@ -218,14 +218,6 @@
                relative="org.eclipse.ui.editorss">
          </view>
          <view
-               closeable="false"
-               id="com.amenity.workbench.views.SetStatsView"
-               minimized="false"
-               moveable="true"
-               relationship="stack"
-               relative="com.amenity.workbench.views.AssignFunctionsView">
-         </view>
-         <view
                id="org.eclipse.ui.views.PropertySheet"
                minimized="false"
                moveable="true"

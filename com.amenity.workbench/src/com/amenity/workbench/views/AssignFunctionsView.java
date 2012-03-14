@@ -878,7 +878,7 @@ public class AssignFunctionsView extends ViewPart {
 
 	
 	/*
-	 * TODO: persisting changes on apply
+	 * TODO: persisting changes on apply with single method! 
 	 */
 	protected void saveBtnAction () {
 		

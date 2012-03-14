@@ -690,10 +690,19 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		op = addEOperation(functionDaoEClass, null, "emtpyFunction", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEJavaObject(), "function", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(functionDaoEClass, ecorePackage.getEJavaObject(), "getById", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "id", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(fileFunctionStatusDaoEClass, FileFunctionStatusDao.class, "FileFunctionStatusDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		op = addEOperation(fileFunctionStatusDaoEClass, this.getList(), "getFileFunctionStatusBySnapshot", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getSnapshot(), "snapshot", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(fileFunctionStatusDaoEClass, this.getList(), "getFileFunctionStatusByFunction", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEJavaObject(), "function", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(fileFunctionStatusDaoEClass, ecorePackage.getEJavaObject(), "getById", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "id", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		// Initialize data types
 		initEDataType(listEDataType, List.class, "List", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

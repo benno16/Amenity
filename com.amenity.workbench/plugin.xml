@@ -214,7 +214,7 @@
          <view
                id="com.amenity.workbench.views.AssignFunctionsView"
                minimized="false"
-               relationship="right"
+               relationship="top"
                relative="org.eclipse.ui.editorss">
          </view>
          <view
@@ -224,6 +224,16 @@
                moveable="true"
                relationship="stack"
                relative="com.amenity.workbench.views.AssignFunctionsView">
+         </view>
+         <view
+               id="org.eclipse.ui.views.PropertySheet"
+               minimized="false"
+               moveable="true"
+               ratio=".2f"
+               relationship="stack"
+               relative="com.amenity.workbench.views.AssignFunctionsView"
+               standalone="true"
+               visible="true">
          </view>
       </perspectiveExtension>
       <perspectiveExtension

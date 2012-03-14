@@ -25,4 +25,20 @@ public interface FileFunctionStatusDao extends GenericDao {
 	 */
 	List getFileFunctionStatusBySnapshot(Snapshot snapshot);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model dataType="dao.List" many="false"
+	 * @generated
+	 */
+	List getFileFunctionStatusByFunction(Object function);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	Object getById(String id);
+
 } // FileFunctionStatusDao

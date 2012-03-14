@@ -36,18 +36,30 @@ public class ElementProperties implements IPropertySource {
 		return this;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see org.eclipse.ui.views.properties.IPropertySource#getPropertyDescriptors()
+	 * Descriptors for property view are created here
+	 * differentiation between:
+	 * - String
+	 * - Date
+	 * - Boolean
+	 * - ENUM
+	 */
+	
 	@Override
 	public IPropertyDescriptor[] getPropertyDescriptors() {
 		java.util.List<IPropertyDescriptor> descriptors = new java.util.ArrayList<IPropertyDescriptor>();
 		
 		for ( EAttribute attribute : element.eClass().getEAllAttributes() ) {
-			if ( attribute.getEType().getName().equals("EString") || attribute.getEType().getName().equals("Date") ) {
-				
+			
+			if ( attribute.getEType().getName().equals("EString") || 
+					attribute.getEType().getName().equals("Date") ) {
+
 				if ( attribute.isUnsettable() || attribute.isID() ) {
 					PropertyDescriptor desc = new PropertyDescriptor ( attribute, attribute.getName() );
 					desc.setLabelProvider(new LabelProvider() {
 						public Image getImage(Object element) {
-//							return null;
 							return org.eclipse.ui.PlatformUI.getWorkbench().getSharedImages()
 									.getImage(ISharedImages.IMG_OBJS_INFO_TSK);
 						}
@@ -55,17 +67,19 @@ public class ElementProperties implements IPropertySource {
 					descriptors.add( (IPropertyDescriptor)desc );
 					
 				} else {
-					PropertyDescriptor desc = new TextPropertyDescriptor ( attribute, attribute.getName() );
+					PropertyDescriptor desc = new TextPropertyDescriptor ( 
+							attribute, attribute.getName() );
 					desc.setLabelProvider(new LabelProvider() {
 						public Image getImage(Object element) {
-//							return null;
 							return org.eclipse.ui.PlatformUI.getWorkbench().getSharedImages()
 									.getImage(ISharedImages.IMG_DEF_VIEW);
 						}
 					});
 					descriptors.add( (IPropertyDescriptor)desc );
 				}
+				
 			} else if ( attribute.getEType() instanceof EEnum ) {
+				// ENUM has to be changed to integer value
 				EEnum eenum = (EEnum) attribute.getEType();
 				literals = new String[eenum.getELiterals().size()];
 				
@@ -73,27 +87,59 @@ public class ElementProperties implements IPropertySource {
 				for ( EEnumLiteral literal : eenum.getELiterals() ) 
 					literals[k++] = literal.getLiteral();
 				
-				PropertyDescriptor desc = new ComboBoxPropertyDescriptor ( attribute, attribute.getName(), literals);
+				PropertyDescriptor desc = new ComboBoxPropertyDescriptor ( attribute, 
+						attribute.getName(), literals);
+				
 				desc.setLabelProvider(new LabelProvider() {
+					
+					public String getText(Object element) {
+						return literals[(Integer)element];
+					}
+					
 					public Image getImage(Object element) {
-//						return null;
 						return org.eclipse.ui.PlatformUI.getWorkbench().getSharedImages()
 								.getImage(ISharedImages.IMG_OBJ_ELEMENT);
 					}
+					
 				});
+				
 				descriptors.add( (IPropertyDescriptor)desc );
+				
+			} else if ( attribute.getEType().getName().equals("EBoolean") ) {
+
+				if ( attribute.isUnsettable() || attribute.isID() ) {
+					PropertyDescriptor desc = new PropertyDescriptor ( 
+							attribute, attribute.getName() );
+					desc.setLabelProvider(new LabelProvider() {
+						public String getText(Object element) {
+							return element == null ? "" : element.toString()
+									.equals("1") ? "false" : "true";//$NON-NLS-1$
+						}
+						public Image getImage(Object element) {
+							return org.eclipse.ui.PlatformUI.getWorkbench().getSharedImages()
+									.getImage(ISharedImages.IMG_OBJS_INFO_TSK);
+						}
+					});
+					descriptors.add(desc);
+				} else {
+					PropertyDescriptor desc = new ComboBoxPropertyDescriptor ( 
+							attribute, attribute.getName(),  new String[] { "true", "false" } );
+					desc.setLabelProvider(new LabelProvider() {
+						public String getText(Object element) {
+							return element == null ? "" : element.toString()
+									.equals("1") ? "false" : "true";//$NON-NLS-1$
+						}
+						public Image getImage(Object element) {
+							return org.eclipse.ui.PlatformUI.getWorkbench().getSharedImages()
+									.getImage(ISharedImages.IMG_OBJ_ELEMENT);
+						}
+					});
+					descriptors.add(desc);
+				}
+					
 			}
 
 		}
-		
-//			else if ( attribute.getEType().getName().equals("EBoolean") ) {
-//				
-//				if ( attribute.isUnsettable() || attribute.isID() ) {
-//					descriptors.add((IPropertyDescriptor) new PropertyDescriptor ( attribute, attribute.getName() ) );
-//				} else 
-//					descriptors.add((IPropertyDescriptor) new ComboBoxPropertyDescriptor ( attribute, attribute.getName(),  new String[] { "true", "false" } ) );
-//				
-//			}
 		
 		propertyDescriptors = new IPropertyDescriptor[ descriptors.size() ];
 		
@@ -111,16 +157,22 @@ public class ElementProperties implements IPropertySource {
 			if ( a.getEType() instanceof EEnum) {
 				if ( a.equals(id) ) {
 					for ( int i = 0; i < literals.length ; i++ ) {
-						if ( element.eGet(a).equals(literals[i]));
+						if ( element.eGet(a).toString().equals(literals[i])) {
 							return new Integer(i);
+						}
 					}
 				}
-			}
-			else if ( a.equals(id)) {
+			} else if ( a.getEType().getName().equals("EBoolean") ) {
+
+				return (element.eGet(a).toString().equals("true")) ? new Integer(0) : new Integer(1);
+				
+			} else if ( a.equals(id)) {
+				
 				return element.eGet(a);
+				
 			}
 		}
-		
+		System.out.println("I should never get here");
 		return null;
 	}
 
@@ -136,6 +188,19 @@ public class ElementProperties implements IPropertySource {
 	public void setPropertyValue(Object id, Object value) {
 		
 		for ( EAttribute a : element.eClass().getEAllAttributes() ) {
+			if ( a.getEType().getName().equals("EBoolean") ) {
+				element.eSet(a, (Integer)value == 0 ? true : false );
+			} else 
+			if ( a.getEType() instanceof EEnum) {
+				if ( a.equals(id) ) {
+					for ( int i = 0; i < literals.length ; i++ ) {
+						if ( value.toString().equals(literals[i])) {
+							System.err.println("I found a matching result");
+							element.eSet(a, i);
+						}
+					}
+				}
+			} else  
 			if ( a.equals(id)) {
 				element.eSet(a, value);
 			}

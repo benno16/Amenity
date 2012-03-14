@@ -18,6 +18,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.ui.views.properties.IPropertySource;
+
+import properties.ElementProperties;
 
 /**
  * <!-- begin-user-doc -->
@@ -231,6 +234,15 @@ public class FileFunctionStatusImpl extends EObjectImpl implements FileFunctionS
 	 * @ordered
 	 */
 	protected Date setOn = SET_ON_EDEFAULT;
+
+	/**
+	 * This is true if the Set On attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean setOnESet;
 
 	/**
 	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -536,8 +548,33 @@ public class FileFunctionStatusImpl extends EObjectImpl implements FileFunctionS
 	public void setSetOn(Date newSetOn) {
 		Date oldSetOn = setOn;
 		setOn = newSetOn;
+		boolean oldSetOnESet = setOnESet;
+		setOnESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.FILE_FUNCTION_STATUS__SET_ON, oldSetOn, setOn));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.FILE_FUNCTION_STATUS__SET_ON, oldSetOn, setOn, !oldSetOnESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetSetOn() {
+		Date oldSetOn = setOn;
+		boolean oldSetOnESet = setOnESet;
+		setOn = SET_ON_EDEFAULT;
+		setOnESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, GeneralPackage.FILE_FUNCTION_STATUS__SET_ON, oldSetOn, SET_ON_EDEFAULT, oldSetOnESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetSetOn() {
+		return setOnESet;
 	}
 
 	/**
@@ -678,7 +715,7 @@ public class FileFunctionStatusImpl extends EObjectImpl implements FileFunctionS
 				setOfFunction((Function)null);
 				return;
 			case GeneralPackage.FILE_FUNCTION_STATUS__SET_ON:
-				setSetOn(SET_ON_EDEFAULT);
+				unsetSetOn();
 				return;
 			case GeneralPackage.FILE_FUNCTION_STATUS__TYPE:
 				setType(TYPE_EDEFAULT);
@@ -714,7 +751,7 @@ public class FileFunctionStatusImpl extends EObjectImpl implements FileFunctionS
 			case GeneralPackage.FILE_FUNCTION_STATUS__OF_FUNCTION:
 				return ofFunction != null;
 			case GeneralPackage.FILE_FUNCTION_STATUS__SET_ON:
-				return SET_ON_EDEFAULT == null ? setOn != null : !SET_ON_EDEFAULT.equals(setOn);
+				return isSetSetOn();
 			case GeneralPackage.FILE_FUNCTION_STATUS__TYPE:
 				return type != TYPE_EDEFAULT;
 		}
@@ -746,11 +783,20 @@ public class FileFunctionStatusImpl extends EObjectImpl implements FileFunctionS
 		result.append(", comment: ");
 		result.append(comment);
 		result.append(", setOn: ");
-		result.append(setOn);
+		if (setOnESet) result.append(setOn); else result.append("<unset>");
 		result.append(", type: ");
 		result.append(type);
 		result.append(')');
 		return result.toString();
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Object getAdapter(Class adapter) {
+		if ( adapter == IPropertySource.class ) {
+			return new ElementProperties(this);
+		}
+		return null;
 	}
 
 } //FileFunctionStatusImpl

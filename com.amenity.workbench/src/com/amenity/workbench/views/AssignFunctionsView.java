@@ -32,10 +32,11 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
+import org.eclipse.jface.viewers.ColumnViewerEditorActivationListener;
+import org.eclipse.jface.viewers.ColumnViewerEditorDeactivationEvent;
 import org.eclipse.jface.viewers.ComboBoxViewerCellEditor;
-import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -59,6 +60,7 @@ import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Text;
 
+import com.amenity.engine.helper.gui.editingSupport.DataTypeEditingSupport;
 import com.amenity.engine.helper.gui.filter.FunctionAssigned;
 import com.amenity.engine.helper.gui.filter.FunctionNotAssigned;
 import com.amenity.engine.helper.gui.filter.NoFilter;
@@ -70,6 +72,7 @@ import com.amenity.workbench.dialogs.CreateFunctionDialog;
 import dao.ContainerDao;
 import dao.ContentObjectDao;
 import dao.DaoFactory;
+import dao.FileFunctionStatusDao;
 import dao.FunctionDao;
 import dao.GenericDao;
 import dao.SnapshotDao;
@@ -104,7 +107,6 @@ public class AssignFunctionsView extends ViewPart {
 	// drag and drop source information
 	private boolean isSnapshotItem;
 	private boolean isFunctionItem;
-	private boolean isFileAssoItem;
 	
 	private Button btnAdd;
 	private Button btnSave;
@@ -140,7 +142,7 @@ public class AssignFunctionsView extends ViewPart {
 //		contentObjects = new ArrayList<ContentObject>();
 		log = LogManager.getLogger(AssignFunctionsView.class);
 		PropertyConfigurator.configure(SessionSourceProvider.LOG4J_PROPERTIES);
-		
+		PlatformUI.getWorkbench();
 		CURRENT_FILE_LIST = new ArrayList<ContentObject>();
 		
 		CURRENT_FUNCTION_LIST = new ArrayList<Function>();
@@ -703,12 +705,17 @@ public class AssignFunctionsView extends ViewPart {
 				FileFunctionStatus ffs = GeneralFactory.eINSTANCE.createFileFunctionStatus();
 				
 				ContentObjectDao coDao = DaoFactory.eINSTANCE.createContentObjectDao();
-				GenericDao gDao = DaoFactory.eINSTANCE.createGenericDao();
+				FileFunctionStatusDao ffsDao = DaoFactory.eINSTANCE.createFileFunctionStatusDao();
 				
 				ffs.setOfFile((ContentObject)coDao.getById(data.toString()));
+				
+				System.err.println("RES: " + (Function) coDao.getById(SessionSourceProvider
+						.CURRENT_FUNCTION.getFunctionId()));
+				
 				ffs.setOfFunction((Function) coDao.getById(SessionSourceProvider
 						.CURRENT_FUNCTION.getFunctionId()) );
-//				gDao.create(ffs);
+				ffs.setSetOn(new Date());
+				ffsDao.update(ffs);
 				
 				CURRENT_FUNCTION_FILE_STATUS_LIST.add(ffs);
 				
@@ -731,17 +738,43 @@ public class AssignFunctionsView extends ViewPart {
 			public Object[] getElements(Object inputElement) {
 				return ((java.util.List<FileFunctionStatus>)inputElement ) .toArray();
 			}
+			@Override
+			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		        // fired when cell content changes
+		    }
 		});
 		
-		/*
-		 * TODO: Combo Box
-		 */
 		TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
 		TableColumn tblclmnFileType = tableViewerColumn.getColumn();
 		
+		tableViewerColumn.setEditingSupport(new DataTypeEditingSupport(tableViewerColumn.getViewer()));
+		tableViewer.getColumnViewerEditor().addEditorActivationListener(
+				new ColumnViewerEditorActivationListener() {
+
+					@Override
+					public void beforeEditorActivated(
+							ColumnViewerEditorActivationEvent event) {}
+
+					@Override
+					public void afterEditorActivated(
+							ColumnViewerEditorActivationEvent event) {}
+
+					@Override
+					public void beforeEditorDeactivated(
+							ColumnViewerEditorDeactivationEvent event) {}
+
+					@Override
+					public void afterEditorDeactivated(
+							ColumnViewerEditorDeactivationEvent event) {
+						tableViewer.refresh();
+					}
+			
+		});
+		getSite().setSelectionProvider(tableViewer);
+		
 		tableViewerColumn.setLabelProvider(new ColumnLabelProvider() {
 			public String getText(Object element) {
-				return element == null ? "" : ((FileFunctionStatus)element).getType().toString();
+				return element == null ? "" : ((FileFunctionStatus)element).getType().getLiteral();
 			}
 		});
 		tblclmnFileType.setWidth(100);
@@ -759,6 +792,7 @@ public class AssignFunctionsView extends ViewPart {
 				return element == null ? "" : ((FileFunctionStatus)element).getOfFile().getName();
 			}
 		});
+		
 		tblclmnFileName.setWidth(100);
 		tblclmnFileName.setText("File Name");
 		new Label(parent, SWT.NONE);
@@ -808,8 +842,8 @@ public class AssignFunctionsView extends ViewPart {
 		new Label(parent, SWT.NONE);
 		
 		btnSave = new Button(parent, SWT.NONE);
-		btnSave.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		btnSave.setText("Apply");
+		btnSave.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		btnSave.setText("Apply ");
 		btnSave.setImage(PlatformUI.getWorkbench().getSharedImages()
 					.getImage(ISharedImages.IMG_ETOOL_SAVE_EDIT));
 		btnSave.addSelectionListener(new SelectionAdapter() {
@@ -824,9 +858,9 @@ public class AssignFunctionsView extends ViewPart {
 		});
 		new Label(parent, SWT.NONE);
 		new Label(parent, SWT.NONE);
-		new Label(parent, SWT.NONE);
 
 		fillContainerCombo(containerComboViewer, containerCombo);
+		new Label(parent, SWT.NONE);
 		
 		
 		createFiltersAndSorters();
@@ -1095,25 +1129,16 @@ public class AssignFunctionsView extends ViewPart {
 	private void setIsSnapshotItem () {
 		isSnapshotItem = true;
 		isFunctionItem = false;
-		isFileAssoItem = false;
 	}
 	
 	private void setIsFunctionItem () {
 		isSnapshotItem = false;
 		isFunctionItem = true;
-		isFileAssoItem = false;
-	}
-	
-	private void setIsFileAssoItem () {
-		isSnapshotItem = false;
-		isFunctionItem = false;
-		isFileAssoItem = true;
 	}
 	
 	private void setUndefinedItem () {
 		isSnapshotItem = false;
 		isFunctionItem = false;
-		isFileAssoItem = false;
 	}
 	
 	@Override

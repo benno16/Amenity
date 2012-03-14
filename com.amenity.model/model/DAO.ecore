@@ -123,10 +123,19 @@
     <eOperations name="emtpyFunction">
       <eParameters name="function" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
     </eOperations>
+    <eOperations name="getById" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject">
+      <eParameters name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FileFunctionStatusDao" eSuperTypes="#//GenericDao">
     <eOperations name="getFileFunctionStatusBySnapshot" eType="#//List">
       <eParameters name="snapshot" eType="#//Snapshot"/>
+    </eOperations>
+    <eOperations name="getFileFunctionStatusByFunction" eType="#//List">
+      <eParameters name="function" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    </eOperations>
+    <eOperations name="getById" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject">
+      <eParameters name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
   </eClassifiers>
 </ecore:EPackage>

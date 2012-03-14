@@ -200,7 +200,7 @@ public class GenericDaoImpl extends EObjectImpl implements GenericDao {
 	public void update(Object object) {
 		session = getSession();
 		session.beginTransaction();
-		session.update(object);
+		session.saveOrUpdate(object);
 		try {
 			session.getTransaction().commit();
 		} catch ( Exception e ){

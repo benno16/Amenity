@@ -1754,7 +1754,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		initEAttribute(getFileFunctionStatus_Comment(), ecorePackage.getEString(), "comment", null, 0, 1, FileFunctionStatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFileFunctionStatus_OfFile(), this.getContentObject(), null, "ofFile", null, 0, 1, FileFunctionStatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFileFunctionStatus_OfFunction(), this.getFunction(), null, "ofFunction", null, 0, 1, FileFunctionStatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFileFunctionStatus_SetOn(), this.getDate(), "setOn", null, 0, 1, FileFunctionStatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFileFunctionStatus_SetOn(), this.getDate(), "setOn", null, 0, 1, FileFunctionStatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFileFunctionStatus_Type(), this.getdocumentType(), "type", null, 0, 1, FileFunctionStatus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(userListEClass, UserList.class, "UserList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

@@ -4,10 +4,12 @@ package general;
 
 import java.util.Date;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
+ * @implements IAdaptable
  * A representation of the model object '<em><b>File Function Status</b></em>'.
  * <!-- end-user-doc -->
  *
@@ -32,7 +34,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface FileFunctionStatus extends EObject {
+public interface FileFunctionStatus extends EObject, IAdaptable {
 	/**
 	 * Returns the value of the '<em><b>File Function Status Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -318,9 +320,11 @@ public interface FileFunctionStatus extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Set On</em>' attribute.
+	 * @see #isSetSetOn()
+	 * @see #unsetSetOn()
 	 * @see #setSetOn(Date)
 	 * @see general.GeneralPackage#getFileFunctionStatus_SetOn()
-	 * @model dataType="general.Date"
+	 * @model unsettable="true" dataType="general.Date"
 	 * @generated
 	 */
 	Date getSetOn();
@@ -330,10 +334,35 @@ public interface FileFunctionStatus extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Set On</em>' attribute.
+	 * @see #isSetSetOn()
+	 * @see #unsetSetOn()
 	 * @see #getSetOn()
 	 * @generated
 	 */
 	void setSetOn(Date value);
+
+	/**
+	 * Unsets the value of the '{@link general.FileFunctionStatus#getSetOn <em>Set On</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetSetOn()
+	 * @see #getSetOn()
+	 * @see #setSetOn(Date)
+	 * @generated
+	 */
+	void unsetSetOn();
+
+	/**
+	 * Returns whether the value of the '{@link general.FileFunctionStatus#getSetOn <em>Set On</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Set On</em>' attribute is set.
+	 * @see #unsetSetOn()
+	 * @see #getSetOn()
+	 * @see #setSetOn(Date)
+	 * @generated
+	 */
+	boolean isSetSetOn();
 
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' attribute.

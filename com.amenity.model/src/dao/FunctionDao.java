@@ -33,4 +33,12 @@ public interface FunctionDao extends GenericDao {
 	 */
 	void emtpyFunction(Object function);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	Object getById(String id);
+
 } // FunctionDao

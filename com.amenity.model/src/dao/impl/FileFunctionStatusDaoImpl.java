@@ -75,4 +75,50 @@ public class FileFunctionStatusDaoImpl extends GenericDaoImpl implements FileFun
 		return fileFunctionStatus;
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@SuppressWarnings("rawtypes")
+	public List getFileFunctionStatusByFunction(Object function) {
+		session = getSession();
+		session.beginTransaction();
+		Query queryRes = session.createQuery("from " + 
+				FileFunctionStatus.class.getName().toString() + 
+				" where ofFunction='" + ((Function)function).getFunctionId() + "'");
+
+		@SuppressWarnings("unchecked")
+		List<Function> ffss = queryRes.list();
+		
+		session.close();
+		
+		return ffss;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public FileFunctionStatus getById(String id) {
+		session = getSession();
+		session.beginTransaction();
+		Query queryRes = session.createQuery("from " + FileFunctionStatus.class.getName().toString() + 
+				" where fileFunctionStatusId='" + id + "'");
+
+		@SuppressWarnings("unchecked")
+		List<FileFunctionStatus> ffss = queryRes.list();
+		session.close();
+		
+		if ( ffss == null || ffss.size() == 0 ) {
+			return null;
+		}else if ( ffss.size() == 1) {
+			return ffss.get(0);
+		} else {
+			System.out.println("multiple entries found");
+			return null;
+		}
+	}
+
 } //FileFunctionStatusDaoImpl

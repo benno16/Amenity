@@ -42,6 +42,8 @@ import dao.DaoFactory;
 import dao.GeneralQueries;
 import dao.UserDao;
 import org.eclipse.wb.swt.ResourceManager;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 
 @SuppressWarnings("unused")
 public class LoginDialog extends Dialog {
@@ -85,6 +87,22 @@ public class LoginDialog extends Dialog {
 	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
+		parent.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if ( e.keyCode == SWT.ESC)
+					System.out.println("esc");
+			}
+		});
+		for ( int i = 0 ; i < parent.getShell().getChildren().length ; i++)
+			parent.getShell().getChildren()[i].addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if ( e.keyCode == SWT.ESC)
+					System.out.println("esc");
+			}
+		});
+					
 		Composite container = (Composite) super.createDialogArea(parent);
 		container.setLayout(null);
 

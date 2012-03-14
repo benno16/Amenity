@@ -106,10 +106,19 @@
       <genOperations ecoreOperation="DAO.ecore#//FunctionDao/emtpyFunction">
         <genParameters ecoreParameter="DAO.ecore#//FunctionDao/emtpyFunction/function"/>
       </genOperations>
+      <genOperations ecoreOperation="DAO.ecore#//FunctionDao/getById">
+        <genParameters ecoreParameter="DAO.ecore#//FunctionDao/getById/id"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="DAO.ecore#//FileFunctionStatusDao">
       <genOperations ecoreOperation="DAO.ecore#//FileFunctionStatusDao/getFileFunctionStatusBySnapshot">
         <genParameters ecoreParameter="DAO.ecore#//FileFunctionStatusDao/getFileFunctionStatusBySnapshot/snapshot"/>
+      </genOperations>
+      <genOperations ecoreOperation="DAO.ecore#//FileFunctionStatusDao/getFileFunctionStatusByFunction">
+        <genParameters ecoreParameter="DAO.ecore#//FileFunctionStatusDao/getFileFunctionStatusByFunction/function"/>
+      </genOperations>
+      <genOperations ecoreOperation="DAO.ecore#//FileFunctionStatusDao/getById">
+        <genParameters ecoreParameter="DAO.ecore#//FileFunctionStatusDao/getById/id"/>
       </genOperations>
     </genClasses>
   </genPackages>

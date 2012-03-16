@@ -90,18 +90,18 @@ public class ElementProperties implements IPropertySource {
 				PropertyDescriptor desc = new ComboBoxPropertyDescriptor ( attribute, 
 						attribute.getName(), literals);
 				
-				desc.setLabelProvider(new LabelProvider() {
-					
-					public String getText(Object element) {
-						return literals[(Integer)element];
-					}
-					
-					public Image getImage(Object element) {
-						return org.eclipse.ui.PlatformUI.getWorkbench().getSharedImages()
-								.getImage(ISharedImages.IMG_OBJ_ELEMENT);
-					}
-					
-				});
+//				desc.setLabelProvider(new LabelProvider() {
+//					
+//					public String getText(Object element) {
+//						return literals[(Integer)element];
+//					}
+//					
+//					public Image getImage(Object element) {
+//						return org.eclipse.ui.PlatformUI.getWorkbench().getSharedImages()
+//								.getImage(ISharedImages.IMG_OBJ_ELEMENT);
+//					}
+//					
+//				});
 				
 				descriptors.add( (IPropertyDescriptor)desc );
 				

@@ -58,6 +58,9 @@ public class LoginDialog extends Dialog {
 	private GeneralQueries genericQueries;
 	private boolean dbAlive = false;
 	private Adapter adapter;
+	private Logger log;
+	private User tempUser;
+	private UserDao userDao;
 	
 	/**
 	 * Create the dialog.
@@ -70,10 +73,19 @@ public class LoginDialog extends Dialog {
 				System.out.println("New database Status: " + SessionSourceProvider.SESSION_STATUS.isDbStatus());
 			}
 		};
-		
+
+		log = LogManager.getLogger(LoginDialog.class);
+		PropertyConfigurator.configure(SessionSourceProvider.LOG4J_PROPERTIES);
+		/*
+		 *  at login the database status is checked
+		 */
 		genericQueries = DaoFactory.eINSTANCE.createGeneralQueries();
-		if ( genericQueries.dbAlive() )
+		if ( genericQueries.dbAlive() ) {
 			dbAlive = true;
+			log.info("Database is running#1");
+		} else {
+			log.error("Database server is offline#1");
+		}
 	}
 	
 	@Override
@@ -95,20 +107,7 @@ public class LoginDialog extends Dialog {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if ( e.keyCode == SWT.ESC) {
-					System.out.println("escp");
-				} else if ( e.keyCode == SWT.CR) {
-					buttonPressed(Window.OK);
-				}
-			}
-		});
-		for ( int i = 0 ; i < container.getChildren().length ; i++)
-			container.getChildren()[i].addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if ( e.keyCode == SWT.ESC) {
-					System.out.println("escp");
-				} else if ( e.keyCode == SWT.CR) {
-					buttonPressed(Window.OK);
+					buttonPressed(Window.CANCEL);
 				}
 			}
 		});
@@ -136,23 +135,13 @@ public class LoginDialog extends Dialog {
 		btnRememberMyPassword.setText("Remember my password");
 		Button button = new Button(container, SWT.NONE);
 		button.addSelectionListener(new SelectionAdapter() {
+			
+			// simply allows to change the user name... 
+			
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				text.setEnabled(true);
-				/*
-				 * TODO
-				 * the below is temporary only! 
-				 * 
-				 */
 				
-				User tempUser = GeneralFactory.eINSTANCE.createUser();
-				tempUser.setUsername(System.getenv("username"));
-				tempUser.setEmail("ben@go-unified.com");
-				tempUser.setLastUsed(new Date());
-				tempUser.setTimesUsed(1);
-				UserDao userDao = DaoFactory.eINSTANCE.createUserDao();
-				userDao.create(tempUser);
-				tempUser = null;
+				text.setEnabled(true);
 				
 			}
 		});
@@ -208,6 +197,8 @@ public class LoginDialog extends Dialog {
 			text_1.setText("");
 			
 		} else if ( buttonId == 0 ){	// on OK
+
+			
 			SessionSourceProvider sessionSourceProvider = new SessionSourceProvider();
 			sessionSourceProvider.setLoggedIn(true);
 			SessionSourceProvider.SESSION_STATUS = GeneralFactory.eINSTANCE.createSessionSatus();
@@ -215,43 +206,40 @@ public class LoginDialog extends Dialog {
 			SessionSourceProvider.SESSION_STATUS.setDbStatus(dbAlive);
 			if ( dbAlive ) {
 				try {
-					User tempUser = GeneralFactory.eINSTANCE.createUser();
-					tempUser.setUsername( text.getText() );
-					UserDao userDao = DaoFactory.eINSTANCE.createUserDao();
-					/*
-					 * Temporary user creation
-					 */
-					
-//					tempUser.setEmail("ben@go-unified.com");
-//					tempUser.setLastUsed(new Date());
-//					tempUser.setTimesUsed(1);
-//					userDao.create(tempUser);
-					
-					/*
-					 * END Temporary user creation
-					 */
-					tempUser = userDao.findByUsername(tempUser);
-					if ( tempUser.getUserId() != null ) {
-						tempUser.setTimesUsed(tempUser.getTimesUsed() + 1);
-						tempUser.setLastUsed(new Date());
-						userDao.update(tempUser);
-						sessionSourceProvider.setLoggedIn(true);
-						SessionSourceProvider.USERID = tempUser.getUserId();
-						SessionSourceProvider.USER = tempUser;
-						ContainerDao containerDao = DaoFactory.eINSTANCE.createContainerDao();
-						SessionSourceProvider.CONTAINER_LIST = containerDao.getListByOwner(Container.class, SessionSourceProvider.USER);
-						
 
-						PropertyConfigurator.configure(SessionSourceProvider.LOG4J_PROPERTIES);
-						MDC.put("userid", SessionSourceProvider.USER.getUserId());
-						Logger log = LogManager.getLogger(LoginDialog.class);
-						MDC.put("uuid",UUID.randomUUID().toString());
-						log.info("user logged in");
-						
-						super.buttonPressed(buttonId);
-					}
+					if ( !userExists() ) {	// User does not exist in Database! 
+						// create new user
+						tempUser = GeneralFactory.eINSTANCE.createUser();
+						tempUser.setUsername(System.getenv("username"));
+						tempUser.setLastUsed( new Date() );
+						tempUser.setTimesUsed(0);
+						userDao.create(tempUser);
+						log.info("user created...#1");
+					} 
+
+					// counter up
+					tempUser.setTimesUsed(tempUser.getTimesUsed() + 1);
+					tempUser.setLastUsed(new Date());
+					userDao.update(tempUser);
+					// set session variables
+					sessionSourceProvider.setLoggedIn(true);
+					SessionSourceProvider.USERID = tempUser.getUserId();
+					SessionSourceProvider.USER = tempUser;
+					ContainerDao containerDao = DaoFactory.eINSTANCE.createContainerDao();
+					SessionSourceProvider.CONTAINER_LIST = containerDao
+							.getListByOwner(Container.class, SessionSourceProvider.USER);
+					
+
+					PropertyConfigurator.configure(SessionSourceProvider.LOG4J_PROPERTIES);
+					MDC.put("userid", SessionSourceProvider.USER.getUserId());
+					Logger log = LogManager.getLogger(LoginDialog.class);
+					MDC.put("uuid",UUID.randomUUID().toString());
+					log.info("user logged in");
+					
+					super.buttonPressed(buttonId);
+					
 				} catch ( Exception ex ) {
-					System.out.println("can't find user " + ex.getStackTrace() );
+					log.error("Problem with Database Connection#1");
 					ErrorDialog errorDialog = new ErrorDialog(this.getShell(),
 							"Database Connection Error",
 							"There is a problem with the database connection! ",
@@ -260,9 +248,9 @@ public class LoginDialog extends Dialog {
 					errorDialog.open();
 				}
 			} else {
-				MessageDialog.openError(null, "Error", "Error occured");
+				MessageDialog.openError(null, "Error", "DB Server not running");
 
-				System.out.println("DB Server not running");
+				log.error("DB Server not running#1");
 			}
 			
 		} else { //cancel and stuff
@@ -288,4 +276,21 @@ public class LoginDialog extends Dialog {
 				IStatus.OK, "Please confirm your username!", new Exception());
 		
 	}
+	
+	private Boolean userExists() {
+		
+		tempUser = GeneralFactory.eINSTANCE.createUser();
+		tempUser.setUsername( text.getText() );
+		userDao = DaoFactory.eINSTANCE.createUserDao();
+		tempUser = userDao.findByUsername(tempUser);
+		if (tempUser == null ) {
+			log.error("User does not exist in database#1");
+			return false;
+		} else {
+			log.info("User with ID: " + tempUser.getUserId() + " found#1");
+			return true;
+		}
+		
+	}
+	
 }

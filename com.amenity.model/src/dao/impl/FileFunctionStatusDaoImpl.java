@@ -7,6 +7,8 @@ import dao.DaoPackage;
 import dao.FileFunctionStatusDao;
 import dao.FunctionDao;
 
+import general.ContentObject;
+import general.File;
 import general.FileFunctionStatus;
 import general.Function;
 import general.Snapshot;
@@ -16,6 +18,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.hibernate.Query;
+import org.hibernate.Transaction;
 
 /**
  * <!-- begin-user-doc -->
@@ -56,7 +59,7 @@ public class FileFunctionStatusDaoImpl extends GenericDaoImpl implements FileFun
 		// Lets fetch the functions
 		FunctionDao functionDao = DaoFactory.eINSTANCE.createFunctionDao();
 		List<Function> functions = functionDao.getFunctionsBySnapshot(snapshot1);
-		// now lets fetch its file-function assoziations
+		// now lets fetch its file-function associations
 		List<FileFunctionStatus> fileFunctionStatus = new ArrayList<FileFunctionStatus>();
 		functionDao = null;
 		if ( functions != null ) {
@@ -94,6 +97,50 @@ public class FileFunctionStatusDaoImpl extends GenericDaoImpl implements FileFun
 		session.close();
 		
 		return ffss;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public Object createFfsWithFunctionIdObjectId(Object file, Object function, Object fileFunctionStatus) {
+		session = getSession();
+		Transaction tx = session.beginTransaction();
+		
+		Query queryRes = session.createQuery("from " + 
+				ContentObject.class.getName().toString() + 
+				" where objectId='" + ((ContentObject)file).getObjectId() + "'");
+		file = queryRes.list().get(0);
+		
+		queryRes = session.createQuery("from " + 
+				Function.class.getName().toString() + 
+				" where functionId='" + ((Function)function).getFunctionId() + "'");
+		function = queryRes.list().get(0);
+		
+//		file = session.get(ContentObject.class, ((ContentObject)file).getObjectId());
+//		function = session.get(Function.class, ((Function)function).getFunctionId());
+		
+		
+		((FileFunctionStatus)fileFunctionStatus).setOfFile((File)file);
+		((FileFunctionStatus)fileFunctionStatus).setOfFunction((Function)function);
+		((FileFunctionStatus)fileFunctionStatus).setSetOn(new java.util.Date());
+		
+		session.saveOrUpdate((FileFunctionStatus)fileFunctionStatus);
+		
+		try {
+			tx.commit();
+		} catch ( Exception e ) {
+			tx.rollback();
+		} 
+		queryRes = session.createQuery("from " + 
+				FileFunctionStatus.class.getName().toString() + 
+				" where fileFunctionStatusId='" + 
+				((FileFunctionStatus)fileFunctionStatus).getFileFunctionStatusId() + "'");
+		fileFunctionStatus = queryRes.list().get(0);
+		session.close();
+		return fileFunctionStatus;
+		
 	}
 
 	/**

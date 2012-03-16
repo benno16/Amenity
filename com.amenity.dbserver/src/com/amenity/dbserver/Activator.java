@@ -29,13 +29,27 @@ public class Activator implements BundleActivator {
 		 */
 		
 		// production
-//		rootDir = "file:" + rootDir + "/temp/database/amenity;hsqldb.default_table_type=cached;sql.enforce_strict_size=true";
+		rootDir = rootDir + "/temp/database";
 //		Conti internal D:/uidu1448/Amenity\Amenity\com.amenity.workbench
-//		rootDir = "file:d:/uidu1448/Amenity/Amenity/com.amenity.workbench/database/amenity;sql.enforce_strict_size=true";
+//		rootDir = "d:/uidu1448/Amenity/Amenity/com.amenity.workbench/database";
 		// Ben home
 		// C:\Users\Ben\Desktop\Arbeit\__Bachelor\amenity\New\Amenity\com.amenity.workbench\database
-		rootDir = "file:" + rootDir + "/Desktop/Arbeit/__Bachelor/amenity/New/Amenity/com.amenity.workbench/database/amenity;hsqldb.default_table_type=cached;sql.enforce_strict_size=true";
+//		rootDir = rootDir + "/Desktop/Arbeit/__Bachelor/amenity/New/Amenity/com.amenity.workbench/database";
 		
+		/*
+		 * Now check if root directory exists. If not CREATE! 
+		 * This ensures the DB is created on first use
+		 */
+		java.io.File dbFolder = new java.io.File ( rootDir );
+		if ( !dbFolder.exists() ) {
+			dbFolder.mkdir();
+		}
+		
+		/*
+		 *  Adding DB specific folder settings
+		 *  Maybe put into properties file 
+		 */
+		rootDir = "file:" + rootDir + "/amenity;hsqldb.default_table_type=cached;sql.enforce_strict_size=true";
 		
 		HsqlProperties p = new HsqlProperties();
 		p.setProperty("server.database.0", rootDir);
@@ -52,7 +66,7 @@ public class Activator implements BundleActivator {
 		}
 		
 		server.start();
-		
+
 	}
 
 	/*

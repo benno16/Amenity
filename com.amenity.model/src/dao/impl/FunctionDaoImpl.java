@@ -74,5 +74,25 @@ public class FunctionDaoImpl extends GenericDaoImpl implements FunctionDao {
 		session.createQuery("delete from " + Function.class.getName().toString() + 
 				" where f");
 	}
+	
+	public Function getById(String id) {
+		session = getSession();
+		session.beginTransaction();
+		Query queryRes = session.createQuery("from " + Function.class.getName().toString() + 
+				" where functionId='" + id + "'");
+
+		@SuppressWarnings("unchecked")
+		List<Function> functions = queryRes.list();
+		session.close();
+		
+		if ( functions == null || functions.size() == 0 ) {
+			return null;
+		}else if ( functions.size() == 1) {
+			return functions.get(0);
+		} else {
+			System.out.println("multiple entries found");
+			return null;
+		}
+	}
 
 } //FunctionDaoImpl

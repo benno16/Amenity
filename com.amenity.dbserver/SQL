@@ -14,15 +14,19 @@ select * from "contentobject" where "folder_rootdir_objectid" is null
 and "folder_rootdirectory_objectid" is null
 delete from "contentobject" where "name" = 'test'
 
+select * from "contentobject_function"
+select * from "function"
+
+
 drop table "task"
 
 drop schema "PUBLIC" cascade
-
-select * from "function" where "snapshot_snapshot_snapshotid" = '2461b8ae-e64b-4219-aa96-eb857c759a7a'
+update "function" set "snapshot_snapshot_snapshotid" = NULL
+select * from "function" 
 select * from "filefunctionstatus" where 
 	"function_offunction_functionid" = '6c90188d-64b2-4729-bda9-b9c4d7e0b7ed'
 
-55f1d3ce-6312-49bb-87d5-6661108f7066
+
 insert into "filefunctionstatus" ( "filefunctionstatusid", "function_offunction_functionid", 
 	"file_offile_objectid", "dtype", "E_VERSION" ) values 
 	'029c36a8-783a-4854-bcff-2037071d2578', '856d99f5-1b0a-410a-b0c6-b905df94e22c', 
@@ -62,6 +66,7 @@ insert into "event" values( (select count(*) from "event")+1,'Event',
 '0','msg',now(),'0','a29f2260-a8fa-4521-a801-8fee39413c40','INFO');
 
 select * from "filefunctionstatus"
+delete from "filefunctionstatus" where "function_offunction_functionid" is null
 
 select * from "event"
 

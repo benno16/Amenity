@@ -41,4 +41,12 @@ public interface FileFunctionStatusDao extends GenericDao {
 	 */
 	Object getById(String id);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	Object createFfsWithFunctionIdObjectId(Object file, Object function, Object fileFunctionStatus);
+
 } // FileFunctionStatusDao

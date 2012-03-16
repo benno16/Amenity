@@ -26,10 +26,6 @@ import org.eclipse.ui.part.ViewPart;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IMenuListener;
-import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
@@ -45,7 +41,6 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerDropAdapter;
-import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSourceEvent;
@@ -61,13 +56,12 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Text;
 
 import com.amenity.engine.helper.gui.editingSupport.DataTypeEditingSupport;
-import com.amenity.engine.helper.gui.filter.FunctionAssigned;
-import com.amenity.engine.helper.gui.filter.FunctionNotAssigned;
-import com.amenity.engine.helper.gui.filter.NoFilter;
 import com.amenity.engine.helper.gui.labelProvider.GenericNameLabelProvider;
 import com.amenity.engine.helper.gui.labelProvider.SnapshotStyledLabelProvder;
 import com.amenity.workbench.SessionSourceProvider;
 import com.amenity.workbench.dialogs.CreateFunctionDialog;
+import com.amenity.workbench.supporter.AssignFunctionViewFilters;
+import com.amenity.workbench.supporter.AssignFunctionViewMethods;
 
 import dao.ContainerDao;
 import dao.ContentObjectDao;
@@ -86,6 +80,10 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.wb.swt.ResourceManager;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 
 public class AssignFunctionsView extends ViewPart {
 	public static String newFn = null;
@@ -104,20 +102,12 @@ public class AssignFunctionsView extends ViewPart {
 	private Composite composite;
 	private TableViewer tableViewer;
 	
-	// drag and drop source information
-	private boolean isSnapshotItem;
-	private boolean isFunctionItem;
-	
 	private Button btnAdd;
 	private Button btnSave;
 	private Label lblDate;
 	private Text functionNameText;
 	private Table table;
 	
-	
-	// filters for tree
-	protected Action actionShowAll, actionHideUsed, actionHideNotUsed;
-	protected ViewerFilter filterShowAll, filterHideUsed, filterHideNotUsed;
 	
 //	private java.util.List<ContentObject> contentObjects;
 	private Logger log;
@@ -156,19 +146,31 @@ public class AssignFunctionsView extends ViewPart {
 		ORIGINAL_FUNCTION_FILE_STATUS_LIST = new ArrayList<FileFunctionStatus>();
 		
 		PropertyConfigurator.configure(SessionSourceProvider.LOG4J_PROPERTIES);
+		log.info("Assign Function view openend");
 	}
 
 	@SuppressWarnings("unused")
 	@Override
 	public void createPartControl(Composite parent) {
 		this.composite = parent;
+		
 		GridLayout gridLayout = new GridLayout(8,false);
+		
 		parent.setLayout(gridLayout);
+
+		/*
+		 * Container drop down starts here
+		 */
 		containerComboViewer = new ComboViewer(parent, SWT.NONE);
+		
 		Combo containerCombo = containerComboViewer.getCombo();
+		
+		containerCombo.setToolTipText("Select Container");
+		
 		containerCombo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
-		// Container Combo JFace Settings
+		
+		// Container Combo JFace Settings - reviewed 14.03.2012
 		containerComboViewer.setContentProvider(new ArrayContentProvider() {
 			@SuppressWarnings("unchecked")
 			@Override
@@ -177,21 +179,40 @@ public class AssignFunctionsView extends ViewPart {
 			}
 		});
 		containerComboViewer.setLabelProvider(new GenericNameLabelProvider());
+		
+		// reviewed 14.03.2012
 		containerComboViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
+				
 		        structuredSelection = (IStructuredSelection) event.getSelection();
+		        
 		        if ( !structuredSelection.isEmpty() ) {
+		        	
 		        	if ( structuredSelection.getFirstElement() instanceof Container ) {
+		        		
 		        		SessionSourceProvider.CURRENT_CONTAINER = 
 		        				(Container) structuredSelection.getFirstElement();
-		        		fillSnapshotCombo();
+		        		clearSnapshotTree();
+		        		snapshotComboViewer.setInput( AssignFunctionViewMethods.getInstance()
+		        			.getSnapshots(SessionSourceProvider.CURRENT_CONTAINER) );
+		        		snapshotComboViewer.refresh();
+		        		
 		        	}
+		        	
 		        }
+		        
 			}
+			
 		});
 		
+		
+		/*
+		 * Snapshot drop down starts here
+		 */
 		snapshotComboViewer = new ComboViewer(parent, SWT.NONE);
+		
+		// reviewed 14.03.2012
 		snapshotComboViewer.setContentProvider(new ArrayContentProvider() {
 			@SuppressWarnings("unchecked")
 			@Override
@@ -199,35 +220,70 @@ public class AssignFunctionsView extends ViewPart {
 				return ((java.util.List<Snapshot>)inputElement ) .toArray();
 			}
 		});
+		
+		// reviewed 14.03.2012
 		snapshotComboViewer.setLabelProvider(new GenericNameLabelProvider());
+
+		// reviewed 14.03.2012
 		snapshotComboViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
+				
 				objectSelection = event.getSelection();
+				
 		        structuredSelection = (IStructuredSelection) objectSelection;
+		        
 		        if ( !structuredSelection.isEmpty() ) {
+		        	
 		        	if ( structuredSelection.getFirstElement() instanceof Snapshot ) {
+		        		
 		        		SessionSourceProvider.CURRENT_SNAPSHOT = 
 		        				(Snapshot) structuredSelection.getFirstElement();
 		        		
-		        		fillFunctionCombo( false );
-		        		firstFillSnapshotTree();
-		        		clearFunctionTree();
+		        		// delete all the old content and lists
+		        		clearSnapshotTree();
+		        		
+		        		// get snapshot functions and add to combo and List
+		        		CURRENT_FUNCTION_LIST = AssignFunctionViewMethods.getInstance()
+		        			.getFunctions(SessionSourceProvider.CURRENT_SNAPSHOT);
+		        		
+		        		ORIGINAL_FUNCTION_LIST = CURRENT_FUNCTION_LIST;
+		        		
+		        		functionComboViewer.setInput(CURRENT_FUNCTION_LIST);
+		        		functionComboViewer.refresh();
+		        		
+		        		CURRENT_FILE_LIST = AssignFunctionViewMethods.getInstance()
+		        				.getContentObjects(SessionSourceProvider.CURRENT_SNAPSHOT);
+		        		CURRENT_FILE_LIST_WITH_FUNCTION = AssignFunctionViewMethods.getInstance()
+		        				.getContentObjectsFunctions(CURRENT_FILE_LIST);
+		        		
+		        		snapshotTreeViewer.setInput(AssignFunctionViewMethods.getInstance()
+		        				.getRootFolder(CURRENT_FILE_LIST));
+		        		
+		        		snapshotTreeViewer.refresh();
+		        		
 		        	}
+		        	
 		        }
+		        
 			}
 			
 		});
 		
 		snapshotCombo = snapshotComboViewer.getCombo();
+		snapshotCombo.setToolTipText("Select Snapshot");
 		snapshotCombo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		new Label(parent, SWT.NONE);
 		
 		functionComboViewer = new ComboViewer(parent, SWT.NONE);
 		functionCombo = functionComboViewer.getCombo();
+		functionCombo.setToolTipText("Select Function");
 		functionCombo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		
+
+		// reviewed 14.03.2012
 		functionComboViewer.setLabelProvider(new GenericNameLabelProvider());
+
+		// reviewed 14.03.2012
 		functionComboViewer.setContentProvider(new ArrayContentProvider() {
 			@SuppressWarnings("unchecked")
 			@Override
@@ -235,6 +291,8 @@ public class AssignFunctionsView extends ViewPart {
 				return ((java.util.List<Snapshot>)inputElement ) .toArray();
 			}
 		});
+
+		// reviewed 14.03.2012
 		functionComboViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 		
 			/*
@@ -244,13 +302,15 @@ public class AssignFunctionsView extends ViewPart {
 			 * and in case the CO is part of the current function the file will be added
 			 * to the current function list. if not next object
 			 */
+			@SuppressWarnings("unchecked")
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				objectSelection = event.getSelection();
 				structuredSelection = (IStructuredSelection) objectSelection;
+				
 				// may require not null check
-				if ( CURRENT_FUNCTION_FILE_LIST != null )
-				if ( !ORIGINAL_FUNCTION_FILE_LIST.containsAll(CURRENT_FUNCTION_FILE_LIST) ) {
+				if ( CURRENT_FUNCTION_FILE_LIST != null && 
+						!ORIGINAL_FUNCTION_FILE_LIST.containsAll(CURRENT_FUNCTION_FILE_LIST) ) {
 					MessageDialog.openWarning(composite.getShell(), "Warning", 
 							"You have to apply the changes");
 				} else {
@@ -262,44 +322,34 @@ public class AssignFunctionsView extends ViewPart {
 						if ( structuredSelection.getFirstElement() instanceof Function) {
 							
 							// if a new element is selected clear list and repaint the tree
-							
 							if ( SessionSourceProvider.CURRENT_FUNCTION == null || 
 									!SessionSourceProvider.CURRENT_FUNCTION.equals((Function) 
 									structuredSelection.getFirstElement()) ) {
+
+								// clear everything
+								clearFunctionTree();
 								
-								// clear the old content if any
-								ORIGINAL_FUNCTION_FILE_LIST.clear();
-								CURRENT_FUNCTION_FILE_LIST.clear();
-								
-								// set currently selection function
+								// start rebuilding here
+								// set selected function
 								SessionSourceProvider.CURRENT_FUNCTION = (Function) 
 										structuredSelection.getFirstElement();
 								
+								// Add the static existent file function status objects to Table
+								CURRENT_FUNCTION_FILE_STATUS_LIST = AssignFunctionViewMethods.getInstance()
+										.getFileFunctionStatus(SessionSourceProvider.CURRENT_FUNCTION);
+								ORIGINAL_FUNCTION_FILE_STATUS_LIST = CURRENT_FUNCTION_FILE_STATUS_LIST;
+								tableViewer.setInput(CURRENT_FUNCTION_FILE_STATUS_LIST);
+								
+								// set additional labels
 								functionNameText.setText(SessionSourceProvider.CURRENT_FUNCTION.getName());
 								lblDate.setText(SessionSourceProvider.CURRENT_FUNCTION.getModified().toString());
 								
 								
 								// iterate through CURRENT_FILE_LIST_WITH_FUNCTION
-								for ( ContentObject co : CURRENT_FILE_LIST_WITH_FUNCTION ) {
-									
-									// if the function list is not empty search through it and add
-									if ( co.getFunction() != null || co.getFunction().size() > 0 ) {
-										
-										for ( Function f : co.getFunction() ) {
-											if ( f.getFunctionId().equals(
-													SessionSourceProvider.CURRENT_FUNCTION.getFunctionId())) {
+								CURRENT_FUNCTION_FILE_LIST = AssignFunctionViewMethods.getInstance()
+										.getContentObjectsWithFunction( CURRENT_FILE_LIST_WITH_FUNCTION );
+								ORIGINAL_FUNCTION_FILE_LIST = CURRENT_FUNCTION_FILE_LIST;
 
-												ORIGINAL_FUNCTION_FILE_LIST.add(co);
-												CURRENT_FUNCTION_FILE_LIST.add(co);
-												break;
-											}
-											
-										}
-
-									}
-									
-								}
-								
 								functionTreeViewer.setInput( CURRENT_FUNCTION_FILE_LIST );
 								
 							}
@@ -309,8 +359,12 @@ public class AssignFunctionsView extends ViewPart {
 			}
 		});
 		
+		/*
+		 * TODO: Add button null pointer exception
+		 */
 		btnAdd = new Button(parent, SWT.NONE);
-		btnAdd.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		btnAdd.setToolTipText("Add new Function to List");
+		btnAdd.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		btnAdd.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/gtk-add.png"));
 		btnAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -324,6 +378,10 @@ public class AssignFunctionsView extends ViewPart {
 						function.setSnapshot(SessionSourceProvider.CURRENT_SNAPSHOT);
 						function.setName(newFn);
 						function.setModified(new Date());
+						FunctionDao fDao = DaoFactory.eINSTANCE.createFunctionDao();
+						fDao.update(function);
+						function = (Function) fDao.getById(function.getFunctionId());
+						SessionSourceProvider.CURRENT_FUNCTION = function;
 						CURRENT_FUNCTION_LIST.add(function);
 						fillFunctionCombo(true);
 					}
@@ -334,7 +392,24 @@ public class AssignFunctionsView extends ViewPart {
 		btnAdd.setText("Add");
 		new Label(parent, SWT.NONE);
 		new Label(parent, SWT.NONE);
-		new Label(parent, SWT.NONE);
+		
+		Label lblDeleteffs = new Label(parent, SWT.NONE);
+		lblDeleteffs.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDown(MouseEvent e) {
+				deleteSelectionFFS ();
+			}
+		});
+		lblDeleteffs.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				deleteSelectionFFS ();
+			}
+		});
+		lblDeleteffs.setTouchEnabled(true);
+		lblDeleteffs.setToolTipText("Remove Document Definition From List");
+		lblDeleteffs.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/gtk-delete.png"));
+		lblDeleteffs.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		new Label(parent, SWT.NONE);
 		new Label(parent, SWT.NONE);
 		new Label(parent, SWT.NONE);
@@ -351,6 +426,7 @@ public class AssignFunctionsView extends ViewPart {
 		new Label(parent, SWT.NONE);
 		snapshotTreeViewer = new TreeViewer( parent, SWT.BORDER );
 		snapshotTree = snapshotTreeViewer.getTree();
+		snapshotTree.setToolTipText("Items of selected snapshot");
 		snapshotTree.setLinesVisible(true);
 		snapshotTree.setHeaderVisible(true);
 		snapshotTree.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
@@ -443,7 +519,7 @@ public class AssignFunctionsView extends ViewPart {
 				if (TextTransfer.getInstance().isSupportedType(event.dataType)) {
 					event.data = firstElement.getObjectId();
 				}
-				setIsSnapshotItem();
+				AssignFunctionViewFilters.getInstance().setIsSnapshotItem();
 			}
 			
 			@Override
@@ -491,14 +567,14 @@ public class AssignFunctionsView extends ViewPart {
 				}
 				refreshSnapshotTree();
 				functionTreeViewer.setInput(CURRENT_FUNCTION_FILE_LIST);
-				setUndefinedItem();
+				AssignFunctionViewFilters.getInstance().setUndefinedItem();
 				return false;
 			}
 			
 			@Override
 			public boolean validateDrop ( Object target, int operation, 
 					TransferData transferType ) {
-				return isFunctionItem;
+				return AssignFunctionViewFilters.getInstance().isFunctionItem();
 			}
 		});
 		
@@ -509,7 +585,7 @@ public class AssignFunctionsView extends ViewPart {
 		snapshotTreeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 	    	
 	    	public void selectionChanged(SelectionChangedEvent event) {
-				setIsSnapshotItem();
+	    		AssignFunctionViewFilters.getInstance().setIsSnapshotItem();
 	    	}
 	    });
 		Composite composite_1 = new Composite(parent, SWT.NONE);
@@ -657,7 +733,7 @@ public class AssignFunctionsView extends ViewPart {
 					MessageDialog.openInformation(composite.getShell(), 
 							"Information", "Please select or create a function first");
 				}
-				setUndefinedItem();
+				AssignFunctionViewFilters.getInstance().setUndefinedItem();
 				return false;
 			}
 
@@ -666,7 +742,7 @@ public class AssignFunctionsView extends ViewPart {
 					TransferData transferType) {
 				if ( functionComboViewer.getSelection().isEmpty() )
 					return false;
-				return isSnapshotItem;
+				return AssignFunctionViewFilters.getInstance().isSnapshotItem();
 			}
 			
 		});
@@ -674,7 +750,7 @@ public class AssignFunctionsView extends ViewPart {
 	    functionTreeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 	    	
 	    	public void selectionChanged(SelectionChangedEvent event) {
-				setIsFunctionItem();
+	    		AssignFunctionViewFilters.getInstance().setIsFunctionItem();
 	    	}
 	    });
 	    
@@ -703,19 +779,27 @@ public class AssignFunctionsView extends ViewPart {
 			public boolean performDrop(Object data) {
 				// TODO Auto-generated method stub
 				FileFunctionStatus ffs = GeneralFactory.eINSTANCE.createFileFunctionStatus();
-				
-				ContentObjectDao coDao = DaoFactory.eINSTANCE.createContentObjectDao();
+
 				FileFunctionStatusDao ffsDao = DaoFactory.eINSTANCE.createFileFunctionStatusDao();
 				
-				ffs.setOfFile((ContentObject)coDao.getById(data.toString()));
+				ContentObjectDao coDao = DaoFactory.eINSTANCE.createContentObjectDao();
+//				FunctionDao fDao = DaoFactory.eINSTANCE.createFunctionDao();
+//				
+//				ffs.setOfFile((ContentObject)coDao.getById(data.toString()));
+//				
+//				System.err.println("RES: " + (Function) fDao.getById(SessionSourceProvider
+//						.CURRENT_FUNCTION.getFunctionId()));
+//				
+//				ffs.setOfFunction((Function) fDao.getById(SessionSourceProvider
+//						.CURRENT_FUNCTION.getFunctionId()) );
+//				ffs.setSetOn(new Date());
+//				ffsDao.update(ffs);
 				
-				System.err.println("RES: " + (Function) coDao.getById(SessionSourceProvider
-						.CURRENT_FUNCTION.getFunctionId()));
+				ffs = (FileFunctionStatus) ffsDao.createFfsWithFunctionIdObjectId(
+						(File)coDao.getById(data.toString()), 
+						SessionSourceProvider.CURRENT_FUNCTION, 
+						ffs);
 				
-				ffs.setOfFunction((Function) coDao.getById(SessionSourceProvider
-						.CURRENT_FUNCTION.getFunctionId()) );
-				ffs.setSetOn(new Date());
-				ffsDao.update(ffs);
 				
 				CURRENT_FUNCTION_FILE_STATUS_LIST.add(ffs);
 				
@@ -728,7 +812,7 @@ public class AssignFunctionsView extends ViewPart {
 			@Override
 			public boolean validateDrop(Object target, int operation,
 					TransferData transferType) {
-				return isFunctionItem;
+				return AssignFunctionViewFilters.getInstance().isFunctionItem();
 			}
 			
 		});
@@ -806,6 +890,7 @@ public class AssignFunctionsView extends ViewPart {
 		lblFunctionName.setText("Function Name");
 		
 		functionNameText = new Text(parent, SWT.BORDER);
+		functionNameText.setToolTipText("You can change the function name here");
 		functionNameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		new Label(parent, SWT.NONE);
 		new Label(parent, SWT.NONE);
@@ -821,6 +906,7 @@ public class AssignFunctionsView extends ViewPart {
 		new Label(parent, SWT.NONE);
 		
 		Button btnSetStatus = new Button(parent, SWT.NONE);
+		btnSetStatus.setToolTipText("Open Properties Window");
 		btnSetStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/up.png"));
 		btnSetStatus.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		btnSetStatus.setText("Set Status");
@@ -842,6 +928,7 @@ public class AssignFunctionsView extends ViewPart {
 		new Label(parent, SWT.NONE);
 		
 		btnSave = new Button(parent, SWT.NONE);
+		btnSave.setToolTipText("Save Function Content");
 		btnSave.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
 		btnSave.setText("Apply ");
 		btnSave.setImage(PlatformUI.getWorkbench().getSharedImages()
@@ -862,284 +949,36 @@ public class AssignFunctionsView extends ViewPart {
 		fillContainerCombo(containerComboViewer, containerCombo);
 		new Label(parent, SWT.NONE);
 		
-		
-		createFiltersAndSorters();
-		createActions();
-		createMenus();
+		AssignFunctionViewFilters.getInstance().createFiltersAndSorters();
+		AssignFunctionViewFilters.getInstance().createActions(snapshotTreeViewer);
+		AssignFunctionViewFilters.getInstance().createMenus(getViewSite().getActionBars().getMenuManager());
 		
 	}
 	
 
 	private void clearFunctionTree() {
-		functionTreeViewer.setInput(null);
+		// clears every information related to a selected function 
+		SessionSourceProvider.CURRENT_FUNCTION = null;
+		CURRENT_FUNCTION_FILE_LIST.clear();
+		ORIGINAL_FUNCTION_FILE_LIST.clear();
+		CURRENT_FUNCTION_FILE_STATUS_LIST.clear();
+		ORIGINAL_FUNCTION_FILE_STATUS_LIST.clear();
+		functionTreeViewer.setInput(CURRENT_FUNCTION_FILE_LIST);
+		tableViewer.setInput(CURRENT_FUNCTION_FILE_STATUS_LIST);
 		functionNameText.setText("");
 		lblDate.setText("");
 	}
-
 	
-	/*
-	 * TODO: persisting changes on apply with single method! 
-	 */
-	protected void saveBtnAction () {
-		
-		if ( !CURRENT_FUNCTION_FILE_LIST.equals(ORIGINAL_FUNCTION_FILE_LIST)  ) {
-			GenericDao genDao = DaoFactory.eINSTANCE.createGenericDao();
-			Session s = (Session) genDao.getSession();
-			s.beginTransaction();
-			
-			for ( ContentObject co : CURRENT_FUNCTION_FILE_LIST ) {
-				try {
-					s.merge(co);
-				} catch (Exception ex){
-					log.error("Function " + SessionSourceProvider.CURRENT_FUNCTION.getName() + 
-							" cannot be saved!");
-				}
-			}
-			try {
-				s.getTransaction().commit();
-				ORIGINAL_FUNCTION_FILE_LIST = CURRENT_FUNCTION_FILE_LIST;
-			} catch ( Exception e ) {
-				s.getTransaction().rollback();
-				log.error("Function " + SessionSourceProvider.CURRENT_FUNCTION.getName() + 
-						" cannot be saved!");
-			}
-			s.close();
-			btnSave.setText("Apply");
-		}
-		
-		if ( !functionNameText.getText().equals(SessionSourceProvider
-				.CURRENT_FUNCTION.getName())) {
-			SessionSourceProvider.CURRENT_FUNCTION.setName(functionNameText.getText());
-			
-		}
-
-	}
-
-	protected void storeFunctionInfoInFile( ContentObject co ) {
-		if ( co instanceof File || co instanceof Folder ) {
-			
-			for ( int i = 0 ; i < CURRENT_FILE_LIST.size() ; i++ ) {
-				if ( CURRENT_FILE_LIST.get(i).getObjectId().equals(co.getObjectId())) {
-					CURRENT_FILE_LIST.get(i).getFunction().add(SessionSourceProvider.CURRENT_FUNCTION);
-					co = CURRENT_FILE_LIST.get(i);
-					break;
-				}
-			}
-			
-//			co.getFunction().add(SessionSourceProvider.CURRENT_FUNCTION);
-			CURRENT_FUNCTION_FILE_LIST.add(co);
-			CURRENT_FILE_LIST_WITH_FUNCTION.add(co);
-		}
-		// if its a folder fetch children and perform same operation
-		if ( co instanceof Folder ) {
-			java.util.List<ContentObject> coList = getFolderChildren(co);
-			for ( ContentObject subCo : coList ) {
-				storeFunctionInfoInFile(subCo);
-			}
-		}
-	}
-	
-	
-	public java.util.List<ContentObject> getFolderChildren ( ContentObject parentElement ) {
-		
-
-		java.util.List<ContentObject> children = new ArrayList<ContentObject>();
-		for ( ContentObject co : CURRENT_FILE_LIST ) {
-			if ( co instanceof Folder ) {
-				if (((Folder)co).getRootDirectory() != null )
-					if (((Folder) co).getRootDirectory().equals(((Folder)parentElement)))
-						children.add(co);
-			}
-			if ( co instanceof File ) {
-				if (((File) co).getRootDir().equals(((Folder)parentElement)))
-					children.add(co);
-			}
-		}
-		
-		return children;
-	}
-	
-	@SuppressWarnings("unchecked")
-	protected void fillFunctionCombo(boolean added) {
-		// an added function is a new function selected and not one added
-		if ( !added ) {
-			ORIGINAL_FUNCTION_LIST.clear();
-			CURRENT_FUNCTION_LIST.clear();
-
-			FunctionDao functionDao = DaoFactory.eINSTANCE.createFunctionDao();
-			CURRENT_FUNCTION_LIST = functionDao.getFunctionsBySnapshot(SessionSourceProvider.CURRENT_SNAPSHOT);
-			ORIGINAL_FUNCTION_LIST = CURRENT_FUNCTION_LIST;
-		} 
-		functionTreeViewer.setInput(CURRENT_FUNCTION_FILE_LIST);
-		functionTreeViewer.refresh();
-		functionComboViewer.setInput(CURRENT_FUNCTION_LIST);
-		functionComboViewer.refresh();
-	}
-
-	@SuppressWarnings("unchecked")
-	protected void fillSnapshotCombo() {
-		SnapshotDao snapshotDao = DaoFactory.eINSTANCE.createSnapshotDao();
-		java.util.List<Container> input = snapshotDao.getListByContainer
-				(SessionSourceProvider.CURRENT_CONTAINER);
-
-		snapshotComboViewer.setInput(input);
-		snapshotComboViewer.refresh();
-		if ( snapshotCombo.getItemCount() > 0 ) 
-			snapshotCombo.select(0);
-		input = null;
-	}
-
-	@SuppressWarnings("unchecked")
-	private void fillContainerCombo(ComboViewer containerComboViewer, Combo containerCombo) {
-		ContainerDao containerDao = DaoFactory.eINSTANCE.createContainerDao();
-		java.util.List<Container> input = containerDao.getListByOwner(Container.class, SessionSourceProvider.USER);
-		
-		containerComboViewer.setInput(input);
-		if ( containerCombo.getItemCount() > 0 ) 
-			containerCombo.select(0);
-		input = null;
-	}
-
-	/*
-	 * This method reads every content object of the snapshot
-	 * including the function information
-	 */
-	@SuppressWarnings("unchecked")
-	protected void firstFillSnapshotTree() {
+	private void clearSnapshotTree() {
+		clearFunctionTree();
+		CURRENT_FILE_LIST.clear();
 		CURRENT_FILE_LIST_WITH_FUNCTION.clear();
-		ContentObjectDao coDao = DaoFactory.eINSTANCE.createContentObjectDao();
-		CURRENT_FILE_LIST = coDao
-				.getListBySnapshot(SessionSourceProvider.CURRENT_SNAPSHOT);
-
-		for ( int i = 0 ; i < CURRENT_FILE_LIST.size() ; i++ ) {
-			// load the corresponding information!
-			if ( CURRENT_FILE_LIST.get(i).getFunction().size() > 0 )
-				CURRENT_FILE_LIST_WITH_FUNCTION.add(CURRENT_FILE_LIST.get(i));
-		}
-		
-		refreshSnapshotTree();
-		
-	}
-	
-	protected void refreshSnapshotTree() {
-
-		snapshotTree.removeAll();
-		snapshotTreeViewer.setLabelProvider( new SnapshotStyledLabelProvder(CURRENT_FILE_LIST) );
-		
-		// find root Folder
-		for ( int i = 0 ; i < CURRENT_FILE_LIST.size() ; i++ ) {
-			
-			if ( CURRENT_FILE_LIST.get(i) instanceof Folder ) {
-				
-				if ( ((Folder)CURRENT_FILE_LIST.get(i)).getRootDirectory() == null  ) {
-					
-					snapshotTreeViewer.setInput(((Folder)CURRENT_FILE_LIST.get(i)));
-					snapshotTreeViewer.refresh();
-				}
-				
-			}
-			
-		}
-		
-	}
-	
-	protected void createActions() {
-		actionShowAll = new Action("Show all items") {
-			public void run() {
-				updateFilter(actionShowAll);
-			}
-		};
-		actionShowAll.setChecked(false);
-		
-		actionHideUsed = new Action("Hide items without function") {
-			public void run() {
-				updateFilter(actionHideUsed);
-			}
-		};
-		actionHideUsed.setChecked(false);
-		
-		actionHideNotUsed = new Action("Hide items with function") {
-			public void run() {
-				updateFilter(actionHideNotUsed);
-			}
-		};
-		actionHideNotUsed.setChecked(false);
-		
-	}
-
-	protected void createFiltersAndSorters() {
-		filterHideUsed = new FunctionAssigned();
-		filterHideNotUsed = new FunctionNotAssigned();
-		filterShowAll = new NoFilter();
-	}
-	
-	/* Multiple filters can be enabled at a time. */
-	protected void updateFilter(Action action) {
-		if(action == actionShowAll) {
-			if(action.isChecked()) {
-				snapshotTreeViewer.addFilter(filterShowAll);
-			} else {
-				snapshotTreeViewer.addFilter(filterShowAll);
-				snapshotTreeViewer.removeFilter(filterHideUsed);
-				snapshotTreeViewer.removeFilter(filterHideNotUsed);
-			}
-		} else if(action == actionHideUsed) {
-			if(action.isChecked()) {
-				snapshotTreeViewer.addFilter(filterHideUsed);
-			} else {
-				snapshotTreeViewer.removeFilter(filterHideUsed);
-				snapshotTreeViewer.addFilter(filterShowAll);
-			}
-		} else if(action == actionHideNotUsed) {
-			if(action.isChecked()) {
-				snapshotTreeViewer.addFilter(filterHideNotUsed);
-			} else {
-				snapshotTreeViewer.removeFilter(filterHideNotUsed);
-				snapshotTreeViewer.addFilter(filterShowAll);
-			}
-		}
-	}
-	
-	protected void createMenus() {
-		IMenuManager rootMenuManager = getViewSite().getActionBars().getMenuManager();
-		rootMenuManager.setRemoveAllWhenShown(true);
-		rootMenuManager.addMenuListener(new IMenuListener() {
-			public void menuAboutToShow(IMenuManager mgr) {
-				fillMenu(mgr);
-			}
-		});
-		fillMenu(rootMenuManager);
-	}
-
-
-	protected void fillMenu(IMenuManager rootMenuManager) {
-		IMenuManager filterSubmenu = new MenuManager("Filters");
-		rootMenuManager.add(filterSubmenu);
-		filterSubmenu.add(actionShowAll);
-		filterSubmenu.add(actionHideUsed);
-		filterSubmenu.add(actionHideNotUsed);
-//		
-//		IMenuManager sortSubmenu = new MenuManager("Sort By");
-//		rootMenuManager.add(sortSubmenu);
-//		sortSubmenu.add(booksBoxesGamesAction);
-//		sortSubmenu.add(noArticleAction);
+		CURRENT_FUNCTION_LIST.clear();
+		ORIGINAL_FUNCTION_LIST.clear();
+		snapshotTreeViewer.setInput(CURRENT_FILE_LIST);
 	}
 
 	
-	private void setIsSnapshotItem () {
-		isSnapshotItem = true;
-		isFunctionItem = false;
-	}
-	
-	private void setIsFunctionItem () {
-		isSnapshotItem = false;
-		isFunctionItem = true;
-	}
-	
-	private void setUndefinedItem () {
-		isSnapshotItem = false;
-		isFunctionItem = false;
-	}
 	
 	@Override
 	public void setFocus() {}

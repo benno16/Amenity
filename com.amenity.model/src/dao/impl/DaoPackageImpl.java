@@ -704,6 +704,11 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		op = addEOperation(fileFunctionStatusDaoEClass, ecorePackage.getEJavaObject(), "getById", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "id", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(fileFunctionStatusDaoEClass, ecorePackage.getEJavaObject(), "createFfsWithFunctionIdObjectId", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEJavaObject(), "file", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEJavaObject(), "function", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEJavaObject(), "fileFunctionStatus", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		// Initialize data types
 		initEDataType(listEDataType, List.class, "List", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(queryEDataType, Query.class, "Query", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

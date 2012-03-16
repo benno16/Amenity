@@ -120,6 +120,11 @@
       <genOperations ecoreOperation="DAO.ecore#//FileFunctionStatusDao/getById">
         <genParameters ecoreParameter="DAO.ecore#//FileFunctionStatusDao/getById/id"/>
       </genOperations>
+      <genOperations ecoreOperation="DAO.ecore#//FileFunctionStatusDao/createFfsWithFunctionIdObjectId">
+        <genParameters ecoreParameter="DAO.ecore#//FileFunctionStatusDao/createFfsWithFunctionIdObjectId/file"/>
+        <genParameters ecoreParameter="DAO.ecore#//FileFunctionStatusDao/createFfsWithFunctionIdObjectId/function"/>
+        <genParameters ecoreParameter="DAO.ecore#//FileFunctionStatusDao/createFfsWithFunctionIdObjectId/fileFunctionStatus"/>
+      </genOperations>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

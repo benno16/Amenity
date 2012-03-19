@@ -34,7 +34,7 @@ public class Activator implements BundleActivator {
 //		rootDir = "d:/uidu1448/Amenity/Amenity/com.amenity.workbench/database";
 		// Ben home
 		// C:\Users\Ben\Desktop\Arbeit\__Bachelor\amenity\New\Amenity\com.amenity.workbench\database
-//		rootDir = rootDir + "/Desktop/Arbeit/__Bachelor/amenity/New/Amenity/com.amenity.workbench/database";
+//		rootDir = rootDir + "/Desktop/Arbeit/__Bachelor/amenity/New/Amenity/Amenity/com.amenity.workbench/database";
 		
 		/*
 		 * Now check if root directory exists. If not CREATE! 

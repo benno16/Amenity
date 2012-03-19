@@ -8,13 +8,16 @@ import general.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import org.hibernate.Session;
 
 import com.amenity.workbench.SessionSourceProvider;
 
+import dao.ContainerDao;
 import dao.ContentObjectDao;
 import dao.DaoFactory;
 import dao.FileFunctionStatusDao;
 import dao.FunctionDao;
+import dao.GenericDao;
 import dao.SnapshotDao;
 
 
@@ -41,7 +44,7 @@ public class AssignFunctionViewMethods {
 	/*
 	 * File Function Status Methods
 	 */
-	public List<FileFunctionStatus> deleteFFS ( FileFunctionStatus ffs, List<FileFunctionStatus> ffss ) {
+	public List<FileFunctionStatus> deleteFileFunctionStatus ( FileFunctionStatus ffs, List<FileFunctionStatus> ffss ) {
 		
 		FileFunctionStatusDao ffsDao = DaoFactory.eINSTANCE.createFileFunctionStatusDao();
 		
@@ -160,6 +163,96 @@ public class AssignFunctionViewMethods {
 		}
 		
 		return contentObjectsWithFunction;
+	}
+	
+	public Function addFunction ( Function function ) {
+		
+		FunctionDao fDao = DaoFactory.eINSTANCE.createFunctionDao();
+		
+		fDao.update(function);
+		
+		function = (Function) fDao.getById(function.getFunctionId());
+		
+		return function;
+	}
+	
+	public List<ContentObject> getFolderChildren ( Folder folder, List<ContentObject> coList ) {
+		
+		java.util.List<ContentObject> children = new ArrayList<ContentObject>();
+		
+		for ( ContentObject co : coList ) {
+			
+			if ( co instanceof Folder ) {
+				
+				if (((Folder)co).getRootDirectory() != null )
+					
+					if (((Folder) co).getRootDirectory().equals(folder))
+						
+						children.add(co);
+				
+			} else 
+				if ( co instanceof File ) {
+				
+					if ( ((File) co).getRootDir().equals(folder) )
+						
+						children.add(co);
+				
+			}
+			
+		}
+		
+		return children;
+	}
+	
+	public List<ContentObject> addFunctionToContentObject ( List<ContentObject> contentObjects, Function function, ContentObject co ) {
+		
+		List<ContentObject> newObjects = new ArrayList<ContentObject>();
+		// for every inbound object find match and add
+		for ( int i = 0 ; i < contentObjects.size() ; i++ ) {
+			if ( contentObjects.get(i).getObjectId().equals(co.getObjectId() ) ) {
+				boolean functionAlreadyInPlace = false;
+				for ( Function f : contentObjects.get(i).getFunction() ) {
+					
+					if ( f.getFunctionId().equals(function.getFunctionId() )) 
+						
+						functionAlreadyInPlace = true;
+					
+				}
+				if ( !functionAlreadyInPlace ) 
+					contentObjects.get(i).getFunction().add(function);
+				break;
+			}
+		}
+		
+		
+		return newObjects;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Container> getContainerList ( User user ) {
+		ContainerDao containerDao = DaoFactory.eINSTANCE.createContainerDao();
+		
+		return containerDao.getListByOwner(Container.class, user);
+	}
+	
+	public void saveFunctionAssignment ( List<ContentObject> contentObjects, String name, Function function ) {
+		
+		GenericDao genDao = DaoFactory.eINSTANCE.createGenericDao();
+		Session s = (Session) genDao.getSession();
+		s.beginTransaction();
+		
+		for ( ContentObject co : contentObjects ) {
+			
+			s.merge(co);
+			
+		}
+		
+		function = (Function) s.get(Function.class, function.getFunctionId());
+		function.setName(name);
+		s.update(function);
+		
+		s.getTransaction().commit();
+		
 	}
 	
 	/*

@@ -9,6 +9,7 @@ import java.util.Properties;
 import dao.DaoPackage;
 import dao.HibernateUtil;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
@@ -63,17 +64,39 @@ public class HibernateUtilImpl extends EObjectImpl implements HibernateUtil {
 //			SESSION_FACTORY_EDEFAULT = new Configuration().configure().buildSessionFactory();
 			Properties hibernateProperties = new Properties();
 			
-			hibernateProperties.setProperty(Environment.DRIVER,
-					"org.hsqldb.jdbcDriver");
-			hibernateProperties.setProperty(Environment.USER, "sa");
-			hibernateProperties.setProperty(Environment.URL,
-					"jdbc:hsqldb:hsql://localhost/amenity");
-			hibernateProperties.setProperty(Environment.PASS, "");
+//			hibernateProperties.setProperty(Environment.DRIVER,
+//					"org.hsqldb.jdbcDriver");
+//			hibernateProperties.setProperty(Environment.USER, "sa");
+//			hibernateProperties.setProperty(Environment.URL,
+//					"jdbc:hsqldb:hsql://localhost/amenity");
+			
+			hibernateProperties.setProperty(Environment.DRIVER, Platform
+					.getPreferencesService().getString( 
+					"com.amenity.workbench" , 
+					"DBDRIVER" , "org.hsqldb.jdbcDriver", null ));
+			
+			hibernateProperties.setProperty(Environment.USER, Platform
+					.getPreferencesService().getString( 
+					"com.amenity.workbench" , 
+					"DBUSERNAME" , "sa", null ));
+			
+			hibernateProperties.setProperty(Environment.URL, Platform
+					.getPreferencesService().getString( 
+					"com.amenity.workbench" , 
+					"DBURL" , "jdbc:hsqldb:hsql://localhost/amenity", null ));
+			
+			hibernateProperties.setProperty(Environment.PASS, Platform
+					.getPreferencesService().getString( 
+					"com.amenity.workbench" , 
+					"DBPASSWORD" , "", null ));
+			
 			hibernateProperties.setProperty(Environment.DIALECT,
 					org.hibernate.dialect.HSQLDialect.class.getName());
+			
 			hibernateProperties.setProperty(
 					PersistenceOptions.CASCADE_POLICY_ON_NON_CONTAINMENT,
 					"REFRESH,PERSIST,MERGE");
+			
 			hibernateProperties.setProperty(Environment.SHOW_SQL, "false");
 			hibernateProperties.setProperty(Environment.C3P0_ACQUIRE_INCREMENT, "1");
 			hibernateProperties.setProperty(Environment.C3P0_IDLE_TEST_PERIOD, "100");
@@ -84,14 +107,9 @@ public class HibernateUtilImpl extends EObjectImpl implements HibernateUtil {
 			hibernateProperties.setProperty(Environment.AUTOCOMMIT, "false");
 			hibernateProperties.setProperty(Environment.POOL_SIZE, "0");
 
-			/**
-			 * TODO: caching provider config
-			 */
 			hibernateProperties.setProperty(Environment.USE_QUERY_CACHE, "true");
 			hibernateProperties.setProperty(Environment.USE_SECOND_LEVEL_CACHE, "true");
 			hibernateProperties.setProperty(Environment.CACHE_PROVIDER, "org.hibernate.cache.SingletonEhCacheProvider");
-//			hibernateProperties.setProperty(Environment.CACHE_PROVIDER_CONFIG, "transactional|read-write|nonstrict-read-write|read-only");
-
 
 			final String dataStoreName = "AmenityDataStore";
 			final HbDataStore dataStore = HbHelper.INSTANCE
@@ -104,11 +122,13 @@ public class HibernateUtilImpl extends EObjectImpl implements HibernateUtil {
 			// Initialize the DataStore. This sets up the Hibernate mapping and, in
 			// turn, creates the corresponding tables in the database.
 			try {
-				/**
-				 * TODO timeout for SQL SessionFactory creation! 
+				/*
+				 * TODO: timeout for SQL SessionFactory creation! 
 				 */
 				dataStore.initialize();
+				
 //				System.out.println(dataStore.getMappingXML());
+				
 			} finally {
 				SESSION_FACTORY_EDEFAULT = dataStore.getSessionFactory();
 			}

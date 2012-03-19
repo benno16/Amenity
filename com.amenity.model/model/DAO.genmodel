@@ -78,6 +78,9 @@
       <genOperations ecoreOperation="DAO.ecore#//SnapshotDao/getListByContainer">
         <genParameters ecoreParameter="DAO.ecore#//SnapshotDao/getListByContainer/containerId"/>
       </genOperations>
+      <genOperations ecoreOperation="DAO.ecore#//SnapshotDao/getSnapshotsWithFunction">
+        <genParameters ecoreParameter="DAO.ecore#//SnapshotDao/getSnapshotsWithFunction/containerId"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="DAO.ecore#//ContentObjectDao">
       <genOperations ecoreOperation="DAO.ecore#//ContentObjectDao/getListBySnapshot">

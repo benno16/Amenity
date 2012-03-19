@@ -23,8 +23,10 @@ import org.eclipse.swt.widgets.List;
 
 import com.amenity.engine.helper.gui.contentProvider.ConnectionTreeContentProvider;
 import com.amenity.engine.helper.gui.labelProvider.GenericNameLabelProvider;
+import com.amenity.workbench.Activator;
 import com.amenity.workbench.SessionSourceProvider;
 import com.amenity.workbench.dialogs.ModifyContainerDialog;
+import com.amenity.workbench.supporter.WorkbenchConstants;
 import com.amenity.workbench.wizards.addContainer.ContainerWizard;
 import com.amenity.workbench.wizards.addProjectSource.ProjectWizard;
 import com.amenity.workbench.wizards.addSnapshot.SnapshotWizard;
@@ -34,6 +36,9 @@ import dao.DaoFactory;
 import dao.GenericDao;
 
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -96,6 +101,26 @@ public class ContainerView extends ViewPart {
 		gd_label.widthHint = 287;
 		parent.setLayout(new GridLayout(3, true));
 		
+		
+		IPreferenceStore preferenceStore = Activator.getDefault().getPreferenceStore();
+		preferenceStore.addPropertyChangeListener(new IPropertyChangeListener() {
+
+			@Override
+			public void propertyChange(PropertyChangeEvent event) {
+				if ( event.getProperty() == WorkbenchConstants.DBUSERNAME ) {
+					System.out.println( "USER: " + event.getNewValue().toString() );
+				} else {
+					System.out.println( "OTHER: " + event.getNewValue().toString() );
+				}
+			}
+			
+		});
+		
+//		IPreferencesService preferenceStore = Platform.getPreferencesService();
+//		
+//		System.out.println( preferenceStore.getString( "com.amenity.workbench.preferencepage.SettingsPage1" , 
+//				com.amenity.workbench.preferencepage.SettingsPage1.PASSWORD , "password", null ) );
+		
 		Label lblAvailableContainer = new Label(parent, SWT.NONE);
 		lblAvailableContainer.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 3, 1));
 		lblAvailableContainer.setText("Available Container");
@@ -106,6 +131,7 @@ public class ContainerView extends ViewPart {
 		listViewer = new ListViewer(parent, SWT.BORDER | SWT.V_SCROLL);
 		List list = listViewer.getList();
 		GridData gd_list = new GridData(SWT.FILL, SWT.FILL, true, false, 3, 1);
+		gd_list.heightHint = 80;
 		gd_list.minimumHeight = 100;
 		list.setLayoutData(gd_list);
 		list.addSelectionListener(new SelectionAdapter() {

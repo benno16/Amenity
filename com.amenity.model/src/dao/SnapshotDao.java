@@ -29,6 +29,14 @@ public interface SnapshotDao extends GenericDao {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model dataType="dao.List" many="false"
+	 * @generated
+	 */
+	List getSnapshotsWithFunction(Object containerId);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model dataType="dao.List" many="false"
 	 * @generated NOT
 	 */
 	List getListByContainer(Container container);

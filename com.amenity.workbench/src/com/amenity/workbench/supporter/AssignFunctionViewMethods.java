@@ -238,21 +238,47 @@ public class AssignFunctionViewMethods {
 	public void saveFunctionAssignment ( List<ContentObject> contentObjects, String name, Function function ) {
 		
 		GenericDao genDao = DaoFactory.eINSTANCE.createGenericDao();
+		
 		Session s = (Session) genDao.getSession();
+		
 		s.beginTransaction();
+		
+		SnapshotDao sDao = DaoFactory.eINSTANCE.createSnapshotDao();
+
+		function = (Function) s.createQuery( "from " + Function.class.getName().toString()
+				+ " where functionId = '" + 
+				function.getFunctionId() + "'" ).list().get(0);
+		
+		sDao.getById(contentObjects.get(0).getPartOf().getSnapshotId());
 		
 		for ( ContentObject co : contentObjects ) {
 			
-			s.merge(co);
+			co = (ContentObject) s.createQuery("from " + ContentObject.class.getName().toString() + 
+					" where objectId = '" + co.getObjectId() + "'").list().get(0);
+			boolean set = false;
+			for ( Function f: co.getFunction()) {
+				if (f.getFunctionId().equals(function)) {
+					set = true;
+					break;
+				}
+			}
+			if (!set) {
+
+				co.getFunction().add(function);
+				s.update(co);
+			}
 			
 		}
 		
-		function = (Function) s.get(Function.class, function.getFunctionId());
-		function.setName(name);
-		s.update(function);
+		if ( !function.getName().equals(name) ) {
+
+			function.setName(name);
+			s.update(function);
+			
+		}
 		
 		s.getTransaction().commit();
-		
+		s.close();
 	}
 	
 	/*

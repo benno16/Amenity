@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.eclipse.core.runtime.Platform;
+
 import dao.DaoFactory;
 import dao.FileDao;
 import dao.FolderDao;
@@ -29,8 +31,20 @@ public class SynergyReader {
 	private List<File> files;
 	private FolderDao folderDao;
 	private FileDao fileDao;
-	private String ccmHomeFolder = "D:/temp/Synergy_client7103";
-	private String ccmEXEFolder = "D:/temp/Synergy_client7103/bin/ccm";
+//	private String ccmHomeFolder = "D:/temp/Synergy_client7103";
+//	private String ccmEXEFolder = "D:/temp/Synergy_client7103/bin/ccm";
+
+	private String ccmEXEFolder = Platform.getPreferencesService().getString( 
+			"com.amenity.workbench" , 
+			"SGYCCM_EXE" , "M:\\pmtqtools\\Synergy71\\Synergy_client7105\\bin\\ccm.exe" , null );
+	
+	private String ccmHomeFolder = Platform.getPreferencesService().getString( 
+			"com.amenity.workbench" , 
+			"SGYCCM_DIR" , "M:\\pmtqtools\\Synergy71\\Synergy_client7105" , null );
+	
+	private String ccmIniFile = Platform.getPreferencesService().getString( 
+			"com.amenity.workbench" , 
+			"SGYINI_FILE" , System.getenv("userprofile").replace('\\', '/') + "\\ccm71.ini" , null );
 	
 	@SuppressWarnings("unused")
 	private SynergyReader() {
@@ -73,11 +87,11 @@ public class SynergyReader {
 			Map<String, String> env = pb.environment();
 
 			env.put("CCM_HOME", ccmHomeFolder);
-			env.put("CCM_INI_FILE", "%USERPROFILE%\\ccm71.ini");
+			env.put("CCM_INI_FILE", ccmIniFile );
 			env.put("CCM_ADDR", sessionID);
 			env.put("PATH", "D:\\ts_mirr\\etoolset\\cw70d;" +
-					"M:\\pmtqtools\\Synergy71\\Synergy_client7103\\bin;" +
-					"M:\\pmtqtools\\Synergy71\\Synergy_client7103\\bin\\util;" +
+					"M:\\pmtqtools\\Synergy71\\Synergy_client7105\\bin;" +
+					"M:\\pmtqtools\\Synergy71\\Synergy_client7105\\bin\\util;" +
 					"M:\\pmtqtools\\ccmscripts1015;" +
 					"M:\\pmtqtools\\ccmscripts1015\\perl\\bin;" +
 					"M:\\pmtqtools\\ccmscripts1015\\cygwin\\bin;" +

@@ -7,10 +7,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.Platform;
+
 public class SynergyLogin {
 
-	private String ccmEXEFolder = "M:\\pmtqtools\\Synergy71\\Synergy_client7103\\bin\\ccm";
-	private String ccmHomeFolder = "M:\\pmtqtools\\Synergy71\\Synergy_client7103";
+//	private String ccmEXEFolder = "M:\\pmtqtools\\Synergy71\\Synergy_client7105\\bin\\ccm";
+//	private String ccmHomeFolder = "M:\\pmtqtools\\Synergy71\\Synergy_client7105";
+//	private String ccmIniFile = "\"%userprofile%\\ccm71.ini\"";
+	
+	private String ccmEXEFolder = Platform.getPreferencesService().getString( 
+			"com.amenity.workbench" , 
+			"SGYCCM_EXE" , "M:\\pmtqtools\\Synergy71\\Synergy_client7105\\bin\\ccm.exe" , null );
+	
+	private String ccmHomeFolder = Platform.getPreferencesService().getString( 
+			"com.amenity.workbench" , 
+			"SGYCCM_DIR" , "M:\\pmtqtools\\Synergy71\\Synergy_client7105" , null );
+	
+	private String ccmIniFile = Platform.getPreferencesService().getString( 
+			"com.amenity.workbench" , 
+			"SGYINI_FILE" , System.getenv("userprofile").replace('\\', '/') + "\\ccm71.ini" , null );
+	
 	private String sessionID;
 	
 	public  SynergyLogin() {
@@ -48,31 +64,12 @@ public class SynergyLogin {
 				ccmEXEFolder,
 				"start", "-q", "-m", "-nogui", 
 				"-f", 
-				"\"%userprofile%\\ccm71.ini\""
+				ccmIniFile
 				);
 		Map<String, String> env = pb.environment();
 		
-//		env.put("CCM_HOME", ccmHomeFolder);
-//		env.put("CCM_INI_FILE", "%USERPROFILE%\\ccm71.ini");
-//		env.put("PATH", "D:\\ts_mirr\\etoolset\\cw70d;" +
-//				"M:\\pmtqtools\\Synergy71\\Synergy_client7103\\bin;" +
-//				"M:\\pmtqtools\\Synergy71\\Synergy_client7103\\bin\\util;" +
-//				"M:\\pmtqtools\\ccmscripts1015;" +
-//				"M:\\pmtqtools\\ccmscripts1015\\perl\\bin;" +
-//				"M:\\pmtqtools\\ccmscripts1015\\cygwin\\bin;" +
-//				"C:\\Program Files\\Microsoft Office\\Office;" +
-//				"M:\\pmtqtools\\ts_ref\\STM_RiMC\\STMTS\\v8.5;%PATH%");
-		env.put("CCM_HOME","M:/pmtqtools/Synergy71/Synergy_client7103");
-		env.put("PATH","D:/ts_mirr/etoolset/cw70d;M:/pmtqtools/Synergy71/Synergy_client7103/bin;M:/pmtqtools/Synergy71/Synergy_client7103/bin/util;M:/pmtqtools/ccmscripts1015;M:/pmtqtools/ccmscripts1015/perl/bin;M:/pmtqtools/ccmscripts1015/cygwin/bin;C:/Program Files/Microsoft Office/Office;M:/pmtqtools/ts_ref/STM_RiMC/STMTS/v8.5;%PATH%");
-		env.put("TS_LOCAL","d:/ts_mirr");
-		env.put("TS_CTL","M:/pmtqtools/ts_ref/comptab");
-		env.put("CWL","d:/ts_mirr/etoolset/cw70d");
-		env.put("SHELL","d:/ts_mirr/etoolset/cyg132d/bin");
-		env.put("GHS_LMHOST","@ls_rb_ghs_rb_1.conti.de");
-		env.put("GHS_LMWHICH","ghs");
-		env.put("CWINI","%USERPROFILE%/cwright.ini");
-		env.put("CWPST","%USERPROFILE%/cwright.pst");
-		env.put("CCM_INI_FILE","%USERPROFILE%/ccm71.ini");
+		env.put("CCM_HOME", ccmHomeFolder);
+		env.put("CCM_INI_FILE", ccmIniFile );
 		
 		Process pr;
 		try {
@@ -89,6 +86,7 @@ public class SynergyLogin {
 		
 		return sessionID;
 	}
+	
 	public List<String> getRawProjectList( String sessionID ) {
 		this.sessionID = sessionID;
 		List<String> projectList = new ArrayList<String>();
@@ -102,8 +100,8 @@ public class SynergyLogin {
 
 		Map<String, String> env = pb.environment();
 
-		env.put("CCM_HOME", ccmHomeFolder);
-		env.put("CCM_INI_FILE", "%USERPROFILE%\\ccm71.ini");
+		env.put("CCM_HOME", ccmHomeFolder );
+		env.put("CCM_INI_FILE", ccmIniFile );
 		env.put("CCM_ADDR", sessionID);
 		
 		Process pr;

@@ -5,11 +5,13 @@ import java.net.URL;
 import java.util.Properties;
 
 import org.apache.log4j.PropertyConfigurator;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import com.amenity.engine.helper.synergy.SynergyLogin;
+import com.amenity.workbench.supporter.WorkbenchConstants;
 
 import dao.DaoFactory;
 import dao.GeneralQueries;
@@ -29,8 +31,31 @@ public class Activator extends AbstractUIPlugin {
 	 * The constructor
 	 */
 	public Activator() {
+		initializeDefaultPreferences(getPreferenceStore());
 	}
 
+
+	protected void initializeDefaultPreferences(IPreferenceStore store) {
+
+		// Database default settings
+		store.setDefault(WorkbenchConstants.DBDBNAME, "amenity" );
+		store.setDefault(WorkbenchConstants.DBDRIVER, "org.hsqldb.jdbcDriver" );
+		store.setDefault(WorkbenchConstants.DBFOLDER, System.getenv("userprofile")
+				.replace('\\', '/') + "/temp/database" );
+		store.setDefault(WorkbenchConstants.DBISLOCALDB, true );
+		store.setDefault(WorkbenchConstants.DBPASSWORD, "" );
+		store.setDefault(WorkbenchConstants.DBURL, "jdbc:hsqldb:hsql://localhost/amenity" );
+		store.setDefault(WorkbenchConstants.DBUSERNAME, "sa" ); //$NON-NLS-1$
+		
+		// Synergy default settings
+		store.setDefault(WorkbenchConstants.SGYCCM_DIR, "M:\\pmtqtools\\Synergy71\\Synergy_client7105" );
+		store.setDefault(WorkbenchConstants.SGYCCM_EXE, 
+				"M:\\pmtqtools\\Synergy71\\Synergy_client7105\\bin\\ccm.exe" );
+		store.setDefault(WorkbenchConstants.SGYINI_FILE, 
+				System.getenv("userprofile").replace('\\', '/') + "\\ccm71.ini" );
+		store.setDefault(WorkbenchConstants.SGYPROJECT, "/appl/telelogic/ccmdb71/HRXM_RBG" );
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)

@@ -5,6 +5,7 @@ package dao.impl;
 import dao.ConnectionDao;
 import dao.DaoFactory;
 import dao.DaoPackage;
+import dao.FunctionDao;
 import dao.SnapshotDao;
 import general.Connection;
 import general.Container;
@@ -54,6 +55,24 @@ public class SnapshotDaoImpl extends GenericDaoImpl implements SnapshotDao {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public List getSnapshotsWithFunction(Object containerId) {
+		Container container = (Container) containerId;
+		List<Snapshot> snapshots = getListByContainer(container);
+		FunctionDao fDao = DaoFactory.eINSTANCE.createFunctionDao();
+		List<Snapshot> snapshotsWithFunction = new ArrayList<Snapshot>();
+		for ( Snapshot s : snapshots ) {
+			if ( fDao.getFunctionsBySnapshot(s).size() > 0 ) 
+				snapshotsWithFunction.add(s);
+		}
+		
+		return snapshotsWithFunction;
 	}
 
 	/**

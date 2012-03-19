@@ -10,6 +10,9 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 public class SettingsPage3 extends PreferencePage implements
 		IWorkbenchPreferencePage {
 
+	/**
+	 * @wbp.parser.constructor
+	 */
 	public SettingsPage3() {
 		// TODO Auto-generated constructor stub
 	}

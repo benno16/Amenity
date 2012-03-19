@@ -93,6 +93,9 @@
     <eOperations name="getListByContainer" eType="#//List">
       <eParameters name="containerId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
+    <eOperations name="getSnapshotsWithFunction" eType="#//List">
+      <eParameters name="containerId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    </eOperations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ContentObjectDao" eSuperTypes="#//GenericDao">
     <eOperations name="getListBySnapshot" eType="#//List">

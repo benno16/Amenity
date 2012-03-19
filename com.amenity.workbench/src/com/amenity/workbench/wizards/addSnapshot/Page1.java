@@ -8,11 +8,18 @@ import general.Snapshot;
 
 import java.util.Date;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Text;
@@ -28,6 +35,7 @@ import com.amenity.workbench.SessionSourceProvider;
 import dao.ConnectionDao;
 import dao.ContainerDao;
 import dao.DaoFactory;
+import dao.GenericDao;
 import dao.SnapshotDao;
 
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -36,6 +44,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.hibernate.Session;
 
 public class Page1 extends WizardPage {
 	private Text text_name;
@@ -49,13 +58,18 @@ public class Page1 extends WizardPage {
 	private ISelection objectSelection;
 	private IStructuredSelection structuredSelection;
 	private Snapshot snapshot;
+
+	private Job job;
+	private Job job2;
+	private Job job3;
+	
 	/**
 	 * Create the wizard.
 	 */
 	public Page1() {
 		super("wizardPage");
-		setTitle("Wizard Page title");
-		setDescription("Wizard Page description");
+		setTitle("New Snapshot Wizard");
+		setMessage("Select your container, connection and name and hit create", INFORMATION);
 		snapshot = GeneralFactory.eINSTANCE.createSnapshot();
 	}
 
@@ -78,7 +92,13 @@ public class Page1 extends WizardPage {
 		
 		text_name = new Text(container, SWT.BORDER);
 		text_name.setBounds(116, 68, 448, 21);
-		
+		text_name.addKeyListener(new KeyAdapter() {
+			public void keyPressed ( KeyEvent e) {
+				if ( text_name.getText().length()>1) 
+					setMessage("Press create to read Information ", INFORMATION);
+					
+			}
+		});
 		Label lblName = new Label(container, SWT.NONE);
 		lblName.setBounds(10, 71, 100, 15);
 		lblName.setText("Name");
@@ -97,25 +117,54 @@ public class Page1 extends WizardPage {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if ( text_name.getText().length()< 1 ) {
-					/**
-					 * TODO: Nicer error msg
-					 */
-					System.out.println("no name entered");
+
+					setMessage("no name entered", ERROR);
+					
 				} else {
-					/**
-					 * TODO: Concurrency with progress bar
-					 */
-					System.out.println("<<< Start task");
-					fetchMetaInformation(current_connection);
-					System.out.println("<<< End task");
-					setPageComplete(true);
+					
+					job2 = new Job("bar update") {
+						protected IStatus run(IProgressMonitor monitor ) {
+							startProgressBar();
+
+							return Status.OK_STATUS;
+						};
+					};
+					job3 = new Job("bar update") {
+						protected IStatus run(IProgressMonitor monitor ) {
+							stopProgressBar();
+
+							return Status.OK_STATUS;
+						};
+					};
+					
+					job = new Job("Fetch Content") {
+
+						@Override
+						protected IStatus run(IProgressMonitor monitor) {
+							// start progressbar
+							job2.schedule();
+							try {
+								Thread.sleep(500);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							fetchMetaInformation(current_connection);
+							
+							// inform about finish status
+							job3.schedule();
+							return Status.OK_STATUS;
+						}
+					};
+					job.setUser(true);
+					job.schedule();
 				}
 				
 			}
 		});
 		
-		progressBar = new ProgressBar(container, SWT.NONE);
+		progressBar = new ProgressBar(container, SWT.INDETERMINATE | SWT.HORIZONTAL);
 		progressBar.setBounds(10, 255, 554, 17);
+		progressBar.setVisible(false);
 		
 		containerComboViewer = new ComboViewer(container, SWT.NONE);
 		Combo containerCombo = containerComboViewer.getCombo();
@@ -172,7 +221,7 @@ public class Page1 extends WizardPage {
 		        	if ( structuredSelection.getFirstElement() instanceof Connection ) {
 		        		if ( text_name.getText().length() > 1 ) {
 		        		} else {
-		        			System.out.println("set name");
+							setMessage("please enter a name", WARNING);
 		        		}
 		        		current_connection = (Connection) structuredSelection.getFirstElement();
 	        			btnCreate.setEnabled(true);
@@ -188,8 +237,7 @@ public class Page1 extends WizardPage {
 	}
 	
 	protected boolean fetchMetaInformation( Connection connection ) {
-		
-		createSnapshot();
+
 		
 		if ( current_connection.getConnectionType() == ConnectionType.MKS) {
 			MksReader mksReader = new MksReader( current_connection, 
@@ -217,18 +265,6 @@ public class Page1 extends WizardPage {
 		return true;
 	}
 
-	private void createSnapshot() {
-
-		snapshot.setCreated(new Date());
-		snapshot.setName(text_name.getText().length() < 1 ? "-" : text_name.getText() );
-		snapshot.setComment(text_comment.getText().length() < 1 ? "-" : text_comment.getText() );
-		snapshot.setVia(current_connection);
-		SnapshotDao snapshotDao = DaoFactory.eINSTANCE.createSnapshotDao();
-		snapshotDao.create(snapshot);
-		SessionSourceProvider.CURRENT_SNAPSHOT = snapshot;
-		
-	}
-
 	protected void getConnectionList() {
 		if ( SessionSourceProvider.CURRENT_CONTAINER != null ) {
 			ConnectionDao connectionDao = DaoFactory.eINSTANCE.createConnectionDao();
@@ -236,9 +272,7 @@ public class Page1 extends WizardPage {
 					.getListByContainer( SessionSourceProvider.CURRENT_CONTAINER ) );
 
 		} else {
-			/**
-			 * TODO: nicer error message
-			 */
+			setMessage("No container selected", ERROR);
 			System.out.println("No container selected");
 		}
 	}
@@ -252,5 +286,49 @@ public class Page1 extends WizardPage {
 					SessionSourceProvider.USER);
 		} 
 		containerComboViewer.setInput(SessionSourceProvider.CONTAINER_LIST);
+	}
+	
+
+	
+	private void startProgressBar() {
+		Display.getDefault().syncExec(new Runnable() {
+			public void run() {
+				
+
+				snapshot.setCreated(new Date());
+				snapshot.setName(text_name.getText().length() < 1 ? "-" : text_name.getText() );
+				snapshot.setComment(text_comment.getText().length() < 1 ? "-" : text_comment.getText() );
+				snapshot.setVia(current_connection);
+				SnapshotDao snapshotDao = DaoFactory.eINSTANCE.createSnapshotDao();
+				snapshotDao.create(snapshot);
+				SessionSourceProvider.CURRENT_SNAPSHOT = snapshot;
+				
+				progressBar.setVisible(true);
+				progressBar.setState(SWT.NORMAL);
+				
+			}
+		});
+	}
+	
+	private void stopProgressBar() {
+		Display.getDefault().asyncExec(new Runnable() {
+			public void run() {
+				
+				progressBar.setState(SWT.PAUSED);
+				progressBar.setVisible(false);
+				setPageComplete(true);
+				btnCreate.setEnabled(false);
+				GenericDao gDao = DaoFactory.eINSTANCE.createGenericDao();
+				Session session = gDao.getSession();
+				session.beginTransaction();
+				SessionSourceProvider.CURRENT_CONTAINER = (Container) session.createQuery(
+						"from " + Container.class.getName().toString() +
+						" where containerId = '" + SessionSourceProvider
+						.CURRENT_CONTAINER.getContainerId() + "'").list().get(0);
+				SessionSourceProvider.CURRENT_CONTAINER.setOwner(SessionSourceProvider.USER);
+				session.update(SessionSourceProvider.CURRENT_CONTAINER);
+				session.close();
+			}
+		});
 	}
 }

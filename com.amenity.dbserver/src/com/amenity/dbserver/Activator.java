@@ -2,6 +2,7 @@ package com.amenity.dbserver;
 
 import java.io.IOException;
 
+import org.eclipse.core.runtime.Platform;
 import org.hsqldb.persist.HsqlProperties;
 import org.hsqldb.server.ServerAcl.AclFormatException;
 import org.osgi.framework.BundleActivator;
@@ -23,13 +24,16 @@ public class Activator implements BundleActivator {
 	public void start(BundleContext bundleContext) throws Exception {
 		Activator.context = bundleContext;
 		
-		String rootDir = System.getenv("userprofile").replace('\\', '/');
 		/**
 		 * TODO change back to real db location
 		 */
 		
 		// production
-		rootDir = rootDir + "/temp/database";
+		String backupRootDir = System.getenv("userprofile").replace('\\', '/') + "/temp/database";
+		String rootDir = Platform.getPreferencesService().getString( 
+				"com.amenity.workbench" , 
+				"DBFOLDER" , backupRootDir, null );
+
 //		Conti internal D:/uidu1448/Amenity\Amenity\com.amenity.workbench
 //		rootDir = "d:/uidu1448/Amenity/Amenity/com.amenity.workbench/database";
 		// Ben home
@@ -53,8 +57,11 @@ public class Activator implements BundleActivator {
 		
 		HsqlProperties p = new HsqlProperties();
 		p.setProperty("server.database.0", rootDir);
-		p.setProperty("server.dbname.0", "amenity");
+		p.setProperty("server.dbname.0", Platform.getPreferencesService().getString( 
+				"com.amenity.workbench" , 
+				"DBDBNAME" , "amenity", null ));
 
+		
 		server = new org.hsqldb.server.Server();;
 		
 		try {
@@ -64,8 +71,10 @@ public class Activator implements BundleActivator {
 		} catch (AclFormatException e) {
 			e.printStackTrace();
 		}
-		
-		server.start();
+		if ( Platform.getPreferencesService().getString( 
+				"com.amenity.workbench" , 
+				"DBFOLDER" , "true", null ).equals("true")) 
+			server.start();
 
 	}
 

@@ -11,7 +11,8 @@ Export-Package: dao,
  dao.util,
  general,
  general.impl,
- general.util
+ general.util,
+ properties
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.teneo;bundle-version="1.2.0",
@@ -22,7 +23,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.swt;bundle-version="3.8.0",
  org.hibernate;bundle-version="3.6.0",
  org.apache.commons.logging;bundle-version="1.1.1",
- org.eclipse.jface
+ org.eclipse.jface,
+ org.eclipse.ui;bundle-version="3.7.100"
 Eclipse-LazyStart: true
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6,

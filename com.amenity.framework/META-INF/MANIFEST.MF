@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Libs
-Bundle-SymbolicName: com.amenity.framework
+Bundle-SymbolicName: com.amenity.framework;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-ClassPath: hsqldb.jar,
  dom4j-1.6.1.jar,

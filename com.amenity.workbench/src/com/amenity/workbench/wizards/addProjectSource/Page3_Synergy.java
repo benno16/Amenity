@@ -75,7 +75,8 @@ public class Page3_Synergy extends WizardPage {
 				SessionSourceProvider.SYNERGY_PROJECT_LIST_OBJECT.add(spl);
 			}
 		}
-		if ( SessionSourceProvider.SYNERGY_PROJECT_LIST_OBJECT.size() > 0) 
+		if ( SessionSourceProvider.SYNERGY_PROJECT_LIST_OBJECT.size() > 0 && 
+				listViewer != null ) 
 			listViewer.setInput(SessionSourceProvider.SYNERGY_PROJECT_LIST_OBJECT);
 	}
 

@@ -22,10 +22,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.dialogs.ListDialog;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
@@ -66,6 +68,7 @@ import com.amenity.workbench.supporter.AssignFunctionViewMethods;
 import dao.ContentObjectDao;
 import dao.DaoFactory;
 import dao.FileFunctionStatusDao;
+import dao.SnapshotDao;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -96,6 +99,8 @@ public class AssignFunctionsView extends ViewPart {
 	private Tree functionTree;
 	private Composite composite;
 	private TableViewer tableViewer;
+	
+	private Container container;
 	
 	private Button btnAdd;
 	private Button btnSave;
@@ -824,29 +829,16 @@ public class AssignFunctionsView extends ViewPart {
 
 			@Override
 			public boolean performDrop(Object data) {
-				// TODO Auto-generated method stub
 				FileFunctionStatus ffs = GeneralFactory.eINSTANCE.createFileFunctionStatus();
 
 				FileFunctionStatusDao ffsDao = DaoFactory.eINSTANCE.createFileFunctionStatusDao();
 				
 				ContentObjectDao coDao = DaoFactory.eINSTANCE.createContentObjectDao();
-//				FunctionDao fDao = DaoFactory.eINSTANCE.createFunctionDao();
-//				
-//				ffs.setOfFile((ContentObject)coDao.getById(data.toString()));
-//				
-//				System.err.println("RES: " + (Function) fDao.getById(SessionSourceProvider
-//						.CURRENT_FUNCTION.getFunctionId()));
-//				
-//				ffs.setOfFunction((Function) fDao.getById(SessionSourceProvider
-//						.CURRENT_FUNCTION.getFunctionId()) );
-//				ffs.setSetOn(new Date());
-//				ffsDao.update(ffs);
-				
+
 				ffs = (FileFunctionStatus) ffsDao.createFfsWithFunctionIdObjectId(
 						(File)coDao.getById(data.toString()), 
 						SessionSourceProvider.CURRENT_FUNCTION, 
 						ffs);
-				
 				
 				CURRENT_FUNCTION_FILE_STATUS_LIST.add(ffs);
 				
@@ -942,8 +934,32 @@ public class AssignFunctionsView extends ViewPart {
 		new Label(parent, SWT.NONE);
 		new Label(parent, SWT.NONE);
 		new Label(parent, SWT.NONE);
-		new Label(parent, SWT.NONE);
-		new Label(parent, SWT.NONE);
+		
+		Button btnCompareTo = new Button(parent, SWT.NONE);
+		btnCompareTo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDown(MouseEvent e) {
+				if ( SessionSourceProvider.CURRENT_CONTAINER == null ) {
+					MessageDialog.openWarning(composite.getShell(), "Warning", "No container selected");
+				} else {
+					ListDialog listDialog = new ListDialog(composite.getShell());
+					listDialog.setTitle("Select Snapshot");
+					listDialog.setMessage("Select the snapshot you wish to copy the information from");
+					listDialog.setContentProvider(ArrayContentProvider.getInstance());
+					listDialog.setLabelProvider(new GenericNameLabelProvider());
+					SnapshotDao sDao = DaoFactory.eINSTANCE.createSnapshotDao();
+					listDialog.setInput(
+							sDao.getSnapshotsWithFunction(
+									SessionSourceProvider.CURRENT_CONTAINER) );
+					if ( listDialog.open() == Dialog.OK ){
+						System.err.println("OPERATE");
+					}
+				}
+			}
+		});
+		btnCompareTo.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/splash green.png"));
+		btnCompareTo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1));
+		btnCompareTo.setText("Compare To...");
 		new Label(parent, SWT.NONE);
 		
 		Label lblOverallStatus = new Label(parent, SWT.NONE);
@@ -983,14 +999,16 @@ public class AssignFunctionsView extends ViewPart {
 		btnSave.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				
 				if ( MessageDialog.openQuestion(composite.getShell(), "" +
 						"Confirmation Required", "Are you sure you want to add " +
 								"the files to the selected function?") ) {
 					
-					
 					AssignFunctionViewMethods.getInstance().saveFunctionAssignment(CURRENT_FUNCTION_FILE_LIST, 
 							functionNameText.getText(), SessionSourceProvider.CURRENT_FUNCTION );
+					
 					btnSave.setText("Apply");
+					
 				}
 			}
 		});

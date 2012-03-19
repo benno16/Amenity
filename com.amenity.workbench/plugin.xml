@@ -527,24 +527,6 @@
       </product>
    </extension>
    <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            class="com.amenity.workbench.preferencepage.SettingsPage1"
-            id="com.amenity.workbench.preferencepage.SettingsPage1"
-            name="Database Settings">
-      </page>
-      <page
-            class="com.amenity.workbench.preferencepage.SettingsPage2"
-            id="com.amenity.workbench.preferencepage.SettingsPage2"
-            name="Data Source">
-      </page>
-      <page
-            class="com.amenity.workbench.preferencepage.SettingsPage3"
-            id="com.amenity.workbench.preferencepage.SettingsPage3"
-            name="Test Settings">
-      </page>
-   </extension>
-   <extension
          point="org.eclipse.ui.services">
       <sourceProvider
             provider="com.amenity.workbench.SessionSourceProvider">
@@ -556,6 +538,19 @@
    </extension>
    <extension
          point="com.amenity.engine.helper">
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="com.amenity.workbench.preferencepage.SettingsPage1"
+            id="com.amenity.workbench.preferencepage.SettingsPage1"
+            name="Database Settings">
+      </page>
+      <page
+            class="com.amenity.workbench.preferencepage.SettingsPage2"
+            id="com.amenity.workbench.preferencepage.SettingsPage2"
+            name="Synergy Settings">
+      </page>
    </extension>
 
 </plugin>

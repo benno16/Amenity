@@ -1,5 +1,12 @@
 package com.amenity.workbench.wizards.addProjectSource;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import general.Connection;
 
 import org.apache.log4j.LogManager;
@@ -7,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -22,6 +30,9 @@ import org.eclipse.swt.events.SelectionEvent;
 
 import com.amenity.engine.helper.synergy.SynergyLogin;
 import com.amenity.workbench.SessionSourceProvider;
+import org.eclipse.wb.swt.ResourceManager;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.custom.StyledText;
 
 public class Page2_Synergy extends WizardPage {
 	
@@ -33,6 +44,10 @@ public class Page2_Synergy extends WizardPage {
 	private Job job;
 	private Job job2;
 	private Job job3;
+	private StyledText styledText;
+	private PmpeIoManager pmp;
+	private String text;
+	
 	
 	/**
 	 * Create the wizard.
@@ -53,11 +68,20 @@ public class Page2_Synergy extends WizardPage {
 	 * @param parent
 	 */
 	public void createControl(Composite parent) {
-		container = new Composite(parent, SWT.NULL);
+		container = new Composite(parent, SWT.NONE);
 
 		setControl(container);
+		container.setLayout(null);
+		
+		Label lblEstablishSynergyConnection = new Label(container, SWT.NONE);
+		lblEstablishSynergyConnection.setBounds(5, 10, 382, 13);
+		lblEstablishSynergyConnection.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		lblEstablishSynergyConnection.setText("Establish Synergy Connection");
 		
 		btnConnect = new Button(container, SWT.NONE);
+		btnConnect.setBounds(422, 74, 150, 26);
+		btnConnect.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		btnConnect.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/connect_creating.png"));
 		
 		
 		btnConnect.addSelectionListener(new SelectionAdapter() {
@@ -110,29 +134,71 @@ public class Page2_Synergy extends WizardPage {
 			}
 			
 		});
-		
-		btnConnect.setBounds(241, 47, 75, 25);
 		btnConnect.setText("Connect");
 		
-		Label lblEstablishSynergyConnection = new Label(container, SWT.NONE);
-		lblEstablishSynergyConnection.setBounds(10, 10, 200, 15);
-		lblEstablishSynergyConnection.setText("Establish Synergy Connection");
-		
 		Label label = new Label(container, SWT.SEPARATOR | SWT.HORIZONTAL);
-		label.setBounds(10, 78, 554, 2);
+		label.setBounds(0, 240, 582, 8);
+		label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		
 		lblNewLabel = new Label(container, SWT.NONE);
+		lblNewLabel.setBounds(5, 254, 567, 13);
+		lblNewLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		lblNewLabel.setText("-");
-		lblNewLabel.setBounds(10, 234, 554, 15);
-
-//		progressBar = new ProgressBar(container, SWT.NONE);
 		
+		//		progressBar = new ProgressBar(container, SWT.NONE);
+				
 		progressBar = new ProgressBar(container, SWT.INDETERMINATE | SWT.HORIZONTAL);
-		progressBar.setBounds(10, 255, 554, 17);
+		progressBar.setBounds(10, 273, 562, 18);
+		progressBar.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		progressBar.setVisible(false);
 		
-		progressBar.setState(SWT.PAUSED); 
+		progressBar.setState(SWT.PAUSED);
 		
+		Button btnSetDatabase = new Button(container, SWT.NONE);
+		btnSetDatabase.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				
+				String ccmIniFile = Platform.getPreferencesService().getString( 
+						"com.amenity.workbench" , 
+						"SGYINI_FILE" , System.getenv("userprofile")
+						.replace('\\', '/') + "\\ccm71.ini" , null );
+				
+				java.io.File ini = new java.io.File(ccmIniFile);
+				
+				if ( ini.exists() && ini.isFile() ) {
+					styledText.setVisible(true);
+					pmp = new PmpeIoManager();
+					text = "";
+					
+					try {
+						text = pmp.getFile(ccmIniFile);
+					} catch (IOException e2) {
+						e2.printStackTrace();
+					}
+					
+					styledText.setText(text);
+					
+//					try {
+//						Desktop.getDesktop().open(ini);
+//					} catch (IOException e1) {
+//						e1.printStackTrace();
+//					}
+					
+				} else {
+					MessageDialog.openWarning(getShell(), "Warning", 
+							"The Synergy ini is missing. Please adjust the properties");
+				}
+			}
+		});
+		btnSetDatabase.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/database_edit.png"));
+		btnSetDatabase.setBounds(422, 10, 150, 26);
+		btnSetDatabase.setText("Set Database");
+		
+		styledText = new StyledText(container, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+		
+		styledText.setBounds(5, 29, 411, 205);
+		styledText.setVisible(false);
 		if ( SessionSourceProvider.SYNERGY_SID == null ) {
 			setPageComplete(false);
 			btnConnect.setEnabled(true);
@@ -206,7 +272,7 @@ public class Page2_Synergy extends WizardPage {
 							.setSynergySession(SessionSourceProvider.SYNERGY_SID);
 						setPageComplete(true);
 				} else {
-						/**
+						/*
 						 * TODO: Nicer error messages
 						 */
 						log.error("Error while reading projects");
@@ -220,6 +286,17 @@ public class Page2_Synergy extends WizardPage {
 	private void startProgressBar() {
 		Display.getDefault().asyncExec(new Runnable() {
 			public void run() {
+				
+				// save file
+				if ( pmp != null ) {
+					try {
+						pmp.saveFile(text, styledText.getText().getBytes());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				
 				progressBar.setVisible(true);
 				progressBar.setState(SWT.NORMAL);
 			}
@@ -236,5 +313,24 @@ public class Page2_Synergy extends WizardPage {
 				
 			}
 		});
+	}
+	
+	class PmpeIoManager {
+		  public String getFile(String filename) throws IOException {
+			  InputStream in = new BufferedInputStream(new FileInputStream(filename));
+			  StringBuffer buf = new StringBuffer();
+			  int c;
+			  while ((c = in.read()) != -1) {
+				  buf.append((char) c);
+			  }
+			  return buf.toString();
+		  }
+
+		  public void saveFile(String filename, byte[] data) throws IOException {
+			  File outputFile = new File(filename);
+			  FileOutputStream out = new FileOutputStream(outputFile);
+			  out.write(data);
+			  out.close();
+		  }
 	}
 }

@@ -100,8 +100,6 @@ public class AssignFunctionsView extends ViewPart {
 	private Composite composite;
 	private TableViewer tableViewer;
 	
-	private Container container;
-	
 	private Button btnAdd;
 	private Button btnSave;
 	private Label lblDate;
@@ -240,27 +238,29 @@ public class AssignFunctionsView extends ViewPart {
 		        		SessionSourceProvider.CURRENT_SNAPSHOT = 
 		        				(Snapshot) structuredSelection.getFirstElement();
 		        		
-		        		// delete all the old content and lists
-		        		clearSnapshotTree();
+//		        		// delete all the old content and lists
+//		        		clearSnapshotTree();
+//		        		
+//		        		// get snapshot functions and add to combo and List
+//		        		CURRENT_FUNCTION_LIST = AssignFunctionViewMethods.getInstance()
+//		        			.getFunctions(SessionSourceProvider.CURRENT_SNAPSHOT);
+//		        		
+//		        		ORIGINAL_FUNCTION_LIST = CURRENT_FUNCTION_LIST;
+//		        		
+//		        		functionComboViewer.setInput(CURRENT_FUNCTION_LIST);
+//		        		functionComboViewer.refresh();
+//		        		
+//		        		CURRENT_FILE_LIST = AssignFunctionViewMethods.getInstance()
+//		        				.getContentObjects(SessionSourceProvider.CURRENT_SNAPSHOT);
+//		        		CURRENT_FILE_LIST_WITH_FUNCTION = AssignFunctionViewMethods.getInstance()
+//		        				.getContentObjectsFunctions(CURRENT_FILE_LIST);
+//		        		
+//		        		snapshotTreeViewer.setInput(AssignFunctionViewMethods.getInstance()
+//		        				.getRootFolder(CURRENT_FILE_LIST));
+//		        		
+//		        		snapshotTreeViewer.refresh();
 		        		
-		        		// get snapshot functions and add to combo and List
-		        		CURRENT_FUNCTION_LIST = AssignFunctionViewMethods.getInstance()
-		        			.getFunctions(SessionSourceProvider.CURRENT_SNAPSHOT);
-		        		
-		        		ORIGINAL_FUNCTION_LIST = CURRENT_FUNCTION_LIST;
-		        		
-		        		functionComboViewer.setInput(CURRENT_FUNCTION_LIST);
-		        		functionComboViewer.refresh();
-		        		
-		        		CURRENT_FILE_LIST = AssignFunctionViewMethods.getInstance()
-		        				.getContentObjects(SessionSourceProvider.CURRENT_SNAPSHOT);
-		        		CURRENT_FILE_LIST_WITH_FUNCTION = AssignFunctionViewMethods.getInstance()
-		        				.getContentObjectsFunctions(CURRENT_FILE_LIST);
-		        		
-		        		snapshotTreeViewer.setInput(AssignFunctionViewMethods.getInstance()
-		        				.getRootFolder(CURRENT_FILE_LIST));
-		        		
-		        		snapshotTreeViewer.refresh();
+		        		initializeSnapshotTree();
 		        		
 		        	}
 		        	
@@ -445,7 +445,7 @@ public class AssignFunctionsView extends ViewPart {
 		new Label(parent, SWT.NONE);
 		new Label(parent, SWT.NONE);
 		
-		/**
+		/*
 		 * TODO: implement multi select
 		 * SWT.MULTI
 		 */
@@ -476,11 +476,13 @@ public class AssignFunctionsView extends ViewPart {
 						if ( co instanceof Folder ) {
 
 							if (((Folder)co).getRootDirectory() != null )
-								if (((Folder) co).getRootDirectory().getObjectId().equals(((Folder)inputElement).getObjectId()))
+								if (((Folder) co).getRootDirectory().getObjectId()
+										.equals(((Folder)inputElement).getObjectId()))
 									children.add(co);
 						}
 						if ( co instanceof File ) {
-							if (((File) co).getRootDir().getObjectId().equals(((Folder)inputElement).getObjectId()))
+							if (((File) co).getRootDir().getObjectId()
+									.equals(((Folder)inputElement).getObjectId()))
 								children.add(co);
 						}
 					}
@@ -645,7 +647,7 @@ public class AssignFunctionsView extends ViewPart {
 		arrowLeftRight.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				/**
+				/*
 				 * TODO: Move over to middle tree
 				 */
 			}
@@ -939,9 +941,14 @@ public class AssignFunctionsView extends ViewPart {
 		btnCompareTo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
-				if ( SessionSourceProvider.CURRENT_CONTAINER == null ) {
-					MessageDialog.openWarning(composite.getShell(), "Warning", "No container selected");
+				if ( SessionSourceProvider.CURRENT_CONTAINER == null ||
+						SessionSourceProvider.CURRENT_SNAPSHOT == null ) {
+					
+					MessageDialog.openWarning(composite.getShell(), "Warning", 
+							"No container or snapshot selected");
+					
 				} else {
+					
 					ListDialog listDialog = new ListDialog(composite.getShell());
 					listDialog.setTitle("Select Snapshot");
 					listDialog.setMessage("Select the snapshot you wish to copy the information from");
@@ -951,13 +958,41 @@ public class AssignFunctionsView extends ViewPart {
 					listDialog.setInput(
 							sDao.getSnapshotsWithFunction(
 									SessionSourceProvider.CURRENT_CONTAINER) );
+					
 					if ( listDialog.open() == Dialog.OK ){
-						System.err.println("OPERATE");
+						
+						/*
+						 * TODO: Put the relevant link to the function in here
+						 */
+						
+						// at first get the old functions and create new ones
+						functionComboViewer.setInput( CURRENT_FUNCTION_LIST =
+								ORIGINAL_FUNCTION_LIST = AssignFunctionViewMethods.getInstance()
+								.copyFunctionInfo( (Snapshot)listDialog.getResult()[0], 
+								SessionSourceProvider.CURRENT_SNAPSHOT ) );
+						
+						functionComboViewer.refresh();
+						log.info("fetched " + CURRENT_FUNCTION_LIST.size() + " functions#1");
+						
+						CURRENT_FILE_LIST = 
+								AssignFunctionViewMethods.getInstance().getContentObjectWithFunctionAssigned( 
+								(Snapshot)listDialog.getResult()[0], 
+								SessionSourceProvider.CURRENT_SNAPSHOT, CURRENT_FUNCTION_LIST);
+						
+//						CURRENT_FILE_LIST_WITH_FUNCTION = AssignFunctionViewMethods.getInstance()
+//		        				.getContentObjectsFunctions(CURRENT_FILE_LIST);
+//						
+//						snapshotTreeViewer.setInput(AssignFunctionViewMethods.getInstance()
+//		        				.getRootFolder(CURRENT_FILE_LIST));
+//						snapshotTreeViewer.refresh();
+						
+						initializeSnapshotTree();
 					}
 				}
 			}
 		});
-		btnCompareTo.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/splash green.png"));
+		btnCompareTo.setImage(ResourceManager.getPluginImage("com.amenity.workbench", 
+				"icons/workbench/general/splash green.png"));
 		btnCompareTo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1));
 		btnCompareTo.setText("Compare To...");
 		new Label(parent, SWT.NONE);
@@ -970,7 +1005,8 @@ public class AssignFunctionsView extends ViewPart {
 		
 		Button btnSetStatus = new Button(parent, SWT.NONE);
 		btnSetStatus.setToolTipText("Open Properties Window");
-		btnSetStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", "icons/workbench/general/up.png"));
+		btnSetStatus.setImage(ResourceManager.getPluginImage("com.amenity.workbench", 
+				"icons/workbench/general/up.png"));
 		btnSetStatus.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		btnSetStatus.setText("Set Status");
 		new Label(parent, SWT.NONE);
@@ -1025,6 +1061,32 @@ public class AssignFunctionsView extends ViewPart {
 		
 	}
 	
+
+	protected void initializeSnapshotTree() {
+
+		// delete all the old content and lists
+		clearSnapshotTree();
+		
+		// get snapshot functions and add to combo and List
+		CURRENT_FUNCTION_LIST = AssignFunctionViewMethods.getInstance()
+			.getFunctions(SessionSourceProvider.CURRENT_SNAPSHOT);
+		
+		ORIGINAL_FUNCTION_LIST = CURRENT_FUNCTION_LIST;
+		
+		functionComboViewer.setInput(CURRENT_FUNCTION_LIST);
+		functionComboViewer.refresh();
+		
+		CURRENT_FILE_LIST = AssignFunctionViewMethods.getInstance()
+				.getContentObjects(SessionSourceProvider.CURRENT_SNAPSHOT);
+		CURRENT_FILE_LIST_WITH_FUNCTION = AssignFunctionViewMethods.getInstance()
+				.getContentObjectsFunctions(CURRENT_FILE_LIST);
+		
+		snapshotTreeViewer.setInput(AssignFunctionViewMethods.getInstance()
+				.getRootFolder(CURRENT_FILE_LIST));
+		
+		snapshotTreeViewer.refresh();
+		
+	}
 
 	private void clearFunctionTree() {
 		// clears every information related to a selected function 

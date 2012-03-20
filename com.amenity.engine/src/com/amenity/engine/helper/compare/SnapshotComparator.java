@@ -56,7 +56,7 @@ public class SnapshotComparator {
 		
 	}
 	
-	private void createCompareViewObjects() {
+	public List<CompareViewObject> createCompareViewObjects() {
 
 		files1.clear();
 		folders1.clear();
@@ -164,6 +164,8 @@ public class SnapshotComparator {
 			compareViewObjects.add(cvo);
 			cvo = null;
 		}
+		
+		return compareViewObjects;
 	}
 	
 	public List<GridItem> getComparableGrid( Grid grid ) {
@@ -205,9 +207,7 @@ public class SnapshotComparator {
 				break;
 			}
 			for ( CompareViewObject cvfo : compareViewFolderObjects ) {
-				/**
-				 * TODO: implement the other way round
-				 */
+
 				if ( cvfo.getFolder1() != null ) {
 				if ( cvfo.getFolder1().getLevel() == i ) { // || cvfo.getFolder2().getLevel() == i) {
 					/*
@@ -275,7 +275,7 @@ public class SnapshotComparator {
 				}
 			} 
 
-				/**
+				/*
 				 * TODO: change temp to perm
 				 */
 				
@@ -360,11 +360,6 @@ public class SnapshotComparator {
 			if ( itemsFound < 1 ) 
 				noLevelResult++;
 		}
-
-		/**
-		 * TODO
-		 * add this stupid second folder option...
-		 */
 		
 		noLevelResult = 0;
 		// now lets check out the files
@@ -557,19 +552,10 @@ public class SnapshotComparator {
 		gridItem.setBackground(7, new Color(Display.getCurrent(), r, g, b));
 		gridItem.setBackground(8, new Color(Display.getCurrent(), r, g, b));
 		
-		/**
+		/*
 		 * TODO: check if required or not
 		 */
 		return gridItem;
 	}
 	
-	/**
-	 * TODO 
-	 * AUSLAGERN
-	 * @param suffix
-	 * @return
-	 */
-//	private Image getImageIcon(String suffix) {
-//		return null;
-//	}
 }

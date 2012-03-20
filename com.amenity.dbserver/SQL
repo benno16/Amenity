@@ -14,15 +14,20 @@ select * from "contentobject" where "folder_rootdir_objectid" is null
 and "folder_rootdirectory_objectid" is null
 delete from "contentobject" where "name" = 'test'
 
-select * from "contentobject_function"
+select * from "contentobject_function" where "function_functionid" = '9a6c4c96-1b0b-4d59-9178-172db79d9733'
+
 select * from "function"
 
-
-drop table "task"
-
 drop schema "PUBLIC" cascade
-update "function" set "snapshot_snapshot_snapshotid" = NULL
-select * from "function" 
+
+update "function" set "name" = 'fn1'
+
+select * from "function"
+
+delete from "function" where "snapshot_snapshot_snapshotid" = '2def6ff4-d185-40c6-807e-45718583f13a'
+
+delete from "function" where "E_VERSION" = '0'
+
 select * from "filefunctionstatus" where 
 	"function_offunction_functionid" = '6c90188d-64b2-4729-bda9-b9c4d7e0b7ed'
 
@@ -55,7 +60,7 @@ where "name" = 'algo2.txt' and "snapshot_partof_snapshotid" = '69011638-f174-4dc
 
 select * from "container"
 u where u."username"='uidu1448'
-update "container" set "user_owner_userid" = 'a29f2260-a8fa-4521-a801-8fee39413c40'
+update "container" set "user_owner_userid" = '60359a7e-d37e-4838-9a79-181063a2b5a8'
 
 select * from "connection"
 update "connection" set "connectiontype" = 'SYNERGY' where "connectiontype" = 'synergy'

@@ -20,7 +20,7 @@ public class MksGetFile {
 	private Connection connection;
 	private int port = 7001;
 	@SuppressWarnings("unused")
-	/**
+	/*
 	 * TODO: implement Sandbox FETCH
 	 */
 	private boolean isSandbox = false;
@@ -73,11 +73,21 @@ public class MksGetFile {
 				Runtime.getRuntime().exec(amo);
 			}
 			
+			String pj = file.getFullName();
+			int j = 0;
+			for ( int i = 0 ; i < pj.length() ; i++ ) {
+				if ( pj.charAt(i) == '/')
+					j = i;
+			}
+			
+			pj = pj.subSequence(0, j+1) + "project.pj";
+
 			fileName = "remote://" + amenityTempFolder + 
 					UUID.randomUUID().toString() + "_" +file.getName();
 			
 			Command myCmd = new Command ( Command.SI , "projectco");
-			myCmd.addOption( new Option( "project" , connection.getProject() ) );
+//			myCmd.addOption( new Option( "project" , connection.getProject() ) );
+			myCmd.addOption( new Option( "project" , pj ) );
 			myCmd.addOption( new Option( "targetfile", fileName ) );
 			myCmd.addOption( new Option( "cpid", ":none" ) );
 			myCmd.addOption( new Option( "revision", file.getVersion() ) );

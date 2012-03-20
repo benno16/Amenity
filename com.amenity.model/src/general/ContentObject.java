@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link general.ContentObject#getPartOf <em>Part Of</em>}</li>
  *   <li>{@link general.ContentObject#getFullName <em>Full Name</em>}</li>
  *   <li>{@link general.ContentObject#getFunction <em>Function</em>}</li>
+ *   <li>{@link general.ContentObject#isDummy <em>Dummy</em>}</li>
  * </ul>
  * </p>
  *
@@ -285,5 +286,31 @@ public interface ContentObject extends EObject, IAdaptable {
 	 * @generated
 	 */
 	EList<Function> getFunction();
+
+	/**
+	 * Returns the value of the '<em><b>Dummy</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Dummy</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Dummy</em>' attribute.
+	 * @see #setDummy(boolean)
+	 * @see general.GeneralPackage#getContentObject_Dummy()
+	 * @model
+	 * @generated
+	 */
+	boolean isDummy();
+
+	/**
+	 * Sets the value of the '{@link general.ContentObject#isDummy <em>Dummy</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Dummy</em>' attribute.
+	 * @see #isDummy()
+	 * @generated
+	 */
+	void setDummy(boolean value);
 
 } // ContentObject

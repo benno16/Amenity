@@ -1,6 +1,7 @@
 package com.amenity.workbench.supporter;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import general.*;
@@ -10,6 +11,8 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.hibernate.Session;
 
+import com.amenity.engine.helper.compare.CompareViewObject;
+import com.amenity.engine.helper.compare.SnapshotComparator;
 import com.amenity.workbench.SessionSourceProvider;
 
 import dao.ContainerDao;
@@ -279,6 +282,182 @@ public class AssignFunctionViewMethods {
 		
 		s.getTransaction().commit();
 		s.close();
+	}
+	
+	// creates new functions from old snapshot
+	@SuppressWarnings("unchecked")
+	public List<Function> copyFunctionInfo ( Snapshot oldSnapshot, Snapshot newSnapshot ) {
+		
+		List<Function> oldFunctions = new ArrayList<Function>();
+		List<Function> newFunctions = new ArrayList<Function>();
+		
+		
+		
+		FunctionDao fDao = DaoFactory.eINSTANCE.createFunctionDao();
+		oldFunctions = fDao.getFunctionsBySnapshot(oldSnapshot);
+		
+		Function tempFunction = null;
+		
+		for ( Function fn : oldFunctions ) {
+			
+			tempFunction = GeneralFactory.eINSTANCE.createFunction();
+			tempFunction.setCreated(fn.getCreated());
+			tempFunction.setModified(new Date());
+			tempFunction.setName(fn.getName());
+			tempFunction.setOverallStatus(fn.getOverallStatus());
+			tempFunction.setSnapshot(newSnapshot);
+			newFunctions.add(tempFunction);
+			
+		}
+		
+		for ( Function fn : newFunctions) {
+			fDao.create(fn);
+		}
+		
+		// to ensure previously created functions are copied as well
+		return fDao.getFunctionsBySnapshot( newSnapshot );
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<ContentObject> getContentObjectWithFunctionAssigned ( Snapshot oldSnapshot, 
+			Snapshot newSnapshot, List<Function> functions ) {
+		
+		GenericDao gDao = DaoFactory.eINSTANCE.createGenericDao();
+		
+		String query1 = "from " + ContentObject.class.getName().toString() + 
+		" where partOf = '" + newSnapshot.getSnapshotId() + "'";
+
+		String query2 = "from " + ContentObject.class.getName().toString() + 
+		" where partOf = '" + oldSnapshot.getSnapshotId() + "'";
+		
+		// CO1 = new <> CO2 = old
+		SnapshotComparator compare = new SnapshotComparator( (List<ContentObject>) gDao.getByQuery(query1), 
+	    		(List<ContentObject>) gDao.getByQuery(query2));
+	    
+		// now I have the list containing both
+		List<CompareViewObject> compareViewObjects = compare.createCompareViewObjects();
+	    
+	    Session session = gDao.getSession();
+	    session.beginTransaction();
+	    
+	    List<ContentObject> returnObjects = new ArrayList<ContentObject>();
+	    List<ContentObject> returnObjectsWithFunction = new ArrayList<ContentObject>();
+	    
+	    oldSnapshot = (Snapshot) session.createQuery("from " + 
+	    		Snapshot.class.getName().toString() + 
+	    		" where snapshotId='" + oldSnapshot.getSnapshotId() + 
+	    		"'").list().get(0);
+	    
+	    newSnapshot = (Snapshot) session.createQuery("from " + 
+	    		Snapshot.class.getName().toString() + 
+	    		" where snapshotId='" + newSnapshot.getSnapshotId() + 
+	    		"'").list().get(0);
+	    
+	    for ( CompareViewObject cvo : compareViewObjects ) {
+	    	
+	    	// just the "old" ones are interesting
+	    	
+	    	if ( cvo.getFile2() != null ) {
+	    		// Its a file object
+	    		
+	    		if ( cvo.getFile1() != null ) {
+	    			// there is a previous file version available
+	    			// detach old objects with clear
+	    			session.clear();
+	    			// put object to persistent state
+	    			cvo.setFile1((File) getContentObject ( session, cvo.getFile1() ) );
+	    			cvo.setFile2((File) getContentObject ( session, cvo.getFile2() ) );
+	    			if ( cvo.getFile2().getFunction() != null && 
+	    					cvo.getFile2().getFunction().size() > 0 ) {
+	    				// check if there are functions
+	    				for ( Function f : cvo.getFile2().getFunction() ) {
+	    					// add functions
+
+	    					f = getMatchingFunction ( f, functions );
+		    				cvo.getFile1().getFunction().add(f);
+		    				returnObjectsWithFunction.add(cvo.getFile1());
+		    			}
+
+//	    				session.saveOrUpdate(cvo.getFile1());
+	    				
+	    			}
+	    			
+	    		}
+	    		
+	    	} else if ( cvo.getFolder2() != null ) {
+	    		// Its a folder object
+	    		
+	    		if ( cvo.getFolder1() != null ) {
+	    			// there is a previous file version available
+	    			// detach old objects with clear
+	    			session.clear();
+	    			// put object to persistent state
+	    			cvo.setFolder1((Folder) getContentObject ( session, cvo.getFolder1() ) );
+	    			cvo.setFolder2((Folder) getContentObject ( session, cvo.getFolder2() ) );
+	    			
+	    			if ( cvo.getFolder2().getFunction() != null && 
+	    					cvo.getFolder2().getFunction().size() > 0 ) {
+	    				// check if there are functions
+	    				
+	    				for ( Function f : cvo.getFolder2().getFunction() ) {
+	    					// add functions
+
+	    					f = getMatchingFunction ( f, functions );
+		    				cvo.getFolder1().getFunction().add(f);
+		    				returnObjectsWithFunction.add(cvo.getFolder1());
+		    				
+		    			}
+	    				
+//	    				session.saveOrUpdate(cvo.getFolder1());
+	    				
+	    			}
+	    			
+	    		}
+	    		
+	    	} else {
+	    		/*
+	    		 * TODO: dummy creation
+	    		 */
+	    	}
+	    	// now add the new and added content objects to return list
+	    	if ( cvo.getFile1() != null ) {
+	    		returnObjects.add(cvo.getFile1());
+	    	} else if ( cvo.getFolder1() != null ) {
+	    		returnObjects.add(cvo.getFolder1());
+	    	}
+	    	
+	    }
+	    
+	    for ( ContentObject co : returnObjectsWithFunction ) {
+	    	session.merge(co);
+	    }
+	    
+	    session.getTransaction().commit();
+	    session.close();
+	    
+	    return returnObjects;
+	    
+	}
+	
+	private Function getMatchingFunction ( Function function, List<Function> functions ) {
+		
+		for ( Function f : functions ) {
+			
+			if (f.getName().equals(function.getName()) )
+				
+					return f;
+			
+		}
+		
+		return null;
+		
+	}
+	
+	private ContentObject getContentObject ( Session session, ContentObject co ) {
+		return (ContentObject) session.createQuery("from " + 
+				ContentObject.class.getName().toString() + 
+				" where objectId = '" + co.getObjectId() + "'").list().get(0);
 	}
 	
 	/*

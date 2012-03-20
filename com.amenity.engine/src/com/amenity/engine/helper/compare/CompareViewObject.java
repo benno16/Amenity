@@ -48,5 +48,21 @@ public class CompareViewObject {
 
 	public String getDifferenciator() {
 		return differenciator;
+	}
+
+	public void setFolder1(Folder folder1) {
+		this.folder1 = folder1;
+	}
+
+	public void setFile1(File file1) {
+		this.file1 = file1;
+	}
+
+	public void setFolder2(Folder folder2) {
+		this.folder2 = folder2;
+	}
+
+	public void setFile2(File file2) {
+		this.file2 = file2;
 	} 
 }

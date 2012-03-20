@@ -3,6 +3,7 @@ package com.amenity.workbench.views;
 import java.util.Comparator;
 import java.util.Iterator;
 
+import general.Connection;
 import general.Container;
 import general.Snapshot;
 
@@ -304,17 +305,37 @@ public class ContainerView extends ViewPart {
 				structuredSelection = (IStructuredSelection) objectSelection;
 				
 				if ( !structuredSelection.isEmpty() ) {
-					MessageDialog msg = new MessageDialog ( parent.getShell(), 
-							"Warning", null, 
-							"Are you sure you want to delete the object '" 
-							+ SessionSourceProvider.CURRENT_CONTAINER.getName() + "'? \n" +
-							"This operation cannot be reversed!", 
-							MessageDialog.WARNING, 
-							new String[] {"Delete", "Keep"}, 1);
-					if ( msg.open() == 0 ) {
-						GenericDao gDao = DaoFactory.eINSTANCE.createGenericDao();
-						gDao.delete(structuredSelection);
+					if ( structuredSelection.getFirstElement() instanceof Connection ) {
+						MessageDialog msg = new MessageDialog ( parent.getShell(), 
+								"Warning", null, 
+								"Are you sure you want to delete the object '" 
+								+ ((Connection)structuredSelection.getFirstElement())
+								.getAddInfo1() + "'? \n" +
+								"This operation cannot be reversed!", 
+								MessageDialog.WARNING, 
+								new String[] {"Delete", "Keep"}, 1);
+						
+						if ( msg.open() == 0 ) {
+							GenericDao gDao = DaoFactory.eINSTANCE.createGenericDao();
+							gDao.delete(structuredSelection.getFirstElement());
+						}
+					} else if ( structuredSelection.getFirstElement() instanceof Snapshot ) {
+						MessageDialog msg = new MessageDialog ( parent.getShell(), 
+								"Warning", null, 
+								"Are you sure you want to delete the object '" 
+								+ ((Snapshot)structuredSelection.getFirstElement())
+								.getName() + "'? \n" +
+								"This operation cannot be reversed!", 
+								MessageDialog.WARNING, 
+								new String[] {"Delete", "Keep"}, 1);
+						
+						if ( msg.open() == 0 ) {
+							GenericDao gDao = DaoFactory.eINSTANCE.createGenericDao();
+							gDao.delete(structuredSelection.getFirstElement());
+						}
 					}
+					detailTreeViewer.refresh();
+					
 				}
 			}
 			

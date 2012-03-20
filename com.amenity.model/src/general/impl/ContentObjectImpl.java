@@ -39,6 +39,7 @@ import properties.ElementProperties;
  *   <li>{@link general.impl.ContentObjectImpl#getPartOf <em>Part Of</em>}</li>
  *   <li>{@link general.impl.ContentObjectImpl#getFullName <em>Full Name</em>}</li>
  *   <li>{@link general.impl.ContentObjectImpl#getFunction <em>Function</em>}</li>
+ *   <li>{@link general.impl.ContentObjectImpl#isDummy <em>Dummy</em>}</li>
  * </ul>
  * </p>
  *
@@ -213,6 +214,26 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 	 * @ordered
 	 */
 	protected EList<Function> function;
+
+	/**
+	 * The default value of the '{@link #isDummy() <em>Dummy</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDummy()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean DUMMY_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isDummy() <em>Dummy</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDummy()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean dummy = DUMMY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -460,6 +481,27 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isDummy() {
+		return dummy;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDummy(boolean newDummy) {
+		boolean oldDummy = dummy;
+		dummy = newDummy;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeneralPackage.CONTENT_OBJECT__DUMMY, oldDummy, dummy));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -482,6 +524,8 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 				return getFullName();
 			case GeneralPackage.CONTENT_OBJECT__FUNCTION:
 				return getFunction();
+			case GeneralPackage.CONTENT_OBJECT__DUMMY:
+				return isDummy();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -523,6 +567,9 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 				getFunction().clear();
 				getFunction().addAll((Collection<? extends Function>)newValue);
 				return;
+			case GeneralPackage.CONTENT_OBJECT__DUMMY:
+				setDummy((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -562,6 +609,9 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 			case GeneralPackage.CONTENT_OBJECT__FUNCTION:
 				getFunction().clear();
 				return;
+			case GeneralPackage.CONTENT_OBJECT__DUMMY:
+				setDummy(DUMMY_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -592,6 +642,8 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 				return FULL_NAME_EDEFAULT == null ? fullName != null : !FULL_NAME_EDEFAULT.equals(fullName);
 			case GeneralPackage.CONTENT_OBJECT__FUNCTION:
 				return function != null && !function.isEmpty();
+			case GeneralPackage.CONTENT_OBJECT__DUMMY:
+				return dummy != DUMMY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -620,6 +672,8 @@ public class ContentObjectImpl extends EObjectImpl implements ContentObject {
 		result.append(modfiedDate);
 		result.append(", fullName: ");
 		result.append(fullName);
+		result.append(", dummy: ");
+		result.append(dummy);
 		result.append(')');
 		return result.toString();
 	}

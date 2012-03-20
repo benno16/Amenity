@@ -5,6 +5,7 @@ import java.util.Date;
 import general.Container;
 import general.GeneralFactory;
 import general.GeneralPackage;
+import general.User;
 
 import org.eclipse.jface.wizard.Wizard;
 
@@ -12,6 +13,7 @@ import com.amenity.workbench.SessionSourceProvider;
 
 import dao.ContainerDao;
 import dao.DaoFactory;
+import dao.UserDao;
 
 public class ContainerWizard extends Wizard {
 
@@ -36,8 +38,12 @@ public class ContainerWizard extends Wizard {
 		container.setAddInfo1(one.getTxtDescription());
 		container.setCreated(new Date());
 		container.setOwnerId(SessionSourceProvider.USERID);
-		container.setOwner(SessionSourceProvider.USER);
 		
+		// update hibernate user object
+		UserDao uDao = DaoFactory.eINSTANCE.createUserDao();
+		SessionSourceProvider.USER = (User) uDao.getById(SessionSourceProvider.USERID);
+		
+		container.setOwner(SessionSourceProvider.USER);
 		ContainerDao containerDao = DaoFactory.eINSTANCE.createContainerDao();
 		containerDao.create(container);
 		SessionSourceProvider.CONTAINER_LIST.add(container);

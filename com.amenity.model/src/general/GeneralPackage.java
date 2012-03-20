@@ -759,13 +759,22 @@ public interface GeneralPackage extends EPackage {
 	int CONTENT_OBJECT__FUNCTION = 8;
 
 	/**
+	 * The feature id for the '<em><b>Dummy</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTENT_OBJECT__DUMMY = 9;
+
+	/**
 	 * The number of structural features of the '<em>Content Object</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTENT_OBJECT_FEATURE_COUNT = 9;
+	int CONTENT_OBJECT_FEATURE_COUNT = 10;
 
 	/**
 	 * The meta object id for the '{@link general.impl.FileImpl <em>File</em>}' class.
@@ -857,6 +866,15 @@ public interface GeneralPackage extends EPackage {
 	 * @ordered
 	 */
 	int FILE__FUNCTION = CONTENT_OBJECT__FUNCTION;
+
+	/**
+	 * The feature id for the '<em><b>Dummy</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE__DUMMY = CONTENT_OBJECT__DUMMY;
 
 	/**
 	 * The feature id for the '<em><b>Object Name</b></em>' attribute.
@@ -1002,6 +1020,15 @@ public interface GeneralPackage extends EPackage {
 	 * @ordered
 	 */
 	int FOLDER__FUNCTION = CONTENT_OBJECT__FUNCTION;
+
+	/**
+	 * The feature id for the '<em><b>Dummy</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOLDER__DUMMY = CONTENT_OBJECT__DUMMY;
 
 	/**
 	 * The feature id for the '<em><b>Root Directory</b></em>' reference.
@@ -2324,6 +2351,17 @@ public interface GeneralPackage extends EPackage {
 	EReference getContentObject_Function();
 
 	/**
+	 * Returns the meta object for the attribute '{@link general.ContentObject#isDummy <em>Dummy</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Dummy</em>'.
+	 * @see general.ContentObject#isDummy()
+	 * @see #getContentObject()
+	 * @generated
+	 */
+	EAttribute getContentObject_Dummy();
+
+	/**
 	 * Returns the meta object for class '{@link general.File <em>File</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3550,6 +3588,14 @@ public interface GeneralPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CONTENT_OBJECT__FUNCTION = eINSTANCE.getContentObject_Function();
+
+		/**
+		 * The meta object literal for the '<em><b>Dummy</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONTENT_OBJECT__DUMMY = eINSTANCE.getContentObject_Dummy();
 
 		/**
 		 * The meta object literal for the '{@link general.impl.FileImpl <em>File</em>}' class.

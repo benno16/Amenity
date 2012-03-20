@@ -913,6 +913,15 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getContentObject_Dummy() {
+		return (EAttribute)contentObjectEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFile() {
 		return fileEClass;
 	}
@@ -1535,6 +1544,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		createEReference(contentObjectEClass, CONTENT_OBJECT__PART_OF);
 		createEAttribute(contentObjectEClass, CONTENT_OBJECT__FULL_NAME);
 		createEReference(contentObjectEClass, CONTENT_OBJECT__FUNCTION);
+		createEAttribute(contentObjectEClass, CONTENT_OBJECT__DUMMY);
 
 		fileEClass = createEClass(FILE);
 		createEAttribute(fileEClass, FILE__OBJECT_NAME);
@@ -1717,6 +1727,7 @@ public class GeneralPackageImpl extends EPackageImpl implements GeneralPackage {
 		initEReference(getContentObject_PartOf(), this.getSnapshot(), null, "partOf", null, 1, 1, ContentObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getContentObject_FullName(), ecorePackage.getEString(), "fullName", null, 0, 1, ContentObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getContentObject_Function(), this.getFunction(), null, "function", null, 0, -1, ContentObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getContentObject_Dummy(), ecorePackage.getEBoolean(), "dummy", null, 0, 1, ContentObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fileEClass, File.class, "File", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFile_ObjectName(), ecorePackage.getEString(), "objectName", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

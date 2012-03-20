@@ -48,9 +48,27 @@ public class GenericNameLabelProvider extends LabelProvider  {
 	
 	@Override
 	public Image getImage(Object element) {
-		if ( element instanceof Folder ) 
+		if ( element instanceof Folder ) {
+
+			if ( ((Folder)element).isDummy() ) 
+				return PlatformUI.getWorkbench().getSharedImages()
+						.getImage(ISharedImages.IMG_OBJS_ERROR_TSK);
+			
 			return PlatformUI.getWorkbench().getSharedImages()
 					.getImage(ISharedImages.IMG_OBJ_FOLDER);
+			
+		}
+		else 
+			if ( element instanceof File ) {
+
+				if ( ((File)element).isDummy() ) 
+					return PlatformUI.getWorkbench().getSharedImages()
+							.getImage(ISharedImages.IMG_OBJS_ERROR_TSK);
+				
+				return PlatformUI.getWorkbench().getSharedImages()
+						.getImage(ISharedImages.IMG_OBJ_FILE);
+				
+		}
 		else if ( element instanceof Connection ) 
 			return PlatformUI.getWorkbench().getSharedImages()
 					.getImage(ISharedImages.IMG_ELCL_SYNCED);
@@ -63,7 +81,7 @@ public class GenericNameLabelProvider extends LabelProvider  {
 		else if ( element instanceof DataSource ) 
 			return PlatformUI.getWorkbench().getSharedImages()
 					.getImage(ISharedImages.IMG_OBJ_ADD);
-		/**
+		/*
 		 * TODO: implement DB link for icon store! 
 		 */
 		return PlatformUI.getWorkbench().getSharedImages()

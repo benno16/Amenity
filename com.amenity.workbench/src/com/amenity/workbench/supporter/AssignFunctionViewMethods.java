@@ -418,8 +418,45 @@ public class AssignFunctionViewMethods {
 	    	} else {
 	    		/*
 	    		 * TODO: dummy creation
+	    		 * 
+	    		 * Does not persist. VISUAL ONLY!! 
 	    		 */
+	    		
+	    		if ( cvo.getFile1() == null && cvo.getFile2() != null ) {
+	    			
+	    			File dummyFile = GeneralFactory.eINSTANCE.createFile();
+	    			dummyFile.setDummy(true);
+	    			dummyFile.setFullName(cvo.getFile2().getFullName());
+	    			dummyFile.setLevel(cvo.getFile2().getLevel());
+	    			dummyFile.setName(cvo.getFile2().getName());
+	    			dummyFile.setObjectName(cvo.getFile2().getObjectName());
+	    			dummyFile.setPartOf(newSnapshot);
+	    			dummyFile.setRootDir(cvo.getFile2().getRootDir());
+	    			
+	    			if ( cvo.getFile2().getFunction() != null && cvo.getFile2().getFunction().size() > 0 )
+	    				for ( Function f : cvo.getFile2().getFunction() )
+	    					dummyFile.getFunction().add(f);
+	    			
+	    			returnObjects.add(dummyFile);
+	    			
+	    		} else if ( cvo.getFolder1() == null && cvo.getFolder2() != null ) {
+	    			
+	    			Folder dummyFolder = GeneralFactory.eINSTANCE.createFolder();
+	    			dummyFolder.setDummy(true);
+	    			dummyFolder.setFullName(cvo.getFolder2().getFullName());
+	    			dummyFolder.setLevel(cvo.getFolder2().getLevel());
+	    			dummyFolder.setName(cvo.getFolder2().getName());
+	    			dummyFolder.setPartOf(newSnapshot);
+	    			dummyFolder.setRootDirectory(cvo.getFolder2().getRootDirectory());
+
+	    			if ( cvo.getFolder2().getFunction() != null && cvo.getFolder2().getFunction().size() > 0 )
+	    				for ( Function f : cvo.getFolder2().getFunction() )
+	    					dummyFolder.getFunction().add(f);
+	    			
+	    			returnObjects.add(dummyFolder);
+	    		}
 	    	}
+	    	
 	    	// now add the new and added content objects to return list
 	    	if ( cvo.getFile1() != null ) {
 	    		returnObjects.add(cvo.getFile1());

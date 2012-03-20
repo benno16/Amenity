@@ -238,28 +238,6 @@ public class AssignFunctionsView extends ViewPart {
 		        		SessionSourceProvider.CURRENT_SNAPSHOT = 
 		        				(Snapshot) structuredSelection.getFirstElement();
 		        		
-//		        		// delete all the old content and lists
-//		        		clearSnapshotTree();
-//		        		
-//		        		// get snapshot functions and add to combo and List
-//		        		CURRENT_FUNCTION_LIST = AssignFunctionViewMethods.getInstance()
-//		        			.getFunctions(SessionSourceProvider.CURRENT_SNAPSHOT);
-//		        		
-//		        		ORIGINAL_FUNCTION_LIST = CURRENT_FUNCTION_LIST;
-//		        		
-//		        		functionComboViewer.setInput(CURRENT_FUNCTION_LIST);
-//		        		functionComboViewer.refresh();
-//		        		
-//		        		CURRENT_FILE_LIST = AssignFunctionViewMethods.getInstance()
-//		        				.getContentObjects(SessionSourceProvider.CURRENT_SNAPSHOT);
-//		        		CURRENT_FILE_LIST_WITH_FUNCTION = AssignFunctionViewMethods.getInstance()
-//		        				.getContentObjectsFunctions(CURRENT_FILE_LIST);
-//		        		
-//		        		snapshotTreeViewer.setInput(AssignFunctionViewMethods.getInstance()
-//		        				.getRootFolder(CURRENT_FILE_LIST));
-//		        		
-//		        		snapshotTreeViewer.refresh();
-		        		
 		        		initializeSnapshotTree();
 		        		
 		        	}
@@ -978,13 +956,6 @@ public class AssignFunctionsView extends ViewPart {
 								AssignFunctionViewMethods.getInstance().getContentObjectWithFunctionAssigned( 
 								(Snapshot)listDialog.getResult()[0], 
 								SessionSourceProvider.CURRENT_SNAPSHOT, CURRENT_FUNCTION_LIST);
-						
-//						CURRENT_FILE_LIST_WITH_FUNCTION = AssignFunctionViewMethods.getInstance()
-//		        				.getContentObjectsFunctions(CURRENT_FILE_LIST);
-//						
-//						snapshotTreeViewer.setInput(AssignFunctionViewMethods.getInstance()
-//		        				.getRootFolder(CURRENT_FILE_LIST));
-//						snapshotTreeViewer.refresh();
 						
 						initializeSnapshotTree();
 					}

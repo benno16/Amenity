@@ -7878,6 +7878,7 @@ INSERT INTO "snapshot" VALUES('a18e7d9f-15d0-4dbd-8843-dacae5d39146','Snapshot',
 INSERT INTO "snapshot" VALUES('ae4b07b5-9bad-4d5e-b006-1bc515cb9686','Snapshot',33,'2012-03-05 19:42:26.873000','modified','test comment entered via properties','0','7d527f31-0359-4a6a-9857-556ac7aaad58',NULL,NULL,NULL)
 INSERT INTO "snapshot" VALUES('e6935810-c145-4b22-9e6a-f274d6f9a4a7','Snapshot',24,'2012-03-05 19:38:55.376000','original','comment 2','0','7d527f31-0359-4a6a-9857-556ac7aaad58',NULL,NULL,NULL)
 INSERT INTO "user" VALUES('a29f2260-a8fa-4521-a801-8fee39413c40','User',971,'uidu1448',NULL,'ben@go-unified.com','2012-03-15 10:10:26.193000',421,'0','Container','73feb473-47b3-442c-bff9-3e47857dd3ed','http://general/1.0_;_Container_;_http://general/1.0_;_Container_;_owner')
+INSERT INTO "user" VALUES('d70a7644-75c1-4279-9aad-9f8a7fdf02a3','User',1,'Ben',NULL,NULL,'2012-03-16 19:11:21.666000',1,'0',NULL,NULL,NULL)
 INSERT INTO "contentobject_function" VALUES('009ef105-4b98-4446-a49b-f9f5c6d1d13d','63d667f9-1e58-42ae-a2c2-54f07ee89911',0)
 INSERT INTO "contentobject_function" VALUES('0382b317-436a-4807-8d23-4328040acf3e','63d667f9-1e58-42ae-a2c2-54f07ee89911',0)
 INSERT INTO "contentobject_function" VALUES('03ac6b73-85c1-4f38-93bd-98377f5911de','63d667f9-1e58-42ae-a2c2-54f07ee89911',0)

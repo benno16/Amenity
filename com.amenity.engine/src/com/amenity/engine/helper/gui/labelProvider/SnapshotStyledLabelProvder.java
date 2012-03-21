@@ -44,6 +44,13 @@ public class SnapshotStyledLabelProvder extends StyledCellLabelProvider  {
 				cell.setImage(PlatformUI.getWorkbench().getSharedImages()
 						.getImage(ISharedImages.IMG_OBJ_FOLDER));
 
+				if ( ((Folder)element).isDummy() ) {
+					
+					colorErrorCell(cell);
+					cell.setImage(PlatformUI.getWorkbench().getSharedImages()
+							.getImage(ISharedImages.IMG_OBJS_ERROR_TSK));
+					
+				}else 
 				if ( ((Folder) element).getFunction().size() > 0  ) {
 					
 					colorCell(cell);
@@ -57,7 +64,14 @@ public class SnapshotStyledLabelProvder extends StyledCellLabelProvider  {
 				text.append(file.getName());
 				cell.setImage(PlatformUI.getWorkbench().getSharedImages()
 						.getImage(ISharedImages.IMG_OBJ_FILE));
-				if ( ((File)element).getFunction().size() > 0 ) {
+				
+				if ( ((File)element).isDummy() ) {
+					cell.setImage(PlatformUI.getWorkbench().getSharedImages()
+							.getImage(ISharedImages.IMG_OBJS_ERROR_TSK));
+					colorErrorCell(cell);
+					
+				}else 
+					if ( ((File)element).getFunction().size() > 0 ) {
 					
 					colorCell(cell);
 				
@@ -75,8 +89,17 @@ public class SnapshotStyledLabelProvder extends StyledCellLabelProvider  {
 						break;
 					}
 				}
-				if ( ((Folder) element).getFunction().size() > 0  ) 
+				if ( ((Folder)element).isDummy() ) {
+					
+					colorErrorCell(cell);
+					cell.setImage(PlatformUI.getWorkbench().getSharedImages()
+							.getImage(ISharedImages.IMG_OBJS_ERROR_TSK));
+					
+				}else 
+					if ( ((Folder) element).getFunction().size() > 0  ) 
+						
 					colorCell(cell);
+				
 			} else {
 				File file = (File) element;
 				for ( ContentObject co : contentObjects ) {
@@ -87,7 +110,15 @@ public class SnapshotStyledLabelProvder extends StyledCellLabelProvider  {
 						break;
 					}
 				}
-				if ( ((File) element).getFunction().size() > 0  ) 
+				if ( ((File)element).isDummy() ) {
+					
+					colorErrorCell(cell);
+					cell.setImage(PlatformUI.getWorkbench().getSharedImages()
+							.getImage(ISharedImages.IMG_OBJS_ERROR_TSK));
+					
+				}else 
+					if ( ((File) element).getFunction().size() > 0  ) 
+						
 					colorCell(cell);
 				
 			}
@@ -103,7 +134,15 @@ public class SnapshotStyledLabelProvder extends StyledCellLabelProvider  {
 	
 	private void colorCell ( ViewerCell cell ) {
 		
-		cell.setForeground(new Color(Display.getCurrent(), 120, 120, 120));
+		cell.setForeground(new Color(Display.getCurrent(), 243, 255, 255));
+		cell.setBackground(new Color(Display.getCurrent(), 165, 165, 165));
+		
+	}
+	
+	private void colorErrorCell ( ViewerCell cell ) {
+		
+		cell.setForeground(new Color(Display.getCurrent(), 156, 0, 6));
+		cell.setBackground(new Color(Display.getCurrent(), 255, 199, 206));
 		
 	}
 }

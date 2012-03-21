@@ -12,6 +12,7 @@ import general.File;
 import general.FileFunctionStatus;
 import general.Function;
 import general.Snapshot;
+import general.documentType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,6 +142,31 @@ public class FileFunctionStatusDaoImpl extends GenericDaoImpl implements FileFun
 		session.close();
 		return fileFunctionStatus;
 		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void setFFSType(Object fileFunctionStatus, String enumValue) {
+
+		session = getSession();
+		
+		session.beginTransaction();
+		
+		FileFunctionStatus ffs = (FileFunctionStatus) session.createQuery("from " + 
+				FileFunctionStatus.class.getName().toString() + 
+				" where fileFunctionStatusId='" + ((FileFunctionStatus)fileFunctionStatus)
+				.getFileFunctionStatusId() + "'").list().get(0);
+
+		session.createQuery("update " + FileFunctionStatus.class.getName().toString() + 
+				" set type = '" + documentType.get(enumValue) + "' where fileFunctionStatusId = '"
+				+ ffs.getFileFunctionStatusId() + "'").executeUpdate();
+
+		
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	/**

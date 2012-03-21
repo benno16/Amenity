@@ -45,7 +45,7 @@ public class ConnectionTreeContentProvider implements ITreeContentProvider {
 			 */
 			List<Snapshot> snapshots = (List<Snapshot>) 
 					snapshotDao.getByQuery("from " + Snapshot.class.getName().toString() + 
-							" where via = '" + connection.getConnectionId() + "'");
+							" where via = '" + connection.getConnectionId() + "' and deleted = false" );
 			
 			return snapshots.toArray();
 		}

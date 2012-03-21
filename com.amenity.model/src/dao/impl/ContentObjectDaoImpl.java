@@ -178,4 +178,27 @@ public class ContentObjectDaoImpl extends GenericDaoImpl implements ContentObjec
 		return returnCos;
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void deleteFunctionFromCo(Object function, Object contentObject) {
+		
+		Function fn = (Function)function;
+		ContentObject co = (ContentObject) contentObject;
+		
+		session = getSession();
+		session.beginTransaction();
+		session.createSQLQuery("delete from \"contentobject_function\" " +
+				"where \"contentobject_objectid\"='"
+				+ co.getObjectId() + "' and \"function_functionid\" = '" 
+				+ fn.getFunctionId() + "'").executeUpdate();
+
+		
+		session.getTransaction().commit();
+		session.close();
+		
+	}
+
 } //ContentObjectDaoImpl

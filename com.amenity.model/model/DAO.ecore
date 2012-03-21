@@ -116,6 +116,10 @@
       <eParameters name="function" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
       <eParameters name="snapshot" eType="#//Snapshot"/>
     </eOperations>
+    <eOperations name="deleteFunctionFromCo">
+      <eParameters name="function" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      <eParameters name="contentObject" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    </eOperations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Snapshot" instanceClassName="general.Snapshot"/>
   <eClassifiers xsi:type="ecore:EDataType" name="Folder" instanceClassName="general.Folder"/>
@@ -144,6 +148,10 @@
       <eParameters name="file" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
       <eParameters name="function" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
       <eParameters name="fileFunctionStatus" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    </eOperations>
+    <eOperations name="setFFSType">
+      <eParameters name="fileFunctionStatus" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      <eParameters name="enumValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
   </eClassifiers>
 </ecore:EPackage>

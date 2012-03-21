@@ -1,5 +1,6 @@
 package com.amenity.workbench.supporter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,12 +10,17 @@ import general.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.hibernate.Session;
 
 import com.amenity.engine.helper.compare.CompareViewObject;
 import com.amenity.engine.helper.compare.SnapshotComparator;
+import com.amenity.engine.helper.mks.MksGetFile;
+import com.amenity.engine.helper.synergy.SynergyGetFile;
+import com.amenity.engine.helper.synergy.SynergyLogin;
 import com.amenity.workbench.SessionSourceProvider;
 
+import dao.ConnectionDao;
 import dao.ContainerDao;
 import dao.ContentObjectDao;
 import dao.DaoFactory;
@@ -141,10 +147,13 @@ public class AssignFunctionViewMethods {
 			List<ContentObject> FullcontentObjectsWithFunction ) {
 		
 		List<ContentObject> contentObjectsWithFunction = new ArrayList<ContentObject>();
-
+		GenericDao gDao = DaoFactory.eINSTANCE.createGenericDao();
+		Session session = gDao.getSession();
+		session.beginTransaction();
+		
 		if ( SessionSourceProvider.CURRENT_FUNCTION != null ) { 
 			for ( ContentObject co : FullcontentObjectsWithFunction ) {
-				
+				co = getContentObject(session, co);
 				// if the function list is not empty search through it and add
 				if ( co.getFunction() != null || co.getFunction().size() > 0 ) {
 					
@@ -164,7 +173,7 @@ public class AssignFunctionViewMethods {
 			}
 		
 		}
-		
+		session.close();
 		return contentObjectsWithFunction;
 	}
 	
@@ -238,50 +247,53 @@ public class AssignFunctionViewMethods {
 		return containerDao.getListByOwner(Container.class, user);
 	}
 	
-	public void saveFunctionAssignment ( List<ContentObject> contentObjects, String name, Function function ) {
-		
-		GenericDao genDao = DaoFactory.eINSTANCE.createGenericDao();
-		
-		Session s = (Session) genDao.getSession();
-		
-		s.beginTransaction();
-		
-		SnapshotDao sDao = DaoFactory.eINSTANCE.createSnapshotDao();
+	public void saveFunctionAssignment ( List<ContentObject> contentObjects, 
+			String name, Function function ) {
+		if ( contentObjects != null && contentObjects.size() > 0) {
+			GenericDao genDao = DaoFactory.eINSTANCE.createGenericDao();
 
-		function = (Function) s.createQuery( "from " + Function.class.getName().toString()
-				+ " where functionId = '" + 
-				function.getFunctionId() + "'" ).list().get(0);
-		
-		sDao.getById(contentObjects.get(0).getPartOf().getSnapshotId());
-		
-		for ( ContentObject co : contentObjects ) {
+			SnapshotDao sDao = DaoFactory.eINSTANCE.createSnapshotDao();
+			sDao.getById(contentObjects.get(0).getPartOf().getSnapshotId());
+
+			Session s = (Session) genDao.getSession();
 			
-			co = (ContentObject) s.createQuery("from " + ContentObject.class.getName().toString() + 
-					" where objectId = '" + co.getObjectId() + "'").list().get(0);
-			boolean set = false;
-			for ( Function f: co.getFunction()) {
-				if (f.getFunctionId().equals(function)) {
-					set = true;
-					break;
+			s.beginTransaction();
+			
+			function = (Function) s.createQuery( "from " + Function.class.getName().toString()
+					+ " where functionId = '" + 
+					function.getFunctionId() + "'" ).list().get(0);
+			
+			
+			for ( ContentObject co : contentObjects ) {
+				
+				co = (ContentObject) s.createQuery("from " + ContentObject.class.getName().toString() + 
+						" where objectId = '" + co.getObjectId() + "'").list().get(0);
+				boolean set = false;
+				for ( Function f: co.getFunction()) {
+					if (f.getFunctionId().equals(function.getFunctionId())) {
+						set = true;
+						break;
+					}
 				}
-			}
-			if (!set) {
+				if (!set) {
 
-				co.getFunction().add(function);
-				s.update(co);
+					co.getFunction().add(function);
+					s.update(co);
+				}
+				
 			}
 			
-		}
-		
-		if ( !function.getName().equals(name) ) {
+			if ( !function.getName().equals(name) ) {
 
-			function.setName(name);
-			s.update(function);
+				function.setName(name);
+				s.update(function);
+				
+			}
 			
+			s.getTransaction().commit();
+			s.close();
 		}
 		
-		s.getTransaction().commit();
-		s.close();
 	}
 	
 	// creates new functions from old snapshot
@@ -325,6 +337,9 @@ public class AssignFunctionViewMethods {
 		
 		GenericDao gDao = DaoFactory.eINSTANCE.createGenericDao();
 		
+		Folder rootDir = null;
+		boolean foundRoot = false;
+		
 		String query1 = "from " + ContentObject.class.getName().toString() + 
 		" where partOf = '" + newSnapshot.getSnapshotId() + "'";
 
@@ -358,10 +373,10 @@ public class AssignFunctionViewMethods {
 	    	
 	    	// just the "old" ones are interesting
 	    	
-	    	if ( cvo.getFile2() != null ) {
+	    	if ( cvo.getFile2() != null && cvo.getFile1() != null) {
 	    		// Its a file object
 	    		
-	    		if ( cvo.getFile1() != null ) {
+//	    		if ( cvo.getFile1() != null ) {
 	    			// there is a previous file version available
 	    			// detach old objects with clear
 	    			session.clear();
@@ -381,14 +396,19 @@ public class AssignFunctionViewMethods {
 
 //	    				session.saveOrUpdate(cvo.getFile1());
 	    				
-	    			}
+//	    			}
 	    			
 	    		}
 	    		
-	    	} else if ( cvo.getFolder2() != null ) {
+	    	} else if ( !foundRoot && cvo.getFolder1() != null ) {
+	    		if ( cvo.getFolder1().getRootDirectory() == null ) {
+	    			rootDir = cvo.getFolder1();
+	    			foundRoot = true;
+	    		}
+	    	} else if ( cvo.getFolder2() != null && cvo.getFolder1() != null) {
 	    		// Its a folder object
 	    		
-	    		if ( cvo.getFolder1() != null ) {
+//	    		if ( cvo.getFolder1() != null ) {
 	    			// there is a previous file version available
 	    			// detach old objects with clear
 	    			session.clear();
@@ -411,7 +431,7 @@ public class AssignFunctionViewMethods {
 	    				
 //	    				session.saveOrUpdate(cvo.getFolder1());
 	    				
-	    			}
+//	    			}
 	    			
 	    		}
 	    		
@@ -419,27 +439,42 @@ public class AssignFunctionViewMethods {
 	    		/*
 	    		 * TODO: dummy creation
 	    		 * 
-	    		 * Does not persist. VISUAL ONLY!! 
+	    		 * Wrong Root Directory
 	    		 */
-	    		
+	    		System.out.println((cvo.getFile1() == null) + " and " + (cvo.getFile2() != null) );
 	    		if ( cvo.getFile1() == null && cvo.getFile2() != null ) {
+
+	    			cvo.setFile2( (File)getContentObject(session, cvo.getFile2()) );
 	    			
 	    			File dummyFile = GeneralFactory.eINSTANCE.createFile();
 	    			dummyFile.setDummy(true);
 	    			dummyFile.setFullName(cvo.getFile2().getFullName());
+	    			dummyFile.setModfiedDate(new Date());
+	    			dummyFile.setVersion("dummy");
+	    			dummyFile.setStatus("dummy");
+	    			dummyFile.setSuffix("-");
 	    			dummyFile.setLevel(cvo.getFile2().getLevel());
-	    			dummyFile.setName(cvo.getFile2().getName());
+	    			dummyFile.setName(cvo.getFile2().getName() + " (fn: " + 
+	    					( (cvo.getFile2().getFunction().get(0) != null) ? 
+	    							 cvo.getFile2().getFunction().get(0).getName() : " - " ) + ")");
 	    			dummyFile.setObjectName(cvo.getFile2().getObjectName());
 	    			dummyFile.setPartOf(newSnapshot);
-	    			dummyFile.setRootDir(cvo.getFile2().getRootDir());
+	    			dummyFile.setRootDir(rootDir);
+	    			dummyFile.getFunction().addAll( cvo.getFile2().getFunction() );
+	    			
+	    			cvo.setFile2( (File) getContentObject(session,cvo.getFile2()));
 	    			
 	    			if ( cvo.getFile2().getFunction() != null && cvo.getFile2().getFunction().size() > 0 )
 	    				for ( Function f : cvo.getFile2().getFunction() )
 	    					dummyFile.getFunction().add(f);
 	    			
+	    			session.merge(dummyFile);
 	    			returnObjects.add(dummyFile);
 	    			
-	    		} else if ( cvo.getFolder1() == null && cvo.getFolder2() != null ) {
+	    		} 
+	    		else if ( cvo.getFolder1() == null && cvo.getFolder2() != null ) {
+
+	    			cvo.setFolder2( (Folder)getContentObject(session, cvo.getFolder2()) );
 	    			
 	    			Folder dummyFolder = GeneralFactory.eINSTANCE.createFolder();
 	    			dummyFolder.setDummy(true);
@@ -447,11 +482,17 @@ public class AssignFunctionViewMethods {
 	    			dummyFolder.setLevel(cvo.getFolder2().getLevel());
 	    			dummyFolder.setName(cvo.getFolder2().getName());
 	    			dummyFolder.setPartOf(newSnapshot);
-	    			dummyFolder.setRootDirectory(cvo.getFolder2().getRootDirectory());
+	    			dummyFolder.setRootDirectory(rootDir);
+	    			
+	    			dummyFolder.getFunction().addAll( cvo.getFolder2().getFunction() );
 
+	    			cvo.setFolder2( (Folder) getContentObject(session,cvo.getFolder2()));
+	    			
 	    			if ( cvo.getFolder2().getFunction() != null && cvo.getFolder2().getFunction().size() > 0 )
 	    				for ( Function f : cvo.getFolder2().getFunction() )
 	    					dummyFolder.getFunction().add(f);
+	    			
+	    			session.merge(dummyFolder);
 	    			
 	    			returnObjects.add(dummyFolder);
 	    		}
@@ -459,9 +500,13 @@ public class AssignFunctionViewMethods {
 	    	
 	    	// now add the new and added content objects to return list
 	    	if ( cvo.getFile1() != null ) {
+	    		
 	    		returnObjects.add(cvo.getFile1());
+	    		
 	    	} else if ( cvo.getFolder1() != null ) {
+	    		
 	    		returnObjects.add(cvo.getFolder1());
+	    		
 	    	}
 	    	
 	    }
@@ -491,10 +536,43 @@ public class AssignFunctionViewMethods {
 		
 	}
 	
-	private ContentObject getContentObject ( Session session, ContentObject co ) {
+	public ContentObject getContentObject ( Session session, ContentObject co ) {
 		return (ContentObject) session.createQuery("from " + 
 				ContentObject.class.getName().toString() + 
 				" where objectId = '" + co.getObjectId() + "'").list().get(0);
+	}
+	
+	public void openFileFromCM ( File file ) {
+		
+		ConnectionDao connectionDao = DaoFactory.eINSTANCE.createConnectionDao();
+		
+		Connection connection = null;
+		
+		connection = (Connection) connectionDao.getByQuery("from " + 
+				Connection.class.getName().toString() + 
+				" where connectionId = '" + 
+				SessionSourceProvider.CURRENT_SNAPSHOT.getVia().getConnectionId() + "'").get(0);
+		
+		if ( connection.getConnectionType() == ConnectionType.MKS ) {
+			System.out.println("its a mks connection");
+			MksGetFile mksGetFile = new MksGetFile(connection, file);
+			try {
+				mksGetFile.openFile();
+			} catch (IOException e) {
+				MessageDialog.openError(null, 
+						"Error", 
+						"Am error occured while opening the file");
+			}
+			
+		} else if ( connection.getConnectionType() == ConnectionType.SYNERGY ){
+			if ( SessionSourceProvider.SYNERGY_SID == null ) {
+				SessionSourceProvider.SYNERGY_SID = new SynergyLogin().getSynergySessionId();
+			}
+			
+			SynergyGetFile synergyGetFile = new SynergyGetFile
+					( SessionSourceProvider.SYNERGY_SID );
+			synergyGetFile.openFile(file);
+		}
 	}
 	
 	/*

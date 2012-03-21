@@ -101,6 +101,10 @@
         <genParameters ecoreParameter="DAO.ecore#//ContentObjectDao/getObjectsOfFunction/function"/>
         <genParameters ecoreParameter="DAO.ecore#//ContentObjectDao/getObjectsOfFunction/snapshot"/>
       </genOperations>
+      <genOperations ecoreOperation="DAO.ecore#//ContentObjectDao/deleteFunctionFromCo">
+        <genParameters ecoreParameter="DAO.ecore#//ContentObjectDao/deleteFunctionFromCo/function"/>
+        <genParameters ecoreParameter="DAO.ecore#//ContentObjectDao/deleteFunctionFromCo/contentObject"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="DAO.ecore#//FunctionDao">
       <genOperations ecoreOperation="DAO.ecore#//FunctionDao/getFunctionsBySnapshot">
@@ -127,6 +131,10 @@
         <genParameters ecoreParameter="DAO.ecore#//FileFunctionStatusDao/createFfsWithFunctionIdObjectId/file"/>
         <genParameters ecoreParameter="DAO.ecore#//FileFunctionStatusDao/createFfsWithFunctionIdObjectId/function"/>
         <genParameters ecoreParameter="DAO.ecore#//FileFunctionStatusDao/createFfsWithFunctionIdObjectId/fileFunctionStatus"/>
+      </genOperations>
+      <genOperations ecoreOperation="DAO.ecore#//FileFunctionStatusDao/setFFSType">
+        <genParameters ecoreParameter="DAO.ecore#//FileFunctionStatusDao/setFFSType/fileFunctionStatus"/>
+        <genParameters ecoreParameter="DAO.ecore#//FileFunctionStatusDao/setFFSType/enumValue"/>
       </genOperations>
     </genClasses>
   </genPackages>

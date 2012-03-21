@@ -92,20 +92,37 @@ public class SnapshotDaoImpl extends GenericDaoImpl implements SnapshotDao {
 		
 		session = getSession();
 		session.beginTransaction();
-		/**
+		/*
 		 * TODO: solve this with inner join... not working for some reason
 		 */
 		
 		List<Snapshot> resList = new ArrayList<Snapshot>();
 		for ( Connection c : tempConnections ) {
 			Query queryRes = session.createQuery("from " + Snapshot.class.getName().toString() + 
-					" where via = '" + c.getConnectionId() + "'");
+					" where via = '" + c.getConnectionId() + "' and deleted = false");
 			resList.addAll(queryRes.list());
 		}
 		
 		
 		session.close();
 		return resList;
+	}
+	
+	@Override
+	public void delete(Object object) {
+		session = getSession();
+		session.beginTransaction();
+		Snapshot c = (Snapshot) object;
+		c.setDeleted(true);
+		session.update(c);
+		try {
+			session.getTransaction().commit();
+		} catch ( Exception e ){
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			session.close();
+		}
 	}
 	
 	@Override

@@ -32,9 +32,10 @@ import com.amenity.workbench.wizards.addContainer.ContainerWizard;
 import com.amenity.workbench.wizards.addProjectSource.ProjectWizard;
 import com.amenity.workbench.wizards.addSnapshot.SnapshotWizard;
 
+import dao.ConnectionDao;
 import dao.ContainerDao;
 import dao.DaoFactory;
-import dao.GenericDao;
+import dao.SnapshotDao;
 
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -316,8 +317,8 @@ public class ContainerView extends ViewPart {
 								new String[] {"Delete", "Keep"}, 1);
 						
 						if ( msg.open() == 0 ) {
-							GenericDao gDao = DaoFactory.eINSTANCE.createGenericDao();
-							gDao.delete(structuredSelection.getFirstElement());
+							ConnectionDao cDao = DaoFactory.eINSTANCE.createConnectionDao();
+							cDao.delete(structuredSelection.getFirstElement());
 						}
 					} else if ( structuredSelection.getFirstElement() instanceof Snapshot ) {
 						MessageDialog msg = new MessageDialog ( parent.getShell(), 
@@ -330,8 +331,8 @@ public class ContainerView extends ViewPart {
 								new String[] {"Delete", "Keep"}, 1);
 						
 						if ( msg.open() == 0 ) {
-							GenericDao gDao = DaoFactory.eINSTANCE.createGenericDao();
-							gDao.delete(structuredSelection.getFirstElement());
+							SnapshotDao sDao = DaoFactory.eINSTANCE.createSnapshotDao();
+							sDao.delete(structuredSelection.getFirstElement());
 						}
 					}
 					detailTreeViewer.refresh();

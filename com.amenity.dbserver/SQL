@@ -40,12 +40,15 @@ insert into "filefunctionstatus" ( "filefunctionstatusid", "function_offunction_
 update "connection" set "container_partof_containerid" = '4a797330-192f-4adb-a1ca-ebaa789e124a'
 where "connectionid" = '029c36a8-783a-4854-bcff-2037071d2522'
 
-
+select * from "snapshot" where "deleted" = false
 select * from "snapshot" s 
 	inner join "connection" c on s."connection_via_connectionid" = c."connectionid"
 	where c."container_partof_containerid" = 'c0eb818d-f530-43e9-b309-8ef1b7c81868'
 	
 select * FROM "contentobject_function"
+
+delete FROM "contentobject_function"
+
 select distinct * from "contentobject_function"
 select * from "contentobject_function"
 
@@ -55,7 +58,11 @@ drop table "user"
 select * from "snapshot"
 delete from "contentobject" where "objectid" = '05aa5674-492e-4f12-875c-2f18b5902c2b'
 update "contentobject" set "modfieddate" = now() 
-where "name" = 'algo2.txt' and "snapshot_partof_snapshotid" = '69011638-f174-4dc2-8694-ccba97cfd921'
+delete from "contentobject" where "name" = 'test.txt' 
+and "snapshot_partof_snapshotid" = 'c732d9a0-7317-4ee3-90f2-616db382b279'
+select * from "contentobject" where "snapshot_partof_snapshotid" = 'db981a97-0330-4086-b3b8-5bc6d71a8092'
+
+
 
 
 select * from "container"

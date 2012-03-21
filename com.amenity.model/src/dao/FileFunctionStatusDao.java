@@ -5,6 +5,7 @@ package dao;
 import general.Snapshot;
 
 import java.util.List;
+import org.eclipse.emf.ecore.EEnum;
 
 /**
  * <!-- begin-user-doc -->
@@ -48,5 +49,13 @@ public interface FileFunctionStatusDao extends GenericDao {
 	 * @generated
 	 */
 	Object createFfsWithFunctionIdObjectId(Object file, Object function, Object fileFunctionStatus);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	void setFFSType(Object fileFunctionStatus, String enumValue);
 
 } // FileFunctionStatusDao

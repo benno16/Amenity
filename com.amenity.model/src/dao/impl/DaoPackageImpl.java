@@ -685,6 +685,10 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		addEParameter(op, ecorePackage.getEJavaObject(), "function", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getSnapshot(), "snapshot", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(contentObjectDaoEClass, null, "deleteFunctionFromCo", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEJavaObject(), "function", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEJavaObject(), "contentObject", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(functionDaoEClass, FunctionDao.class, "FunctionDao", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		op = addEOperation(functionDaoEClass, this.getList(), "getFunctionsBySnapshot", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -711,6 +715,10 @@ public class DaoPackageImpl extends EPackageImpl implements DaoPackage {
 		addEParameter(op, ecorePackage.getEJavaObject(), "file", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEJavaObject(), "function", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEJavaObject(), "fileFunctionStatus", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(fileFunctionStatusDaoEClass, null, "setFFSType", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEJavaObject(), "fileFunctionStatus", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "enumValue", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		// Initialize data types
 		initEDataType(listEDataType, List.class, "List", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

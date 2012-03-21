@@ -55,7 +55,6 @@ public class ConnectionDaoImpl extends GenericDaoImpl implements ConnectionDao {
 				"\"container\" c2 where c1.\"password\" is not null " +
 				"and c2.\"ownerid\" = '" + user.getUserId() + "'";
 
-		System.err.println(string);
 		Query queryRes = session.createSQLQuery(string);
 		String resultSet = "";
 		if ( queryRes.list().size() > 0 ) 
@@ -63,6 +62,23 @@ public class ConnectionDaoImpl extends GenericDaoImpl implements ConnectionDao {
 		System.out.println("Password: " + resultSet );
 		session.close();
 		return resultSet;
+	}
+	
+
+	public void delete(Object object) {
+		session = getSession();
+		session.beginTransaction();
+		Container c = (Container) object;
+		c.setDeleted(true);
+		session.update(c);
+		try {
+			session.getTransaction().commit();
+		} catch ( Exception e ){
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			session.close();
+		}
 	}
 	
 	@Override
@@ -89,7 +105,7 @@ public class ConnectionDaoImpl extends GenericDaoImpl implements ConnectionDao {
 		session = getSession();
 		session.beginTransaction();
 		String string = "from " + Connection.class.getName().toString() + 
-				" where partOf = '" + container.getContainerId() + "'";
+				" where partOf = '" + container.getContainerId() + "' and deleted = false";
 		Query queryRes = session.createQuery(string);
 		@SuppressWarnings("unchecked")
 		List<Connection> resultList = queryRes.list();

@@ -57,4 +57,12 @@ public interface ContentObjectDao extends GenericDao {
 	 */
 	List getObjectsOfFunction(Object function, Snapshot snapshot);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	void deleteFunctionFromCo(Object function, Object contentObject);
+
 } // ContentObjectDao
